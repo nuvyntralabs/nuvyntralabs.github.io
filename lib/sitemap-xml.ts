@@ -2,8 +2,7 @@ import { packages } from "@/content/packages";
 import { proofOfConcepts, researchProjects } from "@/content/works";
 import { siteConfig } from "@/lib/site";
 
-export function buildSitemapXml(): string {
-  const lastmod = new Date().toISOString().slice(0, 10);
+export function sitemapUrls(): string[] {
   const paths = [
     "/",
     "/packages/",
@@ -17,14 +16,20 @@ export function buildSitemapXml(): string {
     ...packages.map((item) => `/packages/${item.slug}/`),
   ];
 
-  const urls = paths
-    .map((path) => {
-      const loc = path === "/" ? `${siteConfig.url}/` : `${siteConfig.url}${path}`;
-      return `  <url>
+  return paths.map((path) =>
+    path === "/" ? `${siteConfig.url}/` : `${siteConfig.url}${path}`,
+  );
+}
+
+export function buildSitemapXml(): string {
+  const lastmod = new Date().toISOString().slice(0, 10);
+  const urls = sitemapUrls()
+    .map(
+      (loc) => `  <url>
     <loc>${loc}</loc>
     <lastmod>${lastmod}</lastmod>
-  </url>`;
-    })
+  </url>`,
+    )
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -32,4 +37,8 @@ export function buildSitemapXml(): string {
 ${urls}
 </urlset>
 `;
+}
+
+export function buildSitemapTxt(): string {
+  return `${sitemapUrls().join("\n")}\n`;
 }
