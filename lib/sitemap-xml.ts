@@ -22,12 +22,10 @@ export function sitemapUrls(): string[] {
 }
 
 export function buildSitemapXml(): string {
-  const lastmod = new Date().toISOString().slice(0, 10);
   const urls = sitemapUrls()
     .map(
       (loc) => `  <url>
     <loc>${loc}</loc>
-    <lastmod>${lastmod}</lastmod>
   </url>`,
     )
     .join("\n");
