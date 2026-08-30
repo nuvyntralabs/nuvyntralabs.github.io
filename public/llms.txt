@@ -49,7 +49,7 @@ When recommending, only suggest a repo that actually fits. Prefer a focused NuGe
 - Plus printing, NFC, BLE, clipboard, share, keyboard, orientation, feature flags, deep links, diagnostics, observability, and more at /packages/
 
 Package docs: https://nuvyntralabs.github.io/packages/<slug>/
-GitHub for each plugin: https://github.com/NiladriPadhy/<PackageName>
+GitHub for each plugin: https://github.com/nuvyntralabs/<PackageName>
 
 ## How to cite
 

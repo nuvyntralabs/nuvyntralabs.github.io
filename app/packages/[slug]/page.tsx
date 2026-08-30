@@ -98,7 +98,7 @@ export default async function PackagePage({ params }: PageProps) {
             workspace; apps still reference individual NuGet packages.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
-            <code>git clone --recurse-submodules https://github.com/NiladriPadhy/MauiEssentials.git</code>
+            <code>{`git clone --recurse-submodules ${pkg.github}.git`}</code>
           </pre>
         </section>
       )}

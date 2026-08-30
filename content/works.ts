@@ -33,7 +33,7 @@ export const works: WorkItem[] = [
     subtitle: "Premium certified used-car reseller platform",
     description:
       "A self-hosted, single-tenant platform for SMB dealers: branded website and apps, 200-point inspection reports, leads, and concurrent-slot test-drive booking. Not a marketplace.",
-    github: "https://github.com/NiladriPadhy/AssureCars",
+    github: "https://github.com/nuvyntralabs/AssureCars",
     homepage: "https://assurecars-marketing.vercel.app/",
     language: "Kotlin",
     fork: false,
@@ -75,7 +75,7 @@ export const works: WorkItem[] = [
     subtitle: "Offline-first inspection with AI damage marking and branded PDF/JSON reports",
     description:
       "Kotlin + Jetpack Compose Android app: configurable checklist, VIN OCR, Gemini/manual damage marking, and branded PDF + JSON reports. Offline-first; Firebase and AI are optional.",
-    github: "https://github.com/NiladriPadhy/Vehicle-Inspection-Kotlin",
+    github: "https://github.com/nuvyntralabs/Vehicle-Inspection-Kotlin",
     homepage: null,
     language: "Kotlin",
     fork: false,
@@ -114,7 +114,7 @@ export const works: WorkItem[] = [
     subtitle: "1:1 real-time video calling with Flutter + Amazon Chime",
     description:
       "A Flutter, Android-first 1:1 video app: host creates a meeting, guest joins with an invite code. Built with GitHub Spec Kit. Signed APK and demo video included.",
-    github: "https://github.com/NiladriPadhy/Online_Conference",
+    github: "https://github.com/nuvyntralabs/Online_Conference",
     homepage: null,
     language: "Dart",
     fork: false,
@@ -154,7 +154,7 @@ export const works: WorkItem[] = [
     subtitle: "Native Kotlin SIP/WebRTC dialer for Vobiz PSTN",
     description:
       "Android 12+ Jetpack Compose softphone for inbound and outbound PSTN via Vobiz: SIP over secure WebSocket, WebRTC audio, recents/keypad UI, and a TypeScript Answer URL / FCM backend.",
-    github: "https://github.com/NiladriPadhy/VOBIZ-VOIP-Call",
+    github: "https://github.com/nuvyntralabs/VOBIZ-VOIP-Call",
     homepage: null,
     language: "Kotlin",
     fork: false,
@@ -191,7 +191,7 @@ export const works: WorkItem[] = [
     subtitle: "Offline GPS distance tracking at 97% trip-meter accuracy",
     description:
       "A Kotlin Android study that computes distance travelled from filtered GPS fixes and the Haversine formula — no map or Directions API. Road-tested at 97% versus a vehicle trip meter.",
-    github: "https://github.com/NiladriPadhy/GPSSensorTrackingService",
+    github: "https://github.com/nuvyntralabs/GPSSensorTrackingService",
     homepage: null,
     language: "Kotlin",
     fork: false,
@@ -228,7 +228,7 @@ export const works: WorkItem[] = [
     subtitle: "Xamarin.Android location tracking via JobScheduler",
     description:
       "A Xamarin.Android project that uses JobScheduler for periodic location tracking — an earlier native-Android approach to the same field-tracking problem later explored in Kotlin and MAUI.",
-    github: "https://github.com/NiladriPadhy/LocatinTrackingJobScheduler-XamarinAndroid",
+    github: "https://github.com/nuvyntralabs/LocatinTrackingJobScheduler-XamarinAndroid",
     homepage: null,
     language: "C#",
     fork: false,
@@ -264,7 +264,7 @@ export const works: WorkItem[] = [
     subtitle: "Xamarin binding for Twilio Voice on Android",
     description:
       "A Xamarin Android binding library for the Twilio Voice SDK, used to bring programmable voice into Xamarin and early cross-platform calling apps.",
-    github: "https://github.com/NiladriPadhy/Twilio.Voice.Android.XamarinBinding",
+    github: "https://github.com/nuvyntralabs/Twilio.Voice.Android.XamarinBinding",
     homepage: null,
     language: "C#",
     fork: false,
@@ -299,7 +299,7 @@ export const works: WorkItem[] = [
     subtitle: "Xamarin binding for Twilio Voice on iOS",
     description:
       "A Xamarin iOS binding library for the Twilio Voice SDK, complementary to the Android binding and CallKit sample work.",
-    github: "https://github.com/NiladriPadhy/Twilio.Voice.iOS.XamarinBinding",
+    github: "https://github.com/nuvyntralabs/Twilio.Voice.iOS.XamarinBinding",
     homepage: null,
     language: "C#",
     fork: false,
@@ -334,7 +334,7 @@ export const works: WorkItem[] = [
     subtitle: "Interactive prototype for Surya Sai Solar's live sales workflow",
     description:
       "Static HTML prototype of a connected manager portal, quotation/BOQ module, and sales-rep mobile app — assignment, SLAs, site surveys, proposals, and conversion. Live on Netlify.",
-    github: "https://github.com/NiladriPadhy/solar-sales-automation",
+    github: "https://github.com/nuvyntralabs/solar-sales-automation",
     homepage: "https://solar-sales-automation-prototype.netlify.app",
     language: "HTML",
     fork: false,
@@ -371,7 +371,7 @@ export const works: WorkItem[] = [
     subtitle: "Long-running Bluetooth headset recording on Android",
     description:
       "A .NET MAUI proof of concept: multi-hour microphone recording from a Bluetooth headset, kept alive by a foreground service, notification actions, and a battery-optimization exemption.",
-    github: "https://github.com/NiladriPadhy/BluetoothMICRecording",
+    github: "https://github.com/nuvyntralabs/BluetoothMICRecording",
     homepage: null,
     language: "C#",
     fork: false,
@@ -409,7 +409,7 @@ export const works: WorkItem[] = [
     subtitle: "C# file-processing test harness",
     description:
       "A public C# harness for exercising file-processing pipelines — a sandbox for batch, transform, and validation logic before it lands in product code.",
-    github: "https://github.com/NiladriPadhy/FileProcessorTest",
+    github: "https://github.com/nuvyntralabs/FileProcessorTest",
     homepage: null,
     language: "C#",
     fork: false,
@@ -444,7 +444,7 @@ export const works: WorkItem[] = [
     subtitle: "CallKit + PushKit + Twilio VoIP in Xamarin",
     description:
       "A public fork of a Xamarin CallKit sample wired with PushKit and Twilio VoIP — system call UI for incoming voice on iOS.",
-    github: "https://github.com/NiladriPadhy/callkitsample",
+    github: "https://github.com/nuvyntralabs/callkitsample",
     homepage: null,
     language: "C#",
     fork: true,
@@ -481,7 +481,7 @@ export const works: WorkItem[] = [
     subtitle: "Render HTML inside a Xamarin.Forms label",
     description:
       "A fork of the Xamarin.Forms HtmlLabel plugin — display HTML content in a label when a full WebView is too heavy.",
-    github: "https://github.com/NiladriPadhy/HtmlLabelPlugin",
+    github: "https://github.com/nuvyntralabs/HtmlLabelPlugin",
     homepage: null,
     language: "C#",
     fork: true,
@@ -516,7 +516,7 @@ export const works: WorkItem[] = [
     subtitle: "Firebase Analytics for Xamarin / MAUI-era apps",
     description:
       "A public fork of Plugin.FirebaseAnalytics for wiring Firebase Analytics events from Xamarin and related .NET mobile apps.",
-    github: "https://github.com/NiladriPadhy/Plugin.FirebaseAnalytics",
+    github: "https://github.com/nuvyntralabs/Plugin.FirebaseAnalytics",
     homepage: null,
     language: null,
     fork: true,
