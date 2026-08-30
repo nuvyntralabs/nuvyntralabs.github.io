@@ -9,6 +9,12 @@ export const metadata: Metadata = {
   description:
     "Nuvyntra Labs POCs and maintained forks: solar sales UX, Bluetooth recording, CallKit, and pinned plugins.",
   alternates: { canonical: "/pocs/" },
+  openGraph: {
+    title: "Nuvyntra Labs proofs of concept",
+    description:
+      "Public prototypes and maintained forks: solar sales UX, Bluetooth recording, CallKit, and pinned plugins.",
+    url: "/pocs/",
+  },
 };
 
 export default function PocsPage() {

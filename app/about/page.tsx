@@ -10,6 +10,12 @@ export const metadata: Metadata = {
   description:
     "Nuvyntra Labs is an independent applied R&D company for mobile infrastructure, founded by Niladri Prasad Padhy.",
   alternates: { canonical: "/about/" },
+  openGraph: {
+    title: "About Nuvyntra Labs",
+    description:
+      "Independent applied R&D company for mobile infrastructure, founded by Niladri Prasad Padhy.",
+    url: "/about/",
+  },
 };
 
 export default function AboutPage() {

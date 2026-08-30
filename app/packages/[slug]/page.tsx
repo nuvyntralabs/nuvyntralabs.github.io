@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github, Package } from "lucide-react";
 import { getPackageBySlug, getRelatedPackages, packages } from "@/content/packages";
+import { JsonLd } from "@/components/json-ld";
+import { packageJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site";
 import { installCommand } from "@/lib/utils";
 
@@ -21,14 +23,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const pkg = getPackageBySlug(slug);
   if (!pkg) return {};
 
+  const url = `${siteConfig.url}/packages/${pkg.slug}/`;
+  const title = `${pkg.name} · ${siteConfig.shortName}`;
+
   return {
     title: pkg.name,
     description: pkg.description,
+    keywords: [pkg.name, ...pkg.tags, "Nuvyntra Labs", ".NET MAUI", "NuGet"],
     alternates: { canonical: `/packages/${pkg.slug}/` },
     openGraph: {
-      title: `${pkg.name} · ${siteConfig.shortName}`,
+      title,
       description: pkg.description,
-      url: `${siteConfig.url}/packages/${pkg.slug}/`,
+      url,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: pkg.description,
     },
   };
 }
@@ -43,6 +54,7 @@ export default async function PackagePage({ params }: PageProps) {
 
   return (
     <main className="container max-w-3xl py-12 sm:py-16">
+      <JsonLd data={packageJsonLd(pkg)} />
       <Link
         href="/packages/"
         className="focusable inline-flex items-center gap-2 rounded-full text-sm font-medium text-lavender-700 hover:text-lavender-900"

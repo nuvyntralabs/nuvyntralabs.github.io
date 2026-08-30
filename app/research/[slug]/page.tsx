@@ -21,7 +21,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: work.title,
     description: work.description,
+    keywords: [work.name, ...work.tags, "Nuvyntra Labs", "research"],
     alternates: { canonical: `/research/${work.slug}/` },
+    openGraph: {
+      title: work.title,
+      description: work.description,
+    },
   };
 }
 

@@ -38,3 +38,14 @@ jobs:
     steps:
       - id: deploy
         uses: actions/deploy-pages@v4
+      - name: Notify IndexNow
+        continue-on-error: true
+        run: |
+          sleep 20
+          KEY="b8e3c1a94f6d2e7a0c5b9d1f3a6e8c2b"
+          HOST="nuvyntralabs.github.io"
+          URLS=$(curl -fsSL "https://${HOST}/sitemap.xml" | grep -oE "https://${HOST}[^<]+" | jq -R . | jq -s .)
+          curl -fsS -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{\"host\":\"${HOST}\",\"key\":\"${KEY}\",\"keyLocation\":\"https://${HOST}/${KEY}.txt\",\"urlList\":${URLS}}"
+

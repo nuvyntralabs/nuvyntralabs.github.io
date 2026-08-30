@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: "Getting started",
   description: "Install Nuvyntra Labs .NET MAUI NuGet packages and compose only the plugins you need.",
   alternates: { canonical: "/getting-started/" },
+  openGraph: {
+    title: "Getting started with Nuvyntra Labs packages",
+    description: "Install focused .NET MAUI NuGet packages and compose only the plugins you need.",
+    url: "/getting-started/",
+  },
 };
 
 export default function GettingStartedPage() {

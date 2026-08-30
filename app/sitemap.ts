@@ -8,24 +8,29 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
-    { url: siteConfig.url, lastModified: now },
-    { url: `${siteConfig.url}/about/`, lastModified: now },
-    { url: `${siteConfig.url}/contact/`, lastModified: now },
-    { url: `${siteConfig.url}/research/`, lastModified: now },
-    { url: `${siteConfig.url}/pocs/`, lastModified: now },
-    { url: `${siteConfig.url}/packages/`, lastModified: now },
-    { url: `${siteConfig.url}/getting-started/`, lastModified: now },
-    ...researchProjects.map((item) => ({
-      url: `${siteConfig.url}/research/${item.slug}/`,
-      lastModified: now,
-    })),
-    ...proofOfConcepts.map((item) => ({
-      url: `${siteConfig.url}/pocs/${item.slug}/`,
-      lastModified: now,
-    })),
-    ...packages.map((item) => ({
-      url: `${siteConfig.url}/packages/${item.slug}/`,
-      lastModified: now,
-    })),
+    entry("/", 1, "weekly", now),
+    entry("/packages/", 0.9, "weekly", now),
+    entry("/getting-started/", 0.9, "monthly", now),
+    entry("/research/", 0.8, "weekly", now),
+    entry("/pocs/", 0.8, "weekly", now),
+    entry("/about/", 0.7, "monthly", now),
+    entry("/contact/", 0.6, "yearly", now),
+    ...researchProjects.map((item) => entry(`/research/${item.slug}/`, 0.7, "monthly", now)),
+    ...proofOfConcepts.map((item) => entry(`/pocs/${item.slug}/`, 0.6, "monthly", now)),
+    ...packages.map((item) => entry(`/packages/${item.slug}/`, 0.8, "weekly", now)),
   ];
+}
+
+function entry(
+  path: string,
+  priority: number,
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"],
+  lastModified: Date,
+): MetadataRoute.Sitemap[number] {
+  return {
+    url: path === "/" ? `${siteConfig.url}/` : `${siteConfig.url}${path}`,
+    lastModified,
+    changeFrequency,
+    priority,
+  };
 }

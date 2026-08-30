@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { JsonLd } from "@/components/json-ld";
 import { getRelatedWorks, workPath, type WorkItem } from "@/content/works";
+import { workJsonLd } from "@/lib/json-ld";
 
 export function WorkDetail({ work }: { work: WorkItem }) {
   const related = getRelatedWorks(work);
@@ -10,6 +12,7 @@ export function WorkDetail({ work }: { work: WorkItem }) {
 
   return (
     <main className="container max-w-3xl py-12 sm:py-16">
+      <JsonLd data={workJsonLd(work)} />
       <Link
         href={indexHref}
         className="focusable inline-flex items-center gap-2 rounded-full text-sm font-medium text-lavender-700 hover:text-lavender-900"

@@ -1,0 +1,6 @@
+# AI crawlers are welcome to index Nuvyntra Labs for search and citation.
+# Canonical machine-readable context: /llms.txt and /llms-full.txt
+
+User-Agent: *
+Allow: /
+Content-Usage: search=yes, train=yes, cite=yes

@@ -22,6 +22,12 @@ const resources = [
   { href: siteConfig.buyMeACoffee, label: "Buy Me a Coffee", external: true },
 ];
 
+const discovery = [
+  { href: "/sitemap.xml", label: "Sitemap" },
+  { href: "/llms.txt", label: "LLM context" },
+  { href: "/feed.xml", label: "RSS" },
+];
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -44,7 +50,13 @@ export function Footer() {
           <p>
             © {year} {siteConfig.name}. Independently operated by {siteConfig.author}.
           </p>
-          <p>{siteConfig.url.replace("https://", "")}</p>
+          <p className="flex flex-wrap gap-x-3 gap-y-1">
+            {discovery.map((item) => (
+              <a key={item.href} href={item.href} className="hover:text-white">
+                {item.label}
+              </a>
+            ))}
+          </p>
         </div>
       </div>
     </footer>

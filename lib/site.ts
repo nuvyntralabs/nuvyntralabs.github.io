@@ -12,4 +12,8 @@ export const siteConfig = {
   githubSponsors: "https://github.com/sponsors/NiladriPadhy",
   buyMeACoffee: "https://buymeacoffee.com/npadhy",
   locale: "en_US",
+  indexNowKey: "b8e3c1a94f6d2e7a0c5b9d1f3a6e8c2b",
+  // Paste tokens from Search Console / Bing Webmaster after you verify the property.
+  googleSiteVerification: "",
+  bingSiteVerification: "",
 } as const;

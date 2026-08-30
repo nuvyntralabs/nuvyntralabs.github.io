@@ -9,6 +9,12 @@ export const metadata: Metadata = {
   description:
     "Nuvyntra Labs product catalog: location, connectivity, offline sync, security, VoIP, and observability plugins for .NET MAUI.",
   alternates: { canonical: "/packages/" },
+  openGraph: {
+    title: "Nuvyntra Labs NuGet catalog",
+    description:
+      "Focused .NET MAUI plugins for location, connectivity, offline sync, security, VoIP, and observability.",
+    url: "/packages/",
+  },
 };
 
 export default function PackagesPage() {

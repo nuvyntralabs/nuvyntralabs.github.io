@@ -9,6 +9,12 @@ export const metadata: Metadata = {
   description:
     "Nuvyntra Labs research: inspection products, VoIP stacks, GPS accuracy studies, and Xamarin bindings.",
   alternates: { canonical: "/research/" },
+  openGraph: {
+    title: "Nuvyntra Labs research",
+    description:
+      "Inspection products, VoIP stacks, GPS accuracy studies, and Xamarin bindings.",
+    url: "/research/",
+  },
 };
 
 export default function ResearchPage() {

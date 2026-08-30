@@ -10,6 +10,12 @@ export const metadata: Metadata = {
   description:
     "Contact Nuvyntra Labs for product evaluation, research questions, or open-source collaboration.",
   alternates: { canonical: "/contact/" },
+  openGraph: {
+    title: "Contact Nuvyntra Labs",
+    description:
+      "Product evaluation, research questions, and open-source collaboration.",
+    url: "/contact/",
+  },
 };
 
 const channels = [
