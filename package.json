@@ -2,7 +2,7 @@
   "name": "nuvyntralabs-docs",
   "version": "1.0.0",
   "private": true,
-  "description": "Nuvyntra Labs product portfolio — documentation for .NET MAUI NuGet packages",
+  "description": "Nuvyntra Labs — open-source R&D, POCs, and NuGet packages",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

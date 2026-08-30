@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github, Package } from "lucide-react";
 import { getPackageBySlug, getRelatedPackages, packages } from "@/content/packages";
-import { paperUrl, siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
 import { installCommand } from "@/lib/utils";
 
 interface PageProps {
@@ -44,7 +44,7 @@ export default async function PackagePage({ params }: PageProps) {
   return (
     <main className="container max-w-3xl py-12 sm:py-16">
       <Link
-        href="/"
+        href="/packages/"
         className="focusable inline-flex items-center gap-2 rounded-full text-sm font-medium text-lavender-700 hover:text-lavender-900"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
@@ -78,15 +78,6 @@ export default async function PackagePage({ params }: PageProps) {
             NuGet
           </a>
         ) : null}
-        <a
-          href={paperUrl(pkg.slug)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
-        >
-          White paper
-          <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-        </a>
       </div>
 
       {install ? (

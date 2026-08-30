@@ -17,11 +17,13 @@ export const metadata: Metadata = {
   creator: siteConfig.author,
   keywords: [
     "Nuvyntra Labs",
+    "open source",
+    "R&D",
+    "proof of concept",
     ".NET MAUI",
     "NuGet",
     "Plugin.Maui",
     "MauiEssentials",
-    "open source",
   ],
   alternates: { canonical: "/" },
   openGraph: {
@@ -47,6 +49,24 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fontSans.variable} ${fontDisplay.variable}`}>
       <body className="font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: siteConfig.name,
+              url: siteConfig.url,
+              description: siteConfig.description,
+              founder: {
+                "@type": "Person",
+                name: siteConfig.author,
+                url: siteConfig.authorUrl,
+              },
+              sameAs: [siteConfig.githubOrg, siteConfig.authorGithub],
+            }),
+          }}
+        />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2"

@@ -64,7 +64,7 @@ export const packages: PackageDoc[] = [
       "Device identity, fingerprint, NFC, BLE peripherals, permissions, feature flags, and deep links.",
       "Secure storage, sessions, app lock, file vault, and media pipelines.",
       "Share, clipboard, keyboard, printing, form validation, and orientation lock.",
-      "VoIP session model, app updates, diagnostics, performance, and telemetry.\","
+      "VoIP session model, app updates, diagnostics, performance, and telemetry."
     ]
   },
   {
@@ -89,7 +89,7 @@ export const packages: PackageDoc[] = [
       "Single location request with accuracy intent.",
       "Continuous tracking suitable for trip and survey routes.",
       "Reverse geocoding of captured coordinates.",
-      "Android and iOS targets for .NET MAUI.\","
+      "Android and iOS targets for .NET MAUI."
     ]
   },
   {
@@ -114,7 +114,7 @@ export const packages: PackageDoc[] = [
       "Validated public internet versus OS 'connected' flags.",
       "Captive-portal detection for guest and venue Wi-Fi.",
       "Wi-Fi ↔ mobile transport transition events.",
-      "Manual refresh for pull-to-retry and diagnostics screens.\","
+      "Manual refresh for pull-to-retry and diagnostics screens."
     ]
   },
   {
@@ -138,7 +138,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "One-time deferred work.",
       "Periodic background work.",
-      "Android and iOS native schedulers from one registration.\","
+      "Android and iOS native schedulers from one registration."
     ]
   },
   {
@@ -163,7 +163,7 @@ export const packages: PackageDoc[] = [
       "Durable jobs across process death.",
       "Retry with backoff and dead-letter isolation.",
       "Named queues (for example uploads versus analytics).",
-      "Network-required jobs that wait for a real connection.\","
+      "Network-required jobs that wait for a real connection."
     ]
   },
   {
@@ -188,7 +188,7 @@ export const packages: PackageDoc[] = [
       "Chunked uploads.",
       "Resume after crash or kill.",
       "Retry on transient failures.",
-      "Integration point for processed media pipelines.\","
+      "Integration point for processed media pipelines."
     ]
   },
   {
@@ -212,7 +212,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Stable installation identity.",
       "Analytics session grouping.",
-      "A shared subject for health, crash, and sync events.\","
+      "A shared subject for health, crash, and sync events."
     ]
   },
   {
@@ -236,7 +236,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Offline-first local persistence.",
       "Queued synchronization when connectivity is validated.",
-      "Conflict resolution rather than silent overwrite.\","
+      "Conflict resolution rather than silent overwrite."
     ]
   },
   {
@@ -261,7 +261,7 @@ export const packages: PackageDoc[] = [
       "FCM and APNs payload parsing.",
       "Handler dispatch or Shell navigation.",
       "Cold-start tap handling.",
-      "Duplicate delivery suppression.\","
+      "Duplicate delivery suppression."
     ]
   },
   {
@@ -286,7 +286,7 @@ export const packages: PackageDoc[] = [
       "In-app rationale before the system dialog.",
       "One-at-a-time permission requests.",
       "Cooldown so users are not re-prompted immediately.",
-      "Settings fallback after permanent denial.\","
+      "Settings fallback after permanent denial."
     ]
   },
   {
@@ -310,7 +310,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Point-in-time health snapshots.",
       "Device and environment context for support.",
-      "Shared contract for telemetry export.\","
+      "Shared contract for telemetry export."
     ]
   },
   {
@@ -335,7 +335,7 @@ export const packages: PackageDoc[] = [
       "Encrypted get/set with integrity.",
       "Automatic expiry.",
       "Legacy migration.",
-      "Typed JSON helpers and DI registration.\","
+      "Typed JSON helpers and DI registration."
     ]
   },
   {
@@ -361,7 +361,7 @@ export const packages: PackageDoc[] = [
       "Automatic 401 refresh and retry.",
       "Logout this device or every device.",
       "Multi-device session list and revoke.",
-      "Face ID / fingerprint unlock.\","
+      "Face ID / fingerprint unlock."
     ]
   },
   {
@@ -386,7 +386,7 @@ export const packages: PackageDoc[] = [
       "Retry with sensible mobile defaults.",
       "Circuit breaker for failing hosts.",
       "Offline request queue.",
-      "Auth-aware refresh instead of stampeding 401s.\","
+      "Auth-aware refresh instead of stampeding 401s."
     ]
   },
   {
@@ -410,7 +410,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Encrypted local file storage.",
       "Key protection aligned with device security.",
-      "Lifecycle APIs for sensitive artifacts.\","
+      "Lifecycle APIs for sensitive artifacts."
     ]
   },
   {
@@ -436,7 +436,7 @@ export const packages: PackageDoc[] = [
       "Longest-side or box resize; JPEG quality and MaxBytes.",
       "EXIF/GPS strip and orientation bake-in.",
       "Text/image watermark and region blur or solid redact.",
-      "AES-256-GCM envelope with decrypt helper.\","
+      "AES-256-GCM envelope with decrypt helper."
     ]
   },
   {
@@ -460,7 +460,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "VoIP session lifecycle.",
       "Pluggable signaling.",
-      "A core that UI and notification layers can observe.\","
+      "A core that UI and notification layers can observe."
     ]
   },
   {
@@ -484,7 +484,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Boolean and configured feature flags.",
       "Remote updates without a full store release.",
-      "MAUI-oriented targeting.\","
+      "MAUI-oriented targeting."
     ]
   },
   {
@@ -508,7 +508,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "HTTPS app/universal links.",
       "Custom URL schemes.",
-      "Post-auth restore into the originating screen.\","
+      "Post-auth restore into the originating screen."
     ]
   },
   {
@@ -532,7 +532,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Startup and page timing.",
       "API and image-load measurement.",
-      "SQLite and memory snapshots.\","
+      "SQLite and memory snapshots."
     ]
   },
   {
@@ -556,7 +556,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Crash and ANR capture.",
       "Unhandled exception logging.",
-      "Breadcrumbs for reproduction.\","
+      "Breadcrumbs for reproduction."
     ]
   },
   {
@@ -580,7 +580,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "One-call suite wiring.",
       "Correlated events via DeviceSession.",
-      "Backend-agnostic export.\","
+      "Backend-agnostic export."
     ]
   },
   {
@@ -604,7 +604,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "In-app update flow on Play.",
       "Store version checks on iOS.",
-      "Mandatory upgrade and maintenance messaging.\","
+      "Mandatory upgrade and maintenance messaging."
     ]
   },
   {
@@ -630,7 +630,7 @@ export const packages: PackageDoc[] = [
       "One-shot layered connectivity report.",
       "Configurable API health endpoint and timeout.",
       "Per-hop success, failure, and latency.",
-      "A human-readable summary for support and in-app alerts.\","
+      "A human-readable summary for support and in-app alerts."
     ]
   },
   {
@@ -655,7 +655,7 @@ export const packages: PackageDoc[] = [
       "Named failed-operation enqueue with a lambda or registered handler.",
       "Backoff suited to telemetry, orders, and payments.",
       "Survives process death.",
-      "Typed payload handlers (for example OrderDraft).\","
+      "Typed payload handlers (for example OrderDraft)."
     ]
   },
   {
@@ -680,7 +680,7 @@ export const packages: PackageDoc[] = [
       "GET response cache with typed deserialization.",
       "CacheFirst with stale fallback on network failure.",
       "Stale-while-revalidate for instant screens plus a background refresh.",
-      "CacheOnly for forced offline reads.\","
+      "CacheOnly for forced offline reads."
     ]
   },
   {
@@ -705,7 +705,7 @@ export const packages: PackageDoc[] = [
       "Scan, connect, read, write, and notify against a real peripheral.",
       "Automatic reconnect with a configurable attempt cap.",
       "Permission and adapter-state handling in the lifecycle, not the page.",
-      "Filters for printers and named devices.\","
+      "Filters for printers and named devices."
     ]
   },
   {
@@ -730,7 +730,7 @@ export const packages: PackageDoc[] = [
       "Text, single-file, and multi-file share.",
       "First-class WhatsApp and Email targets.",
       "Title, subject, MIME, and preview metadata.",
-      "Temporary-file handling for cache-safe shares.\","
+      "Temporary-file handling for cache-safe shares."
     ]
   },
   {
@@ -755,7 +755,7 @@ export const packages: PackageDoc[] = [
       "Ordinary and sensitive text copy.",
       "Automatic expiry of secrets.",
       "Clear sensitive clips when the app backgrounds.",
-      "Presence flags and change events for text, URI, image, and files.\","
+      "Presence flags and change events for text, URI, image, and files."
     ]
   },
   {
@@ -780,7 +780,7 @@ export const packages: PackageDoc[] = [
       "Manufacturer, model, OS, screen, density, architecture, RAM, battery.",
       "Hardware capability flags for NFC, Bluetooth, camera, biometric, GPS, flash.",
       "Tablet versus phone hint.",
-      "One snapshot for telemetry and support.\","
+      "One snapshot for telemetry and support."
     ]
   },
   {
@@ -805,7 +805,7 @@ export const packages: PackageDoc[] = [
       "NDEF read and write.",
       "Stable tag ID for attendance and assets.",
       "Availability including Disabled with OpenSettingsAsync.",
-      "Text, URI, and MIME payloads from one scan.\","
+      "Text, URI, and MIME payloads from one scan."
     ]
   },
   {
@@ -830,7 +830,7 @@ export const packages: PackageDoc[] = [
       "Configurable lock timer after background.",
       "Biometric and device-PIN unlock.",
       "RequireAuthenticationAsync gate for sensitive screens.",
-      "Privacy cover while the app is locked.\","
+      "Privacy cover while the app is locked."
     ]
   },
   {
@@ -855,7 +855,7 @@ export const packages: PackageDoc[] = [
       "PDF, image, and text jobs.",
       "System and AirPrint printers.",
       "Bluetooth and ESC/POS thermal printers.",
-      "Receipt builder with columns, QR, and cut.\","
+      "Receipt builder with columns, QR, and cut."
     ]
   },
   {
@@ -880,7 +880,7 @@ export const packages: PackageDoc[] = [
       "Lock portrait or landscape.",
       "Per-page lock in OnAppearing / OnDisappearing.",
       "Changed with previous, current, and locked state.",
-      "Scoped locks that restore automatically.\","
+      "Scoped locks that restore automatically."
     ]
   },
   {
@@ -905,7 +905,7 @@ export const packages: PackageDoc[] = [
       "Hide and show the IME, including Show(entry).",
       "Dismiss on tap outside a field.",
       "Resize, pan, and safe-area avoidance.",
-      "Visibility, height, insets, and focus events.\","
+      "Visibility, height, insets, and focus events."
     ]
   },
   {

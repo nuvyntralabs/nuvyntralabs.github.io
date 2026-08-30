@@ -1,11 +1,18 @@
-# Nuvyntra Labs — Product Portfolio
+# Nuvyntra Labs
 
-Documentation site for the .NET MAUI NuGet catalog. Live at
-**[https://nuvyntralabs.github.io](https://nuvyntralabs.github.io)**.
+Company site for **open-source work**: R&D projects, proofs of concept, and NuGet
+packages. Live at **[https://nuvyntralabs.github.io](https://nuvyntralabs.github.io)**.
 
-This repository was created as `ProductPortfolio` and renamed to `nuvyntralabs.github.io` so GitHub
-Pages can serve the organization root (`https://nuvyntralabs.github.io`) instead of
-`/ProductPortfolio`.
+Professional experience stays on [niladripadhy.vercel.app](https://niladripadhy.vercel.app).
+
+## Sections
+
+| Path | Content |
+| --- | --- |
+| `/research/` | R&D projects (inspection, VoIP, GPS, bindings) |
+| `/pocs/` | Proofs of concept and maintained forks |
+| `/packages/` | .NET MAUI NuGet catalog |
+| `/getting-started/` | Install + compose plugins |
 
 ## Local development
 
@@ -14,7 +21,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3001](http://localhost:3001) if port 3000 is already in use.
 
 ## Deploy
 
@@ -25,5 +32,6 @@ In the repo: **Settings → Pages → Source: GitHub Actions**.
 
 ## Content
 
-Package copy lives in `content/packages.ts`. White papers stay on the author site
-(`https://niladripadhy.vercel.app/opensource/<slug>`); this hub is install + capability docs.
+- R&D and POCs: `content/works.ts`
+- NuGet catalog: `content/packages.ts`
+- Lab copy: `content/lab.ts`

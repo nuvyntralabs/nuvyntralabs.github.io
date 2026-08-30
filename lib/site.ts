@@ -1,18 +1,15 @@
 export const siteConfig = {
   name: "Nuvyntra Labs",
   shortName: "Nuvyntra Labs",
-  title: "Nuvyntra Labs — .NET MAUI NuGet product portfolio",
+  title: "Nuvyntra Labs — Open-source R&D, POCs, and NuGet packages",
   description:
-    "Documentation hub for production .NET MAUI plugins: location, connectivity, offline sync, security, VoIP, printing, and observability. Published as independent NuGet packages.",
+    "Independent open-source lab for mobile infrastructure: R&D projects, public proofs of concept, and production .NET MAUI NuGet packages.",
   url: "https://nuvyntralabs.github.io",
   githubOrg: "https://github.com/nuvyntralabs",
   author: "Niladri Prasad Padhy",
   authorUrl: "https://niladripadhy.vercel.app",
   authorGithub: "https://github.com/NiladriPadhy",
-  whitePapers: "https://niladripadhy.vercel.app/opensource",
+  githubSponsors: "https://github.com/sponsors/NiladriPadhy",
+  buyMeACoffee: "https://www.buymeacoffee.com/npadhy",
   locale: "en_US",
 } as const;
-
-export function paperUrl(slug: string): string {
-  return `${siteConfig.whitePapers}/${slug}`;
-}

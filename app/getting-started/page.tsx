@@ -66,8 +66,8 @@ dotnet add package Plugin.Maui.JobQueue`}</code>
           <Link href="/packages/maui-essentials/" className="font-medium text-lavender-700 hover:text-lavender-900">
             MauiEssentials
           </Link>
-          . White papers (problem, architecture, audience) live on the author site — each package page
-          links out.
+          . R&D projects and POCs that informed these plugins live in their own sections on this
+          site.
         </p>
       </section>
     </main>
