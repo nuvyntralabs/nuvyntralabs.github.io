@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   creator: siteConfig.author,
   keywords: [
     "Nuvyntra Labs",
+    "applied R&D",
+    "mobile infrastructure",
     "open source",
-    "R&D",
-    "proof of concept",
     ".NET MAUI",
     "NuGet",
     "Plugin.Maui",
@@ -57,6 +57,7 @@ export default function RootLayout({
               "@type": "Organization",
               name: siteConfig.name,
               url: siteConfig.url,
+              logo: `${siteConfig.url}/favicon.svg`,
               description: siteConfig.description,
               founder: {
                 "@type": "Person",
@@ -69,7 +70,7 @@ export default function RootLayout({
         />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-foreground"
         >
           Skip to content
         </a>

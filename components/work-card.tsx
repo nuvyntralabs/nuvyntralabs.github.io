@@ -29,7 +29,7 @@ export function WorkCard({
   const Icon = icons[kind];
 
   return (
-    <Link href={href} className="glass-card focusable flex h-full flex-col p-6 transition hover:-translate-y-0.5 hover:shadow-glow">
+    <Link href={href} className="glass-card focusable flex h-full flex-col p-6 transition hover:-translate-y-0.5 hover:shadow-lift">
       <div className="flex items-start justify-between gap-3">
         <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-lavender-100 text-lavender-700">
           <Icon className="h-4 w-4" aria-hidden="true" />

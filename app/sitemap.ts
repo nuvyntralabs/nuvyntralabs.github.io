@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
     { url: siteConfig.url, lastModified: now },
+    { url: `${siteConfig.url}/about/`, lastModified: now },
+    { url: `${siteConfig.url}/contact/`, lastModified: now },
     { url: `${siteConfig.url}/research/`, lastModified: now },
     { url: `${siteConfig.url}/pocs/`, lastModified: now },
     { url: `${siteConfig.url}/packages/`, lastModified: now },

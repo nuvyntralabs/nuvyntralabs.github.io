@@ -50,15 +50,31 @@
 
 @layer components {
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-lavender-200 bg-lavender-50 px-4 py-1.5 text-sm font-medium text-lavender-700;
+    @apply inline-flex items-center gap-2 rounded-full border border-lavender-200 bg-lavender-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-lavender-700;
+  }
+
+  .eyebrow-on-dark {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-lavender-100;
   }
 
   .heading-gradient {
-    @apply bg-gradient-to-br from-lavender-700 via-lavender-500 to-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-br from-lavender-200 via-lavender-100 to-white bg-clip-text text-transparent;
   }
 
   .glass-card {
-    @apply rounded-2xl border border-white/60 bg-white/70 shadow-card backdrop-blur-md;
+    @apply rounded-2xl border border-lavender-100/80 bg-white shadow-card;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-primary px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-lavender-200 bg-white px-5 py-2.5 text-sm font-semibold text-lavender-900 transition hover:border-lavender-300 hover:bg-lavender-50;
+  }
+
+  .btn-on-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15;
   }
 
   .focusable {

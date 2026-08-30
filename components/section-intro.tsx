@@ -23,9 +23,9 @@ export function SectionIntro({
       {href && cta ? (
         <Link
           href={href}
-          className="focusable shrink-0 text-sm font-semibold text-lavender-700 hover:text-lavender-900"
+          className="focusable btn-secondary shrink-0"
         >
-          {cta} →
+          {cta}
         </Link>
       ) : null}
     </div>

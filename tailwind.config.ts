@@ -56,10 +56,13 @@ const config: Config = {
         soft: "0 4px 24px -8px rgba(76, 29, 149, 0.15)",
         glow: "0 8px 40px -8px rgba(124, 58, 237, 0.35)",
         card: "0 10px 40px -12px rgba(76, 29, 149, 0.18)",
+        lift: "0 18px 50px -20px rgba(22, 13, 44, 0.35)",
       },
       backgroundImage: {
         "gradient-primary":
           "linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%)",
+        "gradient-ink":
+          "radial-gradient(1200px 480px at 12% -10%, rgba(139, 92, 246, 0.28), transparent 55%), radial-gradient(900px 400px at 92% 10%, rgba(167, 139, 250, 0.18), transparent 50%), linear-gradient(180deg, #0c0618 0%, #160d2c 45%, #0c0618 100%)",
       },
     },
   },

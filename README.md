@@ -3,7 +3,8 @@
 Company site for **open-source work**: R&D projects, proofs of concept, and NuGet
 packages. Live at **[https://nuvyntralabs.github.io](https://nuvyntralabs.github.io)**.
 
-Professional experience stays on [niladripadhy.vercel.app](https://niladripadhy.vercel.app).
+Professional experience stays on
+[niladri-padhy-website.vercel.app](https://niladri-padhy-website.vercel.app/).
 
 ## Sections
 
