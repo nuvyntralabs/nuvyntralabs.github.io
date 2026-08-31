@@ -53,6 +53,8 @@ Getting started: ${siteConfig.url}/getting-started/
 ${catalog}
 
 Package docs: ${siteConfig.url}/packages/<slug>/
+MVVMExpress technical docs: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/
+MVVMExpress integration: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/integration/
 GitHub for each plugin: ${siteConfig.githubOrg}/<PackageName>
 `;
 }
@@ -184,7 +186,11 @@ Tags: ${item.tags.join(", ")}
 
 ${item.abstract}
 Capabilities:
-${item.capabilities.map((line) => `- ${line}`).join("\n")}`;
+${item.capabilities.map((line) => `- ${line}`).join("\n")}${
+    item.guides
+      ? `\nTechnical docs: ${siteConfig.url}${item.guides.technical}\nIntegration: ${siteConfig.url}${item.guides.integration}`
+      : ""
+  }`;
 }
 
 function escapeXml(value: string): string {

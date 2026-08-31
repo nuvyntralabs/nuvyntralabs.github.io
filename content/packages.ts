@@ -1,5 +1,6 @@
 export type PackageGroup =
   | "Catalog"
+  | "Application framework"
   | "Location & network"
   | "Background & sync"
   | "HTTP & APIs"
@@ -8,6 +9,11 @@ export type PackageGroup =
   | "App services"
   | "Observability"
   | "Voice";
+
+export interface PackageGuideLinks {
+  technical: string;
+  integration: string;
+}
 
 export interface PackageDoc {
   slug: string;
@@ -23,10 +29,14 @@ export interface PackageDoc {
   tags: string[];
   abstract: string;
   capabilities: string[];
+  prerelease?: boolean;
+  installPackages?: string[];
+  guides?: PackageGuideLinks;
 }
 
 export const packageGroups: PackageGroup[] = [
   "Catalog",
+  "Application framework",
   "Location & network",
   "Background & sync",
   "HTTP & APIs",
@@ -66,6 +76,44 @@ export const packages: PackageDoc[] = [
       "Share, clipboard, keyboard, printing, form validation, and orientation lock.",
       "VoIP session model, app updates, diagnostics, performance, and telemetry."
     ]
+  },
+  {
+    "slug": "plugin-maui-mvvmexpress",
+    "name": "Plugin.Maui.MVVMExpress",
+    "title": "MVVMExpress",
+    "subtitle": "Modular MVVM for MAUI — ViewModels, async state, Shell navigation, dialogs",
+    "description": "A modular MVVM framework for .NET MAUI: observable models, async commands, bindable AsyncState, lifecycle-aware cancellation, typed Shell navigation, dialogs, validation, and pagination. Public preview 0.1.1 — APIs may still change.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Core",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Application framework",
+    "tags": [
+      ".NET MAUI",
+      "MVVM",
+      "ViewModel",
+      "C#"
+    ],
+    "abstract": "MVVMExpress is the application shell for production MAUI apps. CommunityToolkit.Mvvm covers properties and commands, Prism.Maui covers page navigation (not Shell), and ReactiveUI covers observable pipelines. A field or enterprise app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference MAUI. Capability work (captive portal, HTTP cache, offline sync, form XAML, flags, deep links) stays in focused MauiEssentials plugins; MVVMExpress composes them through adapters.",
+    "capabilities": [
+      "ObservableModel, ViewModel lifecycle, and ViewModelCancellationToken cancelled on dispose.",
+      "Sync and async commands with prevent / cancel-previous, timeout, and retry.",
+      "Bindable AsyncState<T> (Idle, Loading, Empty, Error, Offline, Unauthorized) and Outcome results.",
+      "Weak MessageHub, ObservableRangeCollection AddRange (one notify), and BusyGate.",
+      "MauiShellNavigator with typed record navigation args and IAcceptNavArgs<T>.",
+      "IDialogs, DataAnnotations validation, PagedCollection<T>, and SearchQuery debounce.",
+      "Testing package: LeakProbe, ScaleProfile, FakeDialogs, FakeNavigator.",
+      "Adapters for NetworkMonitor, ApiCache, OfflineSync, SecureSession, FormValidation, FeatureFlags, and DeepLinks."
+    ],
+    "prerelease": true,
+    "installPackages": [
+      "Plugin.Maui.MVVMExpress.Core",
+      "Plugin.Maui.MVVMExpress"
+    ],
+    "guides": {
+      "technical": "/packages/plugin-maui-mvvmexpress/docs/",
+      "integration": "/packages/plugin-maui-mvvmexpress/integration/"
+    }
   },
   {
     "slug": "plugin-maui-geolocator",
@@ -964,6 +1012,8 @@ export const packages: PackageDoc[] = [
 ];
 
 export const nugetPackages = packages.filter((item) => item.nuget);
+
+export const documentedPackages = packages.filter((item) => item.guides);
 
 export function getPackageBySlug(slug: string): PackageDoc | undefined {
   return packages.find((item) => item.slug === slug);

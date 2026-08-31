@@ -85,6 +85,43 @@ export function packageJsonLd(pkg: PackageDoc) {
   ];
 }
 
+export function packageGuideJsonLd(
+  pkg: PackageDoc,
+  kind: "docs" | "integration",
+  title: string,
+  description: string,
+) {
+  const path = kind === "docs" ? pkg.guides?.technical : pkg.guides?.integration;
+  const pagePath = path ?? `/packages/${pkg.slug}/${kind}/`;
+  const label = kind === "docs" ? "Technical documentation" : "Integration";
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: title,
+      description,
+      url: `${siteConfig.url}${pagePath}`,
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      about: {
+        "@type": "SoftwareApplication",
+        name: pkg.name,
+        url: `${siteConfig.url}/packages/${pkg.slug}/`,
+      },
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: "Products", path: "/packages/" },
+      { name: pkg.name, path: `/packages/${pkg.slug}/` },
+      { name: label, path: pagePath },
+    ]),
+  ];
+}
+
 export function workJsonLd(work: WorkItem) {
   const path = workPath(work);
   const index =

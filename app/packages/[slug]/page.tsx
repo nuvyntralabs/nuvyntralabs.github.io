@@ -3,10 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github, Package } from "lucide-react";
 import { getPackageBySlug, getRelatedPackages, packages } from "@/content/packages";
+import { packageFamily, relatedAdapters } from "@/content/mvvmexpress";
 import { JsonLd } from "@/components/json-ld";
 import { packageJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site";
-import { installCommand } from "@/lib/utils";
+import { GuideTabs } from "@/components/package-guide";
+import { installCommands } from "@/lib/utils";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -50,7 +52,8 @@ export default async function PackagePage({ params }: PageProps) {
   if (!pkg) notFound();
 
   const related = getRelatedPackages(pkg);
-  const install = pkg.nuget ? installCommand(pkg.name) : null;
+  const installNames = pkg.installPackages ?? (pkg.nuget ? [pkg.name] : []);
+  const install = installNames.length ? installCommands(installNames, { prerelease: pkg.prerelease }) : null;
 
   return (
     <main className="container max-w-3xl py-12 sm:py-16">
@@ -66,6 +69,11 @@ export default async function PackagePage({ params }: PageProps) {
       <p className="eyebrow mt-8">{pkg.group}</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{pkg.title}</h1>
       <p className="mt-3 text-lg text-lavender-700">{pkg.subtitle}</p>
+      {pkg.prerelease ? (
+        <p className="mt-4 inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900">
+          Public preview — APIs may change
+        </p>
+      ) : null}
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{pkg.description}</p>
 
       <div className="mt-6 flex flex-wrap gap-3">
@@ -92,6 +100,17 @@ export default async function PackagePage({ params }: PageProps) {
         ) : null}
       </div>
 
+      {pkg.guides ? (
+        <div className="mt-10">
+          <GuideTabs
+            slug={pkg.slug}
+            active="overview"
+            technical={pkg.guides.technical}
+            integration={pkg.guides.integration}
+          />
+        </div>
+      ) : null}
+
       {install ? (
         <section className="mt-12">
           <h2 className="font-display text-2xl font-semibold">Install</h2>
@@ -99,7 +118,13 @@ export default async function PackagePage({ params }: PageProps) {
             <code>{install}</code>
           </pre>
           <p className="mt-3 text-sm text-muted-foreground">
-            Package ID: <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">{pkg.name}</code>
+            {pkg.prerelease ? "Preview packages need --prerelease. " : ""}
+            Package ID{installNames.length > 1 ? "s" : ""}:{" "}
+            {installNames.map((name) => (
+              <code key={name} className="mr-1.5 rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+                {name}
+              </code>
+            ))}
           </p>
         </section>
       ) : (
@@ -131,6 +156,82 @@ export default async function PackagePage({ params }: PageProps) {
           ))}
         </ul>
       </section>
+
+      {pkg.guides ? (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">Documentation</h2>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            <li>
+              <Link href={pkg.guides.technical} className="glass-card focusable block h-full p-5 hover:shadow-glow">
+                <p className="font-semibold text-foreground">Technical documentation</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  Architecture, package graph, core subsystems, navigation model, scale contract, and
+                  comparison with CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI.
+                </p>
+              </Link>
+            </li>
+            <li>
+              <Link href={pkg.guides.integration} className="glass-card focusable block h-full p-5 hover:shadow-glow">
+                <p className="font-semibold text-foreground">Integration documentation</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  Install, host registration, first ViewModel, commands, Shell navigation, dialogs,
+                  validation, pagination, adapters, and tests.
+                </p>
+              </Link>
+            </li>
+          </ul>
+        </section>
+      ) : null}
+
+      {pkg.slug === "plugin-maui-mvvmexpress" ? (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">Package family</h2>
+          <div className="mt-4 overflow-x-auto rounded-2xl border border-lavender-100">
+            <table className="min-w-full text-left text-sm">
+              <thead className="bg-lavender-50 text-lavender-900">
+                <tr>
+                  <th className="px-3 py-2.5 font-semibold">Package</th>
+                  <th className="px-3 py-2.5 font-semibold">Purpose</th>
+                  <th className="px-3 py-2.5 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {packageFamily.map((item) => (
+                  <tr key={item.name} className="border-t border-lavender-100 align-top">
+                    <td className="px-3 py-2.5 font-medium text-foreground">
+                      {item.nuget ? (
+                        <a
+                          href={item.nuget}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-lavender-800 hover:text-lavender-900"
+                        >
+                          {item.name}
+                        </a>
+                      ) : (
+                        item.name
+                      )}
+                    </td>
+                    <td className="px-3 py-2.5 text-muted-foreground">{item.purpose}</td>
+                    <td className="px-3 py-2.5 text-muted-foreground">{item.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <h3 className="mt-8 font-display text-lg font-semibold">Compose with</h3>
+          <ul className="mt-3 grid gap-3">
+            {relatedAdapters.map((item) => (
+              <li key={item.slug}>
+                <Link href={`/packages/${item.slug}/`} className="glass-card focusable block p-4 hover:shadow-glow">
+                  <span className="font-semibold text-foreground">{item.name}</span>
+                  <span className="mt-1 block text-sm text-muted-foreground">{item.why}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <ul className="mt-8 flex flex-wrap gap-2">
         {pkg.tags.map((tag) => (

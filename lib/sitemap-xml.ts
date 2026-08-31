@@ -16,6 +16,9 @@ export function sitemapUrls(): string[] {
     ...researchProjects.map((item) => `/research/${item.slug}/`),
     ...proofOfConcepts.map((item) => `/pocs/${item.slug}/`),
     ...packages.map((item) => `/packages/${item.slug}/`),
+    ...packages.flatMap((item) =>
+      item.guides ? [item.guides.technical, item.guides.integration] : [],
+    ),
   ];
 
   return paths.map((path) =>

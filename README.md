@@ -13,6 +13,8 @@ Professional experience stays on
 | `/research/` | R&D projects (inspection, VoIP, GPS, bindings) |
 | `/pocs/` | Proofs of concept and maintained forks |
 | `/packages/` | .NET MAUI NuGet catalog |
+| `/packages/plugin-maui-mvvmexpress/docs/` | MVVMExpress technical documentation |
+| `/packages/plugin-maui-mvvmexpress/integration/` | MVVMExpress integration guide |
 | `/getting-started/` | Install + compose plugins |
 
 ## Local development
@@ -35,4 +37,5 @@ In the repo: **Settings → Pages → Source: GitHub Actions**.
 
 - R&D and POCs: `content/works.ts`
 - NuGet catalog: `content/packages.ts`
+- MVVMExpress docs: `content/mvvmexpress.ts`
 - Lab copy: `content/lab.ts`

@@ -33,6 +33,8 @@ export const metadata: Metadata = {
     "Plugin.Maui.GeoLocator",
     "Plugin.Maui.NetworkMonitor",
     "Plugin.Maui.OfflineSync",
+    "Plugin.Maui.MVVMExpress",
+    "MVVMExpress",
   ],
   alternates: {
     canonical: "/",

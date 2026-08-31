@@ -41,7 +41,8 @@ export default function GettingStartedPage() {
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
             <code>{`dotnet add package Plugin.Maui.GeoLocator
 dotnet add package Plugin.Maui.NetworkMonitor
-dotnet add package Plugin.Maui.JobQueue`}</code>
+dotnet add package Plugin.Maui.JobQueue
+dotnet add package Plugin.Maui.MVVMExpress.Core --prerelease`}</code>
           </pre>
         </section>
 
@@ -66,7 +67,21 @@ dotnet add package Plugin.Maui.JobQueue`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">4. Browse the full catalog</h2>
+          <h2 className="font-display text-2xl font-semibold">4. Application shell</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            For ViewModels, async state, Shell navigation, and dialogs, start with{" "}
+            <Link
+              href="/packages/plugin-maui-mvvmexpress/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              MVVMExpress
+            </Link>
+            . Technical internals and a step-by-step integration guide live next to the package.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">5. Browse the full catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The suite map is{" "}
             <Link href="/packages/maui-essentials/" className="font-medium text-lavender-700 hover:text-lavender-900">

@@ -5,6 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function installCommand(packageName: string): string {
-  return `dotnet add package ${packageName}`;
+export function installCommand(packageName: string, options?: { prerelease?: boolean }): string {
+  return options?.prerelease
+    ? `dotnet add package ${packageName} --prerelease`
+    : `dotnet add package ${packageName}`;
+}
+
+export function installCommands(packageNames: string[], options?: { prerelease?: boolean }): string {
+  return packageNames.map((name) => installCommand(name, options)).join("\n");
 }

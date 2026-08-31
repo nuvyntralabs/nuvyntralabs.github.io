@@ -67,6 +67,9 @@
     <loc>https://nuvyntralabs.github.io/packages/maui-essentials/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-geolocator/</loc>
   </url>
   <url>
@@ -170,5 +173,14 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-form-validation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-community-toolkit-plus/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/integration/</loc>
   </url>
 </urlset>

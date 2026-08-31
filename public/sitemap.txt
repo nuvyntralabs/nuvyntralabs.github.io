@@ -20,6 +20,7 @@ https://nuvyntralabs.github.io/pocs/callkit-sample/
 https://nuvyntralabs.github.io/pocs/html-label-plugin/
 https://nuvyntralabs.github.io/pocs/plugin-firebase-analytics/
 https://nuvyntralabs.github.io/packages/maui-essentials/
+https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/
 https://nuvyntralabs.github.io/packages/plugin-maui-geolocator/
 https://nuvyntralabs.github.io/packages/plugin-maui-network-monitor/
 https://nuvyntralabs.github.io/packages/plugin-maui-background-tasks/
@@ -55,3 +56,6 @@ https://nuvyntralabs.github.io/packages/plugin-maui-printing/
 https://nuvyntralabs.github.io/packages/plugin-maui-device-orientation-plus/
 https://nuvyntralabs.github.io/packages/plugin-maui-keyboard-manager/
 https://nuvyntralabs.github.io/packages/plugin-maui-form-validation/
+https://nuvyntralabs.github.io/packages/plugin-maui-community-toolkit-plus/
+https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/
+https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/integration/
