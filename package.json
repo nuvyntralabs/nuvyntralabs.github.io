@@ -5,6 +5,8 @@
   "description": "Nuvyntra Labs — open-source R&D, POCs, and NuGet packages",
   "scripts": {
     "dev": "next dev",
+    "generate:sitemap": "tsx ./scripts/generate-sitemap.ts",
+    "prebuild": "npm run generate:sitemap",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -26,6 +28,7 @@
     "eslint-config-next": "^15.1.6",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.13",
     "typescript": "^5.7.3"
   }
 }

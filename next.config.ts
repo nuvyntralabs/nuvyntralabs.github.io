@@ -1,7 +1,4 @@
 import type { NextConfig } from "next";
-import { writePublicSitemaps } from "./lib/sitemap-xml";
-
-writePublicSitemaps();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
