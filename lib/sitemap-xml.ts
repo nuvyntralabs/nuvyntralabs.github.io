@@ -1,6 +1,8 @@
-import { packages } from "@/content/packages";
-import { proofOfConcepts, researchProjects } from "@/content/works";
-import { siteConfig } from "@/lib/site";
+import { writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { packages } from "../content/packages";
+import { proofOfConcepts, researchProjects } from "../content/works";
+import { siteConfig } from "./site";
 
 export function sitemapUrls(): string[] {
   const paths = [
@@ -39,4 +41,10 @@ ${urls}
 
 export function buildSitemapTxt(): string {
   return `${sitemapUrls().join("\n")}\n`;
+}
+
+export function writePublicSitemaps(publicDir = join(process.cwd(), "public")) {
+  writeFileSync(join(publicDir, "sitemap.xml"), buildSitemapXml());
+  writeFileSync(join(publicDir, "sitemap-pages.xml"), buildSitemapXml());
+  writeFileSync(join(publicDir, "sitemap.txt"), buildSitemapTxt());
 }
