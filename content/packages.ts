@@ -932,6 +932,34 @@ export const packages: PackageDoc[] = [
       "Lost-focus or submit-style triggers.",
       "XAML that names the property, not the error label."
     ]
+  },
+  {
+    "slug": "plugin-maui-community-toolkit-plus",
+    "name": "Plugin.Maui.CommunityToolkitPlus",
+    "title": "Plugin.Maui.CommunityToolkitPlus",
+    "subtitle": "Opt-in production extras on top of CommunityToolkit.Maui",
+    "description": "Unofficial, opt-in production extensions built on CommunityToolkit.Maui for .NET MAUI on Android and iOS — accessibility auditing, state restoration, upgrade guard, trusted time, app integrity, wallet passes, and privacy consent.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.CommunityToolkitPlus",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "App services",
+    "tags": [
+      ".NET MAUI",
+      "CommunityToolkit",
+      "Accessibility",
+      "C#"
+    ],
+    "abstract": "Plugin.Maui.CommunityToolkitPlus is an unofficial, opt-in layer of production extensions that sit above CommunityToolkit.Maui. All seven modules ship in one assembly and every module is disabled until explicitly enabled: accessibility visual-tree auditing with SARIF export, Shell state restoration after process death, journaled upgrade migrations with safe mode, tamper-aware trusted time from HTTP sources, App Attest / Play Integrity challenge-and-proof, Apple Wallet and Google Wallet pass handoff, and a versioned privacy-consent ledger with SDK activation gates.",
+    "capabilities": [
+      "Accessibility audit — visual tree scan for missing labels, small targets, contrast, and clipped text with JSON and SARIF export.",
+      "State restoration — Shell route and contributor checkpoints that survive process death.",
+      "Upgrade guard — idempotent journaled migrations and startup-loop safe mode.",
+      "Trusted time — HTTPS / HTTP Date sources with outlier rejection and wall-clock jump detection.",
+      "App integrity — App Attest (iOS) and Play Integrity (Android) challenge-and-proof for backend verification.",
+      "Wallet passes — .pkpass handoff on iOS and Google Wallet save URL on Android.",
+      "Privacy consent — versioned purpose ledger with revocation, expiry, and SDK activation gates."
+    ]
   }
 ];
 
