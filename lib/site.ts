@@ -15,5 +15,5 @@ export const siteConfig = {
   indexNowKey: "b8e3c1a94f6d2e7a0c5b9d1f3a6e8c2b",
   // Paste tokens from Search Console / Bing Webmaster after you verify the property.
   googleSiteVerification: "",
-  bingSiteVerification: "",
+  bingSiteVerification: "F6B856E1EF0852317DC2505C34C78E5A",
 } as const;
