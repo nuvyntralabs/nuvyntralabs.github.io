@@ -1,8 +1,8 @@
 export const mvvmExpressSlug = "plugin-maui-mvvmexpress";
 
 export const mvvmExpressStatus = {
-  version: "0.3.0-preview",
-  note: "Public preview, not 1.0. Core, host DI, Shell + page navigators, dialogs/toast, validation, and pagination are implemented and tested. Source generators and Reactive remain later. Public APIs may still change.",
+  version: "0.5.0-preview",
+  note: "Public preview. Phases 1–5 are implemented and tested. Shipped public APIs are the 1.0 contract; 1.0.0 waits on design-review sign-off. See known limitations.",
 } as const;
 
 export type DocBlock =
@@ -58,21 +58,27 @@ export const packageFamily: { name: string; purpose: string; status: string; nug
   },
   {
     name: "Plugin.Maui.MVVMExpress.Testing",
-    purpose: "LeakProbe, ScaleProfile, FakeDialogs, FakeNavigator",
+    purpose: "LeakProbe, ScaleProfile, FakeDialogs, FakeNavigator, FakeMainThread, FakeConnectivity, FakeMessageHub, ScopedNavigator",
     status: "Implemented + tests",
     nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Testing",
   },
   {
     name: "Plugin.Maui.MVVMExpress.Reactive",
-    purpose: "Derived state; System.Reactive optional",
-    status: "Phase 3 — not packed",
-    nuget: null,
+    purpose: "IPropertyObservable / CombineLatest — no System.Reactive required",
+    status: "Implemented + tests",
+    nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Reactive",
   },
   {
     name: "Plugin.Maui.MVVMExpress.SourceGenerators",
-    purpose: "[Notify], commands, register, routes",
-    status: "Phase 4 — not packed",
-    nuget: null,
+    purpose: "[Notify], commands, register, routes, persist, auth",
+    status: "Implemented + snapshot tests",
+    nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.SourceGenerators",
+  },
+  {
+    name: "Plugin.Maui.MVVMExpress.Compatibility.CommunityToolkit",
+    purpose: "CommunityToolkitMessageHub — IMessenger → IMessageHub",
+    status: "Implemented + tests",
+    nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Compatibility.CommunityToolkit",
   },
 ];
 
@@ -83,8 +89,8 @@ export const technicalSections: DocSection[] = [
     blocks: [
       {
         type: "callout",
-        title: "0.3.0-preview",
-        text: "Public preview, not a 1.0. Core, host DI, MauiShellNavigator, MauiPageNavigator, dialogs/toast, validation, and pagination are implemented and tested. Source generators and Reactive remain later. Public APIs may still change.",
+        title: "0.5.0-preview",
+        text: "Public preview. Phases 1–5 are implemented and tested: Core, host DI, Shell + page navigators, dialogs/toast, validation, pagination, forms, Reactive, IOperationExecutor, scopes, source generators, persist/auth attributes, and CommunityToolkit adapters. Shipped public APIs are the 1.0 contract; 1.0.0 waits on design-review sign-off.",
       },
       {
         type: "p",
@@ -143,11 +149,12 @@ export const technicalSections: DocSection[] = [
         type: "code",
         code: `                    Application (MAUI host)
                     UseMvvmExpress / AddMvvmExpress
+                    AddGeneratedViewModels
                                │
      ┌────────────┬────────────┼────────────┬────────────┐
      ▼            ▼            ▼            ▼            ▼
  Navigation    Dialogs    Validation   Pagination    Reactive
- Shell + page  alerts +     IValidator   PagedColl.   (not packed)
+ Shell + page  alerts +     IValidator   PagedColl.   CombineLatest
  URI stack     toast
      │            │            │            │            │
      └────────────┴──────┬─────┴────────────┴────────────┘
@@ -158,13 +165,16 @@ export const technicalSections: DocSection[] = [
                          │
                          ▼
                         Core
-         (no MAUI, no Rx, no FluentValidation)
+         (forms, pipeline, scopes, cache;
+          no MAUI, no Rx, no FluentValidation)
                          │
          optional adapters ──── sibling plugins
          NetworkMonitor · ApiCache · OfflineSync
          SecureSession · FormValidation · FeatureFlags
+         DeepLinks · PermissionFlow
 
-Plugin.Maui.MVVMExpress.SourceGenerators     later
+Plugin.Maui.MVVMExpress.SourceGenerators     [Notify], register, routes
+Plugin.Maui.MVVMExpress.Compatibility.CommunityToolkit
 Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
       },
       {
@@ -208,7 +218,7 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
       },
       {
         type: "p",
-        text: "ModelCommand / AsyncModelCommand (and generic variants) sit on an operation pipeline: CanExecute → concurrency gate → timeout → retry → execute → IsRunning → error sink → Outcome. Shipped concurrency modes are Prevent and CancelPrevious. Timeout and retry ship. Queue, debounce, and throttle on the command itself remain later; SearchQuery already debounces search.",
+        text: "ModelCommand / AsyncModelCommand (and generic variants) sit on IOperationExecutor: CanExecute → concurrency gate → timeout → retry → execute → IsRunning → error sink → Outcome. ConcurrencyMode values are Prevent, CancelPrevious, Queue, Allow, and Replace. Timeout, retry, Debounce, and Throttle ship on AsyncCommandOptions. SearchQuery still debounces text search.",
       },
       {
         type: "p",
@@ -260,7 +270,7 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
           ["ViewModel base", "ViewModel / PageViewModel", "Prism BindableBase"],
           ["Sync command", "ModelCommand", "RelayCommand, DelegateCommand"],
           ["Async command", "AsyncModelCommand", "AsyncRelayCommand, ReactiveCommand"],
-          ["Notify attribute", "[Notify] (Phase 4)", "[ObservableProperty]"],
+          ["Notify attribute", "[Notify] / [NotifyAlso]", "[ObservableProperty]"],
           ["Messenger", "IMessageHub", "IMessenger, IEventAggregator"],
           ["Navigation", "INavigator", "INavigationService"],
           ["Dialogs", "IDialogs", "IDialogService"],
@@ -284,12 +294,12 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
         rows: [
           ["Observable properties", "Yes", "Yes", "Yes", "Yes"],
           ["Commands / async commands", "Yes", "Yes", "Yes / Partial", "Yes"],
-          ["Source generators", "Designed (not shipped)", "Yes", "No", "Yes"],
+          ["Source generators", "Yes ([Notify], commands, register, routes)", "Yes", "No", "Yes"],
           ["Navigation (Shell or page)", "Yes (Shell + page)", "No", "Yes (page only)", "Yes"],
           ["Lifecycle + cancellation", "Yes", "No", "Yes", "Yes"],
           ["Dialogs / toast", "Yes", "Separate", "Yes", "Extensions"],
           ["Validation", "Yes", "Yes", "Extensions", "Yes"],
-          ["Reactive derived state", "Designed (not packed)", "No", "No", "Yes (Rx required)"],
+          ["Reactive derived state", "Yes (CombineLatest; Rx optional)", "No", "No", "Yes (Rx required)"],
           ["Pagination + refresh + search", "Yes", "No", "Extensions", "Extensions"],
           ["Offline / cache abstractions", "Yes (adapters)", "No", "No", "Extensions"],
           ["Unified AsyncState<T>", "Yes", "No", "No", "Extensions"],
@@ -365,7 +375,7 @@ dotnet run --project benchmarks/Plugin.Maui.MVVMExpress.Benchmarks -c Release --
         type: "ul",
         items: [
           "Prism INavigationService, IDialogService, INavigationParameters.",
-          "CommunityToolkit ObservableObject, RelayCommand, [ObservableProperty], IMessenger (unless a later compatibility package).",
+          "CommunityToolkit ObservableObject, RelayCommand, [ObservableProperty], IMessenger (use Compatibility CommunityToolkitMessageHub to adapt).",
           "ReactiveUI ReactiveObject, ReactiveCommand, WhenAnyValue.",
           "A static MVVMExpress.Current in Core.",
           "Types that reference Page or Shell inside Core.",
@@ -391,6 +401,8 @@ dotnet run --project benchmarks/Plugin.Maui.MVVMExpress.Benchmarks -c Release --
           ["IAuthState", "Plugin.Maui.SecureSession", "MAUI SecureStorage"],
           ["IFeatureSwitch", "Plugin.Maui.FeatureFlags", "Remote config SDK"],
           ["IPermissionGate", "Plugin.Maui.PermissionFlow", "MAUI Permissions"],
+          ["ICachedFetcher", "Plugin.Maui.ApiCache", "HttpClient + MemoryCache"],
+          ["Deep-link mapping", "Plugin.Maui.DeepLinks", "MAUI App Links"],
           ["XAML Validation.For", "Plugin.Maui.FormValidation", "Behaviors / Toolkit"],
         ],
       },
@@ -406,7 +418,7 @@ export const integrationSections: DocSection[] = [
       {
         type: "callout",
         title: "Preview packages",
-        text: "Every packed package is 0.3.0-preview. Add --prerelease. Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
+        text: "Every packed package is 0.5.0-preview. Add --prerelease. Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
       },
       {
         type: "code",
@@ -415,7 +427,7 @@ dotnet add package Plugin.Maui.MVVMExpress --prerelease`,
       },
       {
         type: "p",
-        text: "Add Navigation, Dialogs, Validation, Pagination, and Testing only when the app uses those surfaces.",
+        text: "Add Navigation, Dialogs, Validation, Pagination, Reactive, SourceGenerators, Compatibility, and Testing only when the app uses those surfaces.",
       },
       {
         type: "code",
@@ -423,6 +435,8 @@ dotnet add package Plugin.Maui.MVVMExpress --prerelease`,
 dotnet add package Plugin.Maui.MVVMExpress.Dialogs --prerelease
 dotnet add package Plugin.Maui.MVVMExpress.Validation --prerelease
 dotnet add package Plugin.Maui.MVVMExpress.Pagination --prerelease
+dotnet add package Plugin.Maui.MVVMExpress.Reactive --prerelease
+dotnet add package Plugin.Maui.MVVMExpress.SourceGenerators --prerelease
 dotnet add package Plugin.Maui.MVVMExpress.Testing --prerelease`,
       },
     ],
@@ -459,7 +473,7 @@ services.AddMvvmExpress();`,
       },
       {
         type: "p",
-        text: "Minimal mode is Core + lifecycle + dispatcher + ViewModel resolve. Enterprise mode adds Navigation, Dialogs, Validation, Pagination, and app-supplied adapters for cache, offline, auth, and flags. UseMvvmExpress accepts an optional MvvmExpressOptions (CancelOperationsOnDisappear). There is no AddNavigation or AddDialogs helper — register MauiShellNavigator, MauiPageNavigator, MauiDialogs, and MauiNotifier in the app. Register ViewModels yourself until generators ship.",
+        text: "Minimal mode is Core + lifecycle + dispatcher + ViewModel resolve. Enterprise mode adds Navigation, Dialogs, Validation, Pagination, Reactive, and app-supplied adapters for cache, offline, auth, and flags. UseMvvmExpress accepts an optional MvvmExpressOptions (CancelOperationsOnDisappear, EnableDiagnostics). There is no AddNavigation or AddDialogs helper — register MauiShellNavigator, MauiPageNavigator, MauiDialogs, and MauiNotifier in the app. Mark ViewModels with [RegisterViewModel] and call AddGeneratedViewModels, or register them yourself.",
       },
     ],
   },
@@ -515,7 +529,7 @@ public sealed class HomeViewModel : ViewModel
         items: [
           "ModelCommand / ModelCommand<T> — sync.",
           "AsyncModelCommand / AsyncModelCommand<T> — async, IsRunning, Cancel, ExecuteAsync.",
-          "AsyncCommandOptions: timeout, retry, ConcurrencyMode (Prevent, CancelPrevious).",
+          "AsyncCommandOptions: timeout, retry, Debounce, Throttle, ConcurrencyMode (Prevent, CancelPrevious, Queue, Allow, Replace).",
         ],
       },
       {
@@ -670,7 +684,7 @@ await pages.ResetAsync<PageStackViewModel>();`,
     blocks: [
       {
         type: "p",
-        text: "Plugin.Maui.MVVMExpress.Validation ships DataAnnotations plus IValidator. FluentValidation is an adapter the app may add — it is not a PackageReference of the Validation package. XAML Validation.For remains Plugin.Maui.FormValidation.",
+        text: "Plugin.Maui.MVVMExpress.Validation ships DataAnnotations plus IValidator. FluentValidation is an adapter the app may add — it is not a PackageReference of the Validation package. FormViewModel, FormField<T>, dirty state, and undo/redo live in Core. XAML Validation.For remains Plugin.Maui.FormValidation.",
       },
       {
         type: "code",
@@ -688,6 +702,91 @@ if (!summary.IsValid)
 {
     return Outcome.Failure("validation", summary.Messages[0].Message);
 }`,
+      },
+    ],
+  },
+  {
+    id: "forms",
+    title: "Forms, dirty guard, undo",
+    blocks: [
+      {
+        type: "p",
+        text: "FormViewModel lives in Core and does not reference MAUI. Field(name, value) creates a FormField<T>. CanNavigateAwayAsync is false while IsDirty. After a successful save call MarkClean(). UndoCommand, RedoCommand, and ResetCommand are on the base type. XAML field highlighting stays Plugin.Maui.FormValidation.",
+      },
+      {
+        type: "code",
+        code: `public sealed class ProductEditViewModel : FormViewModel
+{
+    private readonly FormField<string> _name;
+
+    public ProductEditViewModel()
+    {
+        _name = Field("Name", "");
+    }
+
+    public string Name
+    {
+        get => _name.Value ?? "";
+        set => _name.Value = value;
+    }
+
+    // CanNavigateAwayAsync is false while IsDirty
+    // After save: MarkClean();
+}`,
+      },
+    ],
+  },
+  {
+    id: "reactive",
+    title: "Reactive derived state",
+    blocks: [
+      {
+        type: "p",
+        text: "Plugin.Maui.MVVMExpress.Reactive does not take System.Reactive. Core stays Rx-free. CombineLatest derives a value from two properties; dispose the observable with the ViewModel. Search debounce remains SearchQuery in Pagination.",
+      },
+      {
+        type: "code",
+        code: `using Plugin.Maui.MVVMExpress.Reactive;
+
+_fullName = PropertyObservable.CombineLatest(
+    PropertyObservable.Observe(this, nameof(First), () => First ?? ""),
+    PropertyObservable.Observe(this, nameof(Last), () => Last ?? ""),
+    static (first, last) => $"{first} {last}".Trim());
+
+_fullName.Subscribe(_ => Notify(nameof(FullName)));`,
+      },
+    ],
+  },
+  {
+    id: "generators",
+    title: "Source generators",
+    blocks: [
+      {
+        type: "p",
+        text: "Add Plugin.Maui.MVVMExpress.SourceGenerators with PrivateAssets=all. Attributes live in Core. Types must be partial. Then call services.AddGeneratedViewModels(). Hand-written SetProperty and Map<TViewModel> remain valid.",
+      },
+      {
+        type: "code",
+        code: `[RegisterViewModel]
+[Route("generated")]
+[RequiresAuth]
+public partial class GeneratedCatalogViewModel : ViewModel
+{
+    [Notify]
+    [NotifyAlso(nameof(Label))]
+    private string _query = "";
+
+    [Notify]
+    [PersistState]
+    private string _draft = "";
+
+    public string Label => $"Q: {Query}";
+
+    [ModelCommand]
+    private void Clear() => Query = "";
+}
+
+services.AddGeneratedViewModels();`,
       },
     ],
   },
@@ -724,7 +823,7 @@ await Products.LoadMoreAsync(ct);`,
     blocks: [
       {
         type: "p",
-        text: "In-memory IAuthState, ICache, and IConnectivityProbe exist for samples and tests. Production apps adapt sibling plugins instead of shipping those types.",
+        text: "In-memory IAuthState, ICache, ICachedFetcher, and IConnectivityProbe exist for samples and tests. Production apps adapt sibling plugins instead of shipping those types.",
       },
       {
         type: "code",
@@ -789,14 +888,15 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
         headers: ["Sample", "ViewModels", "What it integrates"],
         rows: [
           ["Basic", "CounterViewModel", "ViewModel, SetProperty, NotifyDependsOn, ModelCommand"],
-          ["CRUD", "ProductList / ProductEdit", "AsyncState, AsyncModelCommand, ObservableRangeCollection, BusyGate, MessageHub, IValidator"],
-          ["Navigation", "Home / ProductDetails", "PageViewModel, INavigator, IAcceptNavArgs<T>, IAcceptNavQuery, INotifier toast"],
+          ["CRUD", "ProductList / ProductEdit", "FormViewModel dirty / undo / redo, AsyncState, IValidator"],
+          ["Navigation", "Home / ProductDetails / ScopedCatalog", "PageViewModel, INavigator, IAcceptNavArgs<T>, IAcceptNavQuery, INotifier toast, IViewModelScopeFactory"],
           ["Page stack", "PageStack / PageStackItem", "IPageNavigator, URI query, Stack / CanGoBack / PopToRoot / Replace / Reset"],
           ["Auth", "Login / SecureHome", "IAuthState, GuardedNavigator — adapt SecureSession in production"],
-          ["Offline", "OfflineCatalogViewModel", "ICache + IConnectivityProbe — adapt ApiCache / OfflineSync"],
+          ["Offline", "OfflineCatalogViewModel", "ICachedFetcher + FetchPolicy — adapt ApiCache / OfflineSync"],
           ["Pagination", "PagedProductViewModel", "DelegatePagedCollection load-more + refresh"],
-          ["Reactive", "SearchViewModel", "SearchQuery debounce + NotifyDependsOn (Rx package not required)"],
-          ["Enterprise", "EnterpriseShellViewModel", "Hub, busy, probe, IDialogs, auth gate, IMainThread"],
+          ["Reactive", "SearchViewModel", "SearchQuery debounce + PropertyObservable.CombineLatest"],
+          ["Enterprise", "EnterpriseShell / CatalogStatus", "Child composition, IFeatureSwitch, hub, busy, probe, auth gate"],
+          ["Generated", "GeneratedCatalogViewModel", "[Notify], [ModelCommand], [PersistState], [RegisterViewModel], [Route], [RequiresAuth]"],
         ],
       },
     ],
@@ -814,8 +914,8 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
           "Do not bind a non-virtualized StackLayout to thousands of rows. Pagination + CollectionView virtualization are required at mid/large scale.",
           "Do not store tokens on the ViewModel. Use Plugin.Maui.SecureSession.",
           "Do not treat MAUI Connectivity as validated internet. Adapt Plugin.Maui.NetworkMonitor.",
-          "Do not enable convention View/ViewModel scanning as the only AOT registration path.",
-          "Source generators and the Reactive package are not packed. Hand-write properties and commands.",
+          "Do not enable convention View/ViewModel scanning as the only AOT registration path. Prefer AddGeneratedViewModels.",
+          "Hand-written SetProperty and Map<TViewModel> remain valid. Generators are an accelerator.",
         ],
       },
     ],
@@ -852,5 +952,15 @@ export const relatedAdapters = [
     name: "Plugin.Maui.FeatureFlags",
     slug: "plugin-maui-feature-flags",
     why: "IFeatureSwitch adapter for rollouts.",
+  },
+  {
+    name: "Plugin.Maui.DeepLinks",
+    slug: "plugin-maui-deep-links",
+    why: "App Links / Universal Links into INavigator route + query.",
+  },
+  {
+    name: "Plugin.Maui.PermissionFlow",
+    slug: "plugin-maui-permission-flow",
+    why: "IPermissionGate adapter for permission UX.",
   },
 ] as const;

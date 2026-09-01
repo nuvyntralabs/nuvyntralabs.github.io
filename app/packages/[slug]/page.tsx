@@ -168,8 +168,8 @@ export default async function PackagePage({ params }: PageProps) {
               <Link href={pkg.guides.technical} className="glass-card focusable block h-full p-5 hover:shadow-glow">
                 <p className="font-semibold text-foreground">Documentation</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  ViewModels, commands, DI, messaging, Shell and page navigation, dialogs, adapters,
-                  operation pipeline, and the published roadmap.
+                  ViewModels, commands, DI, messaging, navigation, forms, Reactive, generators,
+                  operation pipeline, and the shipped roadmap.
                 </p>
               </Link>
             </li>
@@ -177,8 +177,8 @@ export default async function PackagePage({ params }: PageProps) {
               <Link href={pkg.guides.integration} className="glass-card focusable block h-full p-5 hover:shadow-glow">
                 <p className="font-semibold text-foreground">Getting started</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Install, host registration, first ViewModel, commands, Shell and page navigation,
-                  dialogs, toast, validation, pagination, adapters, and tests.
+                  Install, host registration, first ViewModel, commands, navigation, dialogs,
+                  forms, generators, pagination, adapters, and tests.
                 </p>
               </Link>
             </li>

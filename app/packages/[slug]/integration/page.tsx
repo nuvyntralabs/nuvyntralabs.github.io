@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!pkg?.guides) return {};
 
   const title = `${pkg.title} getting started`;
-  const description = `Install, register, and wire ${pkg.name} ViewModels, commands, Shell and page navigation, dialogs, toast, validation, pagination, and MauiEssentials adapters.`;
+  const description = `Install, register, and wire ${pkg.name} ViewModels, commands, Shell and page navigation, dialogs, toast, validation, forms, generators, pagination, and MauiEssentials adapters.`;
 
   return {
     title,
@@ -47,7 +47,7 @@ export default async function PackageIntegrationPage({ params }: PageProps) {
       kind="integration"
       eyebrow="Getting started"
       title={`Get started with ${pkg.title}`}
-      description="From NuGet install to a testable ViewModel: host registration, AsyncState, commands, collections, messaging, MauiShellNavigator, MauiPageNavigator, dialogs, toast, validation, pagination, auth/offline adapters, and the sample map."
+      description="From NuGet install to a testable ViewModel: host registration, AsyncState, commands, collections, messaging, navigation, dialogs, toast, validation, forms, generators, Reactive, pagination, auth/offline adapters, and the sample map."
       sections={integrationSections}
       currentHref={integrationHref}
     />

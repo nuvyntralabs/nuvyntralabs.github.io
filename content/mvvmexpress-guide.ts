@@ -48,6 +48,7 @@ export const guideNav: GuideNavGroup[] = [
       { title: "Commands", href: `${docsBase}/commands/`, topic: "commands" },
       { title: "Dependency injection", href: `${docsBase}/dependency-injection/`, topic: "dependency-injection" },
       { title: "Messaging", href: `${docsBase}/messaging/`, topic: "messaging" },
+      { title: "Reactive", href: `${docsBase}/reactive/`, topic: "reactive" },
     ],
   },
   {
@@ -57,6 +58,7 @@ export const guideNav: GuideNavGroup[] = [
       { title: "Navigation", href: `${docsBase}/navigation/`, topic: "navigation" },
       { title: "Dialogs", href: `${docsBase}/dialogs/`, topic: "dialogs" },
       { title: "Validation", href: `${docsBase}/validation/`, topic: "validation" },
+      { title: "Forms", href: `${docsBase}/forms/`, topic: "forms" },
       { title: "Lists and search", href: `${docsBase}/lists/`, topic: "lists" },
     ],
   },
@@ -79,8 +81,8 @@ export const guideNav: GuideNavGroup[] = [
     ],
   },
   {
-    id: "future",
-    title: "Future",
+    id: "release",
+    title: "Release",
     items: [
       { title: "Source generators", href: `${docsBase}/generators/`, topic: "generators" },
       { title: "Roadmap", href: `${docsBase}/roadmap/`, topic: "roadmap" },
@@ -112,13 +114,13 @@ const introSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path. Application model covers ViewModels, commands, DI, and messaging. Application shell covers navigation, dialogs, validation, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Future tracks generators and the published roadmap.",
+        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
       },
       {
         type: "ul",
         items: [
-          "Shipped in 0.3.0-preview means types exist and tests exist.",
-          "Later / Phase 3–5 means designed, not packed. Samples may already hint at the shape.",
+          "Shipped in 0.5.0-preview means types exist and tests exist. Phases 1–5 are complete.",
+          "1.0.0 waits on design-review sign-off. Known limitations are accepted 1.0 scope, not remaining product work.",
           "Type names stay unique so CommunityToolkit.Mvvm or Prism can sit in the same app if you need them.",
         ],
       },
@@ -152,7 +154,7 @@ export const guideTopics: GuideTopic[] = [
           },
           {
             type: "p",
-            text: "NotifyDependsOn raises a named set of dependents. Prefer that over PropertyChanged(null), which forces every binding to refresh. There is no [ObservableProperty] in 0.3.0 — write the field and the property, or wait for [Notify] in Phase 4.",
+            text: "NotifyDependsOn raises a named set of dependents. Prefer that over PropertyChanged(null), which forces every binding to refresh. Hand-write the field and the property, or mark a partial class with [Notify] / [NotifyAlso] from the SourceGenerators package.",
           },
           {
             type: "code",
@@ -203,7 +205,7 @@ export const guideTopics: GuideTopic[] = [
           {
             type: "callout",
             title: "CancelOperationsOnDisappear",
-            text: "UseMvvmExpress accepts MvvmExpressOptions.CancelOperationsOnDisappear. The option exists; the current lifecycle behavior calls OnDisappearingAsync and does not yet cancel the token on disappear. Dispose is the guaranteed cancel path in 0.3.0.",
+            text: "UseMvvmExpress accepts MvvmExpressOptions.CancelOperationsOnDisappear and EnableDiagnostics. CancelOperationsOnDisappear is stored; the current lifecycle behavior calls OnDisappearingAsync and does not cancel the token on disappear. Dispose is the guaranteed cancel path.",
           },
         ],
       },
@@ -261,7 +263,7 @@ await Products.LoadAsync(token => catalog.ListAsync(token), ct);
         blocks: [
           {
             type: "p",
-            text: "AsyncModelCommand runs through CanExecute, a concurrency gate, optional timeout, optional retry, then the delegate. IsRunning is atomic. Cancel and ViewModel.Dispose cancel in-flight work. Shipped ConcurrencyMode values are Prevent (second execute is a no-op) and CancelPrevious (second execute cancels the first).",
+            text: "AsyncModelCommand runs through IOperationExecutor: CanExecute, a concurrency gate, optional timeout, optional retry, optional debounce / throttle, then the delegate. IsRunning is atomic. Cancel and ViewModel.Dispose cancel in-flight work. ConcurrencyMode values are Prevent, CancelPrevious, Queue, Allow, and Replace.",
           },
           {
             type: "code",
@@ -278,8 +280,8 @@ await Products.LoadAsync(token => catalog.ListAsync(token), ct);
           },
           {
             type: "callout",
-            title: "Not on the command yet",
-            text: "Allow, Queue, and Replace concurrency modes are designed for later. Debounce and throttle do not live on AsyncCommandOptions. SearchQuery already debounces text search (default 300 ms).",
+            title: "Search vs command debounce",
+            text: "AsyncCommandOptions.Debounce and Throttle apply to the command itself. SearchQuery still owns text-search debounce (default 300 ms, minimum length 2) and cancels the previous query.",
           },
         ],
       },
@@ -323,7 +325,7 @@ services.AddMvvmExpress();`,
           },
           {
             type: "p",
-            text: "UseMvvmExpress has an optional Action<MvvmExpressOptions>. AddMvvmExpress does not. There is no AddViewModel<T>, AddView<TView, TViewModel>, AddNavigation, or AddDialogs helper in 0.3.0. Register ViewModels yourself until generators ship.",
+            text: "UseMvvmExpress has an optional Action<MvvmExpressOptions> (CancelOperationsOnDisappear, EnableDiagnostics). AddMvvmExpress does not. There is no AddViewModel<T>, AddView<TView, TViewModel>, AddNavigation, or AddDialogs helper. Mark ViewModels with [RegisterViewModel] and call AddGeneratedViewModels, or register them yourself.",
           },
         ],
       },
@@ -338,8 +340,12 @@ services.AddMvvmExpress();`,
               ["IMessageHub", "MessageHub", "Keep"],
               ["IBusyGate", "BusyGate", "Keep"],
               ["IErrorSink", "NullErrorSink", "App logger sink"],
-              ["ICache", "MemoryCache", "Plugin.Maui.ApiCache adapter"],
+              ["ICache / ICachedFetcher", "MemoryCache / CachedFetcher", "Plugin.Maui.ApiCache adapter"],
               ["IConnectivityProbe", "InMemoryConnectivityProbe", "Plugin.Maui.NetworkMonitor adapter"],
+              ["IOperationExecutor", "OperationExecutor", "Keep"],
+              ["IViewModelScopeFactory", "ServiceViewModelScopeFactory", "Keep"],
+              ["IFeatureSwitch", "MemoryFeatureSwitch", "Plugin.Maui.FeatureFlags adapter"],
+              ["IStateStore", "MemoryStateStore", "App persist store"],
               ["IWindowContext", "WindowContext.Default", "MauiWindowContext.Current"],
               ["IWindowNavigatorRegistry", "WindowNavigatorRegistry", "Keep; register per window"],
               ["INavigator / IPageNavigator", "InMemoryNavigator", "MauiShellNavigator / MauiPageNavigator"],
@@ -424,6 +430,13 @@ hub.Publish(new CartChanged(productId));`,
         ],
       },
     ],
+  },
+  {
+    slug: "reactive",
+    title: "Reactive",
+    description:
+      "IPropertyObservable and CombineLatest without System.Reactive. Core stays Rx-free.",
+    sections: [section("reactive", integrationSections)],
   },
   {
     slug: "navigation",
@@ -516,11 +529,11 @@ public sealed class ProductDetailsViewModel : PageViewModel,
         blocks: [
           {
             type: "p",
-            text: "CanNavigateAwayAsync on INavigable / PageViewModel can block a dirty form. GuardedNavigator wraps IAuthState so unauthenticated navigation fails as Outcome instead of opening the page. [RequiresAuth] / [RequiresRole] are Phase 4 markers, not runtime attributes yet.",
+            text: "CanNavigateAwayAsync on INavigable / FormViewModel is false while IsDirty. GuardedNavigator wraps IAuthState so unauthenticated navigation fails as Outcome instead of opening the page. [RequiresAuth] / [RequiresRole] feed INavigationAuthPolicy via MvvmExpressGeneratedRegistrations.AuthPolicy.",
           },
           {
             type: "p",
-            text: "MVVMExpress does not ship Prism-style regions. Child ViewModel composition is Phase 3. Deep-link mapping through Plugin.Maui.DeepLinks is Phase 4.",
+            text: "Child ViewModels attach through IViewModelComposer.Attach and receive propagated lifecycle. Page scopes use IViewModelScopeFactory / ScopedNavigator. Deep-link mapping is a sample DeepLinkRouteMap — compose Plugin.Maui.DeepLinks in production. MVVMExpress does not ship Prism-style regions.",
           },
         ],
       },
@@ -612,11 +625,18 @@ if (!summary.IsValid)
           },
           {
             type: "p",
-            text: "XAML Validation.For remains Plugin.Maui.FormValidation. FormViewModel, FormField, dirty state, and undo/redo are Phase 3.",
+            text: "XAML Validation.For remains Plugin.Maui.FormValidation. FormViewModel, FormField, dirty state, and undo/redo ship in Core — see Forms.",
           },
         ],
       },
     ],
+  },
+  {
+    slug: "forms",
+    title: "Forms",
+    description:
+      "FormViewModel, FormField, dirty navigation guard, and undo / redo — Core types, no MAUI.",
+    sections: [section("forms", integrationSections)],
   },
   {
     slug: "lists",
@@ -646,7 +666,7 @@ items.ReplaceRange(next);`,
         blocks: [
           {
             type: "p",
-            text: "PagedCollection<T> / DelegatePagedCollection<T> own load-more, refresh, and retry. SearchQuery debounces text (default 300 ms, minimum length 2) and cancels the previous query. The Reactive sample uses SearchQuery — the Reactive package is not required.",
+            text: "PagedCollection<T> / DelegatePagedCollection<T> own load-more, refresh, and retry. SearchQuery debounces text (default 300 ms, minimum length 2) and cancels the previous query. The Reactive sample pairs SearchQuery with PropertyObservable.CombineLatest.",
           },
           {
             type: "code",
@@ -664,7 +684,7 @@ await Products.LoadMoreAsync(ct);`,
     slug: "packages",
     title: "Packages",
     description:
-      "How the family is split, what is packed in 0.3.0, and why optional packages stay optional.",
+      "How the family is split, what is packed in 0.5.0, and why optional packages stay optional.",
     sections: [
       section("packages"),
       {
@@ -673,11 +693,11 @@ await Products.LoadMoreAsync(ct);`,
         blocks: [
           {
             type: "p",
-            text: "A shared ViewModel library can reference Core only. A MAUI host adds Plugin.Maui.MVVMExpress. Navigation, Dialogs, Validation, Pagination, and Testing are separate nupkgs. Reactive and SourceGenerators exist in the repo as marker projects and are not packed.",
+            text: "A shared ViewModel library can reference Core only. A MAUI host adds Plugin.Maui.MVVMExpress. Navigation, Dialogs, Validation, Pagination, Reactive, SourceGenerators, Compatibility, and Testing are separate nupkgs.",
           },
           {
             type: "p",
-            text: "This is the modularity story for 0.3.0. There is no IModule catalog, no module loader, and no region manager. Feature slices of the app are ordinary class libraries that register services on IServiceCollection.",
+            text: "There is no IModule catalog, no module loader, and no region manager. Feature slices of the app are ordinary class libraries that register services on IServiceCollection. AddGeneratedViewModels is the AOT registration path.",
           },
         ],
       },
@@ -720,9 +740,9 @@ await Products.LoadMoreAsync(ct);`,
             type: "table",
             headers: ["Package", "TFMs", "MAUI?"],
             rows: [
-              ["Core, Validation, Pagination, Testing", "net10.0", "No"],
+              ["Core, Validation, Pagination, Testing, Reactive, Compatibility", "net10.0", "No"],
               ["Host, Navigation, Dialogs", "net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+)", "Yes"],
-              ["Reactive, SourceGenerators", "Not packed", "—"],
+              ["SourceGenerators", "Roslyn analyzer / generator", "—"],
             ],
           },
           {
@@ -739,34 +759,32 @@ await Products.LoadMoreAsync(ct);`,
     slug: "pipeline",
     title: "Operation pipeline",
     description:
-      "The designed backbone for busy, cancel, timeout, retry, and Outcome — what ships on commands today versus IOperationExecutor later.",
+      "IOperationExecutor: busy, cancel, timeout, retry, debounce, throttle, queue, and Outcome on one entry.",
     sections: [
       {
         id: "today",
-        title: "What ships today",
+        title: "IOperationExecutor",
         blocks: [
           {
             type: "p",
-            text: "Commands, AsyncState, and SearchQuery each own a slice of the pipeline. AsyncModelCommand: CanExecute → concurrency gate → timeout → retry → execute → IsRunning → error sink → Outcome. SearchQuery: debounce + cancel previous. There is no IOperationExecutor type in 0.3.0.",
+            text: "AddMvvmExpress registers OperationExecutor. AsyncModelCommand, ExecuteBusyAsync, and app services can share one pipeline: busy + cancellation + timeout + retry + debounce / throttle + concurrency + Outcome. That is not a Polly clone and not a ReactiveCommand clone. HTTP resilience still belongs in Plugin.Maui.ApiResilience.",
           },
           {
             type: "code",
             code: `CanExecute
-  → concurrency (Prevent | CancelPrevious)
+  → concurrency (Prevent | CancelPrevious | Queue | Allow | Replace)
+  → debounce / throttle
   → timeout
   → retry
   → execute
-  → IsRunning / error sink / Outcome`,
-          },
-        ],
-      },
-      {
-        id: "later",
-        title: "Designed later",
-        blocks: [
-          {
-            type: "p",
-            text: "Phase 3 completes debounce, throttle, and queue on the command itself, plus a shared IOperationExecutor so pagination and ExecuteBusyAsync go through one entry. That is not a Polly clone and not a ReactiveCommand clone. Until it ships, put shared retry policy in the app service or in Plugin.Maui.ApiResilience.",
+  → IsRunning / error sink / Outcome
+
+await executor.RunAsync(ct => catalog.ListAsync(ct), new OperationOptions
+{
+    Timeout = TimeSpan.FromSeconds(15),
+    RetryCount = 2,
+    Concurrency = ConcurrencyMode.Prevent,
+}, ct);`,
           },
         ],
       },
@@ -784,7 +802,7 @@ await Products.LoadMoreAsync(ct);`,
         blocks: [
           {
             type: "p",
-            text: "Plugin.Maui.MVVMExpress.Testing is net10.0 and depends on Core. Put ViewModels in a shared net10.0 project so they run without MAUI. InMemoryNavigator implements IPageNavigator for tests.",
+            text: "Plugin.Maui.MVVMExpress.Testing is net10.0 and depends on Core. Put ViewModels in a shared net10.0 project so they run without MAUI. InMemoryNavigator implements IPageNavigator for tests. Also: FakeMainThread, FakeConnectivity, FakeMessageHub, AppearAsync / DisappearAsync, and ScopedNavigator for page-scope push/pop GC.",
           },
           {
             type: "code",
@@ -820,32 +838,40 @@ Assert.True(LeakProbe.IsCollected(() =>
     slug: "generators",
     title: "Source generators",
     description:
-      "Phase 4 accelerator: [Notify], command attributes, register, and routes. Hand-write everything until they ship.",
+      "[Notify], command attributes, register, routes, persist, and auth — packed in 0.5.0-preview.",
     sections: [
       {
         id: "status",
-        title: "Not packed",
+        title: "Shipped",
         blocks: [
           {
             type: "callout",
-            title: "Phase 4",
-            text: "Plugin.Maui.MVVMExpress.SourceGenerators is a marker project. IsPackable is false. Attributes may appear in Core later as no-ops so samples can adopt names early. Until then, write properties and commands by hand.",
+            title: "0.5.0-preview",
+            text: "Plugin.Maui.MVVMExpress.SourceGenerators is packed. Attributes live in Core. Types must be partial. Call services.AddGeneratedViewModels(). Hand-written SetProperty and Map<TViewModel> remain valid.",
           },
           {
             type: "table",
-            headers: ["Attribute (designed)", "Generates", "Phase"],
+            headers: ["Attribute", "Generates"],
             rows: [
-              ["[Notify]", "Property + changing/changed + dependents", "4"],
-              ["[ModelCommand] / [AsyncModelCommand]", "Command property + CanExecute hookup", "4"],
-              ["[RegisterViewModel] / [RegisterView]", "IServiceCollection extension", "4"],
-              ["[Route]", "Route table for Shell / navigator", "4"],
-              ["[PersistState]", "Save/restore members", "4"],
-              ["[RequiresAuth] / [RequiresRole]", "Guard metadata", "4"],
+              ["[Notify] / [NotifyAlso]", "Property + changing/changed + dependents"],
+              ["[ModelCommand] / [AsyncModelCommand]", "Command property + CanExecute hookup"],
+              ["[RegisterViewModel] / [RegisterView]", "IServiceCollection extension"],
+              ["[Route]", "Route table for Shell / navigator"],
+              ["[PersistState]", "Save/restore members via IStateStore"],
+              ["[RequiresAuth] / [RequiresRole]", "Guard metadata for INavigationAuthPolicy"],
             ],
           },
           {
+            type: "code",
+            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="0.5.0-preview" PrivateAssets="all" />
+
+services.AddGeneratedViewModels();
+MvvmExpressGeneratedRegistrations.ApplyRoutes((type, route) => navigator.Map(type, route));
+var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrations.AuthPolicy);`,
+          },
+          {
             type: "p",
-            text: "Convention scan of *Page / *ViewModel is a debug fallback, not the AOT path. Typed NavigateToAsync<TViewModel>() and explicit Map<TViewModel> are the supported registration story today.",
+            text: "Convention scan of *Page / *ViewModel is a debug fallback, not the AOT path. Typed NavigateToAsync<TViewModel>() and generated registrations are the supported story.",
           },
         ],
       },
@@ -855,7 +881,7 @@ Assert.True(LeakProbe.IsCollected(() =>
     slug: "roadmap",
     title: "Roadmap",
     description:
-      "Shipped phases, what 0.4–1.0 will add, and what is explicitly deferred past 1.0.",
+      "Phases 1–5 are shipped in 0.5.0-preview. 1.0.0 waits on design-review sign-off.",
     sections: [
       {
         id: "versions",
@@ -863,77 +889,45 @@ Assert.True(LeakProbe.IsCollected(() =>
         blocks: [
           {
             type: "p",
-            text: "Versioning is preview until 1.0. After 1.0.0, SemVer applies and a breaking API change requires a major version. Current public packages are 0.3.0-preview.",
+            text: "Versioning is preview until 1.0. After 1.0.0, SemVer applies and a breaking API change requires a major version. Current public packages are 0.5.0-preview. Shipped public APIs are the 1.0 contract.",
           },
           {
             type: "table",
             headers: ["Version", "Meaning"],
             rows: [
               ["0.1.0-design", "Documents + solution skeleton"],
-              ["0.1.0-preview", "Core + host + Shell navigator + dialogs + validation + pagination"],
-              ["0.3.0-preview", "Phase 2 complete — page host, URI stack, toast, multi-window (current)"],
-              ["0.4.x", "Phase 3 — Reactive, forms, offline abstractions"],
-              ["0.5.x", "Phase 4 — generators, restoration, compatibility"],
-              ["1.0.0", "Phase 5 — AOT sample, device RSS, migration guides, stable API"],
+              ["0.1.0-preview", "Phase 1 — Core + host + Shell navigator + dialogs + validation + pagination"],
+              ["0.3.0-preview", "Phase 2 — page host, URI stack, toast, multi-window"],
+              ["0.4.0-preview", "Phase 3 — forms, Reactive, cache policies, pipeline, scopes"],
+              ["0.5.0-preview", "Phases 4–5 — generators, persist/auth, productization (current)"],
+              ["1.0.0", "SemVer lock after design-review sign-off only"],
             ],
           },
         ],
       },
       {
         id: "shipped",
-        title: "Shipped (0.3.0-preview)",
+        title: "Shipped (0.5.0-preview)",
         blocks: [
           {
             type: "ul",
             items: [
-              "Phase 1: ObservableModel, commands (prevent / cancel-previous, timeout, retry), ViewModel lifecycle, AsyncState, Outcome, MessageHub, AddMvvmExpress / UseMvvmExpress, leak and scale tests.",
-              "Phase 2: INavigator, MauiShellNavigator, MauiPageNavigator, URI stack, dictionary/URI args, IWindowContext, GuardedNavigator, IDialogs, MauiNotifier toast, IValidator, PagedCollection, SearchQuery, Testing fakes.",
-              "Samples: Basic, CRUD, Navigation, Page stack, Auth, Offline, Pagination, Reactive (SearchQuery), Enterprise.",
+              "Phase 1: ObservableModel, commands, ViewModel lifecycle, AsyncState, Outcome, MessageHub, AddMvvmExpress / UseMvvmExpress, leak and scale tests.",
+              "Phase 2: INavigator, MauiShellNavigator, MauiPageNavigator, URI stack, dictionary/URI args, IWindowContext, GuardedNavigator, IDialogs, MauiNotifier toast, IValidator, PagedCollection, SearchQuery.",
+              "Phase 3: FormViewModel, IPropertyObservable / CombineLatest, ICachedFetcher, IOperationExecutor, command debounce / throttle / queue, child composition, IViewModelScopeFactory, IFeatureSwitch / IPermissionGate / IFileStore / IMediaPicker.",
+              "Phase 4: [Notify], command / register / route / persist / auth attributes, AddGeneratedViewModels, DeepLinkRouteMap sample, CommunityToolkitMessageHub, IStateStore, IMvvmExpressDiagnostics.",
+              "Phase 5: migration guides, AOT/trim notes, BenchmarkDotNet, Testing fakes, ScopedNavigator pop-GC, NuGet SourceLink / snupkg / tags.",
             ],
           },
         ],
       },
       {
-        id: "phase3",
-        title: "Phase 3 — Depth (0.4.x)",
+        id: "gate",
+        title: "Open gate to 1.0.0",
         blocks: [
           {
             type: "p",
-            text: "Reactive package (IPropertyObservable / CombineLatest; System.Reactive optional, never in Core). ICache fetch policies as adapters, not a database. FormViewModel, FormField, IDirtyState, undo/redo. File / media / permission / auth / flag abstractions. Child ViewModel composition and scopes. Command debounce, throttle, and queue.",
-          },
-          {
-            type: "p",
-            text: "Exit: a form with a dirty guard plus search-with-debounce tests pass without MAUI.",
-          },
-        ],
-      },
-      {
-        id: "phase4",
-        title: "Phase 4 — Generators and restoration (0.5.x)",
-        blocks: [
-          {
-            type: "p",
-            text: "[Notify] and command attributes. [RegisterView] / [RegisterViewModel] / [Route]. Deep-link mapping with a Plugin.Maui.DeepLinks sample. [PersistState]. Diagnostics off in Release. Optional CommunityToolkit compatibility adapters. [RequiresAuth] / [RequiresRole].",
-          },
-          {
-            type: "p",
-            text: "Exit: generator snapshot tests; a trimmed sample registers views without a reflection scan.",
-          },
-        ],
-      },
-      {
-        id: "phase5",
-        title: "Phase 5 — Productization (1.0.0)",
-        blocks: [
-          {
-            type: "ul",
-            items: [
-              "Device RSS versus budget on Android / iOS.",
-              "AOT + trim of the Enterprise sample.",
-              "Navigation pop GC on a real host, not only in-memory.",
-              "Migration notes from CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI — mapping, not a fork guide.",
-              "NuGet polish: SourceLink, snupkg, tags (README and license already ship).",
-            ],
+            text: "Design-review sign-off is a human decision, not remaining product work. Accepted 1.0 scope: host-process BenchmarkDotNet and ScaleProfile rather than device RSS; in-memory pop-GC rather than a device-window detach run; Windows / Mac Catalyst compile TFMs are not catalog-primary.",
           },
         ],
       },
