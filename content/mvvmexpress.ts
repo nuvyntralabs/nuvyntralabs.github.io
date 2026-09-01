@@ -1,8 +1,8 @@
 export const mvvmExpressSlug = "plugin-maui-mvvmexpress";
 
 export const mvvmExpressStatus = {
-  version: "0.1.1-preview",
-  note: "Public preview, not 1.0. Core, host DI, MauiShellNavigator, dialogs, validation, and pagination are implemented and tested. Source generators, Reactive, and a page-stack host are later. Public APIs may still change.",
+  version: "0.3.0-preview",
+  note: "Public preview, not 1.0. Core, host DI, Shell + page navigators, dialogs/toast, validation, and pagination are implemented and tested. Source generators and Reactive remain later. Public APIs may still change.",
 } as const;
 
 export type DocBlock =
@@ -34,14 +34,14 @@ export const packageFamily: { name: string; purpose: string; status: string; nug
   },
   {
     name: "Plugin.Maui.MVVMExpress.Navigation",
-    purpose: "MauiShellNavigator — map ViewModel types to Shell routes",
-    status: "Preview — no page-stack host yet",
+    purpose: "MauiShellNavigator + MauiPageNavigator — Shell routes, page stack, URI query",
+    status: "Implemented + tests",
     nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Navigation",
   },
   {
     name: "Plugin.Maui.MVVMExpress.Dialogs",
-    purpose: "IDialogs + MauiDialogs",
-    status: "Implemented",
+    purpose: "IDialogs + MauiDialogs + MauiNotifier toast",
+    status: "Implemented + tests",
     nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Dialogs",
   },
   {
@@ -83,8 +83,8 @@ export const technicalSections: DocSection[] = [
     blocks: [
       {
         type: "callout",
-        title: "0.1.1-preview",
-        text: "Public preview, not a 1.0. Core, host DI, MauiShellNavigator, dialogs, validation, and pagination are implemented and tested. Source generators, Reactive, and a page-stack host remain later. Public APIs may still change.",
+        title: "0.3.0-preview",
+        text: "Public preview, not a 1.0. Core, host DI, MauiShellNavigator, MauiPageNavigator, dialogs/toast, validation, and pagination are implemented and tested. Source generators and Reactive remain later. Public APIs may still change.",
       },
       {
         type: "p",
@@ -141,15 +141,28 @@ export const technicalSections: DocSection[] = [
     blocks: [
       {
         type: "code",
-        code: `Plugin.Maui.MVVMExpress.Core                 net10.0  (no MAUI)
-        ▲
-Plugin.Maui.MVVMExpress                      MAUI host (DI, lifecycle, dispatcher)
-        ▲
-        ├── Navigation
-        ├── Dialogs
-        ├── Validation
-        ├── Pagination
-        └── Reactive   (not packed)
+        code: `                    Application (MAUI host)
+                    UseMvvmExpress / AddMvvmExpress
+                               │
+     ┌────────────┬────────────┼────────────┬────────────┐
+     ▼            ▼            ▼            ▼            ▼
+ Navigation    Dialogs    Validation   Pagination    Reactive
+ Shell + page  alerts +     IValidator   PagedColl.   (not packed)
+ URI stack     toast
+     │            │            │            │            │
+     └────────────┴──────┬─────┴────────────┴────────────┘
+                         ▼
+                   Host package
+              (lifecycle, DI, dispatcher,
+               MauiWindowContext)
+                         │
+                         ▼
+                        Core
+         (no MAUI, no Rx, no FluentValidation)
+                         │
+         optional adapters ──── sibling plugins
+         NetworkMonitor · ApiCache · OfflineSync
+         SecureSession · FormValidation · FeatureFlags
 
 Plugin.Maui.MVVMExpress.SourceGenerators     later
 Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
@@ -180,16 +193,17 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
       },
       {
         type: "p",
-        text: "ViewModel adds Status, IsBusy, ViewModelCancellationToken, InitializeAsync / OnAppearingAsync / OnDisappearingAsync, and ExecuteAsync. Dispose cancels the token. The token stays readable after dispose (IsCancellationRequested is true). PageViewModel adds INavigable and optional INavigator / IDialogs.",
+        text: "ViewModel adds Status, IsBusy, ViewModelCancellationToken, InitializeAsync / OnAppearingAsync / OnDisappearingAsync, and ExecuteAsync. Dispose cancels the token. The token stays readable after dispose (IsCancellationRequested is true). PageViewModel adds INavigable and optional INavigator / IDialogs. Typed args are applied via IAcceptNavArgs<T>.Accept / IAcceptNavQuery.Accept before initialize.",
       },
       {
         type: "code",
         code: `Construct (DI)
+  → Accept(args) / Accept(query)    when IAcceptNavArgs / IAcceptNavQuery
   → InitializeAsync(token)          once
-  → OnNavigatedToAsync(ctx, token)
+  → OnNavigatedToAsync(token)
   → OnAppearingAsync(token)
   → OnDisappearingAsync(token)
-  → OnNavigatedFromAsync(ctx, token)
+  → OnNavigatedFromAsync(token)
   → Dispose  (cancels ViewModelCancellationToken)`,
       },
       {
@@ -216,13 +230,15 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
     blocks: [
       {
         type: "p",
-        text: "INavigator is host-agnostic. MauiShellNavigator (preview) maps a ViewModel type to a Shell route. A page-stack INavigation host is designed, not shipped. Prism.Maui does not support Shell and uses URI + dictionary parameters. MVVMExpress prefers NavigateToAsync<TViewModel, TArgs>(TArgs args) with record parameters and IAcceptNavArgs<T>.",
+        text: "INavigator is host-agnostic. MauiShellNavigator maps a ViewModel type to a Shell route. MauiPageNavigator / IPageNavigator maps a ViewModel type to a Page on INavigation. Prism.Maui does not support Shell and uses URI + dictionary parameters. MVVMExpress prefers NavigateToAsync<TViewModel, TArgs>(TArgs args) with record parameters and IAcceptNavArgs<T>, and also ships NavigateToAsync(route, query) with IAcceptNavQuery.",
       },
       {
         type: "ul",
         items: [
-          "Guards run OnNavigating → CanNavigateAwayAsync → host navigate → OnNavigatedFrom / OnNavigatedTo.",
+          "URI stack on every host: Current, Stack, ModalStack, CanGoBack, History, GoBackAsync, PopToRootAsync, ReplaceAsync, ResetAsync.",
+          "Guards run CanNavigateAwayAsync → host navigate → OnNavigatedFrom / OnNavigatedTo.",
           "GuardedNavigator wraps IAuthState so unauthenticated navigation can fail as Outcome instead of opening the page.",
+          "IWindowContext + WindowNavigatorRegistry key one navigator per window. MauiWindowContext / MauiVisualTree resolve the current Page.",
           "ViewModels never call Shell.Current. The page owns BindingContext; the navigator creates the page and resolves the ViewModel from the current IServiceScope.",
         ],
       },
@@ -248,7 +264,7 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
           ["Messenger", "IMessageHub", "IMessenger, IEventAggregator"],
           ["Navigation", "INavigator", "INavigationService"],
           ["Dialogs", "IDialogs", "IDialogService"],
-          ["Parameters", "typed records / IAcceptNavArgs<T>", "INavigationParameters"],
+          ["Parameters", "typed records / IAcceptNavArgs<T> / IAcceptNavQuery", "INavigationParameters"],
           ["Result", "Outcome / Outcome<T>", "competing Result<T> packages"],
         ],
       },
@@ -260,7 +276,7 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
     blocks: [
       {
         type: "p",
-        text: "Designed product surface, validated 2026-08-31 against CommunityToolkit.Mvvm 8.4, Prism.Maui 9, and ReactiveUI. This table does not claim MVVMExpress is faster than the others. Shipping versus designed is tracked in the repository FEATURE-MATRIX.md.",
+        text: "Designed product surface, validated 2026-09-01 against CommunityToolkit.Mvvm 8.4, Prism.Maui 9, and ReactiveUI. This table does not claim MVVMExpress is faster than the others. Shipping versus designed is tracked in the repository FEATURE-MATRIX.md.",
       },
       {
         type: "table",
@@ -269,9 +285,9 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
           ["Observable properties", "Yes", "Yes", "Yes", "Yes"],
           ["Commands / async commands", "Yes", "Yes", "Yes / Partial", "Yes"],
           ["Source generators", "Designed (not shipped)", "Yes", "No", "Yes"],
-          ["Navigation (Shell or page)", "Partial (Shell shipped)", "No", "Yes (page only)", "Yes"],
+          ["Navigation (Shell or page)", "Yes (Shell + page)", "No", "Yes (page only)", "Yes"],
           ["Lifecycle + cancellation", "Yes", "No", "Yes", "Yes"],
-          ["Dialogs", "Yes", "Separate", "Yes", "Extensions"],
+          ["Dialogs / toast", "Yes", "Separate", "Yes", "Extensions"],
           ["Validation", "Yes", "Yes", "Extensions", "Yes"],
           ["Reactive derived state", "Designed (not packed)", "No", "No", "Yes (Rx required)"],
           ["Pagination + refresh + search", "Yes", "No", "Extensions", "Extensions"],
@@ -390,7 +406,7 @@ export const integrationSections: DocSection[] = [
       {
         type: "callout",
         title: "Preview packages",
-        text: "Every packed package is 0.1.1-preview. Add --prerelease. Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
+        text: "Every packed package is 0.3.0-preview. Add --prerelease. Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
       },
       {
         type: "code",
@@ -443,7 +459,7 @@ services.AddMvvmExpress();`,
       },
       {
         type: "p",
-        text: "Minimal mode is Core + lifecycle + dispatcher + ViewModel resolve. Enterprise mode adds Navigation, Dialogs, Validation, Pagination, and app-supplied adapters for cache, offline, auth, and flags. EnableAutoRegistration stays false until generators ship — register ViewModels yourself.",
+        text: "Minimal mode is Core + lifecycle + dispatcher + ViewModel resolve. Enterprise mode adds Navigation, Dialogs, Validation, Pagination, and app-supplied adapters for cache, offline, auth, and flags. UseMvvmExpress accepts an optional MvvmExpressOptions (CancelOperationsOnDisappear). There is no AddNavigation or AddDialogs helper — register MauiShellNavigator, MauiPageNavigator, MauiDialogs, and MauiNotifier in the app. Register ViewModels yourself until generators ship.",
       },
     ],
   },
@@ -552,39 +568,61 @@ items.ReplaceRange(next);`,
   },
   {
     id: "navigation",
-    title: "Shell navigation",
+    title: "Shell and page navigation",
     blocks: [
       {
         type: "p",
-        text: "Add Plugin.Maui.MVVMExpress.Navigation. MauiShellNavigator maps a ViewModel type to a Shell route. Typed args use a record and IAcceptNavArgs<T> on the destination. GuardedNavigator wraps IAuthState for screens that require a session.",
+        text: "Add Plugin.Maui.MVVMExpress.Navigation. MauiShellNavigator maps a ViewModel type to a Shell route. MauiPageNavigator maps a ViewModel type to a Page. Typed args use a record and IAcceptNavArgs<T>.Accept on the destination. URI / dictionary args use IAcceptNavQuery. GuardedNavigator wraps IAuthState for screens that require a session.",
       },
       {
         type: "code",
-        code: `public sealed record ProductNavArgs(int ProductId);
+        code: `public sealed record ProductDetailsArgs(int ProductId);
 
-public sealed class ProductDetailsViewModel : PageViewModel, IAcceptNavArgs<ProductNavArgs>
+public sealed class ProductDetailsViewModel : PageViewModel,
+    IAcceptNavArgs<ProductDetailsArgs>, IAcceptNavQuery
 {
-    public ProductNavArgs Args { get; private set; } = new(0);
+    private int _productId;
 
-    public Task OnNavigatedToAsync(NavigationContext context, CancellationToken cancellationToken = default)
+    public void Accept(ProductDetailsArgs args) => _productId = args.ProductId;
+
+    public void Accept(IReadOnlyDictionary<string, object> query)
     {
-        if (context.Args is ProductNavArgs args)
+        if (query.TryGetValue(nameof(ProductDetailsArgs.ProductId), out var raw)
+            && int.TryParse(Convert.ToString(raw), out var id))
         {
-            Args = args;
+            _productId = id;
         }
-
-        return LoadAsync(cancellationToken);
     }
 }
 
-// from the source ViewModel
-await Navigator.NavigateToAsync<ProductDetailsViewModel, ProductNavArgs>(
-    new ProductNavArgs(product.Id),
+// typed
+await Navigator.NavigateToAsync<ProductDetailsViewModel, ProductDetailsArgs>(
+    new ProductDetailsArgs(product.Id), ct);
+
+// URI + dictionary query
+await Navigator.NavigateToAsync(
+    "details",
+    new Dictionary<string, object> { ["ProductId"] = product.Id },
     cancellationToken: ct);`,
       },
       {
         type: "p",
-        text: "Register Shell routes as you already do in AppShell. The navigator resolves the ViewModel from DI and assigns BindingContext. A page-stack (non-Shell) host is not shipped yet.",
+        text: "Page-stack host (INavigation / NavigationPage) uses IPageNavigator. Register one navigator per IWindowContext with WindowNavigatorRegistry.",
+      },
+      {
+        type: "code",
+        code: `IPageNavigator pages = new MauiPageNavigator(new WindowContext("main"), services)
+    .Map<PageStackViewModel, PageStackPage>("stack")
+    .Map<PageStackItemViewModel, PageStackItemPage>("stack-item");
+
+await pages.NavigateToAsync(
+    "stack-item",
+    new Dictionary<string, object> { ["Title"] = "Latte" });
+if (pages.CanGoBack)
+    await pages.GoBackAsync();
+await pages.PopToRootAsync();
+await pages.ReplaceAsync<PageStackViewModel>();
+await pages.ResetAsync<PageStackViewModel>();`,
       },
     ],
   },
@@ -594,13 +632,16 @@ await Navigator.NavigateToAsync<ProductDetailsViewModel, ProductNavArgs>(
     blocks: [
       {
         type: "p",
-        text: "Add Plugin.Maui.MVVMExpress.Dialogs and inject IDialogs. Tests use FakeDialogs from the Testing package.",
+        text: "Add Plugin.Maui.MVVMExpress.Dialogs. Inject IDialogs for alerts/confirm and INotifier for toast. Register MauiDialogs and MauiNotifier in the MAUI host. Tests use FakeDialogs from the Testing package (it implements both). Inject IToastPresenter to record toasts without a window.",
       },
       {
         type: "code",
         code: `public sealed class ProductEditViewModel : PageViewModel
 {
-    public ProductEditViewModel(IDialogs dialogs) { /* store dialogs */ }
+    public ProductEditViewModel(IDialogs dialogs, INotifier notifier)
+    {
+        /* store dialogs + notifier */
+    }
 
     public async Task DeleteAsync(CancellationToken cancellationToken)
     {
@@ -616,7 +657,8 @@ await Navigator.NavigateToAsync<ProductDetailsViewModel, ProductNavArgs>(
             return;
         }
 
-        await _catalog.DeleteAsync(Args.ProductId, cancellationToken);
+        await _catalog.DeleteAsync(_productId, cancellationToken);
+        await Notifier.ToastAsync("Deleted", cancellationToken: cancellationToken);
     }
 }`,
       },
@@ -740,7 +782,7 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
     blocks: [
       {
         type: "p",
-        text: "The repository sample is a flyout app. MauiProgram calls UseMvvmExpress(), then AddMvvmExpressSamples(), then replaces INavigator with GuardedNavigator around MauiShellNavigator.",
+        text: "The repository sample is a flyout app. MauiProgram calls UseMvvmExpress(), then AddMvvmExpressSamples(), then replaces INavigator with GuardedNavigator around MauiShellNavigator and IPageNavigator with MauiPageNavigator. Home → details supports typed args or a URI query; Page stack pushes onto INavigation and shows a MauiNotifier toast.",
       },
       {
         type: "table",
@@ -748,7 +790,8 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
         rows: [
           ["Basic", "CounterViewModel", "ViewModel, SetProperty, NotifyDependsOn, ModelCommand"],
           ["CRUD", "ProductList / ProductEdit", "AsyncState, AsyncModelCommand, ObservableRangeCollection, BusyGate, MessageHub, IValidator"],
-          ["Navigation", "Home / ProductDetails", "PageViewModel, INavigator, IAcceptNavArgs<T>, dirty-page guard"],
+          ["Navigation", "Home / ProductDetails", "PageViewModel, INavigator, IAcceptNavArgs<T>, IAcceptNavQuery, INotifier toast"],
+          ["Page stack", "PageStack / PageStackItem", "IPageNavigator, URI query, Stack / CanGoBack / PopToRoot / Replace / Reset"],
           ["Auth", "Login / SecureHome", "IAuthState, GuardedNavigator — adapt SecureSession in production"],
           ["Offline", "OfflineCatalogViewModel", "ICache + IConnectivityProbe — adapt ApiCache / OfflineSync"],
           ["Pagination", "PagedProductViewModel", "DelegatePagedCollection load-more + refresh"],

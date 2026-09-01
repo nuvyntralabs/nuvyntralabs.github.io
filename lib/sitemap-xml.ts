@@ -1,5 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { allGuideHrefs } from "../content/mvvmexpress-guide";
 import { packages } from "../content/packages";
 import { proofOfConcepts, researchProjects } from "../content/works";
 import { siteConfig } from "./site";
@@ -19,9 +20,10 @@ export function sitemapUrls(): string[] {
     ...packages.flatMap((item) =>
       item.guides ? [item.guides.technical, item.guides.integration] : [],
     ),
+    ...allGuideHrefs(),
   ];
 
-  return paths.map((path) =>
+  return [...new Set(paths)].map((path) =>
     path === "/" ? `${siteConfig.url}/` : `${siteConfig.url}${path}`,
   );
 }

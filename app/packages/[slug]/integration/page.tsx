@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PackageGuide } from "@/components/package-guide";
 import { documentedPackages, getPackageBySlug } from "@/content/packages";
 import { integrationSections, mvvmExpressSlug } from "@/content/mvvmexpress";
+import { integrationHref } from "@/content/mvvmexpress-guide";
 import { siteConfig } from "@/lib/site";
 
 interface PageProps {
@@ -20,8 +21,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const pkg = getPackageBySlug(slug);
   if (!pkg?.guides) return {};
 
-  const title = `${pkg.title} integration`;
-  const description = `Install, register, and wire ${pkg.name} ViewModels, commands, Shell navigation, dialogs, validation, pagination, and MauiEssentials adapters.`;
+  const title = `${pkg.title} getting started`;
+  const description = `Install, register, and wire ${pkg.name} ViewModels, commands, Shell and page navigation, dialogs, toast, validation, pagination, and MauiEssentials adapters.`;
 
   return {
     title,
@@ -44,10 +45,11 @@ export default async function PackageIntegrationPage({ params }: PageProps) {
     <PackageGuide
       pkg={pkg}
       kind="integration"
-      eyebrow="Integration documentation"
-      title={`Integrate ${pkg.title}`}
-      description="From NuGet install to a testable ViewModel: host registration, AsyncState, commands, collections, messaging, MauiShellNavigator, dialogs, validation, pagination, auth/offline adapters, and the sample map."
+      eyebrow="Getting started"
+      title={`Get started with ${pkg.title}`}
+      description="From NuGet install to a testable ViewModel: host registration, AsyncState, commands, collections, messaging, MauiShellNavigator, MauiPageNavigator, dialogs, toast, validation, pagination, auth/offline adapters, and the sample map."
       sections={integrationSections}
+      currentHref={integrationHref}
     />
   );
 }

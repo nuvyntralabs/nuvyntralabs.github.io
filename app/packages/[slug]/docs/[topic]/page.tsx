@@ -2,43 +2,52 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PackageGuide } from "@/components/package-guide";
 import { documentedPackages, getPackageBySlug } from "@/content/packages";
-import { docsBase, getGuideTopic } from "@/content/mvvmexpress-guide";
+import { docsBase, getGuideTopic, guideTopicSlugs } from "@/content/mvvmexpress-guide";
 import { mvvmExpressSlug } from "@/content/mvvmexpress";
 import { siteConfig } from "@/lib/site";
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; topic: string }>;
 }
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return documentedPackages.map((item) => ({ slug: item.slug }));
+  return documentedPackages.flatMap((item) =>
+    item.slug === mvvmExpressSlug
+      ? guideTopicSlugs().map((topic) => ({ slug: item.slug, topic }))
+      : [],
+  );
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, topic: topicSlug } = await params;
   const pkg = getPackageBySlug(slug);
-  const topic = getGuideTopic("introduction");
+  const topic = getGuideTopic(topicSlug);
   if (!pkg?.guides || !topic) return {};
 
+  const url = `${docsBase}/${topic.slug}/`;
+  const title = `${topic.title} · ${pkg.title}`;
+
   return {
-    title: `${pkg.title} documentation`,
+    title,
     description: topic.description,
-    alternates: { canonical: pkg.guides.technical },
+    alternates: { canonical: url },
     openGraph: {
-      title: `${pkg.title} documentation · ${siteConfig.shortName}`,
+      title: `${title} · ${siteConfig.shortName}`,
       description: topic.description,
-      url: pkg.guides.technical,
+      url,
     },
   };
 }
 
-export default async function PackageTechnicalDocsPage({ params }: PageProps) {
-  const { slug } = await params;
+export default async function PackageDocTopicPage({ params }: PageProps) {
+  const { slug, topic: topicSlug } = await params;
   const pkg = getPackageBySlug(slug);
-  const topic = getGuideTopic("introduction");
-  if (!pkg?.guides || pkg.slug !== mvvmExpressSlug || !topic) notFound();
+  const topic = getGuideTopic(topicSlug);
+  if (!pkg?.guides || pkg.slug !== mvvmExpressSlug || !topic || topic.slug === "introduction") {
+    notFound();
+  }
 
   return (
     <PackageGuide
@@ -48,7 +57,7 @@ export default async function PackageTechnicalDocsPage({ params }: PageProps) {
       title={topic.title}
       description={topic.description}
       sections={topic.sections}
-      currentHref={`${docsBase}/`}
+      currentHref={`${docsBase}/${topic.slug}/`}
     />
   );
 }

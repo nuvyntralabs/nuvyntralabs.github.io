@@ -69,7 +69,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core --prerelease`}</code>
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold">4. Application shell</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            For ViewModels, async state, Shell navigation, and dialogs, start with{" "}
+            For ViewModels, async state, Shell or page navigation, dialogs, and toast, start with{" "}
             <Link
               href="/packages/plugin-maui-mvvmexpress/"
               className="font-medium text-lavender-700 hover:text-lavender-900"

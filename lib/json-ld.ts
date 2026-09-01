@@ -90,10 +90,11 @@ export function packageGuideJsonLd(
   kind: "docs" | "integration",
   title: string,
   description: string,
+  articlePath?: string,
 ) {
-  const path = kind === "docs" ? pkg.guides?.technical : pkg.guides?.integration;
+  const path = articlePath ?? (kind === "docs" ? pkg.guides?.technical : pkg.guides?.integration);
   const pagePath = path ?? `/packages/${pkg.slug}/${kind}/`;
-  const label = kind === "docs" ? "Technical documentation" : "Integration";
+  const label = kind === "docs" ? "Documentation" : "Getting started";
 
   return [
     {

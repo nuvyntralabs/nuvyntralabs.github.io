@@ -9,9 +9,12 @@ import { Logo } from "@/components/logo";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+const mvvmExpressHref = "/packages/plugin-maui-mvvmexpress/";
+
 const links = [
   { href: "/", label: "Home" },
   { href: "/packages/", label: "Products" },
+  { href: mvvmExpressHref, label: "MVVMExpress" },
   { href: "/research/", label: "Research" },
   { href: "/pocs/", label: "POCs" },
   { href: "/about/", label: "About" },
@@ -20,6 +23,12 @@ const links = [
 function isActive(pathname: string, href: string) {
   if (href === "/") {
     return pathname === "/";
+  }
+  if (href === "/packages/") {
+    return (
+      (pathname === "/packages/" || pathname.startsWith("/packages/")) &&
+      !pathname.startsWith(mvvmExpressHref)
+    );
   }
   return pathname === href || pathname.startsWith(href);
 }

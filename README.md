@@ -13,8 +13,8 @@ Professional experience stays on
 | `/research/` | R&D projects (inspection, VoIP, GPS, bindings) |
 | `/pocs/` | Proofs of concept and maintained forks |
 | `/packages/` | .NET MAUI NuGet catalog |
-| `/packages/plugin-maui-mvvmexpress/docs/` | MVVMExpress technical documentation |
-| `/packages/plugin-maui-mvvmexpress/integration/` | MVVMExpress integration guide |
+| `/packages/plugin-maui-mvvmexpress/docs/` | MVVMExpress documentation (expander topics + roadmap) |
+| `/packages/plugin-maui-mvvmexpress/integration/` | MVVMExpress getting started |
 | `/getting-started/` | Install + compose plugins |
 
 ## Local development

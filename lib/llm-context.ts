@@ -53,8 +53,9 @@ Getting started: ${siteConfig.url}/getting-started/
 ${catalog}
 
 Package docs: ${siteConfig.url}/packages/<slug>/
-MVVMExpress technical docs: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/
-MVVMExpress integration: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/integration/
+MVVMExpress documentation: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/
+MVVMExpress getting started: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/integration/
+MVVMExpress roadmap: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/roadmap/
 GitHub for each plugin: ${siteConfig.githubOrg}/<PackageName>
 `;
 }

@@ -1,0 +1,983 @@
+import type { DocSection } from "@/content/mvvmexpress";
+import { integrationSections, mvvmExpressSlug, technicalSections } from "@/content/mvvmexpress";
+
+export const docsBase = `/packages/${mvvmExpressSlug}/docs`;
+export const integrationHref = `/packages/${mvvmExpressSlug}/integration/`;
+
+function section(id: string, from: DocSection[] = technicalSections): DocSection {
+  const match = from.find((item) => item.id === id);
+  if (!match) {
+    throw new Error(`Missing MVVMExpress doc section: ${id}`);
+  }
+  return match;
+}
+
+export interface GuideNavItem {
+  title: string;
+  href: string;
+  topic?: string;
+}
+
+export interface GuideNavGroup {
+  id: string;
+  title: string;
+  items: GuideNavItem[];
+}
+
+export interface GuideTopic {
+  slug: string;
+  title: string;
+  description: string;
+  sections: DocSection[];
+}
+
+export const guideNav: GuideNavGroup[] = [
+  {
+    id: "start",
+    title: "Start here",
+    items: [
+      { title: "Introduction", href: `${docsBase}/` },
+      { title: "Getting started", href: integrationHref },
+    ],
+  },
+  {
+    id: "model",
+    title: "Application model",
+    items: [
+      { title: "ViewModels", href: `${docsBase}/viewmodels/`, topic: "viewmodels" },
+      { title: "Commands", href: `${docsBase}/commands/`, topic: "commands" },
+      { title: "Dependency injection", href: `${docsBase}/dependency-injection/`, topic: "dependency-injection" },
+      { title: "Messaging", href: `${docsBase}/messaging/`, topic: "messaging" },
+    ],
+  },
+  {
+    id: "shell",
+    title: "Application shell",
+    items: [
+      { title: "Navigation", href: `${docsBase}/navigation/`, topic: "navigation" },
+      { title: "Dialogs", href: `${docsBase}/dialogs/`, topic: "dialogs" },
+      { title: "Validation", href: `${docsBase}/validation/`, topic: "validation" },
+      { title: "Lists and search", href: `${docsBase}/lists/`, topic: "lists" },
+    ],
+  },
+  {
+    id: "compose",
+    title: "Composition",
+    items: [
+      { title: "Packages", href: `${docsBase}/packages/`, topic: "packages" },
+      { title: "Adapters", href: `${docsBase}/adapters/`, topic: "adapters" },
+      { title: "Platforms", href: `${docsBase}/platforms/`, topic: "platforms" },
+    ],
+  },
+  {
+    id: "internals",
+    title: "Internals",
+    items: [
+      { title: "Operation pipeline", href: `${docsBase}/pipeline/`, topic: "pipeline" },
+      { title: "Testing", href: `${docsBase}/testing/`, topic: "testing" },
+      { title: "Memory and scale", href: `${docsBase}/memory/`, topic: "memory" },
+    ],
+  },
+  {
+    id: "future",
+    title: "Future",
+    items: [
+      { title: "Source generators", href: `${docsBase}/generators/`, topic: "generators" },
+      { title: "Roadmap", href: `${docsBase}/roadmap/`, topic: "roadmap" },
+    ],
+  },
+];
+
+const introSections: DocSection[] = [
+  section("status"),
+  {
+    id: "license",
+    title: "License",
+    blocks: [
+      {
+        type: "p",
+        text: "MVVMExpress is MIT licensed. There is no community-versus-commercial split and no revenue threshold. You may use the packages in commercial apps without a paid framework license. The SPDX identifier is MIT; LICENSE lives at the repository root and is packed with each nupkg.",
+      },
+      {
+        type: "p",
+        text: "That is a product choice, not a jab at other frameworks. If you already pay for a commercial MVVM stack, keep it. MVVMExpress exists so a MAUI team can take ViewModels, async state, and Shell or page navigation without a second license conversation.",
+      },
+    ],
+  },
+  section("why"),
+  section("principles"),
+  {
+    id: "how-to-read",
+    title: "How to read these docs",
+    blocks: [
+      {
+        type: "p",
+        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path. Application model covers ViewModels, commands, DI, and messaging. Application shell covers navigation, dialogs, validation, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Future tracks generators and the published roadmap.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Shipped in 0.3.0-preview means types exist and tests exist.",
+          "Later / Phase 3–5 means designed, not packed. Samples may already hint at the shape.",
+          "Type names stay unique so CommunityToolkit.Mvvm or Prism can sit in the same app if you need them.",
+        ],
+      },
+    ],
+  },
+  section("naming"),
+  section("comparison"),
+];
+
+export const guideTopics: GuideTopic[] = [
+  {
+    slug: "introduction",
+    title: "Introduction",
+    description:
+      "What MVVMExpress is, why it exists, the MIT license, design principles, and how these docs are organized.",
+    sections: introSections,
+  },
+  {
+    slug: "viewmodels",
+    title: "ViewModels",
+    description:
+      "ObservableModel, ViewModel lifecycle, PageViewModel, AsyncState, and Outcome — the bindable unit of work.",
+    sections: [
+      {
+        id: "observable",
+        title: "ObservableModel",
+        blocks: [
+          {
+            type: "p",
+            text: "ObservableModel is the INPC / INPChanging base. SetProperty compares with EqualityComparer<T>.Default and exits without raising events when the value is unchanged. PropertyChangedEventArgs are cached by property name so a hot bind path does not allocate a new args object on every raise.",
+          },
+          {
+            type: "p",
+            text: "NotifyDependsOn raises a named set of dependents. Prefer that over PropertyChanged(null), which forces every binding to refresh. There is no [ObservableProperty] in 0.3.0 — write the field and the property, or wait for [Notify] in Phase 4.",
+          },
+          {
+            type: "code",
+            code: `public sealed class CounterViewModel : ViewModel
+{
+    private int _count;
+
+    public int Count
+    {
+        get => _count;
+        set
+        {
+            if (SetProperty(ref _count, value))
+            {
+                NotifyDependsOn(nameof(Count), nameof(Label));
+            }
+        }
+    }
+
+    public string Label => $"Count {Count}";
+}`,
+          },
+        ],
+      },
+      {
+        id: "lifecycle",
+        title: "ViewModel lifecycle",
+        blocks: [
+          {
+            type: "p",
+            text: "ViewModel adds Status, IsBusy, ViewModelCancellationToken, InitializeAsync, OnAppearingAsync, OnDisappearingAsync, and ExecuteAsync. The token is created in the constructor and cancelled on Dispose. After dispose the token stays readable — IsCancellationRequested is true — so late continuations can still observe cancel.",
+          },
+          {
+            type: "code",
+            code: `Construct (DI)
+  → Accept(args) / Accept(query)    IAcceptNavArgs / IAcceptNavQuery
+  → InitializeAsync(token)          once
+  → OnNavigatedToAsync(token)
+  → OnAppearingAsync(token)
+  → OnDisappearingAsync(token)
+  → OnNavigatedFromAsync(token)
+  → Dispose                         cancels ViewModelCancellationToken`,
+          },
+          {
+            type: "p",
+            text: "PageViewModel implements INavigable and optionally holds INavigator and IDialogs. The page owns BindingContext. The ViewModel never holds Page. ViewModelLifecycleBehavior in the host package calls appear / disappear and unsubscribes on Unloaded.",
+          },
+          {
+            type: "callout",
+            title: "CancelOperationsOnDisappear",
+            text: "UseMvvmExpress accepts MvvmExpressOptions.CancelOperationsOnDisappear. The option exists; the current lifecycle behavior calls OnDisappearingAsync and does not yet cancel the token on disappear. Dispose is the guaranteed cancel path in 0.3.0.",
+          },
+        ],
+      },
+      {
+        id: "state",
+        title: "AsyncState and Outcome",
+        blocks: [
+          {
+            type: "p",
+            text: "AsyncState<T> is the bindable UI status object: Status, Data, Error, Exception, Timestamp, plus IsLoading, IsRefreshing, IsEmpty, HasError, and IsSuccess. ViewModelStatus values are Idle, Loading, Refreshing, Saving, Success, Empty, Error, Offline, Unauthorized, and Cancelled. LoadAsync and RefreshAsync return Outcome<T>.",
+          },
+          {
+            type: "p",
+            text: "Outcome / Outcome<T> is the library result type — success or failure with code, message, exception, validation, and metadata. The name is Outcome so it does not collide with FluentResults, LanguageExt, or an app-level Result<T>.",
+          },
+          {
+            type: "code",
+            code: `public AsyncState<IReadOnlyList<Product>> Products { get; } = new();
+
+await Products.LoadAsync(token => catalog.ListAsync(token), ct);
+// bind ItemsSource to Products.Data
+// bind IsRefreshing to Products.IsRefreshing`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "commands",
+    title: "Commands",
+    description:
+      "ModelCommand and AsyncModelCommand: CanExecute, concurrency, timeout, retry, and how they sit on the operation pipeline.",
+    sections: [
+      {
+        id: "why",
+        title: "Why commands live on the ViewModel",
+        blocks: [
+          {
+            type: "p",
+            text: "A command is the ViewModel-facing handle for a user action. The page binds Button.Command; the ViewModel owns the work, CanExecute, and cancellation. That keeps code-behind empty and lets tests call ExecuteAsync without a visual tree.",
+          },
+          {
+            type: "ul",
+            items: [
+              "ModelCommand / ModelCommand<T> — synchronous ICommand.",
+              "AsyncModelCommand / AsyncModelCommand<T> — async, IsRunning, Cancel, ExecuteAsync.",
+              "Commands are instance fields created in the constructor. They die with the ViewModel.",
+            ],
+          },
+        ],
+      },
+      {
+        id: "async",
+        title: "AsyncModelCommand",
+        blocks: [
+          {
+            type: "p",
+            text: "AsyncModelCommand runs through CanExecute, a concurrency gate, optional timeout, optional retry, then the delegate. IsRunning is atomic. Cancel and ViewModel.Dispose cancel in-flight work. Shipped ConcurrencyMode values are Prevent (second execute is a no-op) and CancelPrevious (second execute cancels the first).",
+          },
+          {
+            type: "code",
+            code: `SaveCommand = new AsyncModelCommand(
+    SaveAsync,
+    () => CanSave,
+    new AsyncCommandOptions
+    {
+        Concurrency = ConcurrencyMode.Prevent,
+        Timeout = TimeSpan.FromSeconds(15),
+        RetryCount = 2,
+        RetryDelay = TimeSpan.FromSeconds(1),
+    });`,
+          },
+          {
+            type: "callout",
+            title: "Not on the command yet",
+            text: "Allow, Queue, and Replace concurrency modes are designed for later. Debounce and throttle do not live on AsyncCommandOptions. SearchQuery already debounces text search (default 300 ms).",
+          },
+        ],
+      },
+      {
+        id: "binding",
+        title: "Binding and CanExecute",
+        blocks: [
+          {
+            type: "p",
+            text: "Call NotifyCanExecuteChanged when the condition changes (a property setter, a navigation stack change, an auth flip). Do not allocate a new command per execute. Do not store a static command on a long-lived service — that pins the ViewModel graph.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "dependency-injection",
+    title: "Dependency injection",
+    description:
+      "AddMvvmExpress and UseMvvmExpress, what the host registers, and how the app replaces navigators and dialogs.",
+    sections: [
+      {
+        id: "host",
+        title: "Host registration",
+        blocks: [
+          {
+            type: "p",
+            text: "MVVMExpress uses Microsoft.Extensions.DependencyInjection only. There is no DryIoc, Unity, or Grace package. Shared libraries and tests call AddMvvmExpress. A MAUI app calls UseMvvmExpress, which registers Core services plus MauiMainThread and ViewModelLifecycleBehavior.",
+          },
+          {
+            type: "code",
+            code: `builder
+    .UseMauiApp<App>()
+    .UseMvvmExpress(options =>
+    {
+        options.CancelOperationsOnDisappear = true;
+    });
+
+// net10.0 tests / shared ViewModel projects
+services.AddMvvmExpress();`,
+          },
+          {
+            type: "p",
+            text: "UseMvvmExpress has an optional Action<MvvmExpressOptions>. AddMvvmExpress does not. There is no AddViewModel<T>, AddView<TView, TViewModel>, AddNavigation, or AddDialogs helper in 0.3.0. Register ViewModels yourself until generators ship.",
+          },
+        ],
+      },
+      {
+        id: "defaults",
+        title: "What AddMvvmExpress registers",
+        blocks: [
+          {
+            type: "table",
+            headers: ["Abstraction", "Default", "Typical app replacement"],
+            rows: [
+              ["IMessageHub", "MessageHub", "Keep"],
+              ["IBusyGate", "BusyGate", "Keep"],
+              ["IErrorSink", "NullErrorSink", "App logger sink"],
+              ["ICache", "MemoryCache", "Plugin.Maui.ApiCache adapter"],
+              ["IConnectivityProbe", "InMemoryConnectivityProbe", "Plugin.Maui.NetworkMonitor adapter"],
+              ["IWindowContext", "WindowContext.Default", "MauiWindowContext.Current"],
+              ["IWindowNavigatorRegistry", "WindowNavigatorRegistry", "Keep; register per window"],
+              ["INavigator / IPageNavigator", "InMemoryNavigator", "MauiShellNavigator / MauiPageNavigator"],
+              ["IMainThread", "ImmediateMainThread", "MauiMainThread (host)"],
+              ["IDialogs / INotifier", "NullDialogs", "MauiDialogs / MauiNotifier"],
+            ],
+          },
+        ],
+      },
+      {
+        id: "replace",
+        title: "Replace defaults in the MAUI host",
+        blocks: [
+          {
+            type: "p",
+            text: "The sample host calls UseMvvmExpress, then AddMvvmExpressSamples, then RemoveAll + AddSingleton for the MAUI implementations. Production apps do the same for navigators, dialogs, and adapters.",
+          },
+          {
+            type: "code",
+            code: `services.RemoveAll<INavigator>();
+services.AddSingleton<INavigator>(sp => new GuardedNavigator(
+    new MauiShellNavigator().Map<ProductDetailsViewModel>("details"),
+    sp.GetRequiredService<IAuthState>()));
+
+services.RemoveAll<IPageNavigator>();
+services.AddSingleton<IPageNavigator>(sp =>
+    new MauiPageNavigator(MauiWindowContext.Current, sp)
+        .Map<PageStackViewModel, PageStackPage>("stack"));
+
+services.RemoveAll<IDialogs>();
+services.AddSingleton<IDialogs, MauiDialogs>();
+services.RemoveAll<INotifier>();
+services.AddSingleton<INotifier, MauiNotifier>();`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "messaging",
+    title: "Messaging",
+    description:
+      "IMessageHub: weak subscribe by default, recipient-first handlers, and when to use a command or a service instead.",
+    sections: [
+      {
+        id: "hub",
+        title: "IMessageHub",
+        blocks: [
+          {
+            type: "p",
+            text: "IMessageHub is the in-process pub/sub for ViewModels that should not hold each other. Default subscribe is weak. The handler signature is Action<TRecipient, TMessage> so the delegate receives the subscriber as an argument and does not capture this. Strong subscribe is explicit and you own Unsubscribe / Dispose.",
+          },
+          {
+            type: "code",
+            code: `hub.Subscribe<HomeViewModel, CartChanged>(
+    this,
+    static (vm, _) => vm.Refresh(),
+    weak: true);
+
+hub.Publish(new CartChanged(productId));`,
+          },
+          {
+            type: "callout",
+            title: "Do not capture this",
+            text: "A handler written as (msg) => this.Refresh() pins the ViewModel and defeats the weak table. Use the recipient argument. Static lambdas make that rule visible to the compiler.",
+          },
+        ],
+      },
+      {
+        id: "when",
+        title: "When not to use the hub",
+        blocks: [
+          {
+            type: "ul",
+            items: [
+              "Parent → child work that has a clear owner: inject a service or call a method.",
+              "Navigation: use INavigator, not a “please open details” message.",
+              "Auth gates: GuardedNavigator + IAuthState, not a login broadcast as the only lock.",
+              "High-frequency sensor ticks: a typed service or AsyncState, not a message per sample.",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "navigation",
+    title: "Navigation",
+    description:
+      "Host-agnostic INavigator, MauiShellNavigator, MauiPageNavigator, typed records, URI query, stack APIs, and guards.",
+    sections: [
+      {
+        id: "contract",
+        title: "INavigator",
+        blocks: [
+          {
+            type: "p",
+            text: "INavigator is host-agnostic. ViewModels depend on the interface, never on Shell.Current or INavigation. Every public method returns Outcome and accepts CancellationToken. Current is Type? (the last ViewModel type), not an object instance.",
+          },
+          {
+            type: "ul",
+            items: [
+              "NavigateToAsync<TViewModel>() — AOT-friendly typed go.",
+              "NavigateToAsync<TViewModel, TArgs>(TArgs) — record args; destination implements IAcceptNavArgs<T>.",
+              "NavigateToAsync(route, query, options) — URI path + dictionary; destination implements IAcceptNavQuery.",
+              "GoBackAsync, PopToRootAsync, ReplaceAsync<T>, ResetAsync<T>.",
+              "Stack, ModalStack, CanGoBack, History.",
+            ],
+          },
+        ],
+      },
+      {
+        id: "hosts",
+        title: "Shell and page hosts",
+        blocks: [
+          {
+            type: "p",
+            text: "MauiShellNavigator maps a ViewModel type to a Shell route. MauiPageNavigator / IPageNavigator maps a ViewModel type to a Page on INavigation / NavigationPage. Both implement the URI stack. Register one navigator per IWindowContext with WindowNavigatorRegistry. MauiWindowContext and MauiVisualTree resolve the current Page for the host.",
+          },
+          {
+            type: "code",
+            code: `var shell = new MauiShellNavigator()
+    .Map<ProductListViewModel>("//products")
+    .Map<ProductDetailsViewModel>("details");
+
+await shell.NavigateToAsync<ProductDetailsViewModel, ProductDetailsArgs>(new(42));
+await shell.NavigateToAsync("details", new Dictionary<string, object> { ["ProductId"] = 42 });
+
+IPageNavigator pages = new MauiPageNavigator(new WindowContext("main"), services)
+    .Map<PageStackViewModel, PageStackPage>("stack")
+    .Map<PageStackItemViewModel, PageStackItemPage>("stack-item");
+
+await pages.NavigateToAsync("stack-item", new Dictionary<string, object> { ["Title"] = "Latte" });
+if (pages.CanGoBack)
+    await pages.GoBackAsync();
+await pages.PopToRootAsync();`,
+          },
+        ],
+      },
+      {
+        id: "args",
+        title: "Typed args and URI query",
+        blocks: [
+          {
+            type: "p",
+            text: "Accept runs before InitializeAsync / OnNavigatedToAsync. Typed records are the default. URI / dictionary exists for deep links and interop — NavigationRouteTable.FormatQuery / ParseQuery / Split. There is no INavigationParameters type.",
+          },
+          {
+            type: "code",
+            code: `public sealed record ProductDetailsArgs(int ProductId);
+
+public sealed class ProductDetailsViewModel : PageViewModel,
+    IAcceptNavArgs<ProductDetailsArgs>, IAcceptNavQuery
+{
+    private int _productId;
+
+    public void Accept(ProductDetailsArgs args) => _productId = args.ProductId;
+
+    public void Accept(IReadOnlyDictionary<string, object> query)
+    {
+        if (query.TryGetValue(nameof(ProductDetailsArgs.ProductId), out var raw)
+            && int.TryParse(Convert.ToString(raw), out var id))
+        {
+            _productId = id;
+        }
+    }
+}`,
+          },
+        ],
+      },
+      {
+        id: "guards",
+        title: "Guards and auth",
+        blocks: [
+          {
+            type: "p",
+            text: "CanNavigateAwayAsync on INavigable / PageViewModel can block a dirty form. GuardedNavigator wraps IAuthState so unauthenticated navigation fails as Outcome instead of opening the page. [RequiresAuth] / [RequiresRole] are Phase 4 markers, not runtime attributes yet.",
+          },
+          {
+            type: "p",
+            text: "MVVMExpress does not ship Prism-style regions. Child ViewModel composition is Phase 3. Deep-link mapping through Plugin.Maui.DeepLinks is Phase 4.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "dialogs",
+    title: "Dialogs",
+    description:
+      "IDialogs for alert / confirm / error, INotifier toast, Maui implementations, and test fakes.",
+    sections: [
+      {
+        id: "surface",
+        title: "Shipped surface",
+        blocks: [
+          {
+            type: "p",
+            text: "ViewModels depend on IDialogs and INotifier, never on Page.DisplayAlert. MauiDialogs and MauiNotifier resolve the current page from IWindowContext (Shell first, then the window page).",
+          },
+          {
+            type: "table",
+            headers: ["API", "Status"],
+            rows: [
+              ["AlertAsync, ConfirmAsync, ErrorAsync", "Shipped"],
+              ["ToastAsync (INotifier)", "Shipped — MauiNotifier overlay"],
+              ["IToastPresenter", "Shipped — test seam"],
+              ["Prompt, action sheet, loading overlay, snackbar, banner", "Not shipped"],
+            ],
+          },
+          {
+            type: "code",
+            code: `var ok = await dialogs.ConfirmAsync(
+    "Delete product",
+    "This cannot be undone.",
+    accept: "Delete",
+    cancel: "Cancel",
+    cancellationToken);
+
+if (ok)
+{
+    await catalog.DeleteAsync(id, cancellationToken);
+    await notifier.ToastAsync("Deleted", cancellationToken: cancellationToken);
+}`,
+          },
+        ],
+      },
+      {
+        id: "tests",
+        title: "Tests",
+        blocks: [
+          {
+            type: "p",
+            text: "NullDialogs implements both interfaces as no-ops. FakeDialogs records alerts and lets the test set ConfirmResult. There is no FakeNotifier type — FakeDialogs is INotifier. Inject IToastPresenter to record toasts without a window.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "validation",
+    title: "Validation",
+    description:
+      "IValidator and DataAnnotations in the Validation package; FluentValidation and XAML Validation.For stay optional.",
+    sections: [
+      {
+        id: "engine",
+        title: "IValidator",
+        blocks: [
+          {
+            type: "p",
+            text: "Plugin.Maui.MVVMExpress.Validation targets net10.0 and depends on Core only. DataAnnotationsValidator is the default. FluentValidation is an adapter the app may add — it is not a PackageReference of the Validation package.",
+          },
+          {
+            type: "code",
+            code: `public sealed class ProductDraft
+{
+    [Required, StringLength(80)]
+    public string Name { get; set; } = "";
+
+    [Range(0.01, 1_000_000)]
+    public decimal Price { get; set; }
+}
+
+var summary = await validator.ValidateAsync(draft, cancellationToken);
+if (!summary.IsValid)
+{
+    return Outcome.Failure("validation", summary.Messages[0].Message);
+}`,
+          },
+          {
+            type: "p",
+            text: "XAML Validation.For remains Plugin.Maui.FormValidation. FormViewModel, FormField, dirty state, and undo/redo are Phase 3.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "lists",
+    title: "Lists and search",
+    description:
+      "ObservableRangeCollection, PagedCollection, SearchQuery debounce, and the small / mid / large contract.",
+    sections: [
+      {
+        id: "range",
+        title: "ObservableRangeCollection",
+        blocks: [
+          {
+            type: "p",
+            text: "AddRange and ReplaceRange raise one CollectionChanged Reset. Do not Add in a loop for mid or large lists. Large lists must also virtualize in CollectionView.",
+          },
+          {
+            type: "code",
+            code: `var items = new ObservableRangeCollection<Product>();
+items.AddRange(page);
+items.ReplaceRange(next);`,
+          },
+        ],
+      },
+      {
+        id: "paging",
+        title: "Pagination and search",
+        blocks: [
+          {
+            type: "p",
+            text: "PagedCollection<T> / DelegatePagedCollection<T> own load-more, refresh, and retry. SearchQuery debounces text (default 300 ms, minimum length 2) and cancels the previous query. The Reactive sample uses SearchQuery — the Reactive package is not required.",
+          },
+          {
+            type: "code",
+            code: `Products = new DelegatePagedCollection<Product>(
+    (page, ct) => catalog.ListPageAsync(page, ct));
+
+await Products.RefreshAsync(ct);
+await Products.LoadMoreAsync(ct);`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "packages",
+    title: "Packages",
+    description:
+      "How the family is split, what is packed in 0.3.0, and why optional packages stay optional.",
+    sections: [
+      section("packages"),
+      {
+        id: "optional",
+        title: "Optional means optional",
+        blocks: [
+          {
+            type: "p",
+            text: "A shared ViewModel library can reference Core only. A MAUI host adds Plugin.Maui.MVVMExpress. Navigation, Dialogs, Validation, Pagination, and Testing are separate nupkgs. Reactive and SourceGenerators exist in the repo as marker projects and are not packed.",
+          },
+          {
+            type: "p",
+            text: "This is the modularity story for 0.3.0. There is no IModule catalog, no module loader, and no region manager. Feature slices of the app are ordinary class libraries that register services on IServiceCollection.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "adapters",
+    title: "Adapters",
+    description:
+      "Compose MauiEssentials plugins through Core abstractions. Sibling packages are never PackageReferences of MVVMExpress.",
+    sections: [
+      section("compose"),
+      {
+        id: "why-adapt",
+        title: "Why adapters, not engines",
+        blocks: [
+          {
+            type: "p",
+            text: "Captive-portal detection, HTTP cache, offline sync, secure tokens, and feature flags are already solved in focused plugins. MVVMExpress owns the ViewModel contract (IConnectivityProbe, ICache, IAuthState) and lets the app plug the engine. In-memory implementations exist for samples and tests only.",
+          },
+          {
+            type: "p",
+            text: "These are Niladri Padhy / MauiEssentials / Nuvyntra Labs packages. Usual alternatives: MAUI Connectivity, CommunityToolkit.Maui, Polly, SecureStorage, a remote-config SDK.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "platforms",
+    title: "Platforms",
+    description:
+      "net10.0 Core, Android and iOS as catalog-primary hosts, threading, AOT, and security boundaries.",
+    sections: [
+      {
+        id: "tfms",
+        title: "Target frameworks",
+        blocks: [
+          {
+            type: "table",
+            headers: ["Package", "TFMs", "MAUI?"],
+            rows: [
+              ["Core, Validation, Pagination, Testing", "net10.0", "No"],
+              ["Host, Navigation, Dialogs", "net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+)", "Yes"],
+              ["Reactive, SourceGenerators", "Not packed", "—"],
+            ],
+          },
+          {
+            type: "p",
+            text: "Primary support is Android and iOS, matching the catalog. Mac Catalyst and Windows compile TFMs may exist; they are not catalog-primary until samples and tests exist. Host APIs that need a window throw FeatureNotSupportedException on the net10.0 TFM.",
+          },
+        ],
+      },
+      section("constraints"),
+      section("not-public"),
+    ],
+  },
+  {
+    slug: "pipeline",
+    title: "Operation pipeline",
+    description:
+      "The designed backbone for busy, cancel, timeout, retry, and Outcome — what ships on commands today versus IOperationExecutor later.",
+    sections: [
+      {
+        id: "today",
+        title: "What ships today",
+        blocks: [
+          {
+            type: "p",
+            text: "Commands, AsyncState, and SearchQuery each own a slice of the pipeline. AsyncModelCommand: CanExecute → concurrency gate → timeout → retry → execute → IsRunning → error sink → Outcome. SearchQuery: debounce + cancel previous. There is no IOperationExecutor type in 0.3.0.",
+          },
+          {
+            type: "code",
+            code: `CanExecute
+  → concurrency (Prevent | CancelPrevious)
+  → timeout
+  → retry
+  → execute
+  → IsRunning / error sink / Outcome`,
+          },
+        ],
+      },
+      {
+        id: "later",
+        title: "Designed later",
+        blocks: [
+          {
+            type: "p",
+            text: "Phase 3 completes debounce, throttle, and queue on the command itself, plus a shared IOperationExecutor so pagination and ExecuteBusyAsync go through one entry. That is not a Polly clone and not a ReactiveCommand clone. Until it ships, put shared retry policy in the app service or in Plugin.Maui.ApiResilience.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "testing",
+    title: "Testing",
+    description:
+      "net10.0 ViewModels, FakeNavigator, FakeDialogs, LeakProbe, and the sample test map.",
+    sections: [
+      {
+        id: "package",
+        title: "Testing package",
+        blocks: [
+          {
+            type: "p",
+            text: "Plugin.Maui.MVVMExpress.Testing is net10.0 and depends on Core. Put ViewModels in a shared net10.0 project so they run without MAUI. InMemoryNavigator implements IPageNavigator for tests.",
+          },
+          {
+            type: "code",
+            code: `var dialogs = new FakeDialogs { ConfirmResult = true };
+var navigator = new FakeNavigator();
+var vm = new ProductEditViewModel(dialogs, navigator, catalog);
+
+await vm.InitializeAsync();
+Assert.True(LeakProbe.IsCollected(() =>
+{
+    var probe = new HomeViewModel(catalog);
+    probe.Dispose();
+    return probe;
+}));`,
+          },
+        ],
+      },
+      {
+        id: "samples",
+        title: "Sample map",
+        blocks: section("samples", integrationSections).blocks,
+      },
+    ],
+  },
+  {
+    slug: "memory",
+    title: "Memory and scale",
+    description:
+      "Leak rules, Small / Mid / Large list guarantees, and host-process measurements.",
+    sections: [section("memory"), section("constraints")],
+  },
+  {
+    slug: "generators",
+    title: "Source generators",
+    description:
+      "Phase 4 accelerator: [Notify], command attributes, register, and routes. Hand-write everything until they ship.",
+    sections: [
+      {
+        id: "status",
+        title: "Not packed",
+        blocks: [
+          {
+            type: "callout",
+            title: "Phase 4",
+            text: "Plugin.Maui.MVVMExpress.SourceGenerators is a marker project. IsPackable is false. Attributes may appear in Core later as no-ops so samples can adopt names early. Until then, write properties and commands by hand.",
+          },
+          {
+            type: "table",
+            headers: ["Attribute (designed)", "Generates", "Phase"],
+            rows: [
+              ["[Notify]", "Property + changing/changed + dependents", "4"],
+              ["[ModelCommand] / [AsyncModelCommand]", "Command property + CanExecute hookup", "4"],
+              ["[RegisterViewModel] / [RegisterView]", "IServiceCollection extension", "4"],
+              ["[Route]", "Route table for Shell / navigator", "4"],
+              ["[PersistState]", "Save/restore members", "4"],
+              ["[RequiresAuth] / [RequiresRole]", "Guard metadata", "4"],
+            ],
+          },
+          {
+            type: "p",
+            text: "Convention scan of *Page / *ViewModel is a debug fallback, not the AOT path. Typed NavigateToAsync<TViewModel>() and explicit Map<TViewModel> are the supported registration story today.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "roadmap",
+    title: "Roadmap",
+    description:
+      "Shipped phases, what 0.4–1.0 will add, and what is explicitly deferred past 1.0.",
+    sections: [
+      {
+        id: "versions",
+        title: "Versions",
+        blocks: [
+          {
+            type: "p",
+            text: "Versioning is preview until 1.0. After 1.0.0, SemVer applies and a breaking API change requires a major version. Current public packages are 0.3.0-preview.",
+          },
+          {
+            type: "table",
+            headers: ["Version", "Meaning"],
+            rows: [
+              ["0.1.0-design", "Documents + solution skeleton"],
+              ["0.1.0-preview", "Core + host + Shell navigator + dialogs + validation + pagination"],
+              ["0.3.0-preview", "Phase 2 complete — page host, URI stack, toast, multi-window (current)"],
+              ["0.4.x", "Phase 3 — Reactive, forms, offline abstractions"],
+              ["0.5.x", "Phase 4 — generators, restoration, compatibility"],
+              ["1.0.0", "Phase 5 — AOT sample, device RSS, migration guides, stable API"],
+            ],
+          },
+        ],
+      },
+      {
+        id: "shipped",
+        title: "Shipped (0.3.0-preview)",
+        blocks: [
+          {
+            type: "ul",
+            items: [
+              "Phase 1: ObservableModel, commands (prevent / cancel-previous, timeout, retry), ViewModel lifecycle, AsyncState, Outcome, MessageHub, AddMvvmExpress / UseMvvmExpress, leak and scale tests.",
+              "Phase 2: INavigator, MauiShellNavigator, MauiPageNavigator, URI stack, dictionary/URI args, IWindowContext, GuardedNavigator, IDialogs, MauiNotifier toast, IValidator, PagedCollection, SearchQuery, Testing fakes.",
+              "Samples: Basic, CRUD, Navigation, Page stack, Auth, Offline, Pagination, Reactive (SearchQuery), Enterprise.",
+            ],
+          },
+        ],
+      },
+      {
+        id: "phase3",
+        title: "Phase 3 — Depth (0.4.x)",
+        blocks: [
+          {
+            type: "p",
+            text: "Reactive package (IPropertyObservable / CombineLatest; System.Reactive optional, never in Core). ICache fetch policies as adapters, not a database. FormViewModel, FormField, IDirtyState, undo/redo. File / media / permission / auth / flag abstractions. Child ViewModel composition and scopes. Command debounce, throttle, and queue.",
+          },
+          {
+            type: "p",
+            text: "Exit: a form with a dirty guard plus search-with-debounce tests pass without MAUI.",
+          },
+        ],
+      },
+      {
+        id: "phase4",
+        title: "Phase 4 — Generators and restoration (0.5.x)",
+        blocks: [
+          {
+            type: "p",
+            text: "[Notify] and command attributes. [RegisterView] / [RegisterViewModel] / [Route]. Deep-link mapping with a Plugin.Maui.DeepLinks sample. [PersistState]. Diagnostics off in Release. Optional CommunityToolkit compatibility adapters. [RequiresAuth] / [RequiresRole].",
+          },
+          {
+            type: "p",
+            text: "Exit: generator snapshot tests; a trimmed sample registers views without a reflection scan.",
+          },
+        ],
+      },
+      {
+        id: "phase5",
+        title: "Phase 5 — Productization (1.0.0)",
+        blocks: [
+          {
+            type: "ul",
+            items: [
+              "Device RSS versus budget on Android / iOS.",
+              "AOT + trim of the Enterprise sample.",
+              "Navigation pop GC on a real host, not only in-memory.",
+              "Migration notes from CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI — mapping, not a fork guide.",
+              "NuGet polish: SourceLink, snupkg, tags (README and license already ship).",
+            ],
+          },
+        ],
+      },
+      {
+        id: "deferred",
+        title: "Explicitly deferred past 1.0",
+        blocks: [
+          {
+            type: "ul",
+            items: [
+              "Prism-style regions.",
+              "ReactiveUI IScreen routing as a first-class host.",
+              "A built-in remote feature-flag or auth provider (use FeatureFlags / SecureSession).",
+              "First-class Windows / Mac Catalyst support claims.",
+              "A bottom-sheet control library (Dialogs stays an abstraction).",
+              "A Visual Studio binding debugger visualizer.",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
+
+export function getGuideTopic(slug: string): GuideTopic | undefined {
+  return guideTopics.find((topic) => topic.slug === slug);
+}
+
+export function guideTopicSlugs(): string[] {
+  return guideTopics.filter((topic) => topic.slug !== "introduction").map((topic) => topic.slug);
+}
+
+export function allGuideHrefs(): string[] {
+  return [...new Set(guideNav.flatMap((group) => group.items.map((item) => item.href)))];
+}
+
+export function adjacentGuidePages(currentHref: string): {
+  previous: GuideNavItem | null;
+  next: GuideNavItem | null;
+} {
+  const items = guideNav.flatMap((group) => group.items);
+  const index = items.findIndex((item) => item.href === currentHref);
+  return {
+    previous: index > 0 ? items[index - 1] : null,
+    next: index >= 0 && index < items.length - 1 ? items[index + 1] : null,
+  };
+}

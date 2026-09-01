@@ -9,6 +9,7 @@ import { packageJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site";
 import { GuideTabs } from "@/components/package-guide";
 import { installCommands } from "@/lib/utils";
+import { mvvmExpressSlug } from "@/content/mvvmexpress";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -58,15 +59,17 @@ export default async function PackagePage({ params }: PageProps) {
   return (
     <main className="container max-w-3xl py-12 sm:py-16">
       <JsonLd data={packageJsonLd(pkg)} />
-      <Link
-        href="/packages/"
-        className="focusable inline-flex items-center gap-2 rounded-full text-sm font-medium text-lavender-700 hover:text-lavender-900"
-      >
-        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-        All packages
-      </Link>
+      {pkg.slug !== mvvmExpressSlug ? (
+        <Link
+          href="/packages/"
+          className="focusable inline-flex items-center gap-2 rounded-full text-sm font-medium text-lavender-700 hover:text-lavender-900"
+        >
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+          All packages
+        </Link>
+      ) : null}
 
-      <p className="eyebrow mt-8">{pkg.group}</p>
+      <p className={pkg.slug === mvvmExpressSlug ? "eyebrow" : "eyebrow mt-8"}>{pkg.group}</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{pkg.title}</h1>
       <p className="mt-3 text-lg text-lavender-700">{pkg.subtitle}</p>
       {pkg.prerelease ? (
@@ -163,19 +166,19 @@ export default async function PackagePage({ params }: PageProps) {
           <ul className="mt-4 grid gap-3 sm:grid-cols-2">
             <li>
               <Link href={pkg.guides.technical} className="glass-card focusable block h-full p-5 hover:shadow-glow">
-                <p className="font-semibold text-foreground">Technical documentation</p>
+                <p className="font-semibold text-foreground">Documentation</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Architecture, package graph, core subsystems, navigation model, scale contract, and
-                  comparison with CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI.
+                  ViewModels, commands, DI, messaging, Shell and page navigation, dialogs, adapters,
+                  operation pipeline, and the published roadmap.
                 </p>
               </Link>
             </li>
             <li>
               <Link href={pkg.guides.integration} className="glass-card focusable block h-full p-5 hover:shadow-glow">
-                <p className="font-semibold text-foreground">Integration documentation</p>
+                <p className="font-semibold text-foreground">Getting started</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Install, host registration, first ViewModel, commands, Shell navigation, dialogs,
-                  validation, pagination, adapters, and tests.
+                  Install, host registration, first ViewModel, commands, Shell and page navigation,
+                  dialogs, toast, validation, pagination, adapters, and tests.
                 </p>
               </Link>
             </li>

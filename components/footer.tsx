@@ -11,6 +11,7 @@ const company = [
 
 const work = [
   { href: "/packages/", label: "Products" },
+  { href: "/packages/plugin-maui-mvvmexpress/", label: "MVVMExpress" },
   { href: "/research/", label: "Research" },
   { href: "/pocs/", label: "Proofs of concept" },
 ];
