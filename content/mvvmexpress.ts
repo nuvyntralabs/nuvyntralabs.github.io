@@ -11,7 +11,8 @@ export type DocBlock =
   | { type: "ol"; items: string[] }
   | { type: "code"; code: string }
   | { type: "table"; headers: string[]; rows: string[][] }
-  | { type: "callout"; title: string; text: string };
+  | { type: "callout"; title: string; text: string }
+  | { type: "link"; href: string; label: string; note?: string };
 
 export interface DocSection {
   id: string;
@@ -839,6 +840,12 @@ await Products.LoadMoreAsync(ct);`,
         text: "A WhatsApp-style app is one persistent screen, in-place tabs, a filterable inbox, and a thread on a NavigationPage stack. That is not a Shell + PagedCollection + appear/refresh app. Auth and forms stay on FormViewModel / IAuthState / GuardedNavigator.",
       },
       {
+        type: "link",
+        note: "Reference app:",
+        label: "WhatsApp clone using MVVMExpress Framework",
+        href: "https://github.com/nuvyntralabs/WhatsAppUIClone",
+      },
+      {
         type: "code",
         code: `builder.UseMvvmExpress(o =>
 {
@@ -946,6 +953,12 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
         text: "First run is AuthApp: sign in → home, plus register and forgot password (demo@mvvmexpress.dev / secret). It uses UseMvvmExpress(o => o.UseShell().UseDialogs()), ResetAsync replace-root, GuardedNavigator + [RequiresAuth], and FormViewModel dirty confirm. The flyout catalog still lives in Plugin.Maui.MVVMExpress.Sample.",
       },
       {
+        type: "link",
+        note: "Standalone reference app:",
+        label: "WhatsApp clone using MVVMExpress Framework",
+        href: "https://github.com/nuvyntralabs/WhatsAppUIClone",
+      },
+      {
         type: "table",
         headers: ["Sample", "ViewModels", "What it integrates"],
         rows: [
@@ -958,6 +971,7 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
           ["Offline", "OfflineCatalogViewModel", "ICachedFetcher + FetchPolicy — adapt ApiCache / OfflineSync"],
           ["Pagination", "PagedProductViewModel", "DelegatePagedCollection load-more + refresh (not a live inbox)"],
           ["Chat host", "ChatHost / ChatInbox", "SectionHostViewModel, SnapshotCollection, SearchQuery.CommittedText, CoalescingDispatcher"],
+          ["WhatsApp clone", "WhatsAppUIClone", "Standalone reference app: SectionHost, SnapshotCollection, NavigationPage"],
           ["Reactive", "SearchViewModel", "SearchQuery debounce + PropertyObservable.CombineLatest"],
           ["Enterprise", "EnterpriseShell / CatalogStatus", "Child composition, IFeatureSwitch, hub, busy, probe, auth gate"],
           ["Generated", "GeneratedCatalogViewModel", "[Notify], [ModelCommand], [PersistState], [RegisterViewModel], [Route], [RequiresAuth]"],
