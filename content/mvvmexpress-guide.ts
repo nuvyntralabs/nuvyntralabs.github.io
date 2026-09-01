@@ -56,6 +56,7 @@ export const guideNav: GuideNavGroup[] = [
     title: "Application shell",
     items: [
       { title: "Navigation", href: `${docsBase}/navigation/`, topic: "navigation" },
+      { title: "Chat host", href: `${docsBase}/chat-host/`, topic: "chat-host" },
       { title: "Dialogs", href: `${docsBase}/dialogs/`, topic: "dialogs" },
       { title: "Validation", href: `${docsBase}/validation/`, topic: "validation" },
       { title: "Forms", href: `${docsBase}/forms/`, topic: "forms" },
@@ -114,12 +115,12 @@ const introSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
+        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
       },
       {
         type: "ul",
         items: [
-          "Shipped in 0.6.0-preview means types exist and tests exist. Phases 1–5 plus the device-safe host/auth/forms UX are complete.",
+          "Shipped in 0.6.1-preview means types exist and tests exist. Phases 1–5 plus the host-safe navigator, NavigationPage replace-root, and chat-host APIs are complete.",
           "1.0.0 waits on design-review sign-off. Known limitations are accepted 1.0 scope, not remaining product work.",
           "Type names stay unique so CommunityToolkit.Mvvm or Prism can sit in the same app if you need them.",
         ],
@@ -316,14 +317,16 @@ await Products.LoadAsync(token => catalog.ListAsync(token), ct);
             type: "code",
             code: `builder
     .UseMauiApp<App>()
-    .UseMvvmExpress(o => o.UseShell().UseDialogs());
+    .UseMvvmExpress(o => o.UseNavigationPage().UseDialogs());
+// optional catalog path:
+// .UseMvvmExpress(o => o.UseShell().UseDialogs());
 
 // net10.0 tests / shared ViewModel projects
 services.AddMvvmExpress();`,
           },
           {
             type: "p",
-            text: "UseShell and UseDialogs live in the Navigation and Dialogs packages. MvvmExpressOptions also has CancelOperationsOnDisappear, EnableDiagnostics, MarshalNotifications (default true), AutoAttachLifecycle (default true), ConfirmDirtyNavigation, ForwardNavigationFailures, and ApplyGeneratedRegistrations. Call InitializeComponent() on App before resolving AppShell.",
+            text: "UseNavigationPage is the login → replace-root → push host. UseShell is optional. UseDialogs lives in the Dialogs package. MvvmExpressOptions also has CancelOperationsOnDisappear, EnableDiagnostics, MarshalNotifications (default true), AutoAttachLifecycle, ConfirmDirtyNavigation, ForwardNavigationFailures, and ApplyGeneratedRegistrations. Call InitializeComponent() on App before resolving pages. Do not mix MAUI MainThread statics in ViewModels.",
           },
         ],
       },
@@ -346,7 +349,7 @@ services.AddMvvmExpress();`,
               ["IStateStore", "MemoryStateStore", "App persist store"],
               ["IWindowContext", "WindowContext.Default", "MauiWindowContext.Current"],
               ["IWindowNavigatorRegistry", "WindowNavigatorRegistry", "Keep; register per window"],
-              ["INavigator / IPageNavigator", "InMemoryNavigator", "UseShell() → MauiShellNavigator / MauiPageNavigator"],
+              ["INavigator / IPageNavigator", "InMemoryNavigator", "UseNavigationPage() / UseShell()"],
               ["IMainThread", "ImmediateMainThread", "MauiMainThread (host)"],
               ["IDialogs / INotifier", "NullDialogs", "UseDialogs() → MauiDialogs / MauiNotifier"],
               ["IAccountService", "not registered", "App register / reset adapter"],
@@ -360,11 +363,13 @@ services.AddMvvmExpress();`,
         blocks: [
           {
             type: "p",
-            text: "UseShell / UseDialogs replace the in-memory defaults. Wrap the Shell navigator with GuardedNavigator when screens require a session. Page-stack hosts still register MauiPageNavigator per IWindowContext.",
+            text: "UseNavigationPage / UseDialogs replace the in-memory defaults. Wrap the navigator with GuardedNavigator when screens require a session. Do not register UseShell and UseNavigationPage together unless you really have two hosts.",
           },
           {
             type: "code",
-            code: `builder.UseMvvmExpress(o => o.UseShell().UseDialogs());
+            code: `builder.UseMvvmExpress(o => o.UseNavigationPage((nav, _) => nav
+    .Map<LoginViewModel, LoginPage>("login")
+    .Map<ChatHostViewModel, ChatHostPage>("chats")).UseDialogs());
 
 services.RemoveAll<INavigator>();
 services.AddSingleton<INavigator>(sp => new GuardedNavigator(
@@ -444,7 +449,7 @@ hub.Publish(new CartChanged(productId));`,
     slug: "navigation",
     title: "Navigation",
     description:
-      "Host-agnostic INavigator, MauiShellNavigator, MauiPageNavigator, typed records, URI query, stack APIs, and guards.",
+      "UseNavigationPage or optional UseShell, UI-thread page construction, typed records, URI query, replace-root, and guards.",
     sections: [
       {
         id: "contract",
@@ -460,7 +465,7 @@ hub.Publish(new CartChanged(productId));`,
               "NavigateToAsync<TViewModel>() — AOT-friendly typed go.",
               "NavigateToAsync<TViewModel, TArgs>(TArgs) — record args; destination implements IAcceptNavArgs<T>.",
               "NavigateToAsync(route, query, options) — URI path + dictionary; destination implements IAcceptNavQuery.",
-              "GoBackAsync, PopToRootAsync, ReplaceAsync<T>, ResetAsync<T>.",
+              "GoBackAsync, PopToRootAsync, ReplaceAsync<T>, ResetAsync<T> / ReplaceRootAsync<T>.",
               "Stack, ModalStack, CanGoBack, History.",
             ],
           },
@@ -472,7 +477,7 @@ hub.Publish(new CartChanged(productId));`,
         blocks: [
           {
             type: "p",
-            text: "MauiShellNavigator maps a ViewModel type to a Shell route. MauiPageNavigator / IPageNavigator maps a ViewModel type to a Page on INavigation / NavigationPage. Both implement the URI stack. Register one navigator per IWindowContext with WindowNavigatorRegistry. MauiWindowContext and MauiVisualTree resolve the current Page for the host.",
+            text: "UseNavigationPage registers MauiPageNavigator as INavigator / IPageNavigator and hops to IMainThread before new Page(). ResetAsync / ReplaceRootAsync replace window.Page with a NavigationPage. UseShell is optional. MauiVisualTree unwraps NavigationPage.CurrentPage so guards see the visible BindingContext. Register one navigator per IWindowContext.",
           },
           {
             type: "code",
@@ -535,11 +540,18 @@ public sealed class ProductDetailsViewModel : PageViewModel,
           },
           {
             type: "p",
-            text: "Apps that must not leak a back-stack use ResetAsync replace-root. ResetAsync<HomeViewModel>() only works when //home is a root ShellContent (see AuthApp). Child ViewModels attach through IViewModelComposer.Attach. Deep-link mapping is a sample DeepLinkRouteMap — compose Plugin.Maui.DeepLinks in production. MVVMExpress does not ship Prism-style regions.",
+            text: "Apps that must not leak a back-stack use ResetAsync / ReplaceRootAsync. On UseNavigationPage that replaces window.Page with a NavigationPage. On Shell, ResetAsync only works when //home is a root ShellContent (see AuthApp). Child ViewModels attach through IViewModelComposer.Attach. Deep-link mapping is a sample DeepLinkRouteMap — compose Plugin.Maui.DeepLinks in production. MVVMExpress does not ship Prism-style regions.",
           },
         ],
       },
     ],
+  },
+  {
+    slug: "chat-host",
+    title: "Chat host",
+    description:
+      "NavigationPage replace-root, SectionHostViewModel tabs, SnapshotCollection, and SearchQuery.CommittedText.",
+    sections: [section("chat-host", integrationSections)],
   },
   {
     slug: "dialogs",
@@ -644,7 +656,7 @@ if (!summary.IsValid)
     slug: "lists",
     title: "Lists and search",
     description:
-      "ObservableRangeCollection, PagedCollection, SearchQuery debounce, and the small / mid / large contract.",
+      "ObservableRangeCollection, SnapshotCollection for live inboxes, PagedCollection for catalogs, and SearchQuery.CommittedText.",
     sections: [
       {
         id: "range",
@@ -652,7 +664,7 @@ if (!summary.IsValid)
         blocks: [
           {
             type: "p",
-            text: "AddRange and ReplaceRange raise one CollectionChanged Reset. Do not Add in a loop for mid or large lists. Large lists must also virtualize in CollectionView.",
+            text: "AddRange and ReplaceRange raise one CollectionChanged Reset. Do not Add in a loop for mid or large lists. Large lists must also virtualize in CollectionView. After a page is visible, prefer Add / Insert over ReplaceRange on Android BindableLayout.",
           },
           {
             type: "code",
@@ -664,21 +676,8 @@ items.ReplaceRange(next);`,
       },
       {
         id: "paging",
-        title: "Pagination and search",
-        blocks: [
-          {
-            type: "p",
-            text: "PagedCollection<T> / DelegatePagedCollection<T> own load-more, refresh, and retry. SearchQuery debounces text (default 300 ms, minimum length 2) and cancels the previous query. The Reactive sample pairs SearchQuery with PropertyObservable.CombineLatest.",
-          },
-          {
-            type: "code",
-            code: `Products = new DelegatePagedCollection<Product>(
-    (page, ct) => catalog.ListPageAsync(page, ct));
-
-await Products.RefreshAsync(ct);
-await Products.LoadMoreAsync(ct);`,
-          },
-        ],
+        title: "Pagination, snapshots, and search",
+        blocks: section("pagination", integrationSections).blocks,
       },
     ],
   },
@@ -686,7 +685,7 @@ await Products.LoadMoreAsync(ct);`,
     slug: "packages",
     title: "Packages",
     description:
-      "How the family is split, what is packed in 0.6.0, and why optional packages stay optional.",
+      "How the family is split, what is packed in 0.6.1, and why optional packages stay optional.",
     sections: [
       section("packages"),
       {
@@ -848,7 +847,7 @@ Assert.True(LeakProbe.IsCollected(() =>
         blocks: [
           {
             type: "callout",
-            title: "0.6.0-preview",
+            title: "0.6.1-preview",
             text: "Plugin.Maui.MVVMExpress.SourceGenerators is packed. Attributes live in Core. Types must be partial. UseMvvmExpress applies generated [Route] / [RequiresAuth] via a ModuleInitializer (ApplyGeneratedRegistrations defaults to true). You can still call services.AddGeneratedViewModels() explicitly.",
           },
           {
@@ -865,9 +864,9 @@ Assert.True(LeakProbe.IsCollected(() =>
           },
           {
             type: "code",
-            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="0.6.0-preview" PrivateAssets="all" />
+            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="0.6.1-preview" PrivateAssets="all" />
 
-builder.UseMvvmExpress(o => o.UseShell().UseDialogs());
+builder.UseMvvmExpress(o => o.UseNavigationPage().UseDialogs());
 // generated [Route] / [RequiresAuth] apply from UseMvvmExpress
 
 services.AddGeneratedViewModels(); // optional explicit call
@@ -885,7 +884,7 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
     slug: "roadmap",
     title: "Roadmap",
     description:
-      "Phases 1–5 plus the 0.6.0 device-safe host/auth/forms UX are shipped. 1.0.0 waits on design-review sign-off.",
+      "Phases 1–5 plus 0.6.0 device-safe marshal and 0.6.1 host-safe NavigationPage / chat-host APIs are shipped. 1.0.0 waits on design-review sign-off.",
     sections: [
       {
         id: "versions",
@@ -893,7 +892,7 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
         blocks: [
           {
             type: "p",
-            text: "Versioning is preview until 1.0. After 1.0.0, SemVer applies and a breaking API change requires a major version. Current public packages are 0.6.0-preview. Shipped public APIs are the 1.0 contract.",
+            text: "Versioning is preview until 1.0. After 1.0.0, SemVer applies and a breaking API change requires a major version. Current public packages are 0.6.1-preview. Shipped public APIs are the 1.0 contract.",
           },
           {
             type: "table",
@@ -904,7 +903,8 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
               ["0.3.0-preview", "Phase 2 — page host, URI stack, toast, multi-window"],
               ["0.4.0-preview", "Phase 3 — forms, Reactive, cache policies, pipeline, scopes"],
               ["0.5.0-preview", "Phases 4–5 — generators, persist/auth, productization"],
-              ["0.6.0-preview", "Device-safe marshal, weak CanExecuteChanged, overlay toasts, host/auth/forms UX (current)"],
+              ["0.6.0-preview", "Device-safe marshal, weak CanExecuteChanged, overlay toasts, host/auth/forms UX"],
+              ["0.6.1-preview", "Host-safe navigator, UseNavigationPage + replace-root, SectionHost, SnapshotCollection (current)"],
               ["1.0.0", "SemVer lock after design-review sign-off only"],
             ],
           },
@@ -912,7 +912,7 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
       },
       {
         id: "shipped",
-        title: "Shipped (0.6.0-preview)",
+        title: "Shipped (0.6.1-preview)",
         blocks: [
           {
             type: "ul",
@@ -923,6 +923,7 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
               "Phase 4: [Notify], command / register / route / persist / auth attributes, AddGeneratedViewModels, DeepLinkRouteMap sample, CommunityToolkitMessageHub, IStateStore, IMvvmExpressDiagnostics.",
               "Phase 5: migration guides, AOT/trim notes, BenchmarkDotNet, Testing fakes, ScopedNavigator pop-GC, NuGet SourceLink / snupkg / tags.",
               "0.6.0: UI-thread marshal, no-throw ICommand.Execute, weak CanExecuteChanged, Window.AddOverlay toasts, UseShell / UseDialogs, dirty confirm, GuardedNavigatorOptions, IAccountService, ModuleInitializer routes, AuthApp, Validation trim roots.",
+              "0.6.1: Navigators hop before new Page(), UseNavigationPage + ResetAsync replace-root, SectionHostViewModel, SnapshotCollection, SearchQuery.CommittedText, FormViewModel.Bind, CoalescingDispatcher, ChatHost sample.",
             ],
           },
         ],

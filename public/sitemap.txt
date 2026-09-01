@@ -65,6 +65,7 @@ https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/dependency-
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/messaging/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/reactive/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/navigation/
+https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/chat-host/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/dialogs/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/validation/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/forms/

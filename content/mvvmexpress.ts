@@ -1,8 +1,8 @@
 export const mvvmExpressSlug = "plugin-maui-mvvmexpress";
 
 export const mvvmExpressStatus = {
-  version: "0.6.0-preview",
-  note: "Device-safe preview: UI-thread marshal, no-throw ICommand.Execute, weak CanExecuteChanged, Window.AddOverlay toasts. Supported: Android + iOS. Mac Catalyst / Windows compile-only. Shipped public APIs are the 1.0 contract; 1.0.0 waits on design-review sign-off.",
+  version: "0.6.1-preview",
+  note: "Host-safe preview: pages constructed on IMainThread, UseNavigationPage + replace-root, SectionHostViewModel, SnapshotCollection. Supported: Android + iOS. Mac Catalyst / Windows compile-only. Shipped public APIs are the 1.0 contract; 1.0.0 waits on design-review sign-off.",
 } as const;
 
 export type DocBlock =
@@ -22,7 +22,7 @@ export interface DocSection {
 export const packageFamily: { name: string; purpose: string; status: string; nuget: string | null }[] = [
   {
     name: "Plugin.Maui.MVVMExpress.Core",
-    purpose: "Observable model, commands, ViewModel, navigator/cache/auth/connectivity abstractions, state, outcome, messaging",
+    purpose: "Observable model, commands, ViewModel, SectionHost, navigator/cache/auth abstractions, state, outcome, messaging",
     status: "Implemented + tests",
     nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Core",
   },
@@ -34,7 +34,7 @@ export const packageFamily: { name: string; purpose: string; status: string; nug
   },
   {
     name: "Plugin.Maui.MVVMExpress.Navigation",
-    purpose: "MauiShellNavigator + MauiPageNavigator, UseShell, Map<TViewModel, TPage>",
+    purpose: "MauiShellNavigator + MauiPageNavigator, UseNavigationPage / UseShell, replace-root",
     status: "Implemented + tests",
     nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Navigation",
   },
@@ -52,7 +52,7 @@ export const packageFamily: { name: string; purpose: string; status: string; nug
   },
   {
     name: "Plugin.Maui.MVVMExpress.Pagination",
-    purpose: "PagedCollection<T>, SearchQuery",
+    purpose: "PagedCollection<T>, SnapshotCollection<T>, SearchQuery.CommittedText",
     status: "Implemented + tests",
     nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Pagination",
   },
@@ -89,8 +89,8 @@ export const technicalSections: DocSection[] = [
     blocks: [
       {
         type: "callout",
-        title: "0.6.0-preview",
-        text: "Device-safe preview on top of phases 1–5. Command, dialog, and property notifications marshal to IMainThread. ICommand.Execute never throws (failures go to IErrorSink / IDialogs; ExecuteAsync still rethrows). CanExecuteChanged is a weak event. Toasts use Window.AddOverlay and never wrap Page.Content. Host registration is UseMvvmExpress(o => o.UseShell().UseDialogs()). Supported: Android + iOS. Mac Catalyst / Windows compile-only. 1.0.0 waits on design-review sign-off.",
+        title: "0.6.1-preview",
+        text: "Host-safe preview on top of 0.6.0. MauiPageNavigator and MauiShellNavigator hop to IMainThread before constructing a Page or calling Shell.GoToAsync. UseNavigationPage is the first-class host for login → replace-root → push; Shell is optional. ResetAsync / ReplaceRootAsync replace window.Page with a NavigationPage. SectionHostViewModel switches tabs in place. SnapshotCollection loads once. SearchQuery.CommittedText is the debounce-then-filter signal. Supported: Android + iOS. 1.0.0 waits on design-review sign-off.",
       },
       {
         type: "p",
@@ -154,8 +154,8 @@ export const technicalSections: DocSection[] = [
      ┌────────────┬────────────┼────────────┬────────────┐
      ▼            ▼            ▼            ▼            ▼
  Navigation    Dialogs    Validation   Pagination    Reactive
- Shell + page  alerts +     IValidator   PagedColl.   CombineLatest
- URI stack     toast
+ Shell or      alerts +     IValidator   Paged +      CombineLatest
+ NavPage       toast                     Snapshot
      │            │            │            │            │
      └────────────┴──────┬─────┴────────────┴────────────┘
                          ▼
@@ -165,8 +165,8 @@ export const technicalSections: DocSection[] = [
                          │
                          ▼
                         Core
-         (forms, pipeline, scopes, cache;
-          no MAUI, no Rx, no FluentValidation)
+         (forms, pipeline, scopes, cache,
+          SectionHost; no MAUI, no Rx)
                          │
          optional adapters ──── sibling plugins
          NetworkMonitor · ApiCache · OfflineSync
@@ -240,16 +240,17 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
     blocks: [
       {
         type: "p",
-        text: "INavigator is host-agnostic. MauiShellNavigator maps a ViewModel type to a Shell route. MauiPageNavigator / IPageNavigator maps a ViewModel type to a Page on INavigation. Prism.Maui does not support Shell and uses URI + dictionary parameters. MVVMExpress prefers NavigateToAsync<TViewModel, TArgs>(TArgs args) with record parameters and IAcceptNavArgs<T>, and also ships NavigateToAsync(route, query) with IAcceptNavQuery.",
+        text: "INavigator is host-agnostic. UseNavigationPage is the first-class host for login → replace-root → push. UseShell is optional. MauiPageNavigator and MauiShellNavigator hop to IMainThread before constructing a Page or calling Shell.GoToAsync. Off-thread new Page() throws “Page factory must run on the main thread.”",
       },
       {
         type: "ul",
         items: [
-          "URI stack on every host: Current, Stack, ModalStack, CanGoBack, History, GoBackAsync, PopToRootAsync, ReplaceAsync, ResetAsync.",
-          "Guards run CanNavigateAwayAsync → host navigate → OnNavigatedFrom / OnNavigatedTo.",
-          "GuardedNavigator wraps IAuthState. GuardedNavigatorOptions.ChallengeViewModel opens login on E_AUTH and resumes the original route after IAuthState.Changed. ForwardFailures sends failed outcomes to IErrorSink / IDialogs.",
-          "IWindowContext + WindowNavigatorRegistry key one navigator per window. MauiWindowContext / MauiVisualTree resolve the current Page.",
-          "ViewModels never call Shell.Current. The page owns BindingContext; the navigator creates the page and resolves the ViewModel from the current IServiceScope.",
+          "URI stack on every host: Current, Stack, ModalStack, CanGoBack, History, GoBackAsync, PopToRootAsync, ReplaceAsync, ResetAsync / ReplaceRootAsync.",
+          "ResetAsync on MauiPageNavigator replaces window.Page with a NavigationPage. It does not PopToRoot + Push onto the old root.",
+          "MauiVisualTree unwraps NavigationPage.CurrentPage so guards see the visible page BindingContext.",
+          "SectionHostViewModel switches tabs in place. Do not GoToAsync four // routes for a chat-style host.",
+          "GuardedNavigator wraps IAuthState. GuardedNavigatorOptions.ChallengeViewModel opens login on E_AUTH and resumes the original route after IAuthState.Changed.",
+          "ViewModels never call Shell.Current or MAUI MainThread statics. IMainThread is the only marshal API.",
         ],
       },
     ],
@@ -356,7 +357,8 @@ dotnet run --project benchmarks/Plugin.Maui.MVVMExpress.Benchmarks -c Release --
       {
         type: "ul",
         items: [
-          "ObservableModel.SetProperty is not thread-safe. On 0.6.0, property and command notifications hop to IMainThread when MarshalNotifications is true (default).",
+          "ObservableModel.SetProperty is not thread-safe. Property, command, and navigation notifications hop to IMainThread when MarshalNotifications is true (default).",
+          "Do not ConfigureAwait(false) then new Page() or Shell.GoToAsync. Navigators hop first; NavigationThread.EnsurePageFactoryOnMainThread throws if they do not.",
           "Bind Button.Command to AsyncModelCommand only on 0.6.0-preview+. 0.5.0 raised CanExecuteChanged off the UI thread after ConfigureAwait(false).",
           "ICommand.Execute (async void) never throws. Failures go to IErrorSink / IDialogs. ExecuteAsync still rethrows.",
           "AsyncState updates are compare-exchange; PropertyChanged is marshalled when a dispatcher is present.",
@@ -421,7 +423,7 @@ export const integrationSections: DocSection[] = [
       {
         type: "callout",
         title: "Preview packages",
-        text: "Every packed package is 0.6.0-preview. Add --prerelease. Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
+        text: "Every packed package is 0.6.1-preview. Add --prerelease. Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
       },
       {
         type: "code",
@@ -465,7 +467,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .UseMvvmExpress(o => o.UseShell().UseDialogs());
+            .UseMvvmExpress(o => o.UseNavigationPage().UseDialogs());
 
         return builder.Build();
     }
@@ -478,7 +480,7 @@ services.AddMvvmExpress();`,
       },
       {
         type: "p",
-        text: "UseShell and UseDialogs live in the Navigation and Dialogs packages. They replace InMemoryNavigator / NullDialogs with MauiShellNavigator, MauiDialogs, and MauiNotifier. Generated [Route] / [RequiresAuth] apply from UseMvvmExpress via a ModuleInitializer (ApplyGeneratedRegistrations defaults to true). Call InitializeComponent() on App before resolving AppShell.",
+        text: "UseNavigationPage is the login → replace-root → push host. UseShell is optional — do not register both unless you really have two hosts. UseDialogs replaces NullDialogs with MauiDialogs and MauiNotifier. Generated [Route] / [RequiresAuth] apply from UseMvvmExpress via a ModuleInitializer. Call InitializeComponent() on App before resolving pages.",
       },
     ],
   },
@@ -592,7 +594,7 @@ items.ReplaceRange(next);`,
     blocks: [
       {
         type: "p",
-        text: "Add Plugin.Maui.MVVMExpress.Navigation and call UseShell() on UseMvvmExpress. MauiShellNavigator maps a ViewModel type to a Shell route and accepts Map<TViewModel, TPage> plus CreateContent. MauiPageNavigator maps a ViewModel type to a Page. Typed args use a record and IAcceptNavArgs<T>.Accept on the destination. URI / dictionary args use IAcceptNavQuery.",
+        text: "Add Plugin.Maui.MVVMExpress.Navigation. Chat-style and login → home apps call UseNavigationPage(). Catalog / flyout apps can still call UseShell(). Both hosts hop to IMainThread before constructing a Page. Typed args use a record and IAcceptNavArgs<T>.Accept. URI / dictionary args use IAcceptNavQuery.",
       },
       {
         type: "code",
@@ -627,22 +629,22 @@ await Navigator.NavigateToAsync(
       },
       {
         type: "p",
-        text: "Page-stack host (INavigation / NavigationPage) uses IPageNavigator. Register one navigator per IWindowContext with WindowNavigatorRegistry.",
+        text: "UseNavigationPage registers MauiPageNavigator as INavigator / IPageNavigator. ResetAsync / ReplaceRootAsync replace window.Page with a NavigationPage after login. Register one navigator per IWindowContext with WindowNavigatorRegistry.",
       },
       {
         type: "code",
-        code: `IPageNavigator pages = new MauiPageNavigator(new WindowContext("main"), services)
-    .Map<PageStackViewModel, PageStackPage>("stack")
-    .Map<PageStackItemViewModel, PageStackItemPage>("stack-item");
+        code: `builder.UseMvvmExpress(o => o.UseNavigationPage((nav, _) => nav
+    .Map<LoginViewModel, LoginPage>("login")
+    .Map<ChatHostViewModel, ChatHostPage>("chats")
+    .Map<ChatThreadViewModel, ChatThreadPage>("thread")).UseDialogs());
 
-await pages.NavigateToAsync(
-    "stack-item",
-    new Dictionary<string, object> { ["Title"] = "Latte" });
+await Navigator.ResetAsync<ChatHostViewModel>(); // replace-root after login
+await Navigator.NavigateToAsync<ChatThreadViewModel, ChatNavArgs>(new(id));
+
 if (pages.CanGoBack)
     await pages.GoBackAsync();
 await pages.PopToRootAsync();
-await pages.ReplaceAsync<PageStackViewModel>();
-await pages.ResetAsync<PageStackViewModel>();`,
+await pages.ReplaceRootAsync<ChatHostViewModel>();`,
       },
     ],
   },
@@ -717,7 +719,7 @@ if (!summary.IsValid)
     blocks: [
       {
         type: "p",
-        text: "FormViewModel lives in Core and does not reference MAUI. Field(name, value) creates a FormField<T>. Bind FormField.Error / HasError. When IDialogs is registered, leaving a dirty form confirms “Discard changes?”. Tests set DirtyNavigation = DirtyNavigationMode.SilentBlock. SubmitAsync(work) calls MarkClean() on success. Use [MustMatch(nameof(Password))] or MustMatch(password, confirm). UndoCommand, RedoCommand, and ResetCommand are on the base type. XAML field highlighting stays Plugin.Maui.FormValidation.",
+        text: "FormViewModel lives in Core and does not reference MAUI. Field(name, value) creates a FormField<T>. Bind(field, propertyName, notifyCanExecute) wires the public property and CanExecute — do not write a manual PropertyChanged wrapper. Bind FormField.Error / HasError. When IDialogs is registered, leaving a dirty form confirms “Discard changes?”. Tests set DirtyNavigation = DirtyNavigationMode.SilentBlock. SubmitAsync(work) calls MarkClean() on success. Use [MustMatch(nameof(Password))] or MustMatch(password, confirm).",
       },
       {
         type: "code",
@@ -728,7 +730,7 @@ if (!summary.IsValid)
     public ProductEditViewModel()
     {
         _name = Field("Name", "");
-        DirtyNavigation = DirtyNavigationMode.Confirm;
+        Bind(_name, nameof(Name), () => SaveCommand.NotifyCanExecuteChanged());
     }
 
     public string Name
@@ -803,24 +805,68 @@ services.AddGeneratedViewModels();`,
     blocks: [
       {
         type: "p",
-        text: "PagedCollection<T> / DelegatePagedCollection<T> own load-more, refresh, and retry. SearchQuery debounces text (default 300 ms, minimum length 2) and cancels the previous query.",
+        text: "PagedCollection<T> / DelegatePagedCollection<T> own load-more, refresh, and retry — not a live chat inbox. SnapshotCollection<T> loads once in InitializeAsync; later LoadAsync calls are no-ops unless force is true. After appear, mutate with AddLocal / Insert. Do not pair DelegatePagedCollection with CollectionView RemainingItemsThreshold when the fetch is sync. SearchQuery.Text binds to Entry; filter from CommittedText after debounce. Do not two-way bind SearchQuery to Android SearchBar.",
       },
       {
         type: "code",
-        code: `public sealed class PagedProductViewModel : ViewModel
+        code: `public sealed class InboxViewModel : ViewModel
 {
-    public DelegatePagedCollection<Product> Products { get; }
+    public SnapshotCollection<Conversation> Inbox { get; }
+    public SearchQuery Search { get; } = new();
 
-    public PagedProductViewModel(ICatalog catalog)
+    public InboxViewModel(IInbox catalog)
     {
-        Products = new DelegatePagedCollection<Product>(
-            (page, ct) => catalog.ListPageAsync(page, ct));
+        Inbox = new SnapshotCollection<Conversation>(
+            ct => catalog.ListAsync(Search.CommittedText, ct));
     }
+
+    protected override Task InitializeAsync(CancellationToken cancellationToken) =>
+        Inbox.LoadAsync(cancellationToken: cancellationToken);
 }
 
-// pull-to-refresh / infinite scroll
+// catalog paging (not a live inbox)
 await Products.RefreshAsync(ct);
 await Products.LoadMoreAsync(ct);`,
+      },
+    ],
+  },
+  {
+    id: "chat-host",
+    title: "Chat-style host",
+    blocks: [
+      {
+        type: "p",
+        text: "A WhatsApp-style app is one persistent screen, in-place tabs, a filterable inbox, and a thread on a NavigationPage stack. That is not a Shell + PagedCollection + appear/refresh app. Auth and forms stay on FormViewModel / IAuthState / GuardedNavigator.",
+      },
+      {
+        type: "code",
+        code: `builder.UseMvvmExpress(o =>
+{
+    o.UseNavigationPage((nav, _) => nav
+        .Map<LoginViewModel, LoginPage>("login")
+        .Map<ChatHostViewModel, ChatHostPage>("chats")
+        .Map<ChatThreadViewModel, ChatThreadPage>("thread"));
+    o.UseDialogs();
+});
+
+await Navigator.ResetAsync<ChatHostViewModel>();
+await Navigator.NavigateToAsync<ChatThreadViewModel, ChatNavArgs>(new(id));`,
+      },
+      {
+        type: "code",
+        code: `public sealed class ChatHostViewModel : SectionHostViewModel
+{
+    public ChatHostViewModel()
+    {
+        Inbox = Add("chats", new ChatInboxViewModel(seed));
+        Add("updates", new ChatInboxViewModel([]));
+    }
+
+    public ChatInboxViewModel Inbox { get; }
+}
+
+// Bind tab buttons to SelectCommand and visibility to CurrentKey.
+// Hub handlers: CoalescingDispatcher (marshal + coalesce).`,
       },
     ],
   },
@@ -910,7 +956,8 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
           ["Auth (flyout)", "Login / SecureHome", "IAuthState, GuardedNavigator — push secure; adapt SecureSession"],
           ["AuthApp", "AuthLogin / AuthHome / Register / Forgot", "First-run replace-root, IAccountService, MustMatch, dirty confirm"],
           ["Offline", "OfflineCatalogViewModel", "ICachedFetcher + FetchPolicy — adapt ApiCache / OfflineSync"],
-          ["Pagination", "PagedProductViewModel", "DelegatePagedCollection load-more + refresh"],
+          ["Pagination", "PagedProductViewModel", "DelegatePagedCollection load-more + refresh (not a live inbox)"],
+          ["Chat host", "ChatHost / ChatInbox", "SectionHostViewModel, SnapshotCollection, SearchQuery.CommittedText, CoalescingDispatcher"],
           ["Reactive", "SearchViewModel", "SearchQuery debounce + PropertyObservable.CombineLatest"],
           ["Enterprise", "EnterpriseShell / CatalogStatus", "Child composition, IFeatureSwitch, hub, busy, probe, auth gate"],
           ["Generated", "GeneratedCatalogViewModel", "[Notify], [ModelCommand], [PersistState], [RegisterViewModel], [Route], [RequiresAuth]"],
@@ -934,6 +981,11 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
           "Do not enable convention View/ViewModel scanning as the only AOT registration path. UseMvvmExpress applies generated [Route] / [RequiresAuth] via a ModuleInitializer.",
           "Do not inject AppShell into App before InitializeComponent(). Resolve the shell in CreateWindow from IServiceProvider.",
           "Do not bind Button.Command to AsyncModelCommand on 0.5.0-preview. Use 0.6.0+ for UI-thread marshal and weak CanExecuteChanged.",
+          "Do not ConfigureAwait(false) then new Page() or Shell.GoToAsync. Navigators hop to IMainThread first.",
+          "Do not pair DelegatePagedCollection with CollectionView RemainingItemsThreshold when the fetch is sync. Use SnapshotCollection.",
+          "Do not bind SearchQuery.Text to Android SearchBar. Use Entry and filter from CommittedText.",
+          "Do not RefreshAsync from OnAppearingAsync on a live inbox. Do not ReplaceRange a visible BindableLayout.",
+          "Do not mix MAUI MainThread statics in ViewModels. IMainThread is the only marshal API.",
           "Hand-written SetProperty and Map<TViewModel> remain valid. Generators are an accelerator.",
         ],
       },
@@ -981,5 +1033,15 @@ export const relatedAdapters = [
     name: "Plugin.Maui.PermissionFlow",
     slug: "plugin-maui-permission-flow",
     why: "IPermissionGate adapter for permission UX.",
+  },
+  {
+    name: "Plugin.Maui.Diagnostics",
+    slug: "plugin-maui-diagnostics",
+    why: "ANR / crash breadcrumbs next to EnableDiagnostics in Debug.",
+  },
+  {
+    name: "Plugin.Maui.KeyboardManager",
+    slug: "plugin-maui-keyboard-manager",
+    why: "Keyboard pan / safe area / dismiss for chat composers.",
   },
 ] as const;

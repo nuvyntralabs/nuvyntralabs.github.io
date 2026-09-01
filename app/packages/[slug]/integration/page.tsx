@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!pkg?.guides) return {};
 
   const title = `${pkg.title} getting started`;
-  const description = `Install 0.6.0-preview, call UseMvvmExpress(o => o.UseShell().UseDialogs()), and wire ${pkg.name} ViewModels, commands, navigation, dialogs, forms, generators, and MauiEssentials adapters.`;
+  const description = `Install 0.6.1-preview, call UseMvvmExpress(o => o.UseNavigationPage().UseDialogs()), and wire ${pkg.name} ViewModels, commands, navigation, chat host, forms, generators, and MauiEssentials adapters.`;
 
   return {
     title,
@@ -47,7 +47,7 @@ export default async function PackageIntegrationPage({ params }: PageProps) {
       kind="integration"
       eyebrow="Getting started"
       title={`Get started with ${pkg.title}`}
-      description="From NuGet install to a testable ViewModel: UseShell / UseDialogs, AsyncState, commands, AuthApp, forms, generators, Reactive, pagination, auth/offline adapters, and the sample map."
+      description="From NuGet install to a testable ViewModel: UseNavigationPage / UseDialogs, AsyncState, commands, AuthApp, chat host, forms, generators, Reactive, snapshot lists, and the sample map."
       sections={integrationSections}
       currentHref={integrationHref}
     />
