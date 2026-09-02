@@ -120,8 +120,8 @@ const introSections: DocSection[] = [
       {
         type: "ul",
         items: [
-          "Shipped in 0.6.1-preview means types exist and tests exist. Phases 1–5 plus the host-safe navigator, NavigationPage replace-root, and chat-host APIs are complete.",
-          "1.0.0 waits on design-review sign-off. Known limitations are accepted 1.0 scope, not remaining product work.",
+          "Shipped in 1.0.0 means types exist and tests exist. Phases 1–7 plus UseAuth, the host-safe navigator, NavigationPage replace-root, and chat-host APIs are complete.",
+          "1.0.0 is the SemVer lock. Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
           "Type names stay unique so CommunityToolkit.Mvvm or Prism can sit in the same app if you need them.",
         ],
       },
@@ -317,12 +317,16 @@ await Products.LoadAsync(token => catalog.ListAsync(token), ct);
             type: "code",
             code: `builder
     .UseMauiApp<App>()
-    .UseMvvmExpress(o => o.UseNavigationPage().UseDialogs());
+    .UseMvvmExpress(o => o
+        .UseNavigationPage()
+        .UseDialogs()
+        .UseAuth<LoginViewModel>());
 // optional catalog path:
-// .UseMvvmExpress(o => o.UseShell().UseDialogs());
+// .UseMvvmExpress(o => o.UseShell().UseDialogs().UseAuth<LoginViewModel>());
 
 // net10.0 tests / shared ViewModel projects
-services.AddMvvmExpress();`,
+services.AddMvvmExpress();
+services.AddAuth<LoginViewModel>();`,
           },
           {
             type: "p",
@@ -352,6 +356,7 @@ services.AddMvvmExpress();`,
               ["INavigator / IPageNavigator", "InMemoryNavigator", "UseNavigationPage() / UseShell()"],
               ["IMainThread", "ImmediateMainThread", "MauiMainThread (host)"],
               ["IDialogs / INotifier", "NullDialogs", "UseDialogs() → MauiDialogs / MauiNotifier"],
+              ["IAuthState", "not registered", "UseAuth + Plugin.Maui.SecureSession adapter"],
               ["IAccountService", "not registered", "App register / reset adapter"],
             ],
           },
@@ -363,24 +368,19 @@ services.AddMvvmExpress();`,
         blocks: [
           {
             type: "p",
-            text: "UseNavigationPage / UseDialogs replace the in-memory defaults. Wrap the navigator with GuardedNavigator when screens require a session. Do not register UseShell and UseNavigationPage together unless you really have two hosts.",
+            text: "UseNavigationPage / UseDialogs replace the in-memory defaults. UseAuth<TChallenge>() wraps GuardedNavigator when screens require a session — do not RemoveAll and reconstruct the guard. Do not register UseShell and UseNavigationPage together unless you really have two hosts.",
           },
           {
             type: "code",
-            code: `builder.UseMvvmExpress(o => o.UseNavigationPage((nav, _) => nav
-    .Map<LoginViewModel, LoginPage>("login")
-    .Map<ChatHostViewModel, ChatHostPage>("chats")).UseDialogs());
+            code: `builder.UseMvvmExpress(o => o
+    .UseNavigationPage((nav, _) => nav
+        .Map<LoginViewModel, LoginPage>("login")
+        .Map<ChatHostViewModel, ChatHostPage>("chats"))
+    .UseDialogs()
+    .UseAuth<AuthLoginViewModel>());
 
-services.RemoveAll<INavigator>();
-services.AddSingleton<INavigator>(sp => new GuardedNavigator(
-    sp.GetRequiredService<INavigator>(),
-    sp.GetRequiredService<IAuthState>(),
-    policy: MvvmExpressGeneratedRegistrations.AuthPolicy,
-    options: new GuardedNavigatorOptions
-    {
-        ChallengeViewModel = typeof(AuthLoginViewModel),
-        ForwardFailures = true,
-    }));
+services.AddSingleton<IAuthState>(sp =>
+    new SecureSessionAuthState(sp.GetRequiredService<ISecureSession>()));
 
 services.RemoveAll<IPageNavigator>();
 services.AddSingleton<IPageNavigator>(sp =>
@@ -536,7 +536,7 @@ public sealed class ProductDetailsViewModel : PageViewModel,
         blocks: [
           {
             type: "p",
-            text: "Dirty forms confirm “Discard changes?” via IDialogs when DirtyNavigation is Confirm (default). Tests set DirtyNavigationMode.SilentBlock. GuardedNavigatorOptions.ChallengeViewModel opens login on E_AUTH and resumes the original route after IAuthState.Changed. [RequiresAuth] / [RequiresRole] feed INavigationAuthPolicy via the generated ModuleInitializer.",
+            text: "Dirty forms confirm “Discard changes?” via IDialogs when DirtyNavigation is Confirm (default). Tests set DirtyNavigationMode.SilentBlock. UseAuth<TChallenge>() opens the challenge ViewModel on E_AUTH and resumes the original route after IAuthState.Changed. [RequiresAuth] / [RequiresRole] feed INavigationAuthPolicy via the generated ModuleInitializer.",
           },
           {
             type: "p",
@@ -685,7 +685,7 @@ items.ReplaceRange(next);`,
     slug: "packages",
     title: "Packages",
     description:
-      "How the family is split, what is packed in 0.6.1, and why optional packages stay optional.",
+      "How the family is split, what is packed in 1.0.0, and why optional packages stay optional.",
     sections: [
       section("packages"),
       {
@@ -847,7 +847,7 @@ Assert.True(LeakProbe.IsCollected(() =>
         blocks: [
           {
             type: "callout",
-            title: "0.6.1-preview",
+            title: "1.0.0",
             text: "Plugin.Maui.MVVMExpress.SourceGenerators is packed. Attributes live in Core. Types must be partial. UseMvvmExpress applies generated [Route] / [RequiresAuth] via a ModuleInitializer (ApplyGeneratedRegistrations defaults to true). You can still call services.AddGeneratedViewModels() explicitly.",
           },
           {
@@ -864,13 +864,15 @@ Assert.True(LeakProbe.IsCollected(() =>
           },
           {
             type: "code",
-            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="0.6.1-preview" PrivateAssets="all" />
+            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="1.0.0" PrivateAssets="all" />
 
-builder.UseMvvmExpress(o => o.UseNavigationPage().UseDialogs());
+builder.UseMvvmExpress(o => o
+    .UseNavigationPage()
+    .UseDialogs()
+    .UseAuth<LoginViewModel>());
 // generated [Route] / [RequiresAuth] apply from UseMvvmExpress
 
-services.AddGeneratedViewModels(); // optional explicit call
-var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrations.AuthPolicy);`,
+services.AddGeneratedViewModels(); // optional explicit call`,
           },
           {
             type: "p",
@@ -884,7 +886,7 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
     slug: "roadmap",
     title: "Roadmap",
     description:
-      "Phases 1–5 plus 0.6.0 device-safe marshal and 0.6.1 host-safe NavigationPage / chat-host APIs are shipped. 1.0.0 waits on design-review sign-off.",
+      "Phases 1–7 are shipped. 1.0.0 is the SemVer lock (UseAuth, 15-minute path, Playground). Next is Phase 8 / 1.1.0.",
     sections: [
       {
         id: "versions",
@@ -892,7 +894,7 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
         blocks: [
           {
             type: "p",
-            text: "Versioning is preview until 1.0. After 1.0.0, SemVer applies and a breaking API change requires a major version. Current public packages are 0.6.1-preview. Shipped public APIs are the 1.0 contract.",
+            text: "1.0.0 is the SemVer lock. A breaking API change requires a major version. Current public packages are 1.0.0. Shipped 0.6.1 APIs plus UseAuth<TChallenge>() are the contract. From 0.6.1-preview, install without --prerelease and replace GuardedNavigator reconstruction with UseAuth.",
           },
           {
             type: "table",
@@ -904,15 +906,18 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
               ["0.4.0-preview", "Phase 3 — forms, Reactive, cache policies, pipeline, scopes"],
               ["0.5.0-preview", "Phases 4–5 — generators, persist/auth, productization"],
               ["0.6.0-preview", "Device-safe marshal, weak CanExecuteChanged, overlay toasts, host/auth/forms UX"],
-              ["0.6.1-preview", "Host-safe navigator, UseNavigationPage + replace-root, SectionHost, SnapshotCollection (current)"],
-              ["1.0.0", "SemVer lock after design-review sign-off only"],
+              ["0.6.1-preview", "Host-safe navigator, UseNavigationPage + replace-root, SectionHost, SnapshotCollection"],
+              ["1.0.0", "Phases 6–7 — 15-minute path, Playground, UseAuth, SemVer lock (current)"],
+              ["1.1.0", "Phase 8 — one path (generators, registration, forms, nav-args), analyzers, dotnet new"],
+              ["1.2.0", "Phase 9 — Shell parity, modules, modal stack, sibling host adapters"],
+              ["1.3.0", "Phase 10 — device numbers, trim, zero-reflection policy, production post-mortem"],
             ],
           },
         ],
       },
       {
         id: "shipped",
-        title: "Shipped (0.6.1-preview)",
+        title: "Shipped (1.0.0)",
         blocks: [
           {
             type: "ul",
@@ -924,17 +929,28 @@ var navigator = new GuardedNavigator(inner, auth, MvvmExpressGeneratedRegistrati
               "Phase 5: migration guides, AOT/trim notes, BenchmarkDotNet, Testing fakes, ScopedNavigator pop-GC, NuGet SourceLink / snupkg / tags.",
               "0.6.0: UI-thread marshal, no-throw ICommand.Execute, weak CanExecuteChanged, Window.AddOverlay toasts, UseShell / UseDialogs, dirty confirm, GuardedNavigatorOptions, IAccountService, ModuleInitializer routes, AuthApp, Validation trim roots.",
               "0.6.1: Navigators hop before new Page(), UseNavigationPage + ResetAsync replace-root, SectionHostViewModel, SnapshotCollection, SearchQuery.CommittedText, FormViewModel.Bind, CoalescingDispatcher, ChatHost sample.",
+              "1.0.0: UseAuth<TChallenge>() / AddAuth<TChallenge>(), 15-minute getting started, cheat sheet, cookbook, Playground, design-review sign-off, SemVer lock.",
             ],
           },
         ],
       },
       {
-        id: "gate",
-        title: "Open gate to 1.0.0",
+        id: "contract",
+        title: "SemVer contract",
         blocks: [
           {
             type: "p",
-            text: "Design-review sign-off is a human decision, not remaining product work. Accepted 1.0 scope: host-process BenchmarkDotNet and ScaleProfile rather than device RSS; in-memory pop-GC rather than a device-window detach run; Windows / Mac Catalyst compile TFMs exist and are compile-only — catalog-primary remains Android + iOS.",
+            text: "Design-review sign-off is recorded (2026-09-02). Accepted 1.0 scope: host-process BenchmarkDotNet and ScaleProfile rather than device RSS; in-memory pop-GC rather than a device-window detach run; Windows / Mac Catalyst compile TFMs exist and are compile-only — catalog-primary remains Android + iOS. Phases 8–10 may deprecate, not break, 1.0 types.",
+          },
+        ],
+      },
+      {
+        id: "next",
+        title: "Next",
+        blocks: [
+          {
+            type: "p",
+            text: "Phase 8 (1.1.0) is one vocabulary for generators, registration, forms, and nav-args, plus CommunityToolkit interop, three analyzers, and dotnet new. Phase 9 (1.2.0) is Shell parity, modules, and modal stack. Phase 10 (1.3.0) is device numbers, trim, and a production post-mortem.",
           },
         ],
       },

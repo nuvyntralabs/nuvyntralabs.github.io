@@ -42,7 +42,7 @@ export default function GettingStartedPage() {
             <code>{`dotnet add package Plugin.Maui.GeoLocator
 dotnet add package Plugin.Maui.NetworkMonitor
 dotnet add package Plugin.Maui.JobQueue
-dotnet add package Plugin.Maui.MVVMExpress.Core --prerelease`}</code>
+dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
           </pre>
         </section>
 

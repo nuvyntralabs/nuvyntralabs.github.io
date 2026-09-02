@@ -82,7 +82,7 @@ export const packages: PackageDoc[] = [
     "name": "Plugin.Maui.MVVMExpress",
     "title": "MVVMExpress",
     "subtitle": "Modular MVVM for MAUI — ViewModels, async state, Shell or NavigationPage, dialogs",
-    "description": "A modular MVVM framework for .NET MAUI: observable models, async commands, bindable AsyncState, lifecycle-aware cancellation, typed Shell or NavigationPage navigation, dialogs, toast, validation, pagination, forms, Reactive, and source generators. Public preview 0.6.1 — host-safe navigator, UseNavigationPage + replace-root, section host, snapshot lists. 1.0.0 waits on design-review sign-off.",
+    "description": "A modular MVVM framework for .NET MAUI: observable models, async commands, bindable AsyncState, lifecycle-aware cancellation, typed Shell or NavigationPage navigation, dialogs, toast, validation, pagination, forms, Reactive, and source generators. 1.0.0 SemVer lock — UseAuth, UseNavigationPage + replace-root, section host, snapshot lists.",
     "github": "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress",
     "nuget": "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress",
     "language": "C#",
@@ -94,7 +94,7 @@ export const packages: PackageDoc[] = [
       "ViewModel",
       "C#"
     ],
-    "abstract": "MVVMExpress is the application shell for production MAUI apps. CommunityToolkit.Mvvm covers properties and commands, Prism.Maui covers page navigation (not Shell), and ReactiveUI covers observable pipelines. A field or enterprise app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference MAUI. 0.6.1 is the host-safe preview: pages are constructed on IMainThread, UseNavigationPage is the first-class login → replace-root → push host (Shell is optional), SectionHostViewModel switches tabs in place, and SnapshotCollection loads a list once. Capability work (captive portal, HTTP cache, offline sync, form XAML, flags, deep links) stays in focused MauiEssentials plugins; MVVMExpress composes them through adapters.",
+    "abstract": "MVVMExpress is the application shell for production MAUI apps. CommunityToolkit.Mvvm covers properties and commands, Prism.Maui covers page navigation (not Shell), and ReactiveUI covers observable pipelines. A field or enterprise app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference MAUI. 1.0.0 is the SemVer lock: UseAuth<TChallenge>() wraps GuardedNavigator, pages are constructed on IMainThread, UseNavigationPage is the first-class login → replace-root → push host (Shell is optional), SectionHostViewModel switches tabs in place, and SnapshotCollection loads a list once. Capability work (captive portal, HTTP cache, offline sync, form XAML, flags, deep links) stays in focused MauiEssentials plugins; MVVMExpress composes them through adapters.",
     "capabilities": [
       "ObservableModel, ViewModel lifecycle, and ViewModelCancellationToken cancelled on dispose.",
       "Sync and async commands with UI-thread marshal, weak CanExecuteChanged, no-throw ICommand.Execute, timeout, retry, debounce, and throttle.",
@@ -102,14 +102,14 @@ export const packages: PackageDoc[] = [
       "Navigators hop to IMainThread before new Page() or Shell.GoToAsync. Off-thread factories throw.",
       "SectionHostViewModel in-place tabs, SnapshotCollection load-once lists, SearchQuery.CommittedText.",
       "FormViewModel.Bind, dirty confirm, SubmitAsync, MustMatch, undo/redo.",
-      "GuardedNavigatorOptions auth challenge + IAuthState.Email / DisplayName / Changed and IAccountService.",
+      "UseAuth<TChallenge>() / AddAuth<TChallenge>() wraps GuardedNavigator. Register IAuthState (SecureSession in production).",
       "MauiNotifier toast via Window.AddOverlay — never wraps Page.Content.",
       "[Notify], command attributes, ModuleInitializer routes, [PersistState], and [RequiresAuth].",
       "CoalescingDispatcher for inbox / hub handlers. IMainThread is the only marshal API in ViewModels.",
       "Testing package: LeakProbe (including Button + pop page), ScaleProfile, FakeDialogs, FakeNavigator, ScopedNavigator.",
       "Adapters for NetworkMonitor, ApiCache, OfflineSync, SecureSession, FormValidation, FeatureFlags, and DeepLinks."
     ],
-    "prerelease": true,
+    "prerelease": false,
     "installPackages": [
       "Plugin.Maui.MVVMExpress.Core",
       "Plugin.Maui.MVVMExpress"

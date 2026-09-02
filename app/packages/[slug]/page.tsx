@@ -177,8 +177,8 @@ export default async function PackagePage({ params }: PageProps) {
               <Link href={pkg.guides.integration} className="glass-card focusable block h-full p-5 hover:shadow-glow">
                 <p className="font-semibold text-foreground">Getting started</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Install, host registration, first ViewModel, commands, navigation, dialogs,
-                  forms, generators, pagination, adapters, and tests.
+                  Install 1.0.0, UseNavigationPage / UseDialogs / UseAuth, first ViewModel,
+                  commands, navigation, forms, generators, pagination, adapters, and tests.
                 </p>
               </Link>
             </li>
