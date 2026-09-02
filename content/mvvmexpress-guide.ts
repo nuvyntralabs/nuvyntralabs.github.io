@@ -118,13 +118,13 @@ const introSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path. Comparison evaluates CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
+        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path, including the first screen and Playground clone. Comparison evaluates CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI and includes the syntax map. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
       },
       {
         type: "ul",
         items: [
           "Shipped in 1.0.0 means types exist and tests exist. Phases 1–7 plus UseAuth, the host-safe navigator, NavigationPage replace-root, and chat-host APIs are complete.",
-          "1.0.0 is the SemVer lock. Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
+          "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
           "Type names stay unique so CommunityToolkit.Mvvm or Prism can sit in the same app if you need them.",
         ],
       },
@@ -483,6 +483,24 @@ hub.Publish(new CartChanged(productId));`,
             text: "UseNavigationPage registers MauiPageNavigator as INavigator / IPageNavigator and hops to IMainThread before new Page(). ResetAsync / ReplaceRootAsync replace window.Page with a NavigationPage. UseShell is optional. MauiVisualTree unwraps NavigationPage.CurrentPage so guards see the visible BindingContext. Register one navigator per IWindowContext.",
           },
           {
+            type: "table",
+            headers: ["Choose", "When"],
+            rows: [
+              [
+                "UseNavigationPage + ResetAsync / ReplaceRootAsync",
+                "Login → home, chat host, or any app that must drop the back-stack so Back cannot return to login. Replaces window.Page with a NavigationPage.",
+              ],
+              [
+                "UseShell",
+                "Flyout / tab catalog, existing Shell routes, or //home as a root ShellContent (AuthApp). ResetAsync only works when the destination is a root ShellContent.",
+              ],
+              [
+                "Do not register both",
+                "Unless you really have two hosts (two windows). One INavigator per IWindowContext.",
+              ],
+            ],
+          },
+          {
             type: "code",
             code: `var shell = new MauiShellNavigator()
     .Map<ProductListViewModel>("//products")
@@ -734,7 +752,7 @@ items.ReplaceRange(next);`,
     slug: "platforms",
     title: "Platforms",
     description:
-      "net10.0 Core, Android and iOS as catalog-primary hosts, threading, AOT, and security boundaries.",
+      "net10.0 Core; Android, iOS, Mac Catalyst, and Windows as single-window hosts; threading, AOT, and security boundaries.",
     sections: [
       {
         id: "tfms",
@@ -745,13 +763,17 @@ items.ReplaceRange(next);`,
             headers: ["Package", "TFMs", "MAUI?"],
             rows: [
               ["Core, Validation, Pagination, Testing, Reactive, Compatibility", "net10.0", "No"],
-              ["Host, Navigation, Dialogs", "net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+); Mac Catalyst / Windows compile-only", "Yes"],
+              [
+                "Host, Navigation, Dialogs",
+                "net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+), net10.0-maccatalyst (15+), net10.0-windows10.0.19041.0 (Windows 10 17763+; packed when MSBuild runs on Windows)",
+                "Yes",
+              ],
               ["SourceGenerators", "Roslyn analyzer / generator", "—"],
             ],
           },
           {
             type: "p",
-            text: "Catalog-primary is Android and iOS. Mac Catalyst and Windows compile TFMs exist on Host / Navigation / Dialogs and are compile-only. Host APIs that need a window throw FeatureNotSupportedException on the net10.0 TFM.",
+            text: "Host / Navigation / Dialogs are single-window hosts on Android, iOS, Mac Catalyst, and Windows (shared MAUI APIs). Defaults still use Windows[0] / Shell.Current. Multi-window desktop, Window.AddOverlay toast QA on desktop, and a Windows nupkg RID when packing on macOS are not a separate desktop product. Windows apps resolve net10.0 when the Windows TFM is not in the nupkg. Host APIs that need a window throw FeatureNotSupportedException on the net10.0 TFM. Sibling adapters (NetworkMonitor, SecureSession, DeepLinks, KeyboardManager, FormValidation) stay Android + iOS.",
           },
         ],
       },
@@ -806,21 +828,51 @@ await executor.RunAsync(ct => catalog.ListAsync(ct), new OperationOptions
         blocks: [
           {
             type: "p",
-            text: "Plugin.Maui.MVVMExpress.Testing is net10.0 and depends on Core. Put ViewModels in a shared net10.0 project so they run without MAUI. InMemoryNavigator implements IPageNavigator for tests. Also: FakeMainThread, FakeConnectivity, FakeMessageHub, AppearAsync / DisappearAsync, and ScopedNavigator for page-scope push/pop GC.",
+            text: "Plugin.Maui.MVVMExpress.Testing is net10.0 and depends on Core. Put ViewModels in a shared net10.0 project so they run without MAUI. FakeNavigator is InMemoryNavigator — assert Current, Stack, and CanGoBack. LeakProbe.Track returns a WeakReference; IsCollected takes that reference, not a Func. Drop the strong reference before the assert (the leak snippet uses the first-screen HomeViewModel). Also: FakeMainThread, FakeConnectivity, FakeMessageHub, AppearAsync / DisappearAsync, and ScopedNavigator for page-scope push/pop GC. Button + popped-page collection is a Core test scenario (weak CanExecuteChanged), not a LeakProbe Button API.",
           },
           {
             type: "code",
-            code: `var dialogs = new FakeDialogs { ConfirmResult = true };
-var navigator = new FakeNavigator();
-var vm = new ProductEditViewModel(dialogs, navigator, catalog);
-
-await vm.InitializeAsync();
-Assert.True(LeakProbe.IsCollected(() =>
+            code: `public sealed class ProductListViewModel : PageViewModel
 {
-    var probe = new HomeViewModel(catalog);
-    probe.Dispose();
-    return probe;
-}));`,
+    public ProductListViewModel(INavigator navigator)
+        : base(navigator)
+    {
+    }
+
+    public Task OpenDetailsAsync(int id, CancellationToken cancellationToken) =>
+        Navigator!.NavigateToAsync<ProductDetailsViewModel, ProductDetailsArgs>(
+            new ProductDetailsArgs(id), cancellationToken);
+}
+
+[Fact]
+public async Task OpenDetails_pushes_details()
+{
+    var navigator = new FakeNavigator()
+        .Map<ProductDetailsViewModel>("details");
+    var vm = new ProductListViewModel(navigator);
+
+    await vm.AppearAsync();
+    await vm.OpenDetailsAsync(42);
+
+    Assert.Equal(typeof(ProductDetailsViewModel), navigator.Current);
+    Assert.True(navigator.CanGoBack);
+}`,
+          },
+          {
+            type: "code",
+            code: `[Fact]
+public void Dispose_makes_the_viewmodel_collectable()
+{
+    Assert.True(LeakProbe.IsCollected(CreateAndDispose()));
+}
+
+static WeakReference CreateAndDispose()
+{
+    var vm = new HomeViewModel();
+    var leak = LeakProbe.Track(vm);
+    vm.Dispose();
+    return leak;
+}`,
           },
         ],
       },
@@ -897,7 +949,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
         blocks: [
           {
             type: "p",
-            text: "1.0.0 is the SemVer lock. A breaking API change requires a major version. Current public packages are 1.0.0. Shipped 0.6.1 APIs plus UseAuth<TChallenge>() are the contract. From 0.6.1-preview, install without --prerelease and replace GuardedNavigator reconstruction with UseAuth.",
+            text: "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. Current public packages are 1.0.0. Shipped 0.6.1 APIs plus UseAuth<TChallenge>() are the contract. From 0.6.1-preview, install without --prerelease and replace GuardedNavigator reconstruction with UseAuth.",
           },
           {
             type: "table",
@@ -943,7 +995,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
         blocks: [
           {
             type: "p",
-            text: "Design-review sign-off is recorded (2026-09-02). Accepted 1.0 scope: host-process BenchmarkDotNet and ScaleProfile rather than device RSS; in-memory pop-GC rather than a device-window detach run; Windows / Mac Catalyst compile TFMs exist and are compile-only — catalog-primary remains Android + iOS. Phases 8–10 may deprecate, not break, 1.0 types.",
+            text: "Design-review sign-off is recorded (2026-09-02). Accepted 1.0 scope: host-process BenchmarkDotNet and ScaleProfile rather than device RSS; in-memory pop-GC rather than a device-window detach run; Mac Catalyst and Windows are single-window host targets on Host / Navigation / Dialogs. Sibling capability plugins remain Android + iOS. Phases 8–10 may deprecate, not break, 1.0 types.",
           },
         ],
       },
@@ -967,7 +1019,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
               "Prism-style regions.",
               "ReactiveUI IScreen routing as a first-class host.",
               "A built-in remote feature-flag or auth provider (use FeatureFlags / SecureSession).",
-              "First-class Windows / Mac Catalyst support claims.",
+              "Multi-window desktop, desktop toast QA, and a Windows nupkg RID when packing on macOS.",
               "A bottom-sheet control library (Dialogs stays an abstraction).",
               "A Visual Studio binding debugger visualizer.",
             ],

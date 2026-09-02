@@ -38,6 +38,31 @@ export const comparisonSections: DocSection[] = [
     ],
   },
   {
+    id: "syntax",
+    title: "Syntax map",
+    blocks: [
+      {
+        type: "p",
+        text: "If you already know CommunityToolkit.Mvvm or Prism, write the MVVMExpress name. Type names stay unique so CommunityToolkit can sit in the same app. This is not a drop-in rename — navigation, dialogs, auth, and AsyncState have no Toolkit equivalent. The attribute is [ModelCommand] / [AsyncModelCommand], not [Command].",
+      },
+      {
+        type: "table",
+        headers: ["Surface", "CommunityToolkit / Prism", "MVVMExpress"],
+        rows: [
+          ["Property generator", "[ObservableProperty]", "[Notify] / [NotifyAlso]"],
+          ["Sync command", "[RelayCommand] / RelayCommand", "[ModelCommand] / ModelCommand"],
+          ["Async command", "[RelayCommand] / AsyncRelayCommand", "[AsyncModelCommand] / AsyncModelCommand"],
+          ["Base type", "ObservableObject / BindableBase", "ViewModel / PageViewModel"],
+          ["Messenger", "IMessenger", "IMessageHub"],
+          ["Navigation", "INavigationService (Prism; no Shell)", "INavigator (NavigationPage or Shell)"],
+          ["Dialogs", "IDialogService / DisplayAlert", "IDialogs"],
+          ["Nav args", "INavigationParameters", "typed records + IAcceptNavArgs<T>"],
+          ["Result", "App-owned", "Outcome / Outcome<T>"],
+        ],
+      },
+    ],
+  },
+  {
     id: "criteria",
     title: "Memory, startup, and docs",
     blocks: [

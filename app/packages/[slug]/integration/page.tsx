@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!pkg?.guides) return {};
 
   const title = `${pkg.title} getting started`;
-  const description = `Install 1.0.0, call UseMvvmExpress(o => o.UseNavigationPage().UseDialogs().UseAuth<TChallenge>()), and wire ${pkg.name} ViewModels, commands, navigation, chat host, forms, generators, and MauiEssentials adapters.`;
+  const description = `Install 1.0.0 (SemVer lock — breaking changes wait for 2.0.0), clone Playground, and wire ${pkg.name} with UseNavigationPage or UseShell, first screen, FakeNavigator, and LeakProbe.`;
 
   return {
     title,
@@ -47,7 +47,7 @@ export default async function PackageIntegrationPage({ params }: PageProps) {
       kind="integration"
       eyebrow="Getting started"
       title={`Get started with ${pkg.title}`}
-      description="From NuGet install to a testable ViewModel: UseNavigationPage / UseDialogs / UseAuth, AsyncState, commands, Playground, AuthApp, chat host, forms, generators, Reactive, snapshot lists, and the sample map."
+      description="From NuGet install to a testable ViewModel: 1.0.0 SemVer lock, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and the in-repo sample map."
       sections={integrationSections}
       currentHref={integrationHref}
     />

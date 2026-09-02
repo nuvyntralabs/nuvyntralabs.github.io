@@ -78,6 +78,15 @@ export default async function PackagePage({ params }: PageProps) {
         </p>
       ) : null}
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{pkg.description}</p>
+      {pkg.slug === mvvmExpressSlug ? (
+        <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
+          <p className="text-sm font-semibold text-lavender-900">1.0.0 SemVer lock</p>
+          <p className="mt-1 text-sm leading-relaxed text-lavender-800">
+            Public 1.x APIs stay source-compatible. Additive work may ship in 1.1.0+. Breaking
+            changes wait for 2.0.0. That is a SemVer contract, not an immutable freeze.
+          </p>
+        </aside>
+      ) : null}
 
       <div className="mt-6 flex flex-wrap gap-3">
         <a
@@ -99,6 +108,18 @@ export default async function PackagePage({ params }: PageProps) {
           >
             <Package className="h-4 w-4" aria-hidden="true" />
             NuGet
+          </a>
+        ) : null}
+        {pkg.slug === mvvmExpressSlug ? (
+          <a
+            href="https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+          >
+            <Github className="h-4 w-4" aria-hidden="true" />
+            Playground sample
+            <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
           </a>
         ) : null}
       </div>
@@ -178,8 +199,8 @@ export default async function PackagePage({ params }: PageProps) {
               <Link href={pkg.guides.integration} className="glass-card focusable block h-full p-5 hover:shadow-glow">
                 <p className="font-semibold text-foreground">Getting started</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Install 1.0.0, UseNavigationPage / UseDialogs / UseAuth, first ViewModel,
-                  commands, navigation, forms, generators, pagination, adapters, and tests.
+                  Install 1.0.0, first screen, UseNavigationPage vs UseShell, Playground
+                  clone, FakeNavigator / LeakProbe, forms, generators, and adapters.
                 </p>
               </Link>
             </li>
@@ -188,10 +209,26 @@ export default async function PackagePage({ params }: PageProps) {
                 <Link href={pkg.guides.comparison} className="glass-card focusable block h-full p-5 hover:shadow-glow">
                   <p className="font-semibold text-foreground">Comparison</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    MVVMExpress versus CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI — surfaces,
-                    trade-offs, and when to choose each.
+                    Surfaces, syntax map ([Notify] vs [ObservableProperty], INavigator vs
+                    INavigationService), trade-offs, and when to choose each.
                   </p>
                 </Link>
+              </li>
+            ) : null}
+            {pkg.slug === mvvmExpressSlug ? (
+              <li>
+                <a
+                  href="https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-card focusable block h-full p-5 hover:shadow-glow"
+                >
+                  <p className="font-semibold text-foreground">Playground sample</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    Cloneable 15-minute path in the product repo — command, navigation, dialog,
+                    form, auth, and list. Not a separate SampleApp repository.
+                  </p>
+                </a>
               </li>
             ) : null}
           </ul>

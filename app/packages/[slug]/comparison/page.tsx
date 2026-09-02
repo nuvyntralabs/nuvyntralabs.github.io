@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!pkg?.guides?.comparison) return {};
 
   const title = `${pkg.title} comparison`;
-  const description = `Compare ${pkg.name} with CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI — navigation, auth, forms, testing, and when to choose each.`;
+  const description = `Compare ${pkg.name} with CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI — syntax map, navigation, auth, forms, testing, and when to choose each.`;
 
   return {
     title,
@@ -47,7 +47,7 @@ export default async function PackageComparisonPage({ params }: PageProps) {
       kind="comparison"
       eyebrow="Comparison"
       title={`${pkg.title} vs CommunityToolkit, Prism, and ReactiveUI`}
-      description="An architectural comparison of shipped surfaces. Scores are not BenchmarkDotNet or device RSS. Choose the stack that matches the app — CommunityToolkit for a small ViewModel layer, Prism for URI navigation without Shell, ReactiveUI for Rx-first apps, or MVVMExpress for one application shell."
+      description="An architectural comparison of shipped surfaces plus a syntax map from CommunityToolkit and Prism names. Scores are not BenchmarkDotNet or device RSS. Choose the stack that matches the app — CommunityToolkit for a small ViewModel layer, Prism for URI navigation without Shell, ReactiveUI for Rx-first apps, or MVVMExpress for one application shell."
       sections={comparisonSections}
       currentHref={comparisonHref}
     />

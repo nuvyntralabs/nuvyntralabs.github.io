@@ -2,7 +2,7 @@ export const mvvmExpressSlug = "plugin-maui-mvvmexpress";
 
 export const mvvmExpressStatus = {
   version: "1.0.0",
-  note: "Stable SemVer lock: UseAuth<TChallenge>(), UseNavigationPage + replace-root, SectionHostViewModel, SnapshotCollection. Supported: Android + iOS. Mac Catalyst / Windows compile-only. Shipped 0.6.1 APIs plus UseAuth are the contract. Breaking change = major version.",
+  note: "Stable SemVer lock: UseAuth<TChallenge>(), UseNavigationPage + replace-root, SectionHostViewModel, SnapshotCollection. Supported: Android, iOS, Mac Catalyst, and Windows (single-window). Sibling adapters stay Android + iOS. Shipped 0.6.1 APIs plus UseAuth are the contract. Breaking change = major version.",
 } as const;
 
 export type DocBlock =
@@ -91,7 +91,7 @@ export const technicalSections: DocSection[] = [
       {
         type: "callout",
         title: "1.0.0",
-        text: "Stable SemVer lock (2026-09-02). Design-review sign-off is recorded. UseAuth<TChallenge>() wraps GuardedNavigator so getting started never reconstructs the guard. AddAuth<TChallenge>() is the same wrap for AddMvvmExpress / net10.0 tests. UseNavigationPage is the first-class host for login → replace-root → push; Shell is optional. Pages are constructed on IMainThread. SectionHostViewModel, SnapshotCollection, and SearchQuery.CommittedText stay as shipped in 0.6.1. Supported: Android + iOS. Breaking change = major version.",
+        text: "1.0.0 is the SemVer lock (signed off 2026-09-02). Public 1.x APIs stay source-compatible: 1.1.0+ may add surfaces, breaking changes wait for 2.0.0. UseAuth<TChallenge>() wraps GuardedNavigator so getting started never reconstructs the guard. AddAuth<TChallenge>() is the same wrap for AddMvvmExpress / net10.0 tests. UseNavigationPage is the first-class host for login → replace-root → push; Shell is optional. Pages are constructed on IMainThread. SectionHostViewModel, SnapshotCollection, and SearchQuery.CommittedText stay as shipped in 0.6.1. Host / Navigation / Dialogs support Android, iOS, Mac Catalyst, and Windows as a single-window host. Sibling MauiEssentials adapters stay Android + iOS.",
       },
       {
         type: "p",
@@ -280,6 +280,10 @@ Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
           ["Result", "Outcome / Outcome<T>", "competing Result<T> packages"],
         ],
       },
+      {
+        type: "p",
+        text: "The Comparison page has the side-by-side syntax map ([Notify] versus [ObservableProperty], INavigator versus INavigationService). The attribute is [ModelCommand] / [AsyncModelCommand], not [Command].",
+      },
     ],
   },
   {
@@ -423,8 +427,24 @@ export const integrationSections: DocSection[] = [
     blocks: [
       {
         type: "callout",
-        title: "1.0.0",
-        text: "Every packed package is 1.0.0. Install without --prerelease. SemVer applies: a breaking API change requires a major version. From 0.6.1-preview the only public API addition is UseAuth<TChallenge>(). Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
+        title: "1.0.0 SemVer lock",
+        text: "Every packed package is 1.0.0. Install without --prerelease. Public 1.x APIs stay source-compatible — 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. That is a SemVer contract, not an immutable freeze. Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
+      },
+      {
+        type: "link",
+        note: "Clone the 15-minute path:",
+        label: "samples/Playground",
+        href: "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground",
+      },
+      {
+        type: "link",
+        note: "All in-repo samples:",
+        label: "samples/",
+        href: "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples",
+      },
+      {
+        type: "code",
+        code: `git clone https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress.git`,
       },
       {
         type: "code",
@@ -486,6 +506,64 @@ services.AddAuth<LoginViewModel>();`,
       {
         type: "p",
         text: "UseNavigationPage is the login → replace-root → push host. UseShell is optional — do not register both unless you really have two hosts. UseDialogs replaces NullDialogs with MauiDialogs and MauiNotifier. UseAuth<TChallenge>() wraps GuardedNavigator — register IAuthState yourself and do not reconstruct the guard. Generated [Route] / [RequiresAuth] apply from UseMvvmExpress via a ModuleInitializer. Call InitializeComponent() on App before resolving pages.",
+      },
+      {
+        type: "table",
+        headers: ["Choose", "When"],
+        rows: [
+          [
+            "UseNavigationPage + ResetAsync / ReplaceRootAsync",
+            "Login → home, chat host, or any app that must drop the back-stack so Back cannot return to login. Replaces window.Page with a NavigationPage.",
+          ],
+          [
+            "UseShell",
+            "Flyout / tab catalog, existing Shell routes, or //home as a root ShellContent (AuthApp). ResetAsync only works when the destination is a root ShellContent.",
+          ],
+          [
+            "Do not register both",
+            "Unless you really have two hosts (two windows). One INavigator per IWindowContext.",
+          ],
+        ],
+      },
+    ],
+  },
+  {
+    id: "first-screen",
+    title: "First screen",
+    blocks: [
+      {
+        type: "p",
+        text: "The 15-minute path is Playground. After UseMvvmExpress above, a first page is a partial ViewModel, [Notify], [AsyncModelCommand], and a XAML bind. The command token is the ViewModel token — Dispose cancels ViewModelCancellationToken. Do not mash MauiProgram, the ViewModel, and the page into one file.",
+      },
+      {
+        type: "code",
+        code: `public partial class HomeViewModel : PageViewModel
+{
+    [Notify] private int _count;
+
+    [AsyncModelCommand]
+    private async Task IncrementAsync(CancellationToken cancellationToken)
+    {
+        await Task.Delay(80, cancellationToken);
+        Count++;
+    }
+}`,
+      },
+      {
+        type: "code",
+        code: `<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:vm="clr-namespace:MyApp"
+             x:Class="MyApp.HomePage"
+             x:DataType="vm:HomeViewModel">
+    <VerticalStackLayout Padding="24">
+        <Label Text="{Binding Count}" />
+        <Button Text="Increment" Command="{Binding IncrementCommand}" />
+    </VerticalStackLayout>
+</ContentPage>`,
+      },
+      {
+        type: "p",
+        text: "Add Plugin.Maui.MVVMExpress.SourceGenerators with PrivateAssets=all. Types must be partial. Hand-written SetProperty stays valid — the next section shows that path with AsyncState.",
       },
     ],
   },
@@ -599,7 +677,7 @@ items.ReplaceRange(next);`,
     blocks: [
       {
         type: "p",
-        text: "Add Plugin.Maui.MVVMExpress.Navigation. Chat-style and login → home apps call UseNavigationPage(). Catalog / flyout apps can still call UseShell(). Both hosts hop to IMainThread before constructing a Page. Typed args use a record and IAcceptNavArgs<T>.Accept. URI / dictionary args use IAcceptNavQuery.",
+        text: "Add Plugin.Maui.MVVMExpress.Navigation. Chat-style and login → home apps call UseNavigationPage(). Catalog / flyout apps can still call UseShell(). Both hosts hop to IMainThread before constructing a Page. Typed args use a record and IAcceptNavArgs<T>.Accept. URI / dictionary args use IAcceptNavQuery. The host table is under Register the host.",
       },
       {
         type: "code",
@@ -926,21 +1004,51 @@ if (cached is not null && !probe.IsOnline)
     blocks: [
       {
         type: "p",
-        text: "Plugin.Maui.MVVMExpress.Testing is net10.0. ViewModels in the sample host live in a shared net10.0 project so they can be tested without MAUI.",
+        text: "Plugin.Maui.MVVMExpress.Testing is net10.0. ViewModels in the sample host live in a shared net10.0 project so they can be tested without MAUI. FakeNavigator is InMemoryNavigator — assert Current, Stack, and CanGoBack. LeakProbe.Track returns a WeakReference; IsCollected takes that reference, not a Func. Drop the strong reference before the assert (the leak snippet uses the first-screen HomeViewModel). AppearAsync / DisappearAsync drive lifecycle without a page. Button + popped-page collection is a Core test scenario (weak CanExecuteChanged), not a LeakProbe Button API. ScopedNavigator covers page-scope push/pop GC.",
       },
       {
         type: "code",
-        code: `var dialogs = new FakeDialogs();
-var navigator = new FakeNavigator();
-var vm = new ProductEditViewModel(dialogs, navigator, catalog);
-
-await vm.InitializeAsync();
-Assert.True(LeakProbe.IsCollected(() =>
+        code: `public sealed class ProductListViewModel : PageViewModel
 {
-    var probe = new HomeViewModel(catalog);
-    probe.Dispose();
-    return probe;
-}));`,
+    public ProductListViewModel(INavigator navigator)
+        : base(navigator)
+    {
+    }
+
+    public Task OpenDetailsAsync(int id, CancellationToken cancellationToken) =>
+        Navigator!.NavigateToAsync<ProductDetailsViewModel, ProductDetailsArgs>(
+            new ProductDetailsArgs(id), cancellationToken);
+}
+
+[Fact]
+public async Task OpenDetails_pushes_details()
+{
+    var navigator = new FakeNavigator()
+        .Map<ProductDetailsViewModel>("details");
+    var vm = new ProductListViewModel(navigator);
+
+    await vm.AppearAsync();
+    await vm.OpenDetailsAsync(42);
+
+    Assert.Equal(typeof(ProductDetailsViewModel), navigator.Current);
+    Assert.True(navigator.CanGoBack);
+}`,
+      },
+      {
+        type: "code",
+        code: `[Fact]
+public void Dispose_makes_the_viewmodel_collectable()
+{
+    Assert.True(LeakProbe.IsCollected(CreateAndDispose()));
+}
+
+static WeakReference CreateAndDispose()
+{
+    var vm = new HomeViewModel();
+    var leak = LeakProbe.Track(vm);
+    vm.Dispose();
+    return leak;
+}`,
       },
       {
         type: "code",
@@ -955,7 +1063,19 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
     blocks: [
       {
         type: "p",
-        text: "The 15-minute path is Playground (command, navigation, dialog, form, auth, list). First-run login is AuthApp: sign in → home, plus register and forgot password (demo@mvvmexpress.dev / secret). AuthApp uses UseMvvmExpress(o => o.UseShell().UseDialogs().UseAuth<AuthLoginViewModel>()), ResetAsync replace-root, [RequiresAuth], and FormViewModel dirty confirm. The flyout catalog still lives in Plugin.Maui.MVVMExpress.Sample.",
+        text: "There is no separate MVVMExpress.SampleApp repository. Samples ship in the product repo. The 15-minute path is Playground (command, navigation, dialog, form, auth, list). First-run login is AuthApp: sign in → home, plus register and forgot password (demo@mvvmexpress.dev / secret). AuthApp uses UseMvvmExpress(o => o.UseShell().UseDialogs().UseAuth<AuthLoginViewModel>()), ResetAsync replace-root, [RequiresAuth], and FormViewModel dirty confirm. The flyout catalog still lives in Plugin.Maui.MVVMExpress.Sample.",
+      },
+      {
+        type: "link",
+        note: "Clone and run:",
+        label: "samples/Playground",
+        href: "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground",
+      },
+      {
+        type: "link",
+        note: "In-repo sample map:",
+        label: "samples/",
+        href: "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples",
       },
       {
         type: "link",

@@ -61,7 +61,10 @@ export function packageJsonLd(pkg: PackageDoc) {
       description: pkg.description,
       url: page,
       applicationCategory: "DeveloperApplication",
-      operatingSystem: "Android, iOS",
+      operatingSystem:
+        pkg.slug === "plugin-maui-mvvmexpress"
+          ? "Android, iOS, macOS (Mac Catalyst), Windows"
+          : "Android, iOS",
       programmingLanguage: pkg.language ?? "C#",
       codeRepository: pkg.github,
       downloadUrl: pkg.nuget ?? pkg.github,

@@ -23,7 +23,7 @@ export default function GettingStartedPage() {
       <PageHero
         eyebrow="Documentation"
         title="Getting started"
-        description="Packages ship independently. Add only the plugins your app needs — there is no mega-package dependency. Each plugin targets .NET MAUI on Android and iOS."
+        description="Packages ship independently. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress also hosts single-window Mac Catalyst and Windows."
       />
       <div className="container max-w-3xl py-16 sm:py-20">
         <section>
@@ -76,7 +76,8 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             >
               MVVMExpress
             </Link>
-            . Technical internals and a step-by-step integration guide live next to the package.
+            . It hosts a single window on Android, iOS, Mac Catalyst, and Windows. Technical internals
+            and a step-by-step integration guide live next to the package.
           </p>
         </section>
 

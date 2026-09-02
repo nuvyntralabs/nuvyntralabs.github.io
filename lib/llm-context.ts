@@ -57,6 +57,7 @@ MVVMExpress documentation: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/do
 MVVMExpress getting started: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/integration/
 MVVMExpress comparison: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/comparison/
 MVVMExpress roadmap: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/roadmap/
+MVVMExpress Playground sample: https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground
 GitHub for each plugin: ${siteConfig.githubOrg}/<PackageName>
 `;
 }
