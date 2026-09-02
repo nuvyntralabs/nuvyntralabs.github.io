@@ -55,6 +55,7 @@ ${catalog}
 Package docs: ${siteConfig.url}/packages/<slug>/
 MVVMExpress documentation: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/
 MVVMExpress getting started: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/integration/
+MVVMExpress comparison: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/comparison/
 MVVMExpress roadmap: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/roadmap/
 GitHub for each plugin: ${siteConfig.githubOrg}/<PackageName>
 `;
@@ -189,7 +190,7 @@ ${item.abstract}
 Capabilities:
 ${item.capabilities.map((line) => `- ${line}`).join("\n")}${
     item.guides
-      ? `\nTechnical docs: ${siteConfig.url}${item.guides.technical}\nIntegration: ${siteConfig.url}${item.guides.integration}`
+      ? `\nTechnical docs: ${siteConfig.url}${item.guides.technical}\nIntegration: ${siteConfig.url}${item.guides.integration}${item.guides.comparison ? `\nComparison: ${siteConfig.url}${item.guides.comparison}` : ""}`
       : ""
   }`;
 }

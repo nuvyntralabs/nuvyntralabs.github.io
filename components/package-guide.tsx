@@ -1,16 +1,16 @@
 import Link from "next/link";
-import { BookOpen, Puzzle } from "lucide-react";
+import { BookOpen, Puzzle, Scale } from "lucide-react";
 import { DocsArticle } from "@/components/docs-article";
 import { DocsSidebar } from "@/components/docs-sidebar";
 import { JsonLd } from "@/components/json-ld";
 import { packageGuideJsonLd } from "@/lib/json-ld";
 import type { PackageDoc } from "@/content/packages";
 import type { DocSection } from "@/content/mvvmexpress";
-import { adjacentGuidePages, docsBase, guideNav, integrationHref } from "@/content/mvvmexpress-guide";
+import { adjacentGuidePages, comparisonHref, docsBase, guideNav, integrationHref } from "@/content/mvvmexpress-guide";
 import { mvvmExpressSlug } from "@/content/mvvmexpress";
 import { cn } from "@/lib/utils";
 
-export type GuideKind = "docs" | "integration";
+export type GuideKind = "docs" | "integration" | "comparison";
 
 export function PackageGuide({
   pkg,
@@ -31,14 +31,22 @@ export function PackageGuide({
   const guides = pkg.guides;
   if (!guides) return null;
   const book = pkg.slug === mvvmExpressSlug;
-  const href = currentHref ?? (kind === "docs" ? `${docsBase}/` : integrationHref);
+  const href =
+    currentHref ??
+    (kind === "docs" ? `${docsBase}/` : kind === "comparison" ? comparisonHref : integrationHref);
 
   if (!book) {
     return (
       <main>
         <JsonLd data={packageGuideJsonLd(pkg, kind, title, description, href)} />
         <div className="container max-w-6xl py-12 sm:py-16">
-          <GuideTabs slug={pkg.slug} active={kind} technical={guides.technical} integration={guides.integration} />
+          <GuideTabs
+            slug={pkg.slug}
+            active={kind}
+            technical={guides.technical}
+            integration={guides.integration}
+            comparison={guides.comparison}
+          />
           <div className="mt-10 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)]">
             <OnThisPage sections={sections} />
             <DocsArticle sections={sections} />
@@ -56,7 +64,7 @@ export function PackageGuide({
           <DocsSidebar groups={guideNav} currentHref={href} />
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700">
-              {kind === "docs" ? "Documentation" : "Getting started"}
+              {kind === "docs" ? "Documentation" : kind === "comparison" ? "Comparison" : "Getting started"}
             </p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">{description}</p>
@@ -126,16 +134,21 @@ export function GuideTabs({
   active,
   technical,
   integration,
+  comparison,
 }: {
   slug: string;
   active: "overview" | GuideKind;
   technical: string;
   integration: string;
+  comparison?: string;
 }) {
   const tabs = [
     { href: `/packages/${slug}/`, id: "overview" as const, label: "Overview", icon: null },
     { href: technical, id: "docs" as const, label: "Documentation", icon: BookOpen },
     { href: integration, id: "integration" as const, label: "Getting started", icon: Puzzle },
+    ...(comparison
+      ? [{ href: comparison, id: "comparison" as const, label: "Comparison", icon: Scale }]
+      : []),
   ];
 
   return (

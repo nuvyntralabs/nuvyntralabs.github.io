@@ -1,8 +1,10 @@
 import type { DocSection } from "@/content/mvvmexpress";
+import { comparisonHref } from "@/content/mvvmexpress-comparison";
 import { integrationSections, mvvmExpressSlug, technicalSections } from "@/content/mvvmexpress";
 
 export const docsBase = `/packages/${mvvmExpressSlug}/docs`;
 export const integrationHref = `/packages/${mvvmExpressSlug}/integration/`;
+export { comparisonHref };
 
 function section(id: string, from: DocSection[] = technicalSections): DocSection {
   const match = from.find((item) => item.id === id);
@@ -38,6 +40,7 @@ export const guideNav: GuideNavGroup[] = [
     items: [
       { title: "Introduction", href: `${docsBase}/` },
       { title: "Getting started", href: integrationHref },
+      { title: "Comparison", href: comparisonHref },
     ],
   },
   {
@@ -115,7 +118,7 @@ const introSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
+        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path. Comparison evaluates CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
       },
       {
         type: "ul",

@@ -110,6 +110,7 @@ export default async function PackagePage({ params }: PageProps) {
             active="overview"
             technical={pkg.guides.technical}
             integration={pkg.guides.integration}
+            comparison={pkg.guides.comparison}
           />
         </div>
       ) : null}
@@ -182,6 +183,17 @@ export default async function PackagePage({ params }: PageProps) {
                 </p>
               </Link>
             </li>
+            {pkg.guides.comparison ? (
+              <li>
+                <Link href={pkg.guides.comparison} className="glass-card focusable block h-full p-5 hover:shadow-glow">
+                  <p className="font-semibold text-foreground">Comparison</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    MVVMExpress versus CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI — surfaces,
+                    trade-offs, and when to choose each.
+                  </p>
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </section>
       ) : null}

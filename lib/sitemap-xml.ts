@@ -18,7 +18,11 @@ export function sitemapUrls(): string[] {
     ...proofOfConcepts.map((item) => `/pocs/${item.slug}/`),
     ...packages.map((item) => `/packages/${item.slug}/`),
     ...packages.flatMap((item) =>
-      item.guides ? [item.guides.technical, item.guides.integration] : [],
+      item.guides
+        ? [item.guides.technical, item.guides.integration, item.guides.comparison].filter(
+            (path): path is string => Boolean(path),
+          )
+        : [],
     ),
     ...allGuideHrefs(),
   ];

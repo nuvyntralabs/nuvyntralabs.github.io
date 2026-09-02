@@ -13,6 +13,7 @@ export type PackageGroup =
 export interface PackageGuideLinks {
   technical: string;
   integration: string;
+  comparison?: string;
 }
 
 export interface PackageDoc {
@@ -116,7 +117,8 @@ export const packages: PackageDoc[] = [
     ],
     "guides": {
       "technical": "/packages/plugin-maui-mvvmexpress/docs/",
-      "integration": "/packages/plugin-maui-mvvmexpress/integration/"
+      "integration": "/packages/plugin-maui-mvvmexpress/integration/",
+      "comparison": "/packages/plugin-maui-mvvmexpress/comparison/"
     }
   },
   {
