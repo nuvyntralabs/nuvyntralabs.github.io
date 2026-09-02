@@ -59,6 +59,7 @@ https://nuvyntralabs.github.io/packages/plugin-maui-form-validation/
 https://nuvyntralabs.github.io/packages/plugin-maui-community-toolkit-plus/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/integration/
+https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/comparison/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/viewmodels/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/commands/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/dependency-injection/

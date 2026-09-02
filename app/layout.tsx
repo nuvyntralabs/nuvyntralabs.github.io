@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { fontDisplay, fontSans } from "@/lib/fonts";
 import { siteGraph } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site";
+import { FirebaseAnalytics } from "@/components/firebase-analytics";
 import { JsonLd } from "@/components/json-ld";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
@@ -101,6 +102,7 @@ export default function RootLayout({
     <html lang="en" className={`${fontSans.variable} ${fontDisplay.variable}`}>
       <body className="font-sans">
         <JsonLd data={siteGraph()} />
+        <FirebaseAnalytics />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-foreground"
