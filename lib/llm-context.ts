@@ -49,6 +49,7 @@ ${pocs}
 
 Catalog: ${siteConfig.url}/packages/
 Getting started: ${siteConfig.url}/getting-started/
+Hardened releases (3 September 2026): ${siteConfig.url}/getting-started/hardening/
 
 ${catalog}
 
@@ -188,7 +189,11 @@ ${item.nuget ? `NuGet: ${item.nuget}\n` : ""}Group: ${item.group}
 Tags: ${item.tags.join(", ")}
 
 ${item.abstract}
-Capabilities:
+${item.version ? `Version: ${item.version}\n` : ""}${
+    item.releaseNotes?.length
+      ? `Release notes:\n${item.releaseNotes.map((line) => `- ${line}`).join("\n")}\n`
+      : ""
+  }Capabilities:
 ${item.capabilities.map((line) => `- ${line}`).join("\n")}${
     item.guides
       ? `\nTechnical docs: ${siteConfig.url}${item.guides.technical}\nIntegration: ${siteConfig.url}${item.guides.integration}${item.guides.comparison ? `\nComparison: ${siteConfig.url}${item.guides.comparison}` : ""}`

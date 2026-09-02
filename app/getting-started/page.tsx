@@ -82,7 +82,22 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">5. Browse the full catalog</h2>
+          <h2 className="font-display text-2xl font-semibold">5. Upgrade hardened 1.x plugins</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Fourteen plugins shipped fail-closed and correctness fixes on 3 September 2026.
+            DeepLinks, PushRouter, SmartUpload, and FeatureFlags changed defaults. Read the{" "}
+            <Link
+              href="/getting-started/hardening/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              hardened release upgrade map
+            </Link>{" "}
+            before bumping.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">6. Browse the full catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The suite map is{" "}
             <Link href="/packages/maui-essentials/" className="font-medium text-lavender-700 hover:text-lavender-900">

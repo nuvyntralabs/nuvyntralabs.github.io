@@ -77,6 +77,11 @@ export default async function PackagePage({ params }: PageProps) {
           Public preview — APIs may change
         </p>
       ) : null}
+      {pkg.version ? (
+        <p className="mt-4 inline-flex rounded-full bg-lavender-50 px-3 py-1 text-xs font-semibold text-lavender-900">
+          Current NuGet {pkg.version}
+        </p>
+      ) : null}
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{pkg.description}</p>
       {pkg.slug === mvvmExpressSlug ? (
         <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
@@ -157,7 +162,15 @@ export default async function PackagePage({ params }: PageProps) {
           <h2 className="font-display text-2xl font-semibold">Catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             MauiEssentials is the suite index. Clone it with submodules to browse every plugin in one
-            workspace; apps still reference individual NuGet packages.
+            workspace; apps still reference individual NuGet packages. Fourteen plugins shipped
+            hardened 1.x releases on 3 September 2026 — see the{" "}
+            <Link
+              href="/getting-started/hardening/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              upgrade map
+            </Link>
+            .
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
             <code>{`git clone --recurse-submodules ${pkg.github}.git`}</code>
@@ -169,6 +182,30 @@ export default async function PackagePage({ params }: PageProps) {
         <h2 className="font-display text-2xl font-semibold">Overview</h2>
         <p className="mt-3 text-base leading-relaxed text-muted-foreground">{pkg.abstract}</p>
       </section>
+
+      {pkg.releaseNotes?.length ? (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">Current release</h2>
+          <ul className="mt-4 space-y-3">
+            {pkg.releaseNotes.map((item) => (
+              <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
+                <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lavender-500" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Full upgrade map for the 3 September 2026 hardening wave:{" "}
+            <Link
+              href="/getting-started/hardening/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              Hardened plugin releases
+            </Link>
+            .
+          </p>
+        </section>
+      ) : null}
 
       <section className="mt-10">
         <h2 className="font-display text-2xl font-semibold">Capabilities</h2>

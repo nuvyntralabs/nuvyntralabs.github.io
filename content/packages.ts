@@ -30,6 +30,8 @@ export interface PackageDoc {
   tags: string[];
   abstract: string;
   capabilities: string[];
+  version?: string;
+  releaseNotes?: string[];
   prerelease?: boolean;
   installPackages?: string[];
   guides?: PackageGuideLinks;
@@ -67,7 +69,7 @@ export const packages: PackageDoc[] = [
       "Android",
       "iOS"
     ],
-    "abstract": "MauiEssentials (published as NugetWorld) is the public index for a family of .NET MAUI plugins aimed at field, enterprise, and always-connected mobile apps. Instead of a single mega-package, each capability lives in its own repository and NuGet package, then is composed here as git submodules so teams can adopt only what they need.",
+    "abstract": "MauiEssentials (published as NugetWorld) is the public index for a family of .NET MAUI plugins aimed at field, enterprise, and always-connected mobile apps. Instead of a single mega-package, each capability lives in its own repository and NuGet package, then is composed here as git submodules so teams can adopt only what they need. Fourteen plugins shipped hardened 1.x NuGet releases on 3 September 2026 (351 tests) — DeepLinks, PushRouter, SmartUpload, and FeatureFlags are fail-closed by default.",
     "capabilities": [
       "Location, tracking, and reverse geocoding (GeoLocator).",
       "Real internet, captive portals, and layered connectivity diagnostics.",
@@ -75,7 +77,8 @@ export const packages: PackageDoc[] = [
       "Device identity, fingerprint, NFC, BLE peripherals, permissions, feature flags, and deep links.",
       "Secure storage, sessions, app lock, file vault, and media pipelines.",
       "Share, clipboard, keyboard, printing, form validation, and orientation lock.",
-      "VoIP session model, app updates, diagnostics, performance, and telemetry."
+      "VoIP session model, app updates, diagnostics, performance, and telemetry.",
+      "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue."
     ]
   },
   {
@@ -167,6 +170,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.NetworkMonitor answers a question MAUI Connectivity cannot: does this device actually have public internet? It watches native path changes, classifies Wi-Fi versus cellular, and uses HTTP probes plus Android captive-portal signals to distinguish validated internet, hotel/airport sign-in pages, local-only networks, and true offline.",
+    "version": "1.0.7",
+    "releaseNotes": [
+      "Authors and MIT license metadata on the NuGet package. No API change."
+    ],
     "capabilities": [
       "Validated public internet versus OS 'connected' flags.",
       "Captive-portal detection for guest and venue Wi-Fi.",
@@ -192,10 +199,15 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.BackgroundTasks wraps Android JobScheduler and iOS BGTaskScheduler behind one MAUI registration so apps can schedule one-time and periodic work without owning two platform schedulers. It is the OS-facing counterpart to Plugin.Maui.JobQueue, which owns durable in-app work items.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "Android JobService logs handler exceptions. OperationCanceledException is a cancelled run and is not retried."
+    ],
     "capabilities": [
       "One-time deferred work.",
       "Periodic background work.",
-      "Android and iOS native schedulers from one registration."
+      "Android and iOS native schedulers from one registration.",
+      "Logged Android job failures; cancellation is not retried."
     ]
   },
   {
@@ -241,10 +253,15 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.SmartUpload implements chunked, resumable uploads for MAUI so large field photos and documents can survive flaky networks and process death. Progress is persisted; the next attempt continues instead of restarting from byte zero.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "Upload endpoints must be https (RequireHttps = true). Set RequireHttps = false only for local development."
+    ],
     "capabilities": [
       "Chunked uploads.",
       "Resume after crash or kill.",
       "Retry on transient failures.",
+      "HTTPS endpoints by default; opt out only for local development.",
       "Integration point for processed media pipelines."
     ]
   },
@@ -266,10 +283,15 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.DeviceSession provides device, installation, and analytics session identity for MAUI. Crash reports, sync batches, and API traces need a stable subject that is not the user's account and is not a raw advertising ID.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "IDs stay in Preferences. Set UseSecureStorage = true for a higher-assurance store. Identifiers are not secrets."
+    ],
     "capabilities": [
       "Stable installation identity.",
       "Analytics session grouping.",
-      "A shared subject for health, crash, and sync events."
+      "A shared subject for health, crash, and sync events.",
+      "Optional SecureStorage-backed identity store."
     ]
   },
   {
@@ -290,10 +312,15 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.OfflineSync is an offline-first sync layer for MAUI: writes land locally, a queue ships them when the network is real, and conflicts are resolved instead of last-write-wins by accident. It is built for field apps that cannot block the user on connectivity.",
+    "version": "1.0.9",
+    "releaseNotes": [
+      "Auto-sync isolates failures so a failed push does not crash the process. Subscribe to SyncCompleted / StatusChanged when the UI must surface errors. Android JobFinished is null-safe."
+    ],
     "capabilities": [
       "Offline-first local persistence.",
       "Queued synchronization when connectivity is validated.",
-      "Conflict resolution rather than silent overwrite."
+      "Conflict resolution rather than silent overwrite.",
+      "Isolated auto-sync failures with status events for the UI."
     ]
   },
   {
@@ -314,11 +341,16 @@ export const packages: PackageDoc[] = [
       "APNs"
     ],
     "abstract": "Plugin.Maui.PushRouter does not replace Firebase or APNs registration. It takes the payload your app already received and routes it: parse FCM data / Android extras / APNs userInfo, dispatch by route or type, invoke a handler or open a Shell page, queue cold-start taps until Shell is ready, and dedupe the same message_id.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "Navigation uses registered Map keys or DefaultRoute only. Raw payload Shell paths are ignored unless AllowUnmappedPayloadRoutes is true."
+    ],
     "capabilities": [
       "FCM and APNs payload parsing.",
-      "Handler dispatch or Shell navigation.",
+      "Handler dispatch or Shell navigation through registered maps.",
       "Cold-start tap handling.",
-      "Duplicate delivery suppression."
+      "Duplicate delivery suppression.",
+      "Fail-closed unmapped payload routes (opt in to restore raw paths)."
     ]
   },
   {
@@ -413,12 +445,17 @@ export const packages: PackageDoc[] = [
       "Biometrics"
     ],
     "abstract": "Plugin.Maui.SecureSession owns the authentication session: login, Bearer attachment, single-flight refresh on 401 or near-expiry, rotating refresh tokens, idle and absolute timeouts, this-device or all-device logout, multi-device list/revoke, and biometric unlock after lock or process death. Persistence is delegated to SecureStoragePlus.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "LoginAsync(TokenBundle) is still host-trusted by default. Set AcceptUnvalidatedTokens = false so only IAuthGateway can create a session."
+    ],
     "capabilities": [
       "Login and GetAccessTokenAsync.",
       "Automatic 401 refresh and retry.",
       "Logout this device or every device.",
       "Multi-device session list and revoke.",
-      "Face ID / fingerprint unlock."
+      "Face ID / fingerprint unlock.",
+      "Optional IAuthGateway-only TokenBundle login."
     ]
   },
   {
@@ -439,10 +476,15 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.ApiResilience wraps MAUI HttpClient usage with retry, circuit breaking, an offline queue, and token-refresh cooperation so transient mobile networks do not surface as raw HttpRequestExceptions in the UI.",
+    "version": "1.0.8",
+    "releaseNotes": [
+      "Offline queue file is AES-256-GCM (EncryptQueue = true). PersistRequestBodies = false stores a redacted placeholder instead of POST/PUT bodies."
+    ],
     "capabilities": [
       "Retry with sensible mobile defaults.",
       "Circuit breaker for failing hosts.",
-      "Offline request queue.",
+      "AES-256-GCM offline request queue.",
+      "Optional request-body redaction at rest.",
       "Auth-aware refresh instead of stampeding 401s."
     ]
   },
@@ -464,10 +506,16 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.FileVault stores files encrypted at rest on the device, with key protection and lifecycle controls. MediaPipeline can hand processed images to IMediaVault instead of writing plaintext JPEGs into app storage.",
+    "version": "1.0.8",
+    "releaseNotes": [
+      "Background lock always clears the in-memory master key. Prefer GetStatisticsAsync. RootDirectory stays inside the host-chosen folder. OnProtectionFailed reports platform protection failures."
+    ],
     "capabilities": [
       "Encrypted local file storage.",
       "Key protection aligned with device security.",
-      "Lifecycle APIs for sensitive artifacts."
+      "Lifecycle APIs for sensitive artifacts.",
+      "Background lock always wipes the in-memory key.",
+      "Async vault statistics and confined RootDirectory overrides."
     ]
   },
   {
@@ -538,10 +586,15 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.FeatureFlags brings mobile-first feature flags and remote configuration to MAUI. Flags can target platform, version, and audience so a kill-switch or gradual rollout does not require a store resubmission for every experiment.",
+    "version": "1.0.7",
+    "releaseNotes": [
+      "RemoteUri must be https (RequireHttps = true). Optional SignatureKey verifies X-FeatureFlags-Signature as HMAC-SHA256 hex over the response body."
+    ],
     "capabilities": [
       "Boolean and configured feature flags.",
       "Remote updates without a full store release.",
-      "MAUI-oriented targeting."
+      "MAUI-oriented targeting.",
+      "HTTPS remote config by default; optional HMAC response signature."
     ]
   },
   {
@@ -562,10 +615,15 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.DeepLinks unifies Android App Links, iOS Universal Links, custom schemes, and auth-restore so a single registration owns inbound URLs — including the return trip from a browser or identity provider.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "Empty Hosts / CustomSchemes reject incoming links unless PermissiveMode is true. http:// is rejected unless AllowInsecureHttp is true."
+    ],
     "capabilities": [
       "HTTPS app/universal links.",
       "Custom URL schemes.",
-      "Post-auth restore into the originating screen."
+      "Post-auth restore into the originating screen.",
+      "Fail-closed host and scheme allowlists."
     ]
   },
   {
@@ -634,10 +692,15 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.Observability is the umbrella telemetry layer for the NugetWorld MAUI plugins. UseMauiObservability() registers the pipeline and the seven plugins underneath it, then fans AppHealth, NetworkMonitor, ApiResilience, SmartUpload, OfflineSync, BackgroundTasks, DeviceSession, and crash events into one export path — any backend.",
+    "version": "1.0.7",
+    "releaseNotes": [
+      "Hub clones use sibling ProjectReferences (UseMonorepoRefs=true). A standalone clone uses pinned PackageReferences. Set UseMonorepoRefs=false to force NuGet packages in the hub."
+    ],
     "capabilities": [
       "One-call suite wiring.",
       "Correlated events via DeviceSession.",
-      "Backend-agnostic export."
+      "Backend-agnostic export.",
+      "Standalone builds use pinned sibling NuGet packages."
     ]
   },
   {
@@ -658,6 +721,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.AppUpdate handles store-aware update UX: Google Play In-App Updates, App Store version checks, mandatory versus recommended prompts, and maintenance messaging so a broken API can be fenced without waiting for every user to notice.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "Adds a Visual Studio solution. No API change."
+    ],
     "capabilities": [
       "In-app update flow on Play.",
       "Store version checks on iOS.",
@@ -883,11 +950,16 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.AppLock is an application-security workflow for MAUI on Android and iOS. It is not another biometric API. Biometric plugins prove who the user is. AppLock owns the lock timer, lifecycle, and gate: app enters background, lock timer elapses, app returns, authentication, unlock. Face ID, Touch ID, fingerprint, and the device PIN are how the user unlocks.",
+    "version": "1.0.5",
+    "releaseNotes": [
+      "If the automatic resume prompt throws, AuthenticationCompleted still fires with a failed result so the cover stays up."
+    ],
     "capabilities": [
       "Configurable lock timer after background.",
       "Biometric and device-PIN unlock.",
       "RequireAuthenticationAsync gate for sensitive screens.",
-      "Privacy cover while the app is locked."
+      "Privacy cover while the app is locked.",
+      "AuthenticationCompleted on auto-prompt failures."
     ]
   },
   {
