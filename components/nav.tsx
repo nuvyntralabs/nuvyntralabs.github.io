@@ -51,7 +51,7 @@ export function Nav() {
     <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0c0618]/90 text-white backdrop-blur-md">
       <div className="container flex h-16 items-center justify-between gap-4">
         <Logo onDark />
-        <nav aria-label="Primary" className="hidden items-center gap-1 xl:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
           {links.map((link) => {
             const active = isActive(pathname, link.href);
             return (
@@ -63,7 +63,7 @@ export function Nav() {
                   if (link.href === "/") scrollHomeIfCurrent(pathname);
                 }}
                 className={cn(
-                  "focusable rounded-full px-3 py-1.5 text-sm font-semibold",
+                  "focusable whitespace-nowrap rounded-full px-2 py-1.5 text-sm font-semibold xl:px-3",
                   active ? "bg-white/15 text-white" : "text-lavender-100 hover:bg-white/10",
                 )}
               >
@@ -71,8 +71,8 @@ export function Nav() {
               </Link>
             );
           })}
-          <div className="ml-2 flex items-center gap-1.5">
-            <Link href="/contact/" className="focusable btn-primary !px-4 !py-1.5">
+          <div className="ml-1 flex items-center gap-1 xl:ml-2 xl:gap-1.5">
+            <Link href="/contact/" className="focusable btn-primary !px-3 !py-1.5 xl:!px-4">
               Contact
             </Link>
             <SponsorButtons compact />
@@ -80,7 +80,7 @@ export function Nav() {
         </nav>
         <button
           type="button"
-          className="focusable inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 xl:hidden"
+          className="focusable inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((value) => !value)}
@@ -90,7 +90,7 @@ export function Nav() {
         </button>
       </div>
       {open ? (
-        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-white/10 xl:hidden">
+        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-white/10 lg:hidden">
           <div className="container flex flex-col gap-1 py-3">
             {links.map((link) => {
               const active = isActive(pathname, link.href);
@@ -140,19 +140,21 @@ function SponsorButtons({
         href={siteConfig.githubSponsors}
         target="_blank"
         rel="noopener noreferrer"
-        className={cn("focusable btn-on-dark", compact && "!px-4 !py-1.5")}
+        aria-label="GitHub Sponsors"
+        className={cn("focusable btn-on-dark", compact && "!px-2.5 !py-1.5 xl:!px-4")}
       >
         <GitHubSponsorsIcon className="h-5 w-5 shrink-0" />
-        Sponsor
+        <span className={compact ? "hidden xl:inline" : undefined}>Sponsor</span>
       </a>
       <a
         href={siteConfig.buyMeACoffee}
         target="_blank"
         rel="noopener noreferrer"
-        className={cn("focusable btn-on-dark", compact && "!px-4 !py-1.5")}
+        aria-label="Buy Me a Coffee"
+        className={cn("focusable btn-on-dark", compact && "!px-2.5 !py-1.5 xl:!px-4")}
       >
         <BuyMeACoffeeIcon className="h-5 w-5 shrink-0" />
-        Coffee
+        <span className={compact ? "hidden xl:inline" : undefined}>Coffee</span>
       </a>
     </div>
   );
