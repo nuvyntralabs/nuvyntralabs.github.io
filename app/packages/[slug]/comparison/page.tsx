@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PackageGuide } from "@/components/package-guide";
 import { documentedPackages, getPackageBySlug } from "@/content/packages";
-import { comparisonHref, comparisonSections } from "@/content/mvvmexpress-comparison";
-import { mvvmExpressSlug } from "@/content/mvvmexpress";
+import { getPackageGuidePage } from "@/content/package-guides";
 import { siteConfig } from "@/lib/site";
 
 interface PageProps {
@@ -19,18 +18,16 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const pkg = getPackageBySlug(slug);
-  if (!pkg?.guides?.comparison) return {};
-
-  const title = `${pkg.title} comparison`;
-  const description = `Compare ${pkg.name} with CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI — syntax map, navigation, auth, forms, testing, and when to choose each.`;
+  const guide = getPackageGuidePage(slug, "comparison");
+  if (!pkg?.guides?.comparison || !guide) return {};
 
   return {
-    title,
-    description,
+    title: `${pkg.title} comparison`,
+    description: guide.description,
     alternates: { canonical: pkg.guides.comparison },
     openGraph: {
-      title: `${title} · ${siteConfig.shortName}`,
-      description,
+      title: `${pkg.title} comparison · ${siteConfig.shortName}`,
+      description: guide.description,
       url: pkg.guides.comparison,
     },
   };
@@ -39,17 +36,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function PackageComparisonPage({ params }: PageProps) {
   const { slug } = await params;
   const pkg = getPackageBySlug(slug);
-  if (!pkg?.guides?.comparison || pkg.slug !== mvvmExpressSlug) notFound();
+  const guide = getPackageGuidePage(slug, "comparison");
+  if (!pkg?.guides?.comparison || !guide) notFound();
 
   return (
     <PackageGuide
       pkg={pkg}
       kind="comparison"
       eyebrow="Comparison"
-      title={`${pkg.title} vs CommunityToolkit, Prism, and ReactiveUI`}
-      description="An architectural comparison of shipped surfaces plus a syntax map from CommunityToolkit and Prism names. Scores are not BenchmarkDotNet or device RSS. Choose the stack that matches the app — CommunityToolkit for a small ViewModel layer, Prism for URI navigation without Shell, ReactiveUI for Rx-first apps, or MVVMExpress for one application shell."
-      sections={comparisonSections}
-      currentHref={comparisonHref}
+      title={guide.title}
+      description={guide.description}
+      sections={guide.sections}
+      currentHref={guide.currentHref}
     />
   );
 }

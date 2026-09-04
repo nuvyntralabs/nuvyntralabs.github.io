@@ -1,6 +1,7 @@
 https://nuvyntralabs.github.io/
 https://nuvyntralabs.github.io/packages/
 https://nuvyntralabs.github.io/getting-started/
+https://nuvyntralabs.github.io/getting-started/hardening/
 https://nuvyntralabs.github.io/research/
 https://nuvyntralabs.github.io/pocs/
 https://nuvyntralabs.github.io/about/
@@ -41,6 +42,7 @@ https://nuvyntralabs.github.io/packages/plugin-maui-feature-flags/
 https://nuvyntralabs.github.io/packages/plugin-maui-deep-links/
 https://nuvyntralabs.github.io/packages/plugin-maui-performance/
 https://nuvyntralabs.github.io/packages/plugin-maui-diagnostics/
+https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/
 https://nuvyntralabs.github.io/packages/plugin-maui-observability/
 https://nuvyntralabs.github.io/packages/plugin-maui-app-update/
 https://nuvyntralabs.github.io/packages/plugin-maui-network-diagnostics/
@@ -60,6 +62,9 @@ https://nuvyntralabs.github.io/packages/plugin-maui-community-toolkit-plus/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/integration/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/comparison/
+https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/docs/
+https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/integration/
+https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/comparison/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/viewmodels/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/commands/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/dependency-injection/

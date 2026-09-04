@@ -14,6 +14,9 @@ export interface PackageGuideLinks {
   technical: string;
   integration: string;
   comparison?: string;
+  technicalSummary?: string;
+  integrationSummary?: string;
+  comparisonSummary?: string;
 }
 
 export interface PackageDoc {
@@ -77,7 +80,7 @@ export const packages: PackageDoc[] = [
       "Device identity, fingerprint, NFC, BLE peripherals, permissions, feature flags, and deep links.",
       "Secure storage, sessions, app lock, file vault, and media pipelines.",
       "Share, clipboard, keyboard, printing, form validation, and orientation lock.",
-      "VoIP session model, app updates, diagnostics, performance, and telemetry.",
+      "VoIP session model, app updates, diagnostics, performance, leak detection, and telemetry.",
       "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue."
     ]
   },
@@ -643,7 +646,7 @@ export const packages: PackageDoc[] = [
       "Profiling",
       "C#"
     ],
-    "abstract": "Plugin.Maui.Performance is a lightweight on-device profiler for MAUI. It measures app startup, page timing, API latency, image loading, database operations, UI rendering, and memory so teams can see a scoreboard like 'App Startup 1.82 sec' without attaching a full IDE profiler in the field.",
+    "abstract": "Plugin.Maui.Performance is a lightweight on-device profiler for MAUI. It measures app startup, page timing, API latency, image loading, database operations, UI rendering, and memory so teams can see a scoreboard like 'App Startup 1.82 sec' without attaching a full IDE profiler in the field. It is not a leak detector — use LeakAnalyser for WeakReference liveness after a page is popped.",
     "capabilities": [
       "Startup and page timing.",
       "API and image-load measurement.",
@@ -667,12 +670,55 @@ export const packages: PackageDoc[] = [
       "ANR",
       "C#"
     ],
-    "abstract": "Plugin.Maui.Diagnostics captures crashes, ANRs, unhandled exceptions, and breadcrumbs written just before failure. It is the crash pipeline Observability can export, complementary to AppHealth snapshots.",
+    "abstract": "Plugin.Maui.Diagnostics captures crashes, ANRs, unhandled exceptions, and breadcrumbs written just before failure. It is the crash pipeline Observability can export, complementary to AppHealth snapshots. Visual-tree leaks after navigation belong in LeakAnalyser — forward OnLeaked into breadcrumbs if you already use this plugin.",
     "capabilities": [
       "Crash and ANR capture.",
       "Unhandled exception logging.",
       "Breadcrumbs for reproduction."
     ]
+  },
+  {
+    "slug": "plugin-maui-leak-analyser",
+    "name": "Plugin.Maui.LeakAnalyser",
+    "title": "Plugin.Maui.LeakAnalyser",
+    "subtitle": "Detect visual-tree leaks and tear down finished views",
+    "description": "A liveness test for .NET MAUI pages and views: WeakReference plus forced GC after navigation, with optional handler disconnect or compartmentalize. Not a profiler — it reports that something is still alive, not why.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Observability",
+    "tags": [
+      ".NET MAUI",
+      "Memory",
+      "Leak detection",
+      "GC",
+      "C#",
+      "Mac Catalyst",
+      "Windows"
+    ],
+    "abstract": "Plugin.Maui.LeakAnalyser watches MAUI visual-tree objects after they look finished — typically a page popped from NavigationPage — then forces GC and reports anything still rooted. Detection stays in Debug. Teardown can stay in Release: DisconnectHandlers walks children and calls DisconnectHandler(), while Compartmentalize also clears BindingContext, Content, and other managed references. It will not give you a retain path. Use Instruments, dotMemory, or Visual Studio diagnostics for that. Inspired by AdamE.MemoryToolkit.Maui; the API is UseLeakAnalyser, LeakMonitor, TearDown, and LeakGraph — not a drop-in fork.",
+    "version": "0.1.0-preview",
+    "prerelease": true,
+    "releaseNotes": [
+      "First public preview: UseLeakAnalyser, LeakMonitor, TearDown, and LeakGraph on net10.0 Android, iOS, Mac Catalyst, and Windows (Windows TFM when packed on Windows)."
+    ],
+    "capabilities": [
+      "WeakReference + forced GC liveness test after a view looks finished.",
+      "LeakMonitor.Cascade snapshots the tree; OnLeaked / OnCollected callbacks and ILogger.",
+      "TearDown.DisconnectHandlers — safe child walk that honors HandlerDisconnectPolicy.Manual and Suppress.",
+      "TearDown.Compartmentalize — clears BindingContext, Content, items sources, gestures, then disconnects.",
+      "Best-effort 'done with' lifecycle: popped pages, detached templates, skipped Shell/Tab/cached hosts.",
+      "Android, iOS, Mac Catalyst, and Windows. Detection is Debug-only; teardown may stay in Release."
+    ],
+    "guides": {
+      "technical": "/packages/plugin-maui-leak-analyser/docs/",
+      "integration": "/packages/plugin-maui-leak-analyser/integration/",
+      "comparison": "/packages/plugin-maui-leak-analyser/comparison/",
+      "technicalSummary": "Strategies, lifecycle inference, what Compartmentalize clears, Suppress, ControlTemplates, and platforms.",
+      "integrationSummary": "Debug detect-only, detect plus disconnect, Release teardown, options, and Diagnostics / Observability callbacks.",
+      "comparisonSummary": "Versus AdamE.MemoryToolkit.Maui, a profiler, Diagnostics, Performance, and MVVMExpress LeakProbe."
+    }
   },
   {
     "slug": "plugin-maui-observability",
@@ -691,7 +737,7 @@ export const packages: PackageDoc[] = [
       "Observability",
       "C#"
     ],
-    "abstract": "Plugin.Maui.Observability is the umbrella telemetry layer for the NugetWorld MAUI plugins. UseMauiObservability() registers the pipeline and the seven plugins underneath it, then fans AppHealth, NetworkMonitor, ApiResilience, SmartUpload, OfflineSync, BackgroundTasks, DeviceSession, and crash events into one export path — any backend.",
+    "abstract": "Plugin.Maui.Observability is the umbrella telemetry layer for the NugetWorld MAUI plugins. UseMauiObservability() registers the pipeline and the seven plugins underneath it, then fans AppHealth, NetworkMonitor, ApiResilience, SmartUpload, OfflineSync, BackgroundTasks, DeviceSession, and crash events into one export path — any backend. LeakAnalyser stays standalone; forward OnLeaked into Diagnostics if you want those breadcrumbs on the same export path.",
     "version": "1.0.7",
     "releaseNotes": [
       "Hub clones use sibling ProjectReferences (UseMonorepoRefs=true). A standalone clone uses pinned PackageReferences. Set UseMonorepoRefs=false to force NuGet packages in the hub."

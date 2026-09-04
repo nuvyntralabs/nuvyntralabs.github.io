@@ -227,8 +227,8 @@ export default async function PackagePage({ params }: PageProps) {
               <Link href={pkg.guides.technical} className="glass-card focusable block h-full p-5 hover:shadow-glow">
                 <p className="font-semibold text-foreground">Documentation</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  ViewModels, commands, DI, messaging, NavigationPage or Shell, chat host, forms,
-                  generators, operation pipeline, and the shipped roadmap.
+                  {pkg.guides.technicalSummary ??
+                    "ViewModels, commands, DI, messaging, NavigationPage or Shell, chat host, forms, generators, operation pipeline, and the shipped roadmap."}
                 </p>
               </Link>
             </li>
@@ -236,8 +236,8 @@ export default async function PackagePage({ params }: PageProps) {
               <Link href={pkg.guides.integration} className="glass-card focusable block h-full p-5 hover:shadow-glow">
                 <p className="font-semibold text-foreground">Getting started</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Install 1.0.0, first screen, UseNavigationPage vs UseShell, Playground
-                  clone, FakeNavigator / LeakProbe, forms, generators, and adapters.
+                  {pkg.guides.integrationSummary ??
+                    "Install 1.0.0, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and adapters."}
                 </p>
               </Link>
             </li>
@@ -246,8 +246,8 @@ export default async function PackagePage({ params }: PageProps) {
                 <Link href={pkg.guides.comparison} className="glass-card focusable block h-full p-5 hover:shadow-glow">
                   <p className="font-semibold text-foreground">Comparison</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Surfaces, syntax map ([Notify] vs [ObservableProperty], INavigator vs
-                    INavigationService), trade-offs, and when to choose each.
+                    {pkg.guides.comparisonSummary ??
+                      "Surfaces, syntax map ([Notify] vs [ObservableProperty], INavigator vs INavigationService), trade-offs, and when to choose each."}
                   </p>
                 </Link>
               </li>

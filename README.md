@@ -15,6 +15,9 @@ Professional experience stays on
 | `/packages/` | .NET MAUI NuGet catalog |
 | `/packages/plugin-maui-mvvmexpress/docs/` | MVVMExpress documentation (expander topics + roadmap) |
 | `/packages/plugin-maui-mvvmexpress/integration/` | MVVMExpress getting started |
+| `/packages/plugin-maui-leak-analyser/` | LeakAnalyser overview |
+| `/packages/plugin-maui-leak-analyser/docs/` | LeakAnalyser technical documentation |
+| `/packages/plugin-maui-leak-analyser/integration/` | LeakAnalyser getting started |
 | `/getting-started/` | Install + compose plugins |
 
 ## Local development
@@ -38,4 +41,5 @@ In the repo: **Settings → Pages → Source: GitHub Actions**.
 - R&D and POCs: `content/works.ts`
 - NuGet catalog: `content/packages.ts`
 - MVVMExpress docs: `content/mvvmexpress.ts`
+- LeakAnalyser docs: `content/leak-analyser.ts`
 - Lab copy: `content/lab.ts`

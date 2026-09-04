@@ -10,6 +10,9 @@
     <loc>https://nuvyntralabs.github.io/getting-started/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/getting-started/hardening/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/research/</loc>
   </url>
   <url>
@@ -130,6 +133,9 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-diagnostics/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-observability/</loc>
   </url>
   <url>
@@ -185,6 +191,15 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/comparison/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/integration/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/comparison/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/viewmodels/</loc>

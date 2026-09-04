@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PackageGuide } from "@/components/package-guide";
 import { documentedPackages, getPackageBySlug } from "@/content/packages";
-import { docsBase, getGuideTopic } from "@/content/mvvmexpress-guide";
-import { mvvmExpressSlug } from "@/content/mvvmexpress";
+import { getPackageGuidePage } from "@/content/package-guides";
 import { siteConfig } from "@/lib/site";
 
 interface PageProps {
@@ -19,16 +18,16 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const pkg = getPackageBySlug(slug);
-  const topic = getGuideTopic("introduction");
-  if (!pkg?.guides || !topic) return {};
+  const guide = getPackageGuidePage(slug, "docs");
+  if (!pkg?.guides || !guide) return {};
 
   return {
     title: `${pkg.title} documentation`,
-    description: topic.description,
+    description: guide.description,
     alternates: { canonical: pkg.guides.technical },
     openGraph: {
       title: `${pkg.title} documentation · ${siteConfig.shortName}`,
-      description: topic.description,
+      description: guide.description,
       url: pkg.guides.technical,
     },
   };
@@ -37,18 +36,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function PackageTechnicalDocsPage({ params }: PageProps) {
   const { slug } = await params;
   const pkg = getPackageBySlug(slug);
-  const topic = getGuideTopic("introduction");
-  if (!pkg?.guides || pkg.slug !== mvvmExpressSlug || !topic) notFound();
+  const guide = getPackageGuidePage(slug, "docs");
+  if (!pkg?.guides || !guide) notFound();
 
   return (
     <PackageGuide
       pkg={pkg}
       kind="docs"
       eyebrow="Documentation"
-      title={topic.title}
-      description={topic.description}
-      sections={topic.sections}
-      currentHref={`${docsBase}/`}
+      title={guide.title}
+      description={guide.description}
+      sections={guide.sections}
+      currentHref={guide.currentHref}
     />
   );
 }

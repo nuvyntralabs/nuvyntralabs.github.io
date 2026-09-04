@@ -1181,6 +1181,11 @@ export const relatedAdapters = [
     why: "ANR / crash breadcrumbs next to EnableDiagnostics in Debug.",
   },
   {
+    name: "Plugin.Maui.LeakAnalyser",
+    slug: "plugin-maui-leak-analyser",
+    why: "Runtime visual-tree leak detection after pop — complementary to LeakProbe unit tests.",
+  },
+  {
     name: "Plugin.Maui.KeyboardManager",
     slug: "plugin-maui-keyboard-manager",
     why: "Keyboard pan / safe area / dismiss for chat composers.",
