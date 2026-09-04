@@ -742,10 +742,10 @@ export const packages: PackageDoc[] = [
       "Windows"
     ],
     "abstract": "Plugin.Maui.LeakAnalyser watches MAUI visual-tree objects after they look finished — typically a page popped from NavigationPage — then forces GC and reports anything still rooted. Detection stays in Debug. Teardown can stay in Release: DisconnectHandlers walks children and calls DisconnectHandler(), while Compartmentalize also clears BindingContext, Content, and other managed references. It will not give you a retain path. Use Instruments, dotMemory, or Visual Studio diagnostics for that. Inspired by AdamE.MemoryToolkit.Maui; the API is UseLeakAnalyser, LeakMonitor, TearDown, and LeakGraph — not a drop-in fork.",
-    "version": "0.1.0-preview",
-    "prerelease": true,
+    "version": "1.0.1",
+    "prerelease": false,
     "releaseNotes": [
-      "First public preview: UseLeakAnalyser, LeakMonitor, TearDown, and LeakGraph on net10.0 Android, iOS, Mac Catalyst, and Windows (Windows TFM when packed on Windows)."
+      "1.0.1. No API change."
     ],
     "capabilities": [
       "WeakReference + forced GC liveness test after a view looks finished.",

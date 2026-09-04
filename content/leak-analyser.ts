@@ -12,7 +12,7 @@ export const leakAnalyserTechnicalDescription =
 
 export const leakAnalyserIntegrationTitle = "Get started with LeakAnalyser";
 export const leakAnalyserIntegrationDescription =
-  "Install the 0.1.0-preview package, register UseLeakAnalyser in Debug, attach LeakMonitor / TearDown, and optionally forward OnLeaked into Diagnostics.";
+  "Install the 1.0.1 package, register UseLeakAnalyser in Debug, attach LeakMonitor / TearDown, and optionally forward OnLeaked into Diagnostics.";
 
 export const leakAnalyserComparisonTitle = "LeakAnalyser vs MemoryToolkit, profilers, and siblings";
 export const leakAnalyserComparisonDescription =
@@ -205,13 +205,13 @@ TearDown.SetSuppress(nav, true);`,
     blocks: [
       {
         type: "p",
-        text: "Version 0.1.0-preview. Target frameworks: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+), net10.0-maccatalyst (15+), net10.0-windows (10.0.17763+; the Windows TFM is included when the package is packed on Windows).",
+        text: "Version 1.0.1. Target frameworks: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+), net10.0-maccatalyst (15+), net10.0-windows (10.0.17763+; the Windows TFM is included when the package is packed on Windows).",
       },
       {
         type: "link",
         href: "https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser",
         label: "Plugin.Maui.LeakAnalyser on NuGet",
-        note: "Preview packages need --prerelease.",
+        note: "Install without --prerelease.",
       },
       {
         type: "link",
@@ -229,7 +229,7 @@ export const leakAnalyserIntegrationSections: DocSection[] = [
     blocks: [
       {
         type: "code",
-        code: "dotnet add package Plugin.Maui.LeakAnalyser --prerelease",
+        code: "dotnet add package Plugin.Maui.LeakAnalyser",
       },
       {
         type: "p",
