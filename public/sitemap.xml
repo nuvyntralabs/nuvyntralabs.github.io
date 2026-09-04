@@ -112,6 +112,9 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-api-resilience/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-file-vault/</loc>
   </url>
   <url>
@@ -191,6 +194,15 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/comparison/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/integration/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/comparison/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/docs/</loc>

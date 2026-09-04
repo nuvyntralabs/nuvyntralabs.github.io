@@ -1,5 +1,20 @@
 import type { DocSection } from "@/content/mvvmexpress";
 import {
+  httpForgeComparisonDescription,
+  httpForgeComparisonHref,
+  httpForgeComparisonSections,
+  httpForgeComparisonTitle,
+  httpForgeDocsHref,
+  httpForgeIntegrationDescription,
+  httpForgeIntegrationHref,
+  httpForgeIntegrationSections,
+  httpForgeIntegrationTitle,
+  httpForgeSlug,
+  httpForgeTechnicalDescription,
+  httpForgeTechnicalSections,
+  httpForgeTechnicalTitle,
+} from "@/content/http-forge";
+import {
   leakAnalyserComparisonDescription,
   leakAnalyserComparisonHref,
   leakAnalyserComparisonSections,
@@ -54,6 +69,31 @@ export function getPackageGuidePage(slug: string, kind: PackageGuideKind): Packa
         "An architectural comparison of shipped surfaces plus a syntax map from CommunityToolkit and Prism names. Scores are not BenchmarkDotNet or device RSS. Choose the stack that matches the app — CommunityToolkit for a small ViewModel layer, Prism for URI navigation without Shell, ReactiveUI for Rx-first apps, or MVVMExpress for one application shell.",
       sections: comparisonSections,
       currentHref: comparisonHref,
+    };
+  }
+
+  if (slug === httpForgeSlug) {
+    if (kind === "docs") {
+      return {
+        title: httpForgeTechnicalTitle,
+        description: httpForgeTechnicalDescription,
+        sections: httpForgeTechnicalSections,
+        currentHref: httpForgeDocsHref,
+      };
+    }
+    if (kind === "integration") {
+      return {
+        title: httpForgeIntegrationTitle,
+        description: httpForgeIntegrationDescription,
+        sections: httpForgeIntegrationSections,
+        currentHref: httpForgeIntegrationHref,
+      };
+    }
+    return {
+      title: httpForgeComparisonTitle,
+      description: httpForgeComparisonDescription,
+      sections: httpForgeComparisonSections,
+      currentHref: httpForgeComparisonHref,
     };
   }
 

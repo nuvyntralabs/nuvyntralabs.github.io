@@ -1141,6 +1141,11 @@ export const relatedAdapters = [
     why: "Validated internet versus captive portal for IConnectivityProbe.",
   },
   {
+    name: "Plugin.Maui.HttpForge",
+    slug: "plugin-maui-httpforge",
+    why: "Source-generated typed REST client from ViewModels — compose with ApiResilience / ApiCache.",
+  },
+  {
     name: "Plugin.Maui.ApiCache",
     slug: "plugin-maui-api-cache",
     why: "HTTP GET CacheFirst / SWR behind ICache.",

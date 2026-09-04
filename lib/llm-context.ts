@@ -61,6 +61,9 @@ MVVMExpress roadmap: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/roa
 LeakAnalyser documentation: ${siteConfig.url}/packages/plugin-maui-leak-analyser/docs/
 LeakAnalyser getting started: ${siteConfig.url}/packages/plugin-maui-leak-analyser/integration/
 LeakAnalyser comparison: ${siteConfig.url}/packages/plugin-maui-leak-analyser/comparison/
+HttpForge documentation: ${siteConfig.url}/packages/plugin-maui-httpforge/docs/
+HttpForge getting started: ${siteConfig.url}/packages/plugin-maui-httpforge/integration/
+HttpForge comparison: ${siteConfig.url}/packages/plugin-maui-httpforge/comparison/
 MVVMExpress Playground sample: https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground
 GitHub for each plugin: ${siteConfig.githubOrg}/<PackageName>
 `;

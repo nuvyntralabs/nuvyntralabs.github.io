@@ -23,7 +23,7 @@ export default function GettingStartedPage() {
       <PageHero
         eyebrow="Documentation"
         title="Getting started"
-        description="Packages ship independently. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress also hosts single-window Mac Catalyst and Windows."
+        description="Packages ship independently. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress, HttpForge, and LeakAnalyser also target Mac Catalyst and Windows."
       />
       <div className="container max-w-3xl py-16 sm:py-20">
         <section>

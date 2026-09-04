@@ -18,6 +18,10 @@ Professional experience stays on
 | `/packages/plugin-maui-leak-analyser/` | LeakAnalyser overview |
 | `/packages/plugin-maui-leak-analyser/docs/` | LeakAnalyser technical documentation |
 | `/packages/plugin-maui-leak-analyser/integration/` | LeakAnalyser getting started |
+| `/packages/plugin-maui-httpforge/` | HttpForge overview |
+| `/packages/plugin-maui-httpforge/docs/` | HttpForge technical documentation |
+| `/packages/plugin-maui-httpforge/integration/` | HttpForge getting started |
+| `/packages/plugin-maui-httpforge/comparison/` | HttpForge vs Refit and sibling HTTP plugins |
 | `/getting-started/` | Install + compose plugins |
 
 ## Local development
@@ -42,4 +46,5 @@ In the repo: **Settings → Pages → Source: GitHub Actions**.
 - NuGet catalog: `content/packages.ts`
 - MVVMExpress docs: `content/mvvmexpress.ts`
 - LeakAnalyser docs: `content/leak-analyser.ts`
+- HttpForge docs: `content/http-forge.ts`
 - Lab copy: `content/lab.ts`

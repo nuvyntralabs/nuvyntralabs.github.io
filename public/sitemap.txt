@@ -35,6 +35,7 @@ https://nuvyntralabs.github.io/packages/plugin-maui-app-health/
 https://nuvyntralabs.github.io/packages/plugin-maui-secure-storage-plus/
 https://nuvyntralabs.github.io/packages/plugin-maui-secure-session/
 https://nuvyntralabs.github.io/packages/plugin-maui-api-resilience/
+https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/
 https://nuvyntralabs.github.io/packages/plugin-maui-file-vault/
 https://nuvyntralabs.github.io/packages/plugin-maui-media-pipeline/
 https://nuvyntralabs.github.io/packages/plugin-maui-voip-core/
@@ -62,6 +63,9 @@ https://nuvyntralabs.github.io/packages/plugin-maui-community-toolkit-plus/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/integration/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/comparison/
+https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/docs/
+https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/integration/
+https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/comparison/
 https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/docs/
 https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/integration/
 https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/comparison/

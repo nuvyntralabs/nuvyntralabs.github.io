@@ -59,7 +59,7 @@ export const packages: PackageDoc[] = [
     "name": "MauiEssentials",
     "title": "MauiEssentials (NugetWorld)",
     "subtitle": "Catalog of production .NET MAUI plugins",
-    "description": "A curated catalog of Android/iOS .NET MAUI plugins — each in its own repository, referenced as git submodules — covering location, networking, sync, security, BLE, NFC, printing, VoIP, and observability. Plugin.Maui.MVVMExpress is the exception: single-window Mac Catalyst and Windows.",
+    "description": "A curated catalog of Android/iOS .NET MAUI plugins — each in its own repository, referenced as git submodules — covering location, networking, sync, security, BLE, NFC, printing, VoIP, and observability. MVVMExpress, HttpForge, and LeakAnalyser also target Mac Catalyst and Windows.",
     "github": "https://github.com/nuvyntralabs/MauiEssentials",
     "nuget": null,
     "language": null,
@@ -75,7 +75,7 @@ export const packages: PackageDoc[] = [
     "abstract": "MauiEssentials (published as NugetWorld) is the public index for a family of .NET MAUI plugins aimed at field, enterprise, and always-connected mobile apps. Instead of a single mega-package, each capability lives in its own repository and NuGet package, then is composed here as git submodules so teams can adopt only what they need. Fourteen plugins shipped hardened 1.x NuGet releases on 3 September 2026 (351 tests) — DeepLinks, PushRouter, SmartUpload, and FeatureFlags are fail-closed by default.",
     "capabilities": [
       "Location, tracking, and reverse geocoding (GeoLocator).",
-      "Real internet, captive portals, and layered connectivity diagnostics.",
+      "Real internet, captive portals, layered connectivity diagnostics, and typed REST clients (HttpForge).",
       "Background jobs, durable queues, failed-call retry, chunked uploads, and offline-first sync.",
       "Device identity, fingerprint, NFC, BLE peripherals, permissions, feature flags, and deep links.",
       "Secure storage, sessions, app lock, file vault, and media pipelines.",
@@ -490,6 +490,50 @@ export const packages: PackageDoc[] = [
       "Optional request-body redaction at rest.",
       "Auth-aware refresh instead of stampeding 401s."
     ]
+  },
+  {
+    "slug": "plugin-maui-httpforge",
+    "name": "Plugin.Maui.HttpForge",
+    "title": "Plugin.Maui.HttpForge",
+    "subtitle": "Source-generated typed REST client — Refit-shaped, MauiEssentials-aligned",
+    "description": "A type-safe, source-generated HTTP REST client for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. Declare the API as a C# interface; HttpForge generates the HttpClient implementation at compile time.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.HttpForge",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.HttpForge",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "HTTP & APIs",
+    "tags": [
+      ".NET MAUI",
+      "REST",
+      "HttpClient",
+      "Refit",
+      "C#",
+      "Mac Catalyst",
+      "Windows"
+    ],
+    "abstract": "Plugin.Maui.HttpForge is the contract layer: declare GET/POST/PUT/DELETE/PATCH/HEAD as a C# interface and the source generator emits the HttpClient implementation — no runtime reflection request builder. It is a MauiEssentials-shaped subset of Refit for Android, iOS, Mac Catalyst, and Windows, not a drop-in Refit replacement. Retry, cache, token refresh, and resumable uploads stay on ApiResilience, ApiCache, SecureSession, and SmartUpload; AddHttpForgeClient returns IHttpClientBuilder so those handlers chain on the same client.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "Publish the packed net10.0-windows TFM (merged from the Windows CI nupkg). Source-generated REST client for Android, iOS, Mac Catalyst, and Windows."
+    ],
+    "capabilities": [
+      "Interface + [Get] / [Post] / [Put] / [Delete] / [Patch] / [Head] compiled to HttpClient calls.",
+      "Path parameters, [AliasAs], [Query], [Body], [Header] / [Headers], CancellationToken.",
+      "Multipart uploads with StreamPart, ByteArrayPart, and FileInfoPart.",
+      "Task<IApiResponse<T>> for non-throwing 4xx/5xx; ApiException vs ApiRequestException.",
+      "System.Text.Json by default; optional JsonSerializerContext for AOT.",
+      "UseHttpForge(), AddHttpForgeClient<T>(), or RestService.For<T>() without the host.",
+      "Compose ApiResilience, ApiCache, SecureSession, and SmartUpload on IHttpClientBuilder.",
+      "Compile-time diagnostics HFG001–HFG006. Generated-only — no reflection fallback."
+    ],
+    "guides": {
+      "technical": "/packages/plugin-maui-httpforge/docs/",
+      "integration": "/packages/plugin-maui-httpforge/integration/",
+      "comparison": "/packages/plugin-maui-httpforge/comparison/",
+      "technicalSummary": "Interface contract, attributes, multipart, errors, JSON/AOT, analyzers, and what v1 leaves to sibling plugins.",
+      "integrationSummary": "UseHttpForge, AddHttpForgeClient, and recipes for ApiResilience, ApiCache, SecureSession, and SmartUpload.",
+      "comparisonSummary": "Versus Refit, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload."
+    }
   },
   {
     "slug": "plugin-maui-file-vault",
