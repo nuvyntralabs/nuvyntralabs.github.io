@@ -58,7 +58,7 @@ export function getPackageGuidePage(slug: string, kind: PackageGuideKind): Packa
       return {
         title: `Get started with MVVMExpress`,
         description:
-          "From NuGet install to a testable ViewModel: 1.0.0 SemVer lock, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and the in-repo sample map.",
+          "From dotnet new mvvmexpress or NuGet install to a testable ViewModel: 1.0.1 templates, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and the in-repo sample map.",
         sections: integrationSections,
         currentHref: integrationHref,
       };

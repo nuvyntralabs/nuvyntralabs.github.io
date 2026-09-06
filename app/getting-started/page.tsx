@@ -28,8 +28,15 @@ export default function GettingStartedPage() {
       <div className="container max-w-3xl py-16 sm:py-20">
         <section>
           <h2 className="font-display text-2xl font-semibold">1. Create or open a MAUI app</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Use the stock MAUI template, or scaffold an MVVMExpress host with ViewModels, login
+            replace-root, a list, a form, and tests already wired.
+          </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
-            <code>dotnet new maui -n FieldApp</code>
+            <code>{`dotnet new maui -n FieldApp
+
+dotnet new install Plugin.Maui.MVVMExpress.Templates
+dotnet new mvvmexpress -n MyApp`}</code>
           </pre>
         </section>
 
@@ -75,6 +82,14 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
               className="font-medium text-lavender-700 hover:text-lavender-900"
             >
               MVVMExpress
+            </Link>
+            {" "}
+            1.0.1. Scaffold with{" "}
+            <Link
+              href="/packages/plugin-maui-mvvmexpress/docs/templates/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              dotnet new mvvmexpress
             </Link>
             . It hosts a single window on Android, iOS, Mac Catalyst, and Windows. Technical internals
             and a step-by-step integration guide live next to the package.

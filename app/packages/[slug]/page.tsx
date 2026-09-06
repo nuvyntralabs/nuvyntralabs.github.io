@@ -85,10 +85,11 @@ export default async function PackagePage({ params }: PageProps) {
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{pkg.description}</p>
       {pkg.slug === mvvmExpressSlug ? (
         <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
-          <p className="text-sm font-semibold text-lavender-900">1.0.0 SemVer lock</p>
+          <p className="text-sm font-semibold text-lavender-900">1.0.1 — project template</p>
           <p className="mt-1 text-sm leading-relaxed text-lavender-800">
-            Public 1.x APIs stay source-compatible. Additive work may ship in 1.1.0+. Breaking
-            changes wait for 2.0.0. That is a SemVer contract, not an immutable freeze.
+            Scaffold with <code>dotnet new mvvmexpress</code>. The SemVer lock stays 1.0.0: public
+            1.x APIs stay source-compatible. Additive work may ship in 1.1.0+. Breaking changes wait
+            for 2.0.0.
           </p>
         </aside>
       ) : null}
@@ -116,16 +117,28 @@ export default async function PackagePage({ params }: PageProps) {
           </a>
         ) : null}
         {pkg.slug === mvvmExpressSlug ? (
-          <a
-            href="https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
-          >
-            <Github className="h-4 w-4" aria-hidden="true" />
-            Playground sample
-            <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-          </a>
+          <>
+            <a
+              href="https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              <Package className="h-4 w-4" aria-hidden="true" />
+              Templates
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+            <a
+              href="https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              <Github className="h-4 w-4" aria-hidden="true" />
+              Playground sample
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+          </>
         ) : null}
       </div>
 
@@ -156,6 +169,23 @@ export default async function PackagePage({ params }: PageProps) {
               </code>
             ))}
           </p>
+          {pkg.slug === mvvmExpressSlug ? (
+            <>
+              <p className="mt-6 text-sm font-semibold text-foreground">Or scaffold an app</p>
+              <pre className="mt-3 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+                <code>{`dotnet new install Plugin.Maui.MVVMExpress.Templates
+dotnet new mvvmexpress -n MyApp`}</code>
+              </pre>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Adds MainPage + MainPageViewModel, login replace-root, a list, a form, and tests.
+                Then{" "}
+                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+                  dotnet new mvvmexpress-page -n Catalog --namespace MyApp
+                </code>
+                .
+              </p>
+            </>
+          ) : null}
         </section>
       ) : (
         <section className="mt-12">
@@ -194,16 +224,18 @@ export default async function PackagePage({ params }: PageProps) {
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Full upgrade map for the 3 September 2026 hardening wave:{" "}
-            <Link
-              href="/getting-started/hardening/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
-            >
-              Hardened plugin releases
-            </Link>
-            .
-          </p>
+          {pkg.slug !== mvvmExpressSlug ? (
+            <p className="mt-3 text-sm text-muted-foreground">
+              Full upgrade map for the 3 September 2026 hardening wave:{" "}
+              <Link
+                href="/getting-started/hardening/"
+                className="font-medium text-lavender-700 hover:text-lavender-900"
+              >
+                Hardened plugin releases
+              </Link>
+              .
+            </p>
+          ) : null}
         </section>
       ) : null}
 
@@ -237,7 +269,7 @@ export default async function PackagePage({ params }: PageProps) {
                 <p className="font-semibold text-foreground">Getting started</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {pkg.guides.integrationSummary ??
-                    "Install 1.0.0, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and adapters."}
+                    "dotnet new mvvmexpress, install 1.0.1, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and adapters."}
                 </p>
               </Link>
             </li>

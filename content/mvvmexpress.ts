@@ -1,8 +1,8 @@
 export const mvvmExpressSlug = "plugin-maui-mvvmexpress";
 
 export const mvvmExpressStatus = {
-  version: "1.0.0",
-  note: "Stable SemVer lock: UseAuth<TChallenge>(), UseNavigationPage + replace-root, SectionHostViewModel, SnapshotCollection. Supported: Android, iOS, Mac Catalyst, and Windows (single-window). Sibling adapters stay Android + iOS. Shipped 0.6.1 APIs plus UseAuth are the contract. Breaking change = major version.",
+  version: "1.0.1",
+  note: "Current NuGet is 1.0.1: Plugin.Maui.MVVMExpress.Templates (dotnet new mvvmexpress / mvvmexpress-page). SemVer lock remains 1.0.0 — UseAuth<TChallenge>(), UseNavigationPage + replace-root, SectionHostViewModel, SnapshotCollection. Supported: Android, iOS, Mac Catalyst, and Windows (single-window). Sibling adapters stay Android + iOS. Shipped 0.6.1 APIs plus UseAuth are the contract. Breaking change = major version.",
 } as const;
 
 export type DocBlock =
@@ -81,6 +81,12 @@ export const packageFamily: { name: string; purpose: string; status: string; nug
     status: "Implemented + tests",
     nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Compatibility.CommunityToolkit",
   },
+  {
+    name: "Plugin.Maui.MVVMExpress.Templates",
+    purpose: "dotnet new mvvmexpress (app) and mvvmexpress-page (XAML + ViewModel + service)",
+    status: "Implemented",
+    nuget: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates",
+  },
 ];
 
 export const technicalSections: DocSection[] = [
@@ -90,8 +96,8 @@ export const technicalSections: DocSection[] = [
     blocks: [
       {
         type: "callout",
-        title: "1.0.0",
-        text: "1.0.0 is the SemVer lock (signed off 2026-09-02). Public 1.x APIs stay source-compatible: 1.1.0+ may add surfaces, breaking changes wait for 2.0.0. UseAuth<TChallenge>() wraps GuardedNavigator so getting started never reconstructs the guard. AddAuth<TChallenge>() is the same wrap for AddMvvmExpress / net10.0 tests. UseNavigationPage is the first-class host for login → replace-root → push; Shell is optional. Pages are constructed on IMainThread. SectionHostViewModel, SnapshotCollection, and SearchQuery.CommittedText stay as shipped in 0.6.1. Host / Navigation / Dialogs support Android, iOS, Mac Catalyst, and Windows as a single-window host. Sibling MauiEssentials adapters stay Android + iOS.",
+        title: "1.0.1",
+        text: "Current packages are 1.0.1 (2026-09-06). The SemVer lock stays 1.0.0 (signed off 2026-09-02): public 1.x APIs stay source-compatible, 1.1.0+ may add surfaces, breaking changes wait for 2.0.0. 1.0.1 adds Plugin.Maui.MVVMExpress.Templates — dotnet new mvvmexpress and mvvmexpress-page. UseAuth<TChallenge>() wraps GuardedNavigator so getting started never reconstructs the guard. AddAuth<TChallenge>() is the same wrap for AddMvvmExpress / net10.0 tests. UseNavigationPage is the first-class host for login → replace-root → push; Shell is optional. Pages are constructed on IMainThread. SectionHostViewModel, SnapshotCollection, and SearchQuery.CommittedText stay as shipped in 0.6.1. Host / Navigation / Dialogs support Android, iOS, Mac Catalyst, and Windows as a single-window host. Sibling MauiEssentials adapters stay Android + iOS.",
       },
       {
         type: "p",
@@ -176,7 +182,8 @@ export const technicalSections: DocSection[] = [
 
 Plugin.Maui.MVVMExpress.SourceGenerators     [Notify], register, routes
 Plugin.Maui.MVVMExpress.Compatibility.CommunityToolkit
-Plugin.Maui.MVVMExpress.Testing              net10.0 fakes`,
+Plugin.Maui.MVVMExpress.Testing              net10.0 fakes
+Plugin.Maui.MVVMExpress.Templates            dotnet new mvvmexpress`,
       },
       {
         type: "p",
@@ -422,14 +429,45 @@ dotnet run --project benchmarks/Plugin.Maui.MVVMExpress.Benchmarks -c Release --
 
 export const integrationSections: DocSection[] = [
   {
-    id: "install",
-    title: "Install",
+    id: "scaffold",
+    title: "Scaffold an app",
     blocks: [
       {
         type: "callout",
-        title: "1.0.0 SemVer lock",
-        text: "Every packed package is 1.0.0. Install without --prerelease. Public 1.x APIs stay source-compatible — 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. That is a SemVer contract, not an immutable freeze. Core is enough for net10.0 tests and shared ViewModels. A MAUI host also needs Plugin.Maui.MVVMExpress.",
+        title: "1.0.1 project template",
+        text: "Current packages are 1.0.1. Install without --prerelease. The SemVer lock stays 1.0.0: public 1.x APIs stay source-compatible — 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. Scaffold with Plugin.Maui.MVVMExpress.Templates, or add packages to an existing MAUI app.",
       },
+      {
+        type: "code",
+        code: `dotnet new install Plugin.Maui.MVVMExpress.Templates
+dotnet new mvvmexpress -n MyApp
+cd MyApp
+dotnet test MyApp.Tests`,
+      },
+      {
+        type: "p",
+        text: "The template is a NavigationPage host that starts on MainPage / MainPageViewModel ([Notify] + IncrementCommand), with IGreetingService registered by AddMain(), plus login → replace-root, one list, one form, and a net10.0 test project. Demo sign-in: demo@mvvmexpress.dev / secret. Production tokens: Plugin.Maui.SecureSession.",
+      },
+      {
+        type: "code",
+        code: `dotnet new mvvmexpress-page -n Catalog --namespace MyApp`,
+      },
+      {
+        type: "p",
+        text: "Then map the route and call services.AddCatalog() in MauiProgram. Move the ViewModel and service into MyApp.Core if you keep that split.",
+      },
+      {
+        type: "link",
+        note: "Template pack on nuget.org:",
+        label: "Plugin.Maui.MVVMExpress.Templates",
+        href: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates",
+      },
+    ],
+  },
+  {
+    id: "install",
+    title: "Install into an existing app",
+    blocks: [
       {
         type: "link",
         note: "Clone the 15-minute path:",
@@ -533,7 +571,7 @@ services.AddAuth<LoginViewModel>();`,
     blocks: [
       {
         type: "p",
-        text: "The 15-minute path is Playground. After UseMvvmExpress above, a first page is a partial ViewModel, [Notify], [AsyncModelCommand], and a XAML bind. The command token is the ViewModel token — Dispose cancels ViewModelCancellationToken. Do not mash MauiProgram, the ViewModel, and the page into one file.",
+        text: "dotnet new mvvmexpress already ships this first screen. After UseMvvmExpress above, a first page is a partial ViewModel, [Notify], [AsyncModelCommand], and a XAML bind. The command token is the ViewModel token — Dispose cancels ViewModelCancellationToken. Do not mash MauiProgram, the ViewModel, and the page into one file. Playground remains the cloneable 15-minute path in the product repo.",
       },
       {
         type: "code",
@@ -1063,7 +1101,7 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
     blocks: [
       {
         type: "p",
-        text: "There is no separate MVVMExpress.SampleApp repository. Samples ship in the product repo. The 15-minute path is Playground (command, navigation, dialog, form, auth, list). First-run login is AuthApp: sign in → home, plus register and forgot password (demo@mvvmexpress.dev / secret). AuthApp uses UseMvvmExpress(o => o.UseShell().UseDialogs().UseAuth<AuthLoginViewModel>()), ResetAsync replace-root, [RequiresAuth], and FormViewModel dirty confirm. The flyout catalog still lives in Plugin.Maui.MVVMExpress.Sample.",
+        text: "There is no separate MVVMExpress.SampleApp repository. New apps start with dotnet new mvvmexpress. Samples still ship in the product repo. The 15-minute path is Playground (command, navigation, dialog, form, auth, list). First-run login is AuthApp: sign in → home, plus register and forgot password (demo@mvvmexpress.dev / secret). AuthApp uses UseMvvmExpress(o => o.UseShell().UseDialogs().UseAuth<AuthLoginViewModel>()), ResetAsync replace-root, [RequiresAuth], and FormViewModel dirty confirm. The flyout catalog still lives in Plugin.Maui.MVVMExpress.Sample.",
       },
       {
         type: "link",
@@ -1092,6 +1130,7 @@ dotnet test tests/Plugin.Maui.MVVMExpress.Samples.Tests`,
           ["Navigation", "Home / ProductDetails / ScopedCatalog", "PageViewModel, INavigator, IAcceptNavArgs<T>, IAcceptNavQuery, INotifier toast, IViewModelScopeFactory"],
           ["Page stack", "PageStack / PageStackItem", "IPageNavigator, URI query, Stack / CanGoBack / PopToRoot / Replace / Reset"],
           ["Auth (flyout)", "Login / SecureHome", "IAuthState, GuardedNavigator — push secure; adapt SecureSession"],
+          ["dotnet new mvvmexpress", "MainPage / Login / list / form", "Scaffolded host: bindings, IGreetingService, replace-root, tests"],
           ["Playground", "Home / Details / Edit / Login", "15-minute path: UseAuth, command, nav, dialog, form, list"],
           ["AuthApp", "AuthLogin / AuthHome / Register / Forgot", "UseAuth<AuthLoginViewModel>, ResetAsync replace-root, MustMatch, dirty confirm"],
           ["Offline", "OfflineCatalogViewModel", "ICachedFetcher + FetchPolicy — adapt ApiCache / OfflineSync"],

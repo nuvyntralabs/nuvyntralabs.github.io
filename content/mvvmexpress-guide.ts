@@ -40,6 +40,7 @@ export const guideNav: GuideNavGroup[] = [
     items: [
       { title: "Introduction", href: `${docsBase}/` },
       { title: "Getting started", href: integrationHref },
+      { title: "Project template", href: `${docsBase}/templates/`, topic: "templates" },
       { title: "Comparison", href: comparisonHref },
     ],
   },
@@ -118,13 +119,13 @@ const introSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the install-and-wire path, including the first screen and Playground clone. Comparison evaluates CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI and includes the syntax map. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
+        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the scaffold-or-install path, including dotnet new mvvmexpress, the first screen, and the Playground clone. Project template documents the packed templates. Comparison evaluates CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI and includes the syntax map. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
       },
       {
         type: "ul",
         items: [
           "Shipped in 1.0.0 means types exist and tests exist. Phases 1–7 plus UseAuth, the host-safe navigator, NavigationPage replace-root, and chat-host APIs are complete.",
-          "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
+          "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Current packages are 1.0.1 (dotnet new templates). Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
           "Type names stay unique so CommunityToolkit.Mvvm or Prism can sit in the same app if you need them.",
         ],
       },
@@ -141,6 +142,119 @@ export const guideTopics: GuideTopic[] = [
     description:
       "What MVVMExpress is, why it exists, the MIT license, design principles, and how these docs are organized.",
     sections: introSections,
+  },
+  {
+    slug: "templates",
+    title: "Project template",
+    description:
+      "Scaffold a MAUI app with dotnet new mvvmexpress, then add screens with mvvmexpress-page.",
+    sections: [
+      {
+        id: "install-template",
+        title: "Install the template pack",
+        blocks: [
+          {
+            type: "callout",
+            title: "1.0.1",
+            text: "Plugin.Maui.MVVMExpress.Templates ships with 1.0.1. It is a dotnet new pack, not a PackageReference. The generated app pins the 1.0.1 runtime packages. SemVer lock remains UseAuth from 1.0.0.",
+          },
+          {
+            type: "code",
+            code: `dotnet new install Plugin.Maui.MVVMExpress.Templates
+dotnet new mvvmexpress -n MyApp
+cd MyApp
+dotnet test MyApp.Tests`,
+          },
+          {
+            type: "link",
+            note: "NuGet:",
+            label: "Plugin.Maui.MVVMExpress.Templates 1.0.1",
+            href: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates",
+          },
+          {
+            type: "p",
+            text: "From the product repo, without installing the nupkg: dotnet new install templates/maui-app and templates/page, then dotnet new mvvmexpress -n MyApp.",
+          },
+        ],
+      },
+      {
+        id: "app-template",
+        title: "mvvmexpress app",
+        blocks: [
+          {
+            type: "p",
+            text: "Short name: mvvmexpress. Creates a NavigationPage host on Android, iOS, Mac Catalyst, and Windows (single-window).",
+          },
+          {
+            type: "table",
+            headers: ["Included", "What you get"],
+            rows: [
+              ["MainPage + MainPageViewModel", "[Notify] counter and IncrementCommand, bound in XAML"],
+              ["IGreetingService", "Registered by AddMain()"],
+              ["Login", "Replace-root back to MainPage after sign-in"],
+              ["List + form", "One Snapshot-style list and one FormViewModel screen"],
+              ["MyApp.Tests", "net10.0 tests for the generated ViewModels"],
+            ],
+          },
+          {
+            type: "p",
+            text: "Demo sign-in is demo@mvvmexpress.dev / secret. Production tokens stay on Plugin.Maui.SecureSession — do not store them on the ViewModel.",
+          },
+        ],
+      },
+      {
+        id: "page-template",
+        title: "mvvmexpress-page item",
+        blocks: [
+          {
+            type: "code",
+            code: `cd MyApp
+dotnet new mvvmexpress-page -n Catalog --namespace MyApp`,
+          },
+          {
+            type: "p",
+            text: "Creates a XAML page, ViewModel, service, AddCatalog(), and {Binding} / Command. Then map the route and call services.AddCatalog() in MauiProgram:",
+          },
+          {
+            type: "code",
+            code: `builder.UseMvvmExpress(o => o
+    .UseNavigationPage((nav, _) => nav
+        .Map<MainPageViewModel, MainPage>("home")
+        .Map<CatalogViewModel, CatalogPage>("catalog")
+        .Map<LoginViewModel, LoginPage>("login"))
+    .UseDialogs()
+    .UseAuth<LoginViewModel>());
+
+builder.Services.AddCatalog();`,
+          },
+          {
+            type: "p",
+            text: "Move the ViewModel and service into MyApp.Core if you keep a shared / test split. Types that use [Notify] or [AsyncModelCommand] must stay partial.",
+          },
+        ],
+      },
+      {
+        id: "after-scaffold",
+        title: "After you scaffold",
+        blocks: [
+          {
+            type: "ul",
+            items: [
+              "Do not reconstruct GuardedNavigator — UseAuth<TChallenge>() already wraps it.",
+              "Register an IAuthState adapter. The template uses an in-memory demo.",
+              "Add Navigation, Dialogs, Validation, Pagination, Reactive, or Testing only when the screen needs them — the template already references the host set.",
+              "Playground remains the cloneable 15-minute path if you want the in-repo sample instead of a new project.",
+            ],
+          },
+          {
+            type: "link",
+            note: "Getting started walkthrough:",
+            label: "Install and first screen",
+            href: integrationHref,
+          },
+        ],
+      },
+    ],
   },
   {
     slug: "viewmodels",
@@ -706,7 +820,7 @@ items.ReplaceRange(next);`,
     slug: "packages",
     title: "Packages",
     description:
-      "How the family is split, what is packed in 1.0.0, and why optional packages stay optional.",
+      "How the family is split, what is packed in 1.0.1, and why optional packages stay optional.",
     sections: [
       section("packages"),
       {
@@ -715,7 +829,7 @@ items.ReplaceRange(next);`,
         blocks: [
           {
             type: "p",
-            text: "A shared ViewModel library can reference Core only. A MAUI host adds Plugin.Maui.MVVMExpress. Navigation, Dialogs, Validation, Pagination, Reactive, SourceGenerators, Compatibility, and Testing are separate nupkgs.",
+            text: "A shared ViewModel library can reference Core only. A MAUI host adds Plugin.Maui.MVVMExpress. Navigation, Dialogs, Validation, Pagination, Reactive, SourceGenerators, Compatibility, Testing, and Templates are separate nupkgs. Templates is a dotnet new pack, not a PackageReference.",
           },
           {
             type: "p",
@@ -902,7 +1016,7 @@ static WeakReference CreateAndDispose()
         blocks: [
           {
             type: "callout",
-            title: "1.0.0",
+            title: "1.0.1",
             text: "Plugin.Maui.MVVMExpress.SourceGenerators is packed. Attributes live in Core. Types must be partial. UseMvvmExpress applies generated [Route] / [RequiresAuth] via a ModuleInitializer (ApplyGeneratedRegistrations defaults to true). You can still call services.AddGeneratedViewModels() explicitly.",
           },
           {
@@ -919,7 +1033,7 @@ static WeakReference CreateAndDispose()
           },
           {
             type: "code",
-            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="1.0.0" PrivateAssets="all" />
+            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="1.0.1" PrivateAssets="all" />
 
 builder.UseMvvmExpress(o => o
     .UseNavigationPage()
@@ -941,7 +1055,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
     slug: "roadmap",
     title: "Roadmap",
     description:
-      "Phases 1–7 are shipped. 1.0.0 is the SemVer lock (UseAuth, 15-minute path, Playground). Next is Phase 8 / 1.1.0.",
+      "Phases 1–7 are shipped. 1.0.0 is the SemVer lock. Current packages are 1.0.1 (dotnet new templates). Next is Phase 8 / 1.1.0.",
     sections: [
       {
         id: "versions",
@@ -949,7 +1063,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
         blocks: [
           {
             type: "p",
-            text: "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. Current public packages are 1.0.0. Shipped 0.6.1 APIs plus UseAuth<TChallenge>() are the contract. From 0.6.1-preview, install without --prerelease and replace GuardedNavigator reconstruction with UseAuth.",
+            text: "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. Current public packages are 1.0.1. Shipped 0.6.1 APIs plus UseAuth<TChallenge>() are the contract. From 0.6.1-preview, install without --prerelease and replace GuardedNavigator reconstruction with UseAuth.",
           },
           {
             type: "table",
@@ -962,8 +1076,9 @@ services.AddGeneratedViewModels(); // optional explicit call`,
               ["0.5.0-preview", "Phases 4–5 — generators, persist/auth, productization"],
               ["0.6.0-preview", "Device-safe marshal, weak CanExecuteChanged, overlay toasts, host/auth/forms UX"],
               ["0.6.1-preview", "Host-safe navigator, UseNavigationPage + replace-root, SectionHost, SnapshotCollection"],
-              ["1.0.0", "Phases 6–7 — 15-minute path, Playground, UseAuth, SemVer lock (current)"],
-              ["1.1.0", "Phase 8 — one path (generators, registration, forms, nav-args), analyzers, dotnet new"],
+              ["1.0.0", "Phases 6–7 — 15-minute path, Playground, UseAuth, SemVer lock"],
+              ["1.0.1", "dotnet new mvvmexpress / mvvmexpress-page (Plugin.Maui.MVVMExpress.Templates) — current"],
+              ["1.1.0", "Phase 8 — one path (generators, registration, forms, nav-args), analyzers"],
               ["1.2.0", "Phase 9 — Shell parity, modules, modal stack, sibling host adapters"],
               ["1.3.0", "Phase 10 — device numbers, trim, zero-reflection policy, production post-mortem"],
             ],
@@ -972,7 +1087,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
       },
       {
         id: "shipped",
-        title: "Shipped (1.0.0)",
+        title: "Shipped (1.0.1)",
         blocks: [
           {
             type: "ul",
@@ -985,6 +1100,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
               "0.6.0: UI-thread marshal, no-throw ICommand.Execute, weak CanExecuteChanged, Window.AddOverlay toasts, UseShell / UseDialogs, dirty confirm, GuardedNavigatorOptions, IAccountService, ModuleInitializer routes, AuthApp, Validation trim roots.",
               "0.6.1: Navigators hop before new Page(), UseNavigationPage + ResetAsync replace-root, SectionHostViewModel, SnapshotCollection, SearchQuery.CommittedText, FormViewModel.Bind, CoalescingDispatcher, ChatHost sample.",
               "1.0.0: UseAuth<TChallenge>() / AddAuth<TChallenge>(), 15-minute getting started, cheat sheet, cookbook, Playground, design-review sign-off, SemVer lock.",
+              "1.0.1: Plugin.Maui.MVVMExpress.Templates — dotnet new mvvmexpress (MainPage + MainPageViewModel, login, list, form, tests) and mvvmexpress-page. CI flake and SourceGenerators snupkg pack fixes.",
             ],
           },
         ],
@@ -1005,7 +1121,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
         blocks: [
           {
             type: "p",
-            text: "Phase 8 (1.1.0) is one vocabulary for generators, registration, forms, and nav-args, plus CommunityToolkit interop, three analyzers, and dotnet new. Phase 9 (1.2.0) is Shell parity, modules, and modal stack. Phase 10 (1.3.0) is device numbers, trim, and a production post-mortem.",
+            text: "Phase 8 (1.1.0) is one vocabulary for generators, registration, forms, and nav-args, plus CommunityToolkit interop and three analyzers. dotnet new shipped early in 1.0.1. Phase 9 (1.2.0) is Shell parity, modules, and modal stack. Phase 10 (1.3.0) is device numbers, trim, and a production post-mortem.",
           },
         ],
       },

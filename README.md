@@ -14,6 +14,7 @@ Professional experience stays on
 | `/pocs/` | Proofs of concept and maintained forks |
 | `/packages/` | .NET MAUI NuGet catalog |
 | `/packages/plugin-maui-mvvmexpress/docs/` | MVVMExpress documentation (expander topics + roadmap) |
+| `/packages/plugin-maui-mvvmexpress/docs/templates/` | MVVMExpress `dotnet new` project template |
 | `/packages/plugin-maui-mvvmexpress/integration/` | MVVMExpress getting started |
 | `/packages/plugin-maui-leak-analyser/` | LeakAnalyser overview |
 | `/packages/plugin-maui-leak-analyser/docs/` | LeakAnalyser technical documentation |
