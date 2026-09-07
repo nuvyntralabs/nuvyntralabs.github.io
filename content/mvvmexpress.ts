@@ -7,8 +7,8 @@ export const visualStudioMarketplaceSearch =
   "https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance";
 
 export const mvvmExpressStatus = {
-  version: "1.0.1",
-  note: "Current NuGet is 1.0.1: Plugin.Maui.MVVMExpress.Templates (dotnet new mvvmexpress / mvvmexpress-page). VS Code and Visual Studio Marketplace extensions wrap the same templates. SemVer lock remains 1.0.0 — UseAuth<TChallenge>(), UseNavigationPage + replace-root, SectionHostViewModel, SnapshotCollection. Supported: Android, iOS, Mac Catalyst, and Windows (single-window). Sibling adapters stay Android + iOS. Shipped 0.6.1 APIs plus UseAuth are the contract. Breaking change = major version.",
+  version: "1.0.2",
+  note: "Current NuGet is 1.0.2: library, templates, and IDE extensions aligned. Plugin.Maui.MVVMExpress.Templates (dotnet new mvvmexpress / mvvmexpress-page). VS Code and Visual Studio Marketplace extensions wrap the same templates. SemVer lock remains 1.0.0 — UseAuth<TChallenge>(), UseNavigationPage + replace-root, SectionHostViewModel, SnapshotCollection. Supported: Android, iOS, Mac Catalyst, and Windows (single-window). Sibling adapters stay Android + iOS. Shipped 0.6.1 APIs plus UseAuth are the contract. Breaking change = major version.",
 } as const;
 
 export type DocBlock =
@@ -102,8 +102,8 @@ export const technicalSections: DocSection[] = [
     blocks: [
       {
         type: "callout",
-        title: "1.0.1",
-        text: "Current packages are 1.0.1 (2026-09-06). The SemVer lock stays 1.0.0 (signed off 2026-09-02): public 1.x APIs stay source-compatible, 1.1.0+ may add surfaces, breaking changes wait for 2.0.0. 1.0.1 adds Plugin.Maui.MVVMExpress.Templates — dotnet new mvvmexpress and mvvmexpress-page. Search MVVMExpress on the Visual Studio Code and Visual Studio Marketplaces for thin IDE wrappers that install that pack and run the same commands. UseAuth<TChallenge>() wraps GuardedNavigator so getting started never reconstructs the guard. AddAuth<TChallenge>() is the same wrap for AddMvvmExpress / net10.0 tests. UseNavigationPage is the first-class host for login → replace-root → push; Shell is optional. Pages are constructed on IMainThread. SectionHostViewModel, SnapshotCollection, and SearchQuery.CommittedText stay as shipped in 0.6.1. Host / Navigation / Dialogs support Android, iOS, Mac Catalyst, and Windows as a single-window host. Sibling MauiEssentials adapters stay Android + iOS.",
+        title: "1.0.2",
+        text: "Current packages are 1.0.2 (2026-09-07). No API change — library, templates, and IDE extensions are aligned. The SemVer lock stays 1.0.0 (signed off 2026-09-02): public 1.x APIs stay source-compatible, 1.1.0+ may add surfaces, breaking changes wait for 2.0.0. 1.0.1 added Plugin.Maui.MVVMExpress.Templates — dotnet new mvvmexpress and mvvmexpress-page. Search MVVMExpress on the Visual Studio Code and Visual Studio Marketplaces for thin IDE wrappers that install that pack and run the same commands. UseAuth<TChallenge>() wraps GuardedNavigator so getting started never reconstructs the guard. AddAuth<TChallenge>() is the same wrap for AddMvvmExpress / net10.0 tests. UseNavigationPage is the first-class host for login → replace-root → push; Shell is optional. Pages are constructed on IMainThread. SectionHostViewModel, SnapshotCollection, and SearchQuery.CommittedText stay as shipped in 0.6.1. Host / Navigation / Dialogs support Android, iOS, Mac Catalyst, and Windows as a single-window host. Sibling MauiEssentials adapters stay Android + iOS.",
       },
       {
         type: "p",
@@ -440,8 +440,8 @@ export const integrationSections: DocSection[] = [
     blocks: [
       {
         type: "callout",
-        title: "1.0.1 project template",
-        text: "Current packages are 1.0.1. Install without --prerelease. The SemVer lock stays 1.0.0: public 1.x APIs stay source-compatible — 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. Scaffold with Plugin.Maui.MVVMExpress.Templates, the VS Code or Visual Studio Marketplace extension (search MVVMExpress), or add packages to an existing MAUI app.",
+        title: "1.0.2 project template",
+        text: "Current packages are 1.0.2. Install without --prerelease. No API change — library, templates, and IDE extensions are aligned. The SemVer lock stays 1.0.0: public 1.x APIs stay source-compatible — 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. Scaffold with Plugin.Maui.MVVMExpress.Templates, the VS Code or Visual Studio Marketplace extension (search MVVMExpress), or add packages to an existing MAUI app.",
       },
       {
         type: "link",

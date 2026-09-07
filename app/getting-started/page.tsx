@@ -91,7 +91,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
               MVVMExpress
             </Link>
             {" "}
-            1.0.1. Scaffold with{" "}
+            1.0.2. Scaffold with{" "}
             <Link
               href="/packages/plugin-maui-mvvmexpress/docs/templates/"
               className="font-medium text-lavender-700 hover:text-lavender-900"

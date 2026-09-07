@@ -132,7 +132,7 @@ const introSections: DocSection[] = [
         type: "ul",
         items: [
           "Shipped in 1.0.0 means types exist and tests exist. Phases 1–7 plus UseAuth, the host-safe navigator, NavigationPage replace-root, and chat-host APIs are complete.",
-          "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Current packages are 1.0.1 (dotnet new templates plus Marketplace IDE wrappers). Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
+          "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Current packages are 1.0.2 (library, templates, and Marketplace IDE wrappers aligned). Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
           "Type names stay unique so CommunityToolkit.Mvvm or Prism can sit in the same app if you need them.",
         ],
       },
@@ -162,8 +162,8 @@ export const guideTopics: GuideTopic[] = [
         blocks: [
           {
             type: "callout",
-            title: "1.0.1",
-            text: "Plugin.Maui.MVVMExpress.Templates ships with 1.0.1. It is a dotnet new pack, not a PackageReference. The generated app pins the 1.0.1 runtime packages. SemVer lock remains UseAuth from 1.0.0.",
+            title: "1.0.2",
+            text: "Plugin.Maui.MVVMExpress.Templates ships with 1.0.2. It is a dotnet new pack, not a PackageReference. The generated app pins the 1.0.2 runtime packages. SemVer lock remains UseAuth from 1.0.0.",
           },
           {
             type: "code",
@@ -175,7 +175,7 @@ dotnet test MyApp.Tests`,
           {
             type: "link",
             note: "NuGet:",
-            label: "Plugin.Maui.MVVMExpress.Templates 1.0.1",
+            label: "Plugin.Maui.MVVMExpress.Templates 1.0.2",
             href: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates",
           },
           {
@@ -286,7 +286,7 @@ builder.Services.AddCatalog();`,
           {
             type: "callout",
             title: "Marketplace — search MVVMExpress",
-            text: "The extensions do not copy the scaffold. They install Plugin.Maui.MVVMExpress.Templates and run the same dotnet new commands as the CLI. Extension version is 1.0.1, matching the template pack. Requires the .NET SDK on PATH.",
+            text: "The extensions do not copy the scaffold. They install Plugin.Maui.MVVMExpress.Templates and run the same dotnet new commands as the CLI. Extension version is 1.0.2, matching the template pack. Requires the .NET SDK on PATH.",
           },
           {
             type: "table",
@@ -924,7 +924,7 @@ items.ReplaceRange(next);`,
     slug: "packages",
     title: "Packages",
     description:
-      "How the family is split, what is packed in 1.0.1, and why optional packages stay optional.",
+      "How the family is split, what is packed in 1.0.2, and why optional packages stay optional.",
     sections: [
       section("packages"),
       {
@@ -1120,7 +1120,7 @@ static WeakReference CreateAndDispose()
         blocks: [
           {
             type: "callout",
-            title: "1.0.1",
+            title: "1.0.2",
             text: "Plugin.Maui.MVVMExpress.SourceGenerators is packed. Attributes live in Core. Types must be partial. UseMvvmExpress applies generated [Route] / [RequiresAuth] via a ModuleInitializer (ApplyGeneratedRegistrations defaults to true). You can still call services.AddGeneratedViewModels() explicitly.",
           },
           {
@@ -1137,7 +1137,7 @@ static WeakReference CreateAndDispose()
           },
           {
             type: "code",
-            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="1.0.1" PrivateAssets="all" />
+            code: `<PackageReference Include="Plugin.Maui.MVVMExpress.SourceGenerators" Version="1.0.2" PrivateAssets="all" />
 
 builder.UseMvvmExpress(o => o
     .UseNavigationPage()
@@ -1159,7 +1159,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
     slug: "roadmap",
     title: "Roadmap",
     description:
-      "Phases 1–7 are shipped. 1.0.0 is the SemVer lock. Current packages are 1.0.1 (dotnet new templates and Marketplace IDE wrappers). Next is Phase 8 / 1.1.0.",
+      "Phases 1–7 are shipped. 1.0.0 is the SemVer lock. Current packages are 1.0.2 (library, templates, and Marketplace IDE wrappers aligned). Next is Phase 8 / 1.1.0.",
     sections: [
       {
         id: "versions",
@@ -1167,7 +1167,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
         blocks: [
           {
             type: "p",
-            text: "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. Current public packages are 1.0.1. Shipped 0.6.1 APIs plus UseAuth<TChallenge>() are the contract. From 0.6.1-preview, install without --prerelease and replace GuardedNavigator reconstruction with UseAuth.",
+            text: "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; 1.1.0+ may add surfaces; breaking changes wait for 2.0.0. Current public packages are 1.0.2. Shipped 0.6.1 APIs plus UseAuth<TChallenge>() are the contract. From 0.6.1-preview, install without --prerelease and replace GuardedNavigator reconstruction with UseAuth.",
           },
           {
             type: "table",
@@ -1181,7 +1181,8 @@ services.AddGeneratedViewModels(); // optional explicit call`,
               ["0.6.0-preview", "Device-safe marshal, weak CanExecuteChanged, overlay toasts, host/auth/forms UX"],
               ["0.6.1-preview", "Host-safe navigator, UseNavigationPage + replace-root, SectionHost, SnapshotCollection"],
               ["1.0.0", "Phases 6–7 — 15-minute path, Playground, UseAuth, SemVer lock"],
-              ["1.0.1", "dotnet new mvvmexpress / mvvmexpress-page, plus VS Code and Visual Studio Marketplace wrappers — current"],
+              ["1.0.1", "dotnet new mvvmexpress / mvvmexpress-page, plus VS Code and Visual Studio Marketplace wrappers"],
+              ["1.0.2", "Library, templates, and IDE extensions aligned — current"],
               ["1.1.0", "Phase 8 — one path (generators, registration, forms, nav-args), analyzers"],
               ["1.2.0", "Phase 9 — Shell parity, modules, modal stack, sibling host adapters"],
               ["1.3.0", "Phase 10 — device numbers, trim, zero-reflection policy, production post-mortem"],
@@ -1191,7 +1192,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
       },
       {
         id: "shipped",
-        title: "Shipped (1.0.1)",
+        title: "Shipped (1.0.2)",
         blocks: [
           {
             type: "ul",
@@ -1205,6 +1206,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
               "0.6.1: Navigators hop before new Page(), UseNavigationPage + ResetAsync replace-root, SectionHostViewModel, SnapshotCollection, SearchQuery.CommittedText, FormViewModel.Bind, CoalescingDispatcher, ChatHost sample.",
               "1.0.0: UseAuth<TChallenge>() / AddAuth<TChallenge>(), 15-minute getting started, cheat sheet, cookbook, Playground, design-review sign-off, SemVer lock.",
               "1.0.1: Plugin.Maui.MVVMExpress.Templates — dotnet new mvvmexpress (MainPage + MainPageViewModel, login, list, form, tests) and mvvmexpress-page. CI flake and SourceGenerators snupkg pack fixes.",
+              "1.0.2: Library, templates, and IDE extensions aligned. No API change.",
               "IDE wrappers: Visual Studio Code and Visual Studio Marketplace extensions install the template pack and run dotnet new. They do not copy the scaffold.",
             ],
           },
@@ -1226,7 +1228,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
         blocks: [
           {
             type: "p",
-            text: "Phase 8 (1.1.0) is one vocabulary for generators, registration, forms, and nav-args, plus CommunityToolkit interop and three analyzers. dotnet new and the Marketplace IDE wrappers shipped on 1.0.1. Phase 9 (1.2.0) is Shell parity, modules, and modal stack. Phase 10 (1.3.0) is device numbers, trim, and a production post-mortem.",
+            text: "Phase 8 (1.1.0) is one vocabulary for generators, registration, forms, and nav-args, plus CommunityToolkit interop and three analyzers. dotnet new shipped on 1.0.1; library, templates, and Marketplace IDE wrappers aligned on 1.0.2. Phase 9 (1.2.0) is Shell parity, modules, and modal stack. Phase 10 (1.3.0) is device numbers, trim, and a production post-mortem.",
           },
         ],
       },
