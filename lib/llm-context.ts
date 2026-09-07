@@ -69,6 +69,10 @@ LeakAnalyser comparison: ${siteConfig.url}/packages/plugin-maui-leak-analyser/co
 HttpForge documentation: ${siteConfig.url}/packages/plugin-maui-httpforge/docs/
 HttpForge getting started: ${siteConfig.url}/packages/plugin-maui-httpforge/integration/
 HttpForge comparison: ${siteConfig.url}/packages/plugin-maui-httpforge/comparison/
+HttpForge current NuGet: 1.1.0 (Testing, Newtonsoft.Json, and XML optional packages)
+HttpForge Testing: https://www.nuget.org/packages/Plugin.Maui.HttpForge.Testing
+HttpForge Newtonsoft.Json: https://www.nuget.org/packages/Plugin.Maui.HttpForge.NewtonsoftJson
+HttpForge XML: https://www.nuget.org/packages/Plugin.Maui.HttpForge.Xml
 MVVMExpress Playground sample: https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground
 GitHub for each plugin: ${siteConfig.githubOrg}/<PackageName>
 `;

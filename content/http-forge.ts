@@ -12,11 +12,11 @@ export const httpForgeTechnicalDescription =
 
 export const httpForgeIntegrationTitle = "Get started with HttpForge";
 export const httpForgeIntegrationDescription =
-  "Install 1.0.1, register UseHttpForge, add a typed client, then optionally chain ApiResilience, ApiCache, SecureSession, or SmartUpload on the same IHttpClientBuilder.";
+  "Install 1.1.0, register UseHttpForge, add a typed client, then optionally chain ApiResilience, ApiCache, SecureSession, or SmartUpload on the same IHttpClientBuilder.";
 
 export const httpForgeComparisonTitle = "HttpForge vs Refit and sibling HTTP plugins";
 export const httpForgeComparisonDescription =
-  "Compare HttpForge with Refit, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload — and when to choose each.";
+  "Compare HttpForge 1.1.0 with Refit 15, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload — and when to choose each.";
 
 export const httpForgeTechnicalSections: DocSection[] = [
   {
@@ -96,11 +96,16 @@ public static class MauiProgram
         headers: ["Feature", "How"],
         rows: [
           ["HTTP methods", "[Get], [Post], [Put], [Delete], [Patch], [Head]"],
-          ["Path parameters", "/users/{id} matches int id or [AliasAs(\"id\")]"],
-          ["Query parameters", "Remaining parameters, or [Query] / [Query(\"q\")]"],
-          ["JSON body", "[Body]"],
+          ["Path parameters", "/users/{id} matches int id or [AliasAs(\"id\")]; {id?} is optional"],
+          ["Query parameters", "Remaining parameters, [Query], query objects, collection formats, camel/snake/kebab keys"],
+          ["Query flags", "[QueryName] writes ?archived with no value"],
+          ["JSON body", "[Body], or [Body(BodySerializationMethod.JsonLines)]"],
           ["Headers", "[Headers(\"Accept: application/json\")], [Header(\"X-Request-Id\")]"],
-          ["Multipart", "[Multipart] with StreamPart, ByteArrayPart, FileInfoPart"],
+          ["Multipart", "[Multipart] with StreamPart, ByteArrayPart, FileInfoPart, [FormObject]"],
+          ["Routes", "[PathPrefix], [Url] (validate input — SSRF risk), [Timeout]"],
+          ["Streaming", "IAsyncEnumerable<T> (JSON Lines or SSE)"],
+          ["Compression", "RequestBodyCompression / [CompressRequest] (gzip or brotli)"],
+          ["Authorization", "AuthorizationHeaderValueGetter (attach only; refresh is a sibling)"],
           ["Cancellation", "CancellationToken"],
           ["Rich response", "Task<IApiResponse<T>> (no throw on 4xx/5xx)"],
           ["Errors", "ApiException (HTTP response), ApiRequestException (transport)"],
@@ -109,7 +114,45 @@ public static class MauiProgram
       },
       {
         type: "p",
-        text: "Unsupported shapes fail at compile time (HFG001–HFG006). HttpForge is generated-only — there is no reflection fallback package.",
+        text: "Unsupported shapes fail at compile time (HFG001–HFG010). HttpForge is generated-only — there is no reflection fallback package.",
+      },
+    ],
+  },
+  {
+    id: "request-surface",
+    title: "1.1 request surface",
+    blocks: [
+      {
+        type: "p",
+        text: "1.1.0 adds the Refit-parity extras that were missing in 1.0: query objects, collection formats, naming presets, timeouts, runtime URLs, path prefixes, optional segments, valueless query flags, form-object flattening, streaming, request compression, and a token attach hook.",
+      },
+      {
+        type: "code",
+        code: `[PathPrefix("/api/v1")]
+public interface IUserApi
+{
+    [Get("/users")]
+    Task<List<User>> Search([Query] UserQuery query, [Query(CollectionFormat.Multi)] int[] ages);
+
+    [Get("/users/{id}/orders/{orderId?}")]
+    [Timeout(5_000)]
+    Task<List<Order>> GetOrders(int id, int? orderId);
+
+    [Get("/items")]
+    Task<List<Item>> List([QueryName] string flag);
+
+    [Get("/events")]
+    IAsyncEnumerable<Event> StreamEvents(CancellationToken cancellationToken);
+}
+
+settings.UrlParameterKeyFormatter = UrlParameterKeyFormatter.SnakeCase;
+settings.AuthorizationHeaderValueGetter = (request, ct) => tokenStore.GetAccessTokenAsync(ct);
+settings.RequestBodyCompression = RequestBodyCompression.Gzip;`,
+      },
+      {
+        type: "callout",
+        title: "[Url] and tokens",
+        text: "[Url] replaces the method path with a runtime string or Uri. Validate that value first (SSRF risk). AuthorizationHeaderValueGetter sees an absolute URI (HttpClient.BaseAddress + relative path) and attaches a header only. 401 refresh stays on SecureSession or ApiResilience.",
       },
     ],
   },
@@ -124,6 +167,10 @@ public static class MauiProgram
 Task UploadPhoto(int id, [AliasAs("file")] StreamPart file);
 
 await api.UploadPhoto(7, new StreamPart(stream, "photo.jpg", "image/jpeg"));`,
+      },
+      {
+        type: "p",
+        text: "Flatten a C# object into form fields with [FormObject] (name, address.city). HFG008 fires if [FormObject] is used without [Multipart].",
       },
       {
         type: "callout",
@@ -156,32 +203,58 @@ await api.UploadPhoto(7, new StreamPart(stream, "photo.jpg", "image/jpeg"));`,
     blocks: [
       {
         type: "p",
-        text: "The default serializer is System.Text.Json. Hosts that trim or publish AOT can supply a JsonSerializerContext. Hosts can also swap IHttpContentSerializer. Newtonsoft.Json and XML are not in the core package.",
+        text: "The default serializer is System.Text.Json. Hosts that trim or publish AOT can supply a JsonSerializerContext. Hosts can also swap IHttpContentSerializer. Newtonsoft.Json and XML ship as optional packages — they are not in the core nupkg.",
       },
     ],
   },
   {
-    id: "not-in-v1",
-    title: "Not in v1",
+    id: "optional-packages",
+    title: "Optional packages",
+    blocks: [
+      {
+        type: "table",
+        headers: ["Need", "Package"],
+        rows: [
+          ["Core generated client", "Plugin.Maui.HttpForge"],
+          ["Test stubs", "Plugin.Maui.HttpForge.Testing"],
+          ["Newtonsoft.Json", "Plugin.Maui.HttpForge.NewtonsoftJson"],
+          ["XML (XXE-safe)", "Plugin.Maui.HttpForge.Xml"],
+          ["Reflection fallback", "Not planned — stay generated-only"],
+        ],
+      },
+      {
+        type: "code",
+        code: `dotnet add package Plugin.Maui.HttpForge.Testing
+dotnet add package Plugin.Maui.HttpForge.NewtonsoftJson
+dotnet add package Plugin.Maui.HttpForge.Xml`,
+      },
+      {
+        type: "code",
+        code: `var http = new StubHttp
+{
+    { Route.Get("/users/{id}"), Reply.With(new User { Id = 7, Name = "octocat" }) }
+};
+
+var api = http.CreateClient<IUserApi>("https://api.example.com");
+var user = await api.GetUser(7);
+await http.VerifyAllCalledAsync();
+
+settings.ContentSerializer = new NewtonsoftJsonContentSerializer();
+settings.ContentSerializer = new XmlContentSerializer();`,
+      },
+      {
+        type: "p",
+        text: "XmlContentSerializer prohibits DTD processing and sets XmlResolver to null.",
+      },
+    ],
+  },
+  {
+    id: "not-planned",
+    title: "Not planned",
     blocks: [
       {
         type: "p",
-        text: "HttpForge 1.0.x is a focused subset. These Refit surfaces are not in v1 — they are roadmap items, not bugs.",
-      },
-      {
-        type: "table",
-        headers: ["Missing", "Direction"],
-        rows: [
-          ["Query objects, collection formats, camel/snake/kebab", "Next contract increment"],
-          ["[Timeout], [Url], [PathPrefix], optional route segments", "Next contract increment"],
-          ["[QueryName] valueless flags, [FormObject]", "Next contract increment"],
-          ["SSE / IAsyncEnumerable / JSON Lines", "Later — streaming"],
-          ["Request-body compression", "Later — transport convenience"],
-          ["Authorization header value getter", "Later, or keep composing SecureSession / ApiResilience"],
-          ["Newtonsoft.Json / XML packages", "Optional packages only if hosts need them"],
-          ["Reflection fallback", "Not planned — stay generated-only"],
-          ["First-party stub testing package", "Later — HttpForge.Testing"],
-        ],
+        text: "HttpForge 1.1.0 ships the Refit-parity request surface. Reflection fallback remains out of scope — unsupported shapes fail at compile time (HFG001–HFG010). Write that one HttpClient method by hand.",
       },
       {
         type: "callout",
@@ -196,7 +269,7 @@ await api.UploadPhoto(7, new StreamPart(stream, "photo.jpg", "image/jpeg"));`,
     blocks: [
       {
         type: "p",
-        text: "Version 1.0.1. Target frameworks: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+), net10.0-maccatalyst (15+), and net10.0-windows10.0.19041.0 (Windows 10.0.17763+). CI packs the Windows TFM on windows-latest and merges it into the nupkg published from macOS.",
+        text: "Version 1.1.0. Target frameworks: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+), net10.0-maccatalyst (15+), and net10.0-windows10.0.19041.0 (Windows 10.0.17763+). CI packs the Windows TFM on windows-latest and merges it into the nupkg published from macOS.",
       },
       {
         type: "link",
@@ -223,7 +296,13 @@ export const httpForgeIntegrationSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "Package ID: Plugin.Maui.HttpForge. Current NuGet is 1.0.1. Install only the sibling plugins the host actually needs — HttpForge alone is enough for a typed client.",
+        text: "Package ID: Plugin.Maui.HttpForge. Current NuGet is 1.1.0. Install only the sibling or optional packages the host actually needs — HttpForge alone is enough for a typed client.",
+      },
+      {
+        type: "code",
+        code: `dotnet add package Plugin.Maui.HttpForge.Testing
+dotnet add package Plugin.Maui.HttpForge.NewtonsoftJson
+dotnet add package Plugin.Maui.HttpForge.Xml`,
       },
     ],
   },
@@ -385,7 +464,7 @@ builder.Services
     blocks: [
       {
         type: "p",
-        text: "Plugin.Maui.SecureSession stores access/refresh tokens (via SecureStoragePlus), attaches Bearer, and retries once on 401. HttpForge does not attach Authorization by itself in v1. SecureSession targets Android and iOS. On Mac Catalyst or Windows, use ApiResilience IAccessTokenProvider instead.",
+        text: "Plugin.Maui.SecureSession stores access/refresh tokens (via SecureStoragePlus), attaches Bearer, and retries once on 401. HttpForge can attach a static token via AuthorizationHeaderValueGetter; it does not refresh on 401. SecureSession targets Android and iOS. On Mac Catalyst or Windows, use ApiResilience IAccessTokenProvider instead.",
       },
       {
         type: "p",
@@ -537,7 +616,7 @@ builder.Services
           ["Retry attributes on the HttpForge interface", "Resilience belongs on the handler pipeline"],
           ["IApiCache.GetAsync around an HttpForge GET", "Double-caches when .AddApiCache() is already on the client"],
           [".AddSecureSession() and ApiResilience token refresh together", "Two 401 refresh loops"],
-          ["Authorization getter inside HttpForge", "Use SecureSession or ApiResilience"],
+          ["401 refresh inside HttpForge", "Use AuthorizationHeaderValueGetter only to attach a token; refresh with SecureSession or ApiResilience"],
           ["[Multipart] for multi-megabyte resume", "Use SmartUpload"],
           ["SecureSession on Mac Catalyst / Windows", "That plugin is Android + iOS"],
           ["Observability just to “see HTTP”", "Use ILogger or Diagnostics breadcrumbs if you already have them"],
@@ -568,32 +647,47 @@ export const httpForgeComparisonSections: DocSection[] = [
       },
       {
         type: "table",
-        headers: ["Capability", "HttpForge 1.0.1", "Refit 15"],
+        headers: ["Capability", "HttpForge 1.1.0", "Refit 15"],
         rows: [
           ["Interface + [Get]/[Post]/[Put]/[Delete]/[Patch]/[Head]", "Yes", "Yes"],
           ["Path, [AliasAs], [Query], [Body], [Header]/[Headers]", "Yes", "Yes"],
+          ["Query objects, collection formats, camel/snake/kebab", "Yes", "Yes"],
+          ["[Timeout], [Url], [PathPrefix], optional {id?}", "Yes", "Yes"],
+          ["[QueryName] valueless flags, [FormObject]", "Yes", "Yes"],
           ["Multipart (StreamPart / ByteArrayPart / FileInfoPart)", "Yes", "Yes"],
           ["CancellationToken", "Yes", "Yes"],
           ["Task<IApiResponse<T>>", "Yes", "Yes"],
+          ["SSE / IAsyncEnumerable / JSON Lines", "Yes", "Yes"],
+          ["Request-body compression", "gzip / brotli", "Yes (15.2+)"],
+          ["Authorization header value getter", "Yes (attach only; absolute URI)", "Yes"],
           ["HTTP vs transport exceptions", "ApiException / ApiRequestException", "ApiException / ApiRequestException"],
           ["Source-generated client and request construction", "Yes", "Yes (Refit 14+)"],
-          ["Compile-time diagnostics", "HFG001–HFG006", "Yes (richer analyzer set)"],
+          ["Compile-time diagnostics", "HFG001–HFG010", "Yes (richer analyzer set)"],
           ["System.Text.Json + JsonSerializerContext / AOT", "Yes", "Yes"],
           ["IHttpClientFactory + DelegatingHandler", "Yes", "Yes (Refit.HttpClientFactory)"],
-          ["Query objects, collection formats, naming presets", "No (v1)", "Yes"],
-          ["[Timeout], [Url], [PathPrefix], optional segments", "No (v1)", "Yes"],
-          ["SSE / IAsyncEnumerable / JSON Lines", "No (v1)", "Yes"],
-          ["Authorization header value getter", "No (v1)", "Yes"],
-          ["Newtonsoft.Json / XML / reflection fallback", "No", "Yes (optional packages)"],
-          ["First-party stub testing package", "No (v1)", "Refit.Testing"],
+          ["Newtonsoft.Json / XML", "Optional packages", "Refit.Newtonsoft.Json / Refit.Xml"],
+          ["First-party stub testing package", "Plugin.Maui.HttpForge.Testing", "Refit.Testing"],
+          ["Reflection fallback", "No (generated-only)", "Refit.Reflection"],
           ["Retry / cache / tokens / resume", "Compose sibling plugins", "Host-owned"],
           ["Target matrix", "net10.0 + Android / iOS / Mac Catalyst / Windows", "Broader (.NET 8–11, WinUI, Blazor, Uno, .NET Framework)"],
         ],
       },
       {
+        type: "table",
+        headers: ["Need", "HttpForge", "Refit"],
+        rows: [
+          ["Core generated client", "Plugin.Maui.HttpForge", "Refit"],
+          ["DI / IHttpClientFactory", "Included", "Refit.HttpClientFactory"],
+          ["Newtonsoft.Json", "Plugin.Maui.HttpForge.NewtonsoftJson", "Refit.Newtonsoft.Json"],
+          ["XML (XXE-safe)", "Plugin.Maui.HttpForge.Xml", "Refit.Xml"],
+          ["Test stubs", "Plugin.Maui.HttpForge.Testing", "Refit.Testing"],
+          ["Reflection fallback", "Not planned", "Refit.Reflection"],
+        ],
+      },
+      {
         type: "callout",
         title: "Not a superiority table",
-        text: "Refit is the right default when the team already uses it, needs query-object formatting, streaming, Newtonsoft/XML, or a reflection fallback. Prefer HttpForge when you want a generated client that matches the MauiEssentials catalog and chains with those plugins on IHttpClientBuilder.",
+        text: "Refit is the right default when the team already uses it, needs a reflection fallback, or targets a broader framework matrix. Prefer HttpForge when you want a generated client that matches the MauiEssentials catalog and chains with those plugins on IHttpClientBuilder.",
       },
       {
         type: "link",
@@ -636,12 +730,12 @@ export const httpForgeComparisonSections: DocSection[] = [
           "You want a Refit-style typed REST client that matches the MauiEssentials catalog.",
           "You need Android, iOS, Mac Catalyst, and Windows on net10.0.",
           "You want IHttpClientBuilder composition with ApiResilience, ApiCache, SecureSession, or SmartUpload.",
-          "You prefer compile-time failure (HFG00x) over a reflection fallback.",
+          "You prefer compile-time failure (HFG001–HFG010) over a reflection fallback.",
         ],
       },
       {
         type: "p",
-        text: "Stay on Refit when the team already standardized on it, or when you need query objects, streaming, Newtonsoft/XML, or Refit.Testing. Use hand-written HttpClient for a handful of calls. Use sibling plugins when the question is retry, cache, tokens, or resume — not the REST contract.",
+        text: "Stay on Refit when the team already standardized on it, needs a reflection fallback, or targets a broader framework matrix. Use hand-written HttpClient for a handful of calls. Use sibling plugins when the question is retry, cache, tokens, or resume — not the REST contract.",
       },
     ],
   },

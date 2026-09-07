@@ -523,28 +523,32 @@ export const packages: PackageDoc[] = [
       "Mac Catalyst",
       "Windows"
     ],
-    "abstract": "Plugin.Maui.HttpForge is the contract layer: declare GET/POST/PUT/DELETE/PATCH/HEAD as a C# interface and the source generator emits the HttpClient implementation — no runtime reflection request builder. It is a MauiEssentials-shaped subset of Refit for Android, iOS, Mac Catalyst, and Windows, not a drop-in Refit replacement. Retry, cache, token refresh, and resumable uploads stay on ApiResilience, ApiCache, SecureSession, and SmartUpload; AddHttpForgeClient returns IHttpClientBuilder so those handlers chain on the same client.",
-    "version": "1.0.1",
+    "abstract": "Plugin.Maui.HttpForge is the contract layer: declare GET/POST/PUT/DELETE/PATCH/HEAD as a C# interface and the source generator emits the HttpClient implementation — no runtime reflection request builder. 1.1.0 adds the Refit-parity request surface (query objects, collection formats, naming presets, [Timeout]/[Url]/[PathPrefix], optional segments, [QueryName]/[FormObject], IAsyncEnumerable streaming, request compression, and AuthorizationHeaderValueGetter) plus optional Testing, Newtonsoft.Json, and XML packages. It is a MauiEssentials-shaped subset of Refit for Android, iOS, Mac Catalyst, and Windows, not a drop-in Refit replacement. Retry, cache, token refresh, and resumable uploads stay on ApiResilience, ApiCache, SecureSession, and SmartUpload; AddHttpForgeClient returns IHttpClientBuilder so those handlers chain on the same client.",
+    "version": "1.1.0",
     "releaseNotes": [
-      "Publish the packed net10.0-windows TFM (merged from the Windows CI nupkg). Source-generated REST client for Android, iOS, Mac Catalyst, and Windows."
+      "1.1.0. Refit-parity request surface: query objects, collection formats (Multi / Csv / Ssv / Tsv / Pipes), camel/snake/kebab keys, [Timeout] / [Url] / [PathPrefix], optional {id?} segments, [QueryName], [FormObject], IAsyncEnumerable streaming (JSON Lines / SSE), request-body gzip/brotli, and AuthorizationHeaderValueGetter (attach only; absolute URI).",
+      "Optional packages: Plugin.Maui.HttpForge.Testing, Plugin.Maui.HttpForge.NewtonsoftJson, and Plugin.Maui.HttpForge.Xml. Compile-time diagnostics are now HFG001–HFG010. Reflection fallback stays out of scope."
     ],
     "capabilities": [
       "Interface + [Get] / [Post] / [Put] / [Delete] / [Patch] / [Head] compiled to HttpClient calls.",
-      "Path parameters, [AliasAs], [Query], [Body], [Header] / [Headers], CancellationToken.",
-      "Multipart uploads with StreamPart, ByteArrayPart, and FileInfoPart.",
+      "Path parameters, [AliasAs], [Query], query objects, collection formats, camel/snake/kebab keys, [QueryName], [Body], [Header] / [Headers], CancellationToken.",
+      "[Timeout], [Url], [PathPrefix], and optional route segments ({id?}).",
+      "Multipart uploads with StreamPart, ByteArrayPart, FileInfoPart, and [FormObject].",
+      "IAsyncEnumerable<T> streaming (JSON Lines or SSE) and request-body gzip/brotli.",
+      "AuthorizationHeaderValueGetter attaches a token; 401 refresh stays on SecureSession or ApiResilience.",
       "Task<IApiResponse<T>> for non-throwing 4xx/5xx; ApiException vs ApiRequestException.",
-      "System.Text.Json by default; optional JsonSerializerContext for AOT.",
+      "System.Text.Json by default; optional JsonSerializerContext for AOT; Newtonsoft.Json and XML as optional packages.",
       "UseHttpForge(), AddHttpForgeClient<T>(), or RestService.For<T>() without the host.",
       "Compose ApiResilience, ApiCache, SecureSession, and SmartUpload on IHttpClientBuilder.",
-      "Compile-time diagnostics HFG001–HFG006. Generated-only — no reflection fallback."
+      "Plugin.Maui.HttpForge.Testing stubs. Compile-time diagnostics HFG001–HFG010. Generated-only — no reflection fallback."
     ],
     "guides": {
       "technical": "/packages/plugin-maui-httpforge/docs/",
       "integration": "/packages/plugin-maui-httpforge/integration/",
       "comparison": "/packages/plugin-maui-httpforge/comparison/",
-      "technicalSummary": "Interface contract, attributes, multipart, errors, JSON/AOT, analyzers, and what v1 leaves to sibling plugins.",
-      "integrationSummary": "UseHttpForge, AddHttpForgeClient, and recipes for ApiResilience, ApiCache, SecureSession, and SmartUpload.",
-      "comparisonSummary": "Versus Refit, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload."
+      "technicalSummary": "1.1.0 contract, query objects, streaming, compression, optional packages, analyzers, and what stays on sibling plugins.",
+      "integrationSummary": "Install 1.1.0, UseHttpForge, AddHttpForgeClient, and recipes for ApiResilience, ApiCache, SecureSession, and SmartUpload.",
+      "comparisonSummary": "HttpForge 1.1.0 vs Refit 15, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload."
     }
   },
   {
