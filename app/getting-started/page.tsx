@@ -30,7 +30,14 @@ export default function GettingStartedPage() {
           <h2 className="font-display text-2xl font-semibold">1. Create or open a MAUI app</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Use the stock MAUI template, or scaffold an MVVMExpress host with ViewModels, login
-            replace-root, a list, a form, and tests already wired.
+            replace-root, a list, a form, and tests already wired. Same scaffold from the{" "}
+            <Link
+              href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              VS Code and Visual Studio extensions
+            </Link>{" "}
+            — search <strong>MVVMExpress</strong> on the Marketplace.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
             <code>{`dotnet new maui -n FieldApp
@@ -90,6 +97,13 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
               className="font-medium text-lavender-700 hover:text-lavender-900"
             >
               dotnet new mvvmexpress
+            </Link>{" "}
+            or the{" "}
+            <Link
+              href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              IDE extensions
             </Link>
             . It hosts a single window on Android, iOS, Mac Catalyst, and Windows. Technical internals
             and a step-by-step integration guide live next to the package.

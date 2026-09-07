@@ -1,6 +1,12 @@
 import type { DocSection } from "@/content/mvvmexpress";
 import { comparisonHref } from "@/content/mvvmexpress-comparison";
-import { integrationSections, mvvmExpressSlug, technicalSections } from "@/content/mvvmexpress";
+import {
+  integrationSections,
+  mvvmExpressSlug,
+  technicalSections,
+  visualStudioMarketplaceSearch,
+  vscodeMarketplaceSearch,
+} from "@/content/mvvmexpress";
 
 export const docsBase = `/packages/${mvvmExpressSlug}/docs`;
 export const integrationHref = `/packages/${mvvmExpressSlug}/integration/`;
@@ -41,6 +47,7 @@ export const guideNav: GuideNavGroup[] = [
       { title: "Introduction", href: `${docsBase}/` },
       { title: "Getting started", href: integrationHref },
       { title: "Project template", href: `${docsBase}/templates/`, topic: "templates" },
+      { title: "IDE extensions", href: `${docsBase}/ide-extensions/`, topic: "ide-extensions" },
       { title: "Comparison", href: comparisonHref },
     ],
   },
@@ -119,13 +126,13 @@ const introSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the scaffold-or-install path, including dotnet new mvvmexpress, the first screen, and the Playground clone. Project template documents the packed templates. Comparison evaluates CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI and includes the syntax map. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
+        text: "The left nav follows the surfaces a production MAUI app actually touches. Start here for the contract. Getting started is the scaffold-or-install path, including dotnet new mvvmexpress, the first screen, and the Playground clone. Project template documents the packed templates. IDE extensions covers the Visual Studio Code and Visual Studio Marketplace wrappers. Comparison evaluates CommunityToolkit.Mvvm, Prism.Maui, and ReactiveUI and includes the syntax map. Application model covers ViewModels, commands, DI, messaging, and Reactive. Application shell covers navigation, chat host, dialogs, validation, forms, and lists. Composition and internals explain packages, adapters, platforms, the operation pipeline, tests, and scale. Release covers generators and the shipped roadmap.",
       },
       {
         type: "ul",
         items: [
           "Shipped in 1.0.0 means types exist and tests exist. Phases 1–7 plus UseAuth, the host-safe navigator, NavigationPage replace-root, and chat-host APIs are complete.",
-          "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Current packages are 1.0.1 (dotnet new templates). Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
+          "1.0.0 is the SemVer lock. Public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Current packages are 1.0.1 (dotnet new templates plus Marketplace IDE wrappers). Known limitations are accepted 1.0 scope, not remaining product work. Next work is Phase 8 (1.1.0).",
           "Type names stay unique so CommunityToolkit.Mvvm or Prism can sit in the same app if you need them.",
         ],
       },
@@ -174,6 +181,10 @@ dotnet test MyApp.Tests`,
           {
             type: "p",
             text: "From the product repo, without installing the nupkg: dotnet new install templates/maui-app and templates/page, then dotnet new mvvmexpress -n MyApp.",
+          },
+          {
+            type: "p",
+            text: "Same commands from the IDE: search MVVMExpress on the Visual Studio Code or Visual Studio Marketplace. The wrappers install the pack and run dotnet new — they do not copy the scaffold.",
           },
         ],
       },
@@ -251,6 +262,99 @@ builder.Services.AddCatalog();`,
             note: "Getting started walkthrough:",
             label: "Install and first screen",
             href: integrationHref,
+          },
+          {
+            type: "link",
+            note: "IDE wrappers:",
+            label: "VS Code and Visual Studio extensions",
+            href: `${docsBase}/ide-extensions/`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "ide-extensions",
+    title: "IDE extensions",
+    description:
+      "Thin Visual Studio Code and Visual Studio wrappers that install Plugin.Maui.MVVMExpress.Templates and run dotnet new.",
+    sections: [
+      {
+        id: "what-they-are",
+        title: "What they are",
+        blocks: [
+          {
+            type: "callout",
+            title: "Marketplace — search MVVMExpress",
+            text: "The extensions do not copy the scaffold. They install Plugin.Maui.MVVMExpress.Templates and run the same dotnet new commands as the CLI. Extension version is 1.0.1, matching the template pack. Requires the .NET SDK on PATH.",
+          },
+          {
+            type: "table",
+            headers: ["Host", "Commands"],
+            rows: [
+              [
+                "Visual Studio Code",
+                "MVVMExpress: Create New App, MVVMExpress: Add Page",
+              ],
+              [
+                "Visual Studio 2022+",
+                "Tools → MVVMExpress → Create New App…, Add Page…",
+              ],
+            ],
+          },
+          {
+            type: "p",
+            text: "After the template pack is installed, Visual Studio File → New → Project lists MVVMExpress MAUI App. Add → New Item lists MVVMExpress Page.",
+          },
+        ],
+      },
+      {
+        id: "install-marketplace",
+        title: "Install from Marketplace",
+        blocks: [
+          {
+            type: "p",
+            text: "Search MVVMExpress and install:",
+          },
+          {
+            type: "link",
+            note: "Visual Studio Code:",
+            label: "MVVMExpress on the Marketplace",
+            href: vscodeMarketplaceSearch,
+          },
+          {
+            type: "link",
+            note: "Visual Studio 2022+:",
+            label: "MVVMExpress on the Marketplace",
+            href: visualStudioMarketplaceSearch,
+          },
+          {
+            type: "p",
+            text: "In the editor: Extensions → search MVVMExpress → Install. Then MVVMExpress: Create New App / Add Page (VS Code) or Tools → MVVMExpress (Visual Studio).",
+          },
+        ],
+      },
+      {
+        id: "cli-no-extension",
+        title: "CLI (no extension)",
+        blocks: [
+          {
+            type: "code",
+            code: `dotnet new install Plugin.Maui.MVVMExpress.Templates
+dotnet new mvvmexpress -n MyApp
+dotnet new mvvmexpress-page -n Catalog --namespace MyApp`,
+          },
+          {
+            type: "link",
+            note: "Packed templates:",
+            label: "Project template",
+            href: `${docsBase}/templates/`,
+          },
+          {
+            type: "link",
+            note: "Product-repo details:",
+            label: "extensions/README.md",
+            href: "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/blob/main/extensions/README.md",
           },
         ],
       },
@@ -1055,7 +1159,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
     slug: "roadmap",
     title: "Roadmap",
     description:
-      "Phases 1–7 are shipped. 1.0.0 is the SemVer lock. Current packages are 1.0.1 (dotnet new templates). Next is Phase 8 / 1.1.0.",
+      "Phases 1–7 are shipped. 1.0.0 is the SemVer lock. Current packages are 1.0.1 (dotnet new templates and Marketplace IDE wrappers). Next is Phase 8 / 1.1.0.",
     sections: [
       {
         id: "versions",
@@ -1077,7 +1181,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
               ["0.6.0-preview", "Device-safe marshal, weak CanExecuteChanged, overlay toasts, host/auth/forms UX"],
               ["0.6.1-preview", "Host-safe navigator, UseNavigationPage + replace-root, SectionHost, SnapshotCollection"],
               ["1.0.0", "Phases 6–7 — 15-minute path, Playground, UseAuth, SemVer lock"],
-              ["1.0.1", "dotnet new mvvmexpress / mvvmexpress-page (Plugin.Maui.MVVMExpress.Templates) — current"],
+              ["1.0.1", "dotnet new mvvmexpress / mvvmexpress-page, plus VS Code and Visual Studio Marketplace wrappers — current"],
               ["1.1.0", "Phase 8 — one path (generators, registration, forms, nav-args), analyzers"],
               ["1.2.0", "Phase 9 — Shell parity, modules, modal stack, sibling host adapters"],
               ["1.3.0", "Phase 10 — device numbers, trim, zero-reflection policy, production post-mortem"],
@@ -1101,6 +1205,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
               "0.6.1: Navigators hop before new Page(), UseNavigationPage + ResetAsync replace-root, SectionHostViewModel, SnapshotCollection, SearchQuery.CommittedText, FormViewModel.Bind, CoalescingDispatcher, ChatHost sample.",
               "1.0.0: UseAuth<TChallenge>() / AddAuth<TChallenge>(), 15-minute getting started, cheat sheet, cookbook, Playground, design-review sign-off, SemVer lock.",
               "1.0.1: Plugin.Maui.MVVMExpress.Templates — dotnet new mvvmexpress (MainPage + MainPageViewModel, login, list, form, tests) and mvvmexpress-page. CI flake and SourceGenerators snupkg pack fixes.",
+              "IDE wrappers: Visual Studio Code and Visual Studio Marketplace extensions install the template pack and run dotnet new. They do not copy the scaffold.",
             ],
           },
         ],
@@ -1121,7 +1226,7 @@ services.AddGeneratedViewModels(); // optional explicit call`,
         blocks: [
           {
             type: "p",
-            text: "Phase 8 (1.1.0) is one vocabulary for generators, registration, forms, and nav-args, plus CommunityToolkit interop and three analyzers. dotnet new shipped early in 1.0.1. Phase 9 (1.2.0) is Shell parity, modules, and modal stack. Phase 10 (1.3.0) is device numbers, trim, and a production post-mortem.",
+            text: "Phase 8 (1.1.0) is one vocabulary for generators, registration, forms, and nav-args, plus CommunityToolkit interop and three analyzers. dotnet new and the Marketplace IDE wrappers shipped on 1.0.1. Phase 9 (1.2.0) is Shell parity, modules, and modal stack. Phase 10 (1.3.0) is device numbers, trim, and a production post-mortem.",
           },
         ],
       },

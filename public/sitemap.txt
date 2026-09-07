@@ -70,6 +70,7 @@ https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/docs/
 https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/integration/
 https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/comparison/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/templates/
+https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/ide-extensions/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/viewmodels/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/commands/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/dependency-injection/

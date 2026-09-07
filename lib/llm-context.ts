@@ -57,9 +57,12 @@ Package docs: ${siteConfig.url}/packages/<slug>/
 MVVMExpress documentation: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/
 MVVMExpress getting started: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/integration/
 MVVMExpress project template (dotnet new mvvmexpress): ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/templates/
+MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/ide-extensions/
 MVVMExpress comparison: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/comparison/
 MVVMExpress roadmap: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/roadmap/
 MVVMExpress templates NuGet: https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates
+MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VSCode&category=All%20categories&sortBy=Relevance
+MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance
 LeakAnalyser documentation: ${siteConfig.url}/packages/plugin-maui-leak-analyser/docs/
 LeakAnalyser getting started: ${siteConfig.url}/packages/plugin-maui-leak-analyser/integration/
 LeakAnalyser comparison: ${siteConfig.url}/packages/plugin-maui-leak-analyser/comparison/

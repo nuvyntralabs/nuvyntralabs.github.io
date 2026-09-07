@@ -3,7 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github, Package } from "lucide-react";
 import { getPackageBySlug, getRelatedPackages, packages } from "@/content/packages";
-import { packageFamily, relatedAdapters } from "@/content/mvvmexpress";
+import {
+  packageFamily,
+  relatedAdapters,
+  visualStudioMarketplaceSearch,
+  vscodeMarketplaceSearch,
+} from "@/content/mvvmexpress";
 import { JsonLd } from "@/components/json-ld";
 import { packageJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site";
@@ -85,11 +90,12 @@ export default async function PackagePage({ params }: PageProps) {
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{pkg.description}</p>
       {pkg.slug === mvvmExpressSlug ? (
         <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
-          <p className="text-sm font-semibold text-lavender-900">1.0.1 — project template</p>
+          <p className="text-sm font-semibold text-lavender-900">1.0.1 — project template and IDE extensions</p>
           <p className="mt-1 text-sm leading-relaxed text-lavender-800">
-            Scaffold with <code>dotnet new mvvmexpress</code>. The SemVer lock stays 1.0.0: public
-            1.x APIs stay source-compatible. Additive work may ship in 1.1.0+. Breaking changes wait
-            for 2.0.0.
+            Scaffold with <code>dotnet new mvvmexpress</code>, or search{" "}
+            <strong>MVVMExpress</strong> on the Visual Studio Code and Visual Studio Marketplaces.
+            The SemVer lock stays 1.0.0: public 1.x APIs stay source-compatible. Additive work may
+            ship in 1.1.0+. Breaking changes wait for 2.0.0.
           </p>
         </aside>
       ) : null}
@@ -126,6 +132,24 @@ export default async function PackagePage({ params }: PageProps) {
             >
               <Package className="h-4 w-4" aria-hidden="true" />
               Templates
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+            <a
+              href={vscodeMarketplaceSearch}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              VS Code
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+            <a
+              href={visualStudioMarketplaceSearch}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              Visual Studio
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
             </a>
             <a
@@ -182,6 +206,13 @@ dotnet new mvvmexpress -n MyApp`}</code>
                 <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
                   dotnet new mvvmexpress-page -n Catalog --namespace MyApp
                 </code>
+                . Same commands from the{" "}
+                <Link
+                  href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
+                  className="font-medium text-lavender-700 hover:text-lavender-900"
+                >
+                  VS Code and Visual Studio extensions
+                </Link>
                 .
               </p>
             </>
@@ -285,20 +316,34 @@ dotnet new mvvmexpress -n MyApp`}</code>
               </li>
             ) : null}
             {pkg.slug === mvvmExpressSlug ? (
-              <li>
-                <a
-                  href="https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass-card focusable block h-full p-5 hover:shadow-glow"
-                >
-                  <p className="font-semibold text-foreground">Playground sample</p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Cloneable 15-minute path in the product repo — command, navigation, dialog,
-                    form, auth, and list. Not a separate SampleApp repository.
-                  </p>
-                </a>
-              </li>
+              <>
+                <li>
+                  <Link
+                    href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
+                    className="glass-card focusable block h-full p-5 hover:shadow-glow"
+                  >
+                    <p className="font-semibold text-foreground">IDE extensions</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      Search MVVMExpress on the Visual Studio Code and Visual Studio Marketplaces.
+                      Thin wrappers that install the template pack and run dotnet new.
+                    </p>
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-card focusable block h-full p-5 hover:shadow-glow"
+                  >
+                    <p className="font-semibold text-foreground">Playground sample</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      Cloneable 15-minute path in the product repo — command, navigation, dialog,
+                      form, auth, and list. Not a separate SampleApp repository.
+                    </p>
+                  </a>
+                </li>
+              </>
             ) : null}
           </ul>
         </section>
