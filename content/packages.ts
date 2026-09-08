@@ -246,6 +246,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.JobQueue is a durable SQLite-backed task queue for MAUI. Jobs are registered by type, can require network, retry with backoff, and land in a dead-letter path when they exhaust attempts — so photo uploads and sync units survive app kills.",
+    "version": "1.0.8",
+    "releaseNotes": [
+      "1.0.8. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Durable jobs across process death.",
       "Retry with backoff and dead-letter isolation.",
@@ -494,8 +498,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.ApiResilience wraps MAUI HttpClient usage with retry, circuit breaking, an offline queue, and token-refresh cooperation so transient mobile networks do not surface as raw HttpRequestExceptions in the UI.",
-    "version": "1.0.8",
+    "version": "1.0.10",
     "releaseNotes": [
+      "1.0.10. Documented pack artifact matches the shipped package. No API change.",
       "Offline queue file is AES-256-GCM (EncryptQueue = true). PersistRequestBodies = false stores a redacted placeholder instead of POST/PUT bodies."
     ],
     "capabilities": [
@@ -602,6 +607,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.MediaPipeline is a fluent media processing chain for MAUI. Capture from camera or gallery, then resize, compress, strip EXIF/GPS, bake orientation, watermark, blur or redact regions, encrypt with AES-256-GCM, and hand off to FileVault or SmartUpload. It is built for field photos that leave the device.",
+    "version": "1.0.7",
+    "releaseNotes": [
+      "1.0.7. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Camera and gallery capture.",
       "Longest-side or box resize; JPEG quality and MaxBytes.",
@@ -628,6 +637,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.VoipCore models SIP/VoIP sessions for MAUI and keeps signaling pluggable. Call state, hold, mute, and session lifetime live in one core so apps are not locked to a single CPaaS SDK at the architecture layer.",
+    "version": "1.0.8",
+    "releaseNotes": [
+      "1.0.8. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "VoIP session lifecycle.",
       "Pluggable signaling.",
@@ -652,8 +665,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.FeatureFlags brings mobile-first feature flags and remote configuration to MAUI. Flags can target platform, version, and audience so a kill-switch or gradual rollout does not require a store resubmission for every experiment.",
-    "version": "1.0.7",
+    "version": "1.0.9",
     "releaseNotes": [
+      "1.0.9. Documented pack artifact matches the shipped package. No API change.",
       "RemoteUri must be https (RequireHttps = true). Optional SignatureKey verifies X-FeatureFlags-Signature as HMAC-SHA256 hex over the response body."
     ],
     "capabilities": [
@@ -710,6 +724,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.Performance is a lightweight on-device profiler for MAUI. It measures app startup, page timing, API latency, image loading, database operations, UI rendering, and memory so teams can see a scoreboard like 'App Startup 1.82 sec' without attaching a full IDE profiler in the field. It is not a leak detector — use LeakAnalyser for WeakReference liveness after a page is popped.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "1.0.6. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Startup and page timing.",
       "API and image-load measurement.",
@@ -734,6 +752,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.Diagnostics captures crashes, ANRs, unhandled exceptions, and breadcrumbs written just before failure. It is the crash pipeline Observability can export, complementary to AppHealth snapshots. Visual-tree leaks after navigation belong in LeakAnalyser — forward OnLeaked into breadcrumbs if you already use this plugin.",
+    "version": "1.0.6",
+    "releaseNotes": [
+      "1.0.6. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Crash and ANR capture.",
       "Unhandled exception logging.",
@@ -859,6 +881,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.NetworkDiagnostics is an on-demand layered connectivity check for MAUI on Android and iOS. It is not a network monitor. NetworkMonitor watches the path (captive portal, Wi-Fi versus cellular). This plugin runs internet, DNS, gateway, TCP, TLS, HTTPS, API, and latency probes so a support screen can say 'internet is fine, the API is unreachable' instead of 'no connection'.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "One-shot layered connectivity report.",
       "Configurable API health endpoint and timeout.",
@@ -884,6 +910,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.RetryQueue retries an operation that already failed — or might fail — so telemetry, analytics, orders, forms, payments, and sync calls are not lost after a 503, a timeout, or process death. It is not JobQueue. JobQueue is a typed work queue for jobs you plan to run. RetryQueue is a name plus a lambda (or registered handler) with a longer default backoff: 30 seconds, 2 minutes, 10 minutes.",
+    "version": "1.0.5",
+    "releaseNotes": [
+      "1.0.5. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Named failed-operation enqueue with a lambda or registered handler.",
       "Backoff suited to telemetry, orders, and payments.",
@@ -908,12 +938,17 @@ export const packages: PackageDoc[] = [
       "HTTP",
       "C#"
     ],
-    "abstract": "Plugin.Maui.ApiCache is a lightweight HTTP GET response cache for MAUI on Android and iOS. Resilience is not caching. ApiResilience retries and queues requests. This package remembers GET responses so list and detail screens stay fast offline and on flaky networks, with CacheFirst, NetworkFirst, StaleWhileRevalidate, NetworkOnly, and CacheOnly policies.",
+    "abstract": "Plugin.Maui.ApiCache is a lightweight HTTP GET response cache for MAUI on Android and iOS. Resilience is not caching. ApiResilience retries and queues requests. This package remembers GET responses so list and detail screens stay fast offline and on flaky networks, with CacheFirst, NetworkFirst, StaleWhileRevalidate, NetworkOnly, and CacheOnly policies. UseApiCache and AddApiCache resolve when HttpClient is also registered.",
+    "version": "1.0.5",
+    "releaseNotes": [
+      "1.0.5. UseApiCache / AddApiCache resolve when HttpClient is also registered (constructor ambiguity fixed)."
+    ],
     "capabilities": [
       "GET response cache with typed deserialization.",
       "CacheFirst with stale fallback on network failure.",
       "Stale-while-revalidate for instant screens plus a background refresh.",
-      "CacheOnly for forced offline reads."
+      "CacheOnly for forced offline reads.",
+      "DI registration that coexists with a host HttpClient."
     ]
   },
   {
@@ -959,6 +994,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.SharePlus is a production share API for MAUI on Android and iOS. MAUI Share is a generic sheet, and file-share customization plus FileProvider setup still have open framework issues. SharePlus adds Title, Subject, MimeType, Preview, TargetApp, and TemporaryFileHandling, plus first-class targets for WhatsApp, Email, Messages, Files, Nearby Share, and AirDrop.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Text, single-file, and multi-file share.",
       "First-class WhatsApp and Email targets.",
@@ -984,6 +1023,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.ClipboardPlus is a clipboard API for MAUI on Android and iOS that is significantly more useful than MAUI Clipboard. It supports ordinary text plus sensitive clips that are marked sensitive on the OS where that exists, stay off Universal Clipboard on iOS, and are cleared automatically when they expire. Apps also get HasText / HasImage / HasUri and a ContentChanged event with Self, External, or Cleared source.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Ordinary and sensitive text copy.",
       "Automatic expiry of secrets.",
@@ -1009,6 +1052,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.DeviceInfoPlus is an application and device fingerprint plus hardware-capability snapshot for MAUI on Android and iOS. It is not a wrapper for MAUI DeviceInfo. One GetAsync() returns manufacturer, model, OS, screen, density, architecture, RAM, battery, tablet, and probes for NFC, Bluetooth, camera, biometric, GPS, and flash — the fields telemetry, diagnostics, feature targeting, and support tickets actually need.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Manufacturer, model, OS, screen, density, architecture, RAM, battery.",
       "Hardware capability flags for NFC, Bluetooth, camera, biometric, GPS, flash.",
@@ -1034,6 +1081,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.NfcPlus is session-based NFC for MAUI on Android and iOS — not another 'scan a tag' wrapper. It exposes NDEF, tag IDs, read/write, foreground dispatch / reader sessions, and availability. A tag model carries IdHex, Text, Uri, Mime, IsWritable, and Technologies so retail, attendance, asset, and vehicle apps can look up a SKU or navigate a deep link from one read.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "NDEF read and write.",
       "Stable tag ID for attendance and assets.",
@@ -1059,8 +1110,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.AppLock is an application-security workflow for MAUI on Android and iOS. It is not another biometric API. Biometric plugins prove who the user is. AppLock owns the lock timer, lifecycle, and gate: app enters background, lock timer elapses, app returns, authentication, unlock. Face ID, Touch ID, fingerprint, and the device PIN are how the user unlocks.",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "releaseNotes": [
+      "1.0.6. Android library AAR includes a resource so project-reference sample builds succeed.",
       "If the automatic resume prompt throws, AuthenticationCompleted still fires with a failed result so the cover stays up."
     ],
     "capabilities": [
@@ -1089,6 +1141,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.Printing is a print API for MAUI on Android and iOS. .NET MAUI has no first-class print API. Production apps still need invoices, receipts, labels, tickets, delivery challans, and vehicle inspection reports — often on a cheap Bluetooth thermal printer. The plugin abstracts PDF, images, text, system / AirPrint, Bluetooth, and ESC/POS thermal printers behind Printer.PrintAsync.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Android library AAR includes a resource so project-reference sample builds succeed. Documented pack artifact matches the shipped package."
+    ],
     "capabilities": [
       "PDF, image, and text jobs.",
       "System and AirPrint printers.",
@@ -1114,6 +1170,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.DeviceOrientationPlus locks, unlocks, and listens for screen orientation in MAUI on Android and iOS. DeviceDisplay.MainDisplayInfo.Orientation is read-only. This package is the missing write path: Orientation.Lock(Portrait), Unlock, SetAsync(Landscape), Changed, and a stack so a video page can lock landscape on top of a portrait lock and restore on disappear.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Lock portrait or landscape.",
       "Per-page lock in OnAppearing / OnDisappearing.",
@@ -1139,6 +1199,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.KeyboardManager is soft-keyboard control for MAUI on Android and iOS. Hide, show, dismiss on tap outside, resize/pan/safe-area avoidance, visibility, height, and focus — without platform #if in every page. UseKeyboardManager is optional; Hide() works without it. Register when you want IME listeners, avoidance, and tap-outside wired at startup.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Documented pack artifact matches the shipped package. No API change."
+    ],
     "capabilities": [
       "Hide and show the IME, including Show(entry).",
       "Dismiss on tap outside a field.",
@@ -1188,12 +1252,16 @@ export const packages: PackageDoc[] = [
       "Accessibility",
       "C#"
     ],
-    "abstract": "Plugin.Maui.CommunityToolkitPlus is an unofficial, opt-in layer of production extensions that sit above CommunityToolkit.Maui. All seven modules ship in one assembly and every module is disabled until explicitly enabled: accessibility visual-tree auditing with SARIF export, Shell state restoration after process death, journaled upgrade migrations with safe mode, tamper-aware trusted time from HTTP sources, App Attest / Play Integrity challenge-and-proof, Apple Wallet and Google Wallet pass handoff, and a versioned privacy-consent ledger with SDK activation gates.",
+    "abstract": "Plugin.Maui.CommunityToolkitPlus is an unofficial, opt-in layer of production extensions that sit above CommunityToolkit.Maui. All seven modules ship in one assembly and every module is disabled until explicitly enabled: accessibility visual-tree auditing with SARIF export, Shell state restoration after process death, journaled upgrade migrations with safe mode, tamper-aware trusted time from a host ITimeSource plus HTTP Date URLs, App Attest / Play Integrity challenge-and-proof, Apple Wallet and Google Wallet pass handoff, and a versioned privacy-consent ledger with SDK activation gates.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. HTTP Date sources register alongside a host ITimeSource so Trusted Time no longer collides in DI."
+    ],
     "capabilities": [
       "Accessibility audit — visual tree scan for missing labels, small targets, contrast, and clipped text with JSON and SARIF export.",
       "State restoration — Shell route and contributor checkpoints that survive process death.",
       "Upgrade guard — idempotent journaled migrations and startup-loop safe mode.",
-      "Trusted time — HTTPS / HTTP Date sources with outlier rejection and wall-clock jump detection.",
+      "Trusted time — host ITimeSource plus HTTPS / HTTP Date sources, with outlier rejection and wall-clock jump detection.",
       "App integrity — App Attest (iOS) and Play Integrity (Android) challenge-and-proof for backend verification.",
       "Wallet passes — .pkpass handoff on iOS and Google Wallet save URL on Android.",
       "Privacy consent — versioned purpose ledger with revocation, expiry, and SDK activation gates."
