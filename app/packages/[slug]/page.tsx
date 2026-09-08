@@ -91,12 +91,13 @@ export default async function PackagePage({ params }: PageProps) {
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{pkg.description}</p>
       {pkg.slug === mvvmExpressSlug ? (
         <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
-          <p className="text-sm font-semibold text-lavender-900">1.0.2 — library, templates, and IDE extensions aligned</p>
+          <p className="text-sm font-semibold text-lavender-900">1.3.0 — Phases 8–10 on the 1.0 SemVer lock</p>
           <p className="mt-1 text-sm leading-relaxed text-lavender-800">
             Scaffold with <code>dotnet new mvvmexpress</code>, or search{" "}
             <strong>MVVMExpress</strong> on the Visual Studio Code and Visual Studio Marketplaces.
-            The SemVer lock stays 1.0.0: public 1.x APIs stay source-compatible. Additive work may
-            ship in 1.1.0+. Breaking changes wait for 2.0.0.
+            One registration path, analyzers, modules, modal stack, and sibling host adapters are
+            shipped. The SemVer lock stays 1.0.0: public 1.x APIs stay source-compatible. Breaking
+            changes wait for 2.0.0.
           </p>
         </aside>
       ) : null}
@@ -301,7 +302,7 @@ dotnet new mvvmexpress -n MyApp`}</code>
                 <p className="font-semibold text-foreground">Getting started</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {pkg.guides.integrationSummary ??
-                    "dotnet new mvvmexpress, install 1.0.2, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and adapters."}
+                    "dotnet new mvvmexpress, install 1.3.0, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and adapters."}
                 </p>
               </Link>
             </li>

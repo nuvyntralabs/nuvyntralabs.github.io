@@ -60,7 +60,7 @@ MVVMExpress project template (dotnet new mvvmexpress): ${siteConfig.url}/package
 MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/ide-extensions/
 MVVMExpress comparison: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/comparison/
 MVVMExpress roadmap: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/roadmap/
-MVVMExpress current NuGet: 1.0.2 (library, templates, and IDE extensions aligned; SemVer lock remains 1.0.0)
+MVVMExpress current NuGet: 1.3.0 (Phases 8–10 on the 1.0 SemVer lock; library, templates, and IDE extensions aligned)
 MVVMExpress templates NuGet: https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates
 MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VSCode&category=All%20categories&sortBy=Relevance
 MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance

@@ -28,11 +28,12 @@ export const comparisonSections: DocSection[] = [
         headers: ["Dimension", "MVVMExpress", "CommunityToolkit.Mvvm", "Prism.Maui", "ReactiveUI"],
         rows: [
           ["Core philosophy", "Modular app shell", "Minimal toolkit", "Convention + modules", "Reactive (Rx)"],
-          ["Source generators", "[Notify], commands, routes, auth", "Roslyn generators", "Partial / community", "ReactiveUI.Fody / Roslyn"],
-          ["Navigation", "NavigationPage replace-root and Shell", "Manual / Shell", "URI navigation (no Shell)", "ViewModel-first RoutingState"],
+          ["Source generators", "[Notify], [NotifyDependsOn], commands, routes, auth, analyzers", "Roslyn generators", "Partial / community", "ReactiveUI.Fody / Roslyn"],
+          ["Navigation", "NavigationPage replace-root, Shell, modal stack", "Manual / Shell", "URI navigation (no Shell)", "ViewModel-first RoutingState"],
           ["Async state and forms", "AsyncState, FormViewModel.Bind", "App-owned", "App-owned", "OAPH / Rx extensions"],
-          ["Auth", "UseAuth<T>, GuardedNavigator", "None", "Parameters / interceptors", "App-owned Rx"],
-          ["Testing", "LeakProbe, FakeNavigator", "Usual unit-test stack", "Navigation mocks", "TestScheduler"],
+          ["Auth", "UseAuth<T>, UseSecureSessionAuth, GuardedNavigator", "None", "Parameters / interceptors", "App-owned Rx"],
+          ["Modules", "IModule / AddModule<T>()", "None", "Yes", "Partial"],
+          ["Testing", "LeakProbe, FakeNavigator, Contract.Tests", "Usual unit-test stack", "Navigation mocks", "TestScheduler"],
         ],
       },
     ],
@@ -49,7 +50,7 @@ export const comparisonSections: DocSection[] = [
         type: "table",
         headers: ["Surface", "CommunityToolkit / Prism", "MVVMExpress"],
         rows: [
-          ["Property generator", "[ObservableProperty]", "[Notify] / [NotifyAlso]"],
+          ["Property generator", "[ObservableProperty]", "[Notify] / [NotifyAlso] / [NotifyDependsOn]"],
           ["Sync command", "[RelayCommand] / RelayCommand", "[ModelCommand] / ModelCommand"],
           ["Async command", "[RelayCommand] / AsyncRelayCommand", "[AsyncModelCommand] / AsyncModelCommand"],
           ["Base type", "ObservableObject / BindableBase", "ViewModel / PageViewModel"],
@@ -86,7 +87,7 @@ export const comparisonSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "MVVMExpress. Pros: modular packages, UseAuth, LeakProbe, forms and dialogs in one shell. Cons: smaller community, more packages to learn than a single toolkit.",
+        text: "MVVMExpress. Pros: modular packages, UseAuth, analyzers, modules, LeakProbe, forms and dialogs in one shell. Cons: smaller community, more packages to learn than a single toolkit.",
       },
       {
         type: "p",
