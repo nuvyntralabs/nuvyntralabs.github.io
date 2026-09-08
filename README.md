@@ -42,6 +42,18 @@ Pushes to `main` build a static Next.js export and publish it with GitHub Pages
 
 In the repo: **Settings → Pages → Source: GitHub Actions**.
 
+## Comments (Giscus + Utterances)
+
+Each package, R&D project, and POC page has a discussion section. Comments go to
+**that component's GitHub repo**, not this website repo. Giscus uses Discussions;
+Utterances uses Issues. Docs pages share the same `Website comments` thread as
+the component overview.
+
+Install the [giscus](https://github.com/apps/giscus) and
+[utterances](https://github.com/apps/utterances) GitHub Apps on the
+**nuvyntralabs** org (or on each component repo). Most plugin/R&D repos already
+have Discussions. A few older POCs still need Issues or Discussions enabled.
+
 ## Content
 
 - R&D and POCs: `content/works.ts`
@@ -50,3 +62,4 @@ In the repo: **Settings → Pages → Source: GitHub Actions**.
 - LeakAnalyser docs: `content/leak-analyser.ts`
 - HttpForge docs: `content/http-forge.ts`
 - Lab copy: `content/lab.ts`
+- Comment repo IDs: `lib/comment-repos.ts`

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ComponentDiscussion } from "@/components/component-discussion";
 import { JsonLd } from "@/components/json-ld";
 import { getRelatedWorks, workPath, type WorkItem } from "@/content/works";
 import { workJsonLd } from "@/lib/json-ld";
@@ -128,6 +129,8 @@ export function WorkDetail({ work }: { work: WorkItem }) {
           </li>
         ))}
       </ul>
+
+      <ComponentDiscussion target={{ title: work.title, github: work.github }} />
 
       {related.length > 0 ? (
         <section className="mt-14">

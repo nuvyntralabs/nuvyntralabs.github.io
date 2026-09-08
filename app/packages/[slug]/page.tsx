@@ -9,6 +9,7 @@ import {
   visualStudioMarketplaceSearch,
   vscodeMarketplaceSearch,
 } from "@/content/mvvmexpress";
+import { ComponentDiscussion } from "@/components/component-discussion";
 import { JsonLd } from "@/components/json-ld";
 import { packageJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site";
@@ -409,6 +410,8 @@ dotnet new mvvmexpress -n MyApp`}</code>
           </li>
         ))}
       </ul>
+
+      <ComponentDiscussion target={{ title: pkg.name, github: pkg.github }} />
 
       {related.length > 0 ? (
         <section className="mt-14">

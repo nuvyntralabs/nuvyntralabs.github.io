@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BookOpen, Puzzle, Scale } from "lucide-react";
+import { ComponentDiscussion } from "@/components/component-discussion";
 import { DocsArticle } from "@/components/docs-article";
 import { DocsSidebar } from "@/components/docs-sidebar";
 import { JsonLd } from "@/components/json-ld";
@@ -49,7 +50,10 @@ export function PackageGuide({
           />
           <div className="mt-10 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)]">
             <OnThisPage sections={sections} />
-            <DocsArticle sections={sections} />
+            <div className="min-w-0">
+              <DocsArticle sections={sections} />
+              <ComponentDiscussion target={{ title: pkg.name, github: pkg.github }} />
+            </div>
           </div>
         </div>
       </main>
@@ -72,6 +76,7 @@ export function PackageGuide({
               <DocsArticle sections={sections} />
             </div>
             <GuidePager currentHref={href} />
+            <ComponentDiscussion target={{ title: pkg.name, github: pkg.github }} />
           </div>
           <div className="hidden xl:block">
             <OnThisPage sections={sections} />
