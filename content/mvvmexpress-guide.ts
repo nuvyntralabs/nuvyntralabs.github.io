@@ -179,6 +179,12 @@ dotnet test MyApp.Tests`,
             href: "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/pkgs/nuget/Plugin.Maui.MVVMExpress.Templates",
           },
           {
+            type: "link",
+            note: "nuget.org:",
+            label: "Plugin.Maui.MVVMExpress.Templates 1.3.0",
+            href: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates",
+          },
+          {
             type: "p",
             text: "From the product repo, without installing the nupkg: dotnet new install templates/maui-app and templates/page, then dotnet new mvvmexpress -n MyApp.",
           },
