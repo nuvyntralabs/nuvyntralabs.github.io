@@ -273,8 +273,8 @@ settings.ContentSerializer = new XmlContentSerializer();`,
       },
       {
         type: "link",
-        href: "https://www.nuget.org/packages/Plugin.Maui.HttpForge",
-        label: "Plugin.Maui.HttpForge on NuGet",
+        href: "https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/pkgs/nuget/Plugin.Maui.HttpForge",
+        label: "Plugin.Maui.HttpForge on GitHub Packages",
       },
       {
         type: "link",
@@ -296,7 +296,13 @@ export const httpForgeIntegrationSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "Package ID: Plugin.Maui.HttpForge. Current NuGet is 1.1.0. Install only the sibling or optional packages the host actually needs — HttpForge alone is enough for a typed client.",
+        text: "Package ID: Plugin.Maui.HttpForge. Current package is 1.1.0 on GitHub Packages. Install only the sibling or optional packages the host actually needs — HttpForge alone is enough for a typed client.",
+      },
+      {
+        type: "link",
+        note: "Restore from GitHub Packages:",
+        label: "Use nuvyntralabs GitHub Packages from a C# project",
+        href: "/getting-started/github-packages/",
       },
       {
         type: "code",

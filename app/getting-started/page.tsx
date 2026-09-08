@@ -3,14 +3,18 @@ import Link from "next/link";
 import { nugetPackages } from "@/content/packages";
 import { PageHero } from "@/components/page-hero";
 import { CtaBand } from "@/components/cta-band";
+import { GithubPackagesSetupLink } from "@/components/github-packages-setup";
+import { githubPackagesSetupPath } from "@/lib/github-packages";
 
 export const metadata: Metadata = {
   title: "Getting started",
-  description: "Install Nuvyntra Labs .NET MAUI NuGet packages and compose only the plugins you need.",
+  description:
+    "Add the nuvyntralabs GitHub Packages feed, then install focused .NET MAUI Plugin.Maui.* packages.",
   alternates: { canonical: "/getting-started/" },
   openGraph: {
     title: "Getting started with Nuvyntra Labs packages",
-    description: "Install focused .NET MAUI NuGet packages and compose only the plugins you need.",
+    description:
+      "Configure the GitHub Packages feed, then install focused .NET MAUI Plugin.Maui.* packages.",
     url: "/getting-started/",
   },
 };
@@ -23,7 +27,7 @@ export default function GettingStartedPage() {
       <PageHero
         eyebrow="Documentation"
         title="Getting started"
-        description="Packages ship independently. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress, HttpForge, and LeakAnalyser also target Mac Catalyst and Windows."
+        description="Packages ship independently from GitHub Packages. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress, HttpForge, and LeakAnalyser also target Mac Catalyst and Windows."
       />
       <div className="container max-w-3xl py-16 sm:py-20">
         <section>
@@ -48,9 +52,35 @@ dotnet new mvvmexpress -n MyApp`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">2. Add a package</h2>
+          <h2 className="font-display text-2xl font-semibold">2. Add the GitHub Packages feed</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Install from nuget.org. Registration helpers live in each repository README.
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.*</code>{" "}
+            comes from GitHub Packages. Everything else (Microsoft.*, MAUI, and other public
+            packages) comes from nuget.org. GitHub Packages requires a token even when the packages
+            are public. Full steps:{" "}
+            <GithubPackagesSetupLink />.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Create a classic PAT with <strong>read:packages</strong> only. Add a repo{" "}
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">nuget.config</code>{" "}
+            that maps <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.*</code>{" "}
+            to the org feed. Store the token in the user-level NuGet config — never in the repo.
+          </p>
+          <p className="mt-3">
+            <Link
+              href={githubPackagesSetupPath}
+              className="focusable inline-flex rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              GitHub Packages setup
+            </Link>
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">3. Add a package</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            After the two feeds are configured, restore from GitHub Packages. Registration helpers
+            live in each repository README.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
             <code>{`dotnet add package Plugin.Maui.GeoLocator
@@ -61,7 +91,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">3. Start with a focused plugin</h2>
+          <h2 className="font-display text-2xl font-semibold">4. Start with a focused plugin</h2>
           <ul className="mt-4 grid gap-3">
             {featured.map((item) => (
               <li key={item.slug}>
@@ -81,7 +111,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">4. Application shell</h2>
+          <h2 className="font-display text-2xl font-semibold">5. Application shell</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             For ViewModels, async state, Shell or page navigation, dialogs, and toast, start with{" "}
             <Link
@@ -111,7 +141,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">5. Upgrade hardened 1.x plugins</h2>
+          <h2 className="font-display text-2xl font-semibold">6. Upgrade hardened 1.x plugins</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Fourteen plugins shipped fail-closed and correctness fixes on 3 September 2026.
             DeepLinks, PushRouter, SmartUpload, and FeatureFlags changed defaults. Read the{" "}
@@ -126,7 +156,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">6. Browse the full catalog</h2>
+          <h2 className="font-display text-2xl font-semibold">7. Browse the full catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The suite map is{" "}
             <Link href="/packages/maui-essentials/" className="font-medium text-lavender-700 hover:text-lavender-900">

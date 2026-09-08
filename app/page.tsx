@@ -29,7 +29,7 @@ const pillars = [
     icon: Package,
     step: "03",
     title: "Ship",
-    count: `${nugetPackages.length} on NuGet`,
+    count: `${nugetPackages.length} on GitHub Packages`,
     body: "Focused .NET MAUI plugins. Install only the package that matches the requirement.",
   },
 ] as const;
@@ -146,7 +146,7 @@ export default function HomePage() {
         <SectionIntro
           eyebrow="Products"
           title="Focused MAUI plugins"
-          description={`${packages.length} catalog entries, ${nugetPackages.length} published on nuget.org. Compose only what the app needs.`}
+          description={`${packages.length} catalog entries, ${nugetPackages.length} published on GitHub Packages. Compose only what the app needs.`}
           href="/packages/"
           cta="Full catalog"
         />

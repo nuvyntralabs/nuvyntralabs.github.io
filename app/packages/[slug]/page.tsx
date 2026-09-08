@@ -16,6 +16,7 @@ import { siteConfig } from "@/lib/site";
 import { GuideTabs } from "@/components/package-guide";
 import { installCommands } from "@/lib/utils";
 import { mvvmExpressSlug } from "@/content/mvvmexpress";
+import { githubPackagesPageUrl, githubPackagesSetupPath, packageGithubPackagesUrl } from "@/lib/github-packages";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -61,6 +62,7 @@ export default async function PackagePage({ params }: PageProps) {
   const related = getRelatedPackages(pkg);
   const installNames = pkg.installPackages ?? (pkg.nuget ? [pkg.name] : []);
   const install = installNames.length ? installCommands(installNames, { prerelease: pkg.prerelease }) : null;
+  const githubPackages = packageGithubPackagesUrl(pkg);
 
   return (
     <main className="container max-w-3xl py-12 sm:py-16">
@@ -113,6 +115,18 @@ export default async function PackagePage({ params }: PageProps) {
           GitHub
           <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
         </a>
+        {githubPackages ? (
+          <a
+            href={githubPackages}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+          >
+            <Package className="h-4 w-4" aria-hidden="true" />
+            GitHub Packages
+            <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+        ) : null}
         {pkg.nuget ? (
           <a
             href={pkg.nuget}
@@ -121,13 +135,16 @@ export default async function PackagePage({ params }: PageProps) {
             className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
           >
             <Package className="h-4 w-4" aria-hidden="true" />
-            NuGet
+            nuget.org
           </a>
         ) : null}
         {pkg.slug === mvvmExpressSlug ? (
           <>
             <a
-              href="https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates"
+              href={githubPackagesPageUrl(
+                "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress",
+                "Plugin.Maui.MVVMExpress.Templates",
+              )}
               target="_blank"
               rel="noopener noreferrer"
               className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
@@ -194,6 +211,14 @@ export default async function PackagePage({ params }: PageProps) {
                 {name}
               </code>
             ))}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.*</code>{" "}
+            restores from GitHub Packages. Add the org feed first — see{" "}
+            <Link href={githubPackagesSetupPath} className="font-medium text-lavender-700 hover:text-lavender-900">
+              Use nuvyntralabs GitHub Packages from a C# project
+            </Link>
+            .
           </p>
           {pkg.slug === mvvmExpressSlug ? (
             <>
@@ -367,18 +392,33 @@ dotnet new mvvmexpress -n MyApp`}</code>
                 {packageFamily.map((item) => (
                   <tr key={item.name} className="border-t border-lavender-100 align-top">
                     <td className="px-3 py-2.5 font-medium text-foreground">
-                      {item.nuget ? (
-                        <a
-                          href={item.nuget}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-lavender-800 hover:text-lavender-900"
-                        >
-                          {item.name}
-                        </a>
-                      ) : (
-                        item.name
-                      )}
+                      <span className="flex flex-col gap-1">
+                        {item.nuget ? (
+                          <a
+                            href={githubPackagesPageUrl(
+                              "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress",
+                              item.name,
+                            )}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-lavender-800 hover:text-lavender-900"
+                          >
+                            {item.name}
+                          </a>
+                        ) : (
+                          item.name
+                        )}
+                        {item.nuget ? (
+                          <a
+                            href={item.nuget}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-normal text-muted-foreground hover:text-lavender-800"
+                          >
+                            nuget.org
+                          </a>
+                        ) : null}
+                      </span>
                     </td>
                     <td className="px-3 py-2.5 text-muted-foreground">{item.purpose}</td>
                     <td className="px-3 py-2.5 text-muted-foreground">{item.status}</td>

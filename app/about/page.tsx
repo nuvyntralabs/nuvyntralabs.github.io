@@ -108,7 +108,8 @@ export default function AboutPage() {
               <a href={siteConfig.githubOrg} className="font-medium text-lavender-700 hover:text-lavender-900">
                 {siteConfig.name} GitHub organization
               </a>
-              . Packages version independently on nuget.org. There is no mega-package dependency.
+              . Packages version independently on GitHub Packages. There is no mega-package
+              dependency.
             </p>
             <Link href="/getting-started/" className="focusable btn-secondary mt-6">
               Getting started

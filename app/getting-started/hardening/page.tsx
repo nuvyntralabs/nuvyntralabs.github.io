@@ -112,6 +112,16 @@ export default function HardeningPage() {
 
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold">Install</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Plugin.Maui.* restores from GitHub Packages. Add the org feed first —{" "}
+            <Link
+              href="/getting-started/github-packages/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              Use nuvyntralabs GitHub Packages from a C# project
+            </Link>
+            .
+          </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
             <code>{`dotnet add package Plugin.Maui.DeepLinks --version 1.0.6
 dotnet add package Plugin.Maui.PushRouter --version 1.0.6

@@ -25,6 +25,7 @@ Professional experience stays on
 | `/packages/plugin-maui-httpforge/integration/` | HttpForge getting started |
 | `/packages/plugin-maui-httpforge/comparison/` | HttpForge vs Refit and sibling HTTP plugins |
 | `/getting-started/` | Install + compose plugins |
+| `/getting-started/github-packages/` | Two-feed setup: GitHub Packages for Plugin.Maui.*, nuget.org for everything else |
 
 ## Local development
 

@@ -209,9 +209,9 @@ TearDown.SetSuppress(nav, true);`,
       },
       {
         type: "link",
-        href: "https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser",
-        label: "Plugin.Maui.LeakAnalyser on NuGet",
-        note: "Install without --prerelease.",
+        href: "https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser/pkgs/nuget/Plugin.Maui.LeakAnalyser",
+        label: "Plugin.Maui.LeakAnalyser on GitHub Packages",
+        note: "Install without --prerelease. Restore from the nuvyntralabs GitHub Packages feed.",
       },
       {
         type: "link",
@@ -234,6 +234,12 @@ export const leakAnalyserIntegrationSections: DocSection[] = [
       {
         type: "p",
         text: "Package ID: Plugin.Maui.LeakAnalyser. Registration is required for leak callbacks and global teardown defaults.",
+      },
+      {
+        type: "link",
+        note: "Restore from GitHub Packages:",
+        label: "Use nuvyntralabs GitHub Packages from a C# project",
+        href: "/getting-started/github-packages/",
       },
     ],
   },

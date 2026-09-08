@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { DocBlock, DocSection } from "@/content/mvvmexpress";
 
 export function DocsArticle({ sections }: { sections: DocSection[] }) {
@@ -89,14 +90,20 @@ function DocBlockView({ block }: { block: DocBlock }) {
       return (
         <p className="text-base leading-relaxed text-muted-foreground">
           {block.note ? `${block.note} ` : null}
-          <a
-            href={block.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-lavender-700 hover:text-lavender-900"
-          >
-            {block.label}
-          </a>
+          {block.href.startsWith("/") ? (
+            <Link href={block.href} className="font-medium text-lavender-700 hover:text-lavender-900">
+              {block.label}
+            </Link>
+          ) : (
+            <a
+              href={block.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              {block.label}
+            </a>
+          )}
         </p>
       );
     default:

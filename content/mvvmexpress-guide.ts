@@ -174,9 +174,9 @@ dotnet test MyApp.Tests`,
           },
           {
             type: "link",
-            note: "NuGet:",
+            note: "GitHub Packages:",
             label: "Plugin.Maui.MVVMExpress.Templates 1.3.0",
-            href: "https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates",
+            href: "https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/pkgs/nuget/Plugin.Maui.MVVMExpress.Templates",
           },
           {
             type: "p",

@@ -1,6 +1,7 @@
 import type { PackageDoc } from "@/content/packages";
 import { workPath, type WorkItem } from "@/content/works";
 import { siteConfig } from "@/lib/site";
+import { packageGithubPackagesUrl } from "@/lib/github-packages";
 
 export function siteGraph() {
   const organizationId = `${siteConfig.url}/#organization`;
@@ -69,7 +70,7 @@ export function packageJsonLd(pkg: PackageDoc) {
           : "Android, iOS",
       programmingLanguage: pkg.language ?? "C#",
       codeRepository: pkg.github,
-      downloadUrl: pkg.nuget ?? pkg.github,
+      downloadUrl: packageGithubPackagesUrl(pkg) ?? pkg.nuget ?? pkg.github,
       offers: {
         "@type": "Offer",
         price: "0",

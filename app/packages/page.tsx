@@ -7,12 +7,12 @@ import { nugetPackages, packages } from "@/content/packages";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Nuvyntra Labs product catalog: location, connectivity, offline sync, security, VoIP, and observability plugins for .NET MAUI.",
+    "Nuvyntra Labs product catalog: location, connectivity, offline sync, security, VoIP, and observability plugins for .NET MAUI on GitHub Packages.",
   alternates: { canonical: "/packages/" },
   openGraph: {
     title: "Nuvyntra Labs NuGet catalog",
     description:
-      "Focused .NET MAUI plugins for location, connectivity, offline sync, security, VoIP, and observability.",
+      "Focused .NET MAUI plugins on GitHub Packages for location, connectivity, offline sync, security, VoIP, and observability.",
     url: "/packages/",
   },
 };
@@ -23,7 +23,7 @@ export default function PackagesPage() {
       <PageHero
         eyebrow="Products"
         title="NuGet catalog"
-        description={`${nugetPackages.length} packages on nuget.org, ${packages.length} entries in the catalog including MauiEssentials. Each plugin versions independently — there is no mega-package dependency.`}
+        description={`${nugetPackages.length} packages on GitHub Packages, ${packages.length} entries in the catalog including MauiEssentials. Each plugin versions independently — there is no mega-package dependency.`}
       />
       <div className="container py-16 sm:py-20">
         <Catalog />
