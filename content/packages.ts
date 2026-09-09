@@ -28,7 +28,7 @@ export interface PackageDoc {
   github: string;
   nuget: string | null;
   language: string | null;
-  category: "suite" | "maui-plugin";
+  category: "suite" | "maui-plugin" | "wpf-plugin";
   group: PackageGroup;
   tags: string[];
   abstract: string;
@@ -105,7 +105,7 @@ export const packages: PackageDoc[] = [
       "VS Code",
       "Visual Studio"
     ],
-    "abstract": "MVVMExpress is the application shell for production MAUI apps on Android, iOS, Mac Catalyst, and Windows (single-window). CommunityToolkit.Mvvm covers properties and commands, Prism.Maui covers page navigation (not Shell), and ReactiveUI covers observable pipelines. A field or enterprise app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference MAUI. Current NuGet is 1.3.0: Phases 8–10 on the 1.0 SemVer lock. Scaffold with Plugin.Maui.MVVMExpress.Templates (dotnet new mvvmexpress / mvvmexpress-page), or search MVVMExpress on the Visual Studio Code and Visual Studio Marketplaces — the extensions pin the same 1.3.0 pack. 1.0.0 remains the SemVer lock: UseAuth<TChallenge>() wraps GuardedNavigator, pages are constructed on IMainThread, UseNavigationPage and UseShell are equal hosts, generated [RegisterView] maps apply without a required Map callback, SectionHostView binds tabs in place, and SnapshotCollection loads a list once. Capability work (captive portal, HTTP cache, offline sync, form XAML, flags, deep links) stays in focused MauiEssentials plugins on Android and iOS; UseDeepLinks and UseSecureSessionAuth compose them and fail closed if the sibling is missing.",
+    "abstract": "MVVMExpress is the application shell for production MAUI apps on Android, iOS, Mac Catalyst, and Windows (single-window). CommunityToolkit.Mvvm covers properties and commands, Prism.Maui covers page navigation (not Shell), and ReactiveUI covers observable pipelines. A field or enterprise app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference MAUI. Current NuGet is 1.3.0: Phases 8–10 on the 1.0 SemVer lock. Scaffold with Plugin.Maui.MVVMExpress.Templates (dotnet new mvvmexpress / mvvmexpress-page), or install the MVVMExpress listings on the Visual Studio Code and Visual Studio Marketplaces — the extensions pin the same 1.3.0 pack. 1.0.0 remains the SemVer lock: UseAuth<TChallenge>() wraps GuardedNavigator, pages are constructed on IMainThread, UseNavigationPage and UseShell are equal hosts, generated [RegisterView] maps apply without a required Map callback, SectionHostView binds tabs in place, and SnapshotCollection loads a list once. Capability work (captive portal, HTTP cache, offline sync, form XAML, flags, deep links) stays in focused MauiEssentials plugins on Android and iOS; UseDeepLinks and UseSecureSessionAuth compose them and fail closed if the sibling is missing.",
     "version": "1.3.0",
     "releaseNotes": [
       "1.3.0. Phases 8–10. One registration path, [NotifyDependsOn], analyzers, CommunityToolkit ViewModel interop, IModule / AddModule, modal stack, UseDeepLinks / UseSecureSessionAuth, SectionHostView, MvvmSearch, ILLink roots, 1.0 contract tests.",
@@ -143,6 +143,65 @@ export const packages: PackageDoc[] = [
       "comparison": "/packages/plugin-maui-mvvmexpress/comparison/",
       "technicalSummary": "ViewModels, commands, DI, messaging, NavigationPage or Shell, modules, chat host, forms, generators, analyzers, project template, IDE extensions, and the shipped 1.3.0 roadmap.",
       "integrationSummary": "dotnet new mvvmexpress, VS Code or Visual Studio Marketplace extensions, install 1.3.0 into an existing app, first screen, UseNavigationPage vs UseShell, Playground clone, FakeNavigator / LeakProbe, forms, generators, and adapters."
+    }
+  },
+  {
+    "slug": "plugin-wpf-mvvmexpress",
+    "name": "Plugin.Wpf.MVVMExpress",
+    "title": "MVVMExpress",
+    "subtitle": "Modular MVVM for WPF — ViewModels, async state, Frame navigation, dialogs",
+    "description": "A modular MVVM framework for WPF on .NET 10: observable models, async commands, bindable AsyncState, lifecycle-aware cancellation, typed Frame navigation, dialogs, AdornerLayer toast, validation, pagination, forms, and a testing package. 1.0.0 is the first stable WPF family — independent of Plugin.Maui.MVVMExpress, with the same Core contract and no Shell host.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Wpf.MVVMExpress",
+    "nuget": "https://www.nuget.org/packages/Plugin.Wpf.MVVMExpress",
+    "language": "C#",
+    "category": "wpf-plugin",
+    "group": "Application framework",
+    "tags": [
+      "WPF",
+      "MVVM",
+      "ViewModel",
+      "C#",
+      "Windows",
+      "VS Code",
+      "Visual Studio"
+    ],
+    "abstract": "WPF MVVMExpress is the application shell for production WPF apps on Windows. CommunityToolkit.Mvvm covers properties and commands, Prism covers regions, and ReactiveUI covers observable pipelines. A desktop app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed Frame navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference WPF or MAUI. Host / Navigation / Dialogs target net10.0-windows10.0.17763.0. Current NuGet is 1.0.0. Scaffold with Plugin.Wpf.MVVMExpress.Templates (dotnet new wpf-mvvmexpress / wpf-mvvmexpress-page), or install the WPF MVVMExpress listings on the Visual Studio Code and Visual Studio Marketplaces. This is not Plugin.Maui.MVVMExpress: there is no PackageReference between the families. UseWpfMvvmExpress registers DispatcherMainThread and WpfWindowContext. UseFrameNavigation maps ViewModels onto a Frame named NavigationHost. UseAuth<TChallenge>() wraps GuardedNavigator. Toasts draw on AdornerLayer. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth are out of 1.0.",
+    "version": "1.0.0",
+    "releaseNotes": [
+      "1.0.0. First stable WPF family. Frame navigation, dialogs, validation, pagination, templates, and Visual Studio Code / Visual Studio wrappers.",
+      "Templates and Marketplace IDE wrappers pin Plugin.Wpf.MVVMExpress.Templates 1.0.0.",
+      "Independent of Plugin.Maui.MVVMExpress. Core contract aligns with MAUI 1.3; a ViewModel ports with a namespace swap. Breaking changes wait for 2.0.0."
+    ],
+    "capabilities": [
+      "ObservableModel, ViewModel lifecycle, and ViewModelCancellationToken cancelled on dispose.",
+      "Sync and async commands with UI-thread marshal, weak CanExecuteChanged, no-throw ICommand.Execute, timeout, retry, debounce, and throttle.",
+      "UseWpfMvvmExpress + DispatcherMainThread + WpfWindowContext. Loaded / Unloaded lifecycle on navigated views.",
+      "UseFrameNavigation + ResetAsync / ReplaceRootAsync on a Frame named NavigationHost. There is no Shell host.",
+      "Navigators hop to IMainThread before constructing a Page or UserControl. Off-thread factories throw.",
+      "Modal views open as owned Windows. One INavigator per Window — first-class multi-window.",
+      "SectionHostView + SectionHostViewModel in-place tabs, SnapshotCollection load-once lists, MvvmSearch + SearchQuery.CommittedText.",
+      "FormViewModel.Bind, WpfFormViewModel (INotifyDataErrorInfo), dirty confirm, SubmitAsync, MustMatch, undo/redo.",
+      "UseAuth<TChallenge>() / AddAuth<TChallenge>() wraps GuardedNavigator. Register IAuthState yourself.",
+      "WpfNotifier toast via AdornerLayer — never wraps Window.Content. Wrap the tree in AdornerDecorator.",
+      "IModule / AddModule<T>() for feature-team registration.",
+      "CoalescingDispatcher for inbox / hub handlers. IMainThread is the only marshal API in ViewModels.",
+      "Testing package: LeakProbe, ScaleProfile, FakeDialogs, FakeNavigator, ScopedNavigator.",
+      "dotnet new wpf-mvvmexpress and wpf-mvvmexpress-page via Plugin.Wpf.MVVMExpress.Templates.",
+      "VS Code (Create New App / Add Page) and Visual Studio 2022+ (Tools → WPF MVVMExpress; File → New → Project) Marketplace wrappers."
+    ],
+    "prerelease": false,
+    "installPackages": [
+      "Plugin.Wpf.MVVMExpress.Core",
+      "Plugin.Wpf.MVVMExpress",
+      "Plugin.Wpf.MVVMExpress.Navigation",
+      "Plugin.Wpf.MVVMExpress.Dialogs"
+    ],
+    "guides": {
+      "technical": "/packages/plugin-wpf-mvvmexpress/docs/",
+      "integration": "/packages/plugin-wpf-mvvmexpress/integration/",
+      "comparison": "/packages/plugin-wpf-mvvmexpress/comparison/",
+      "technicalSummary": "ViewModels, commands, DI, messaging, Frame navigation, modules, chat host, forms, project template, IDE extensions, and the shipped 1.0.0 roadmap.",
+      "integrationSummary": "dotnet new wpf-mvvmexpress, VS Code or Visual Studio Marketplace extensions, install 1.0.0 into an existing app, first screen, UseFrameNavigation, Playground clone, FakeNavigator / LeakProbe, forms, and adapters."
     }
   },
   {

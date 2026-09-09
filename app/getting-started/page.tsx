@@ -41,7 +41,7 @@ export default function GettingStartedPage() {
             >
               VS Code and Visual Studio extensions
             </Link>{" "}
-            — search <strong>MVVMExpress</strong> on the Marketplace.
+            — install the <strong>MVVMExpress</strong> Marketplace listings.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
             <code>{`dotnet new maui -n FieldApp
@@ -118,7 +118,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
               href="/packages/plugin-maui-mvvmexpress/"
               className="font-medium text-lavender-700 hover:text-lavender-900"
             >
-              MVVMExpress
+              MVVMExpress for MAUI
             </Link>
             {" "}
             1.3.0. Scaffold with{" "}
@@ -135,8 +135,17 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             >
               IDE extensions
             </Link>
-            . It hosts a single window on Android, iOS, Mac Catalyst, and Windows. Technical internals
-            and a step-by-step integration guide live next to the package.
+            . It hosts a single window on Android, iOS, Mac Catalyst, and Windows. WPF desktop apps
+            use the independent{" "}
+            <Link
+              href="/packages/plugin-wpf-mvvmexpress/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              WPF family
+            </Link>
+            {" "}
+            (<code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">dotnet new wpf-mvvmexpress</code>
+            ). Technical internals and a step-by-step integration guide live next to each package.
           </p>
         </section>
 

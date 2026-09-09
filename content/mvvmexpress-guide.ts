@@ -190,7 +190,7 @@ dotnet test MyApp.Tests`,
           },
           {
             type: "p",
-            text: "Same commands from the IDE: search MVVMExpress on the Visual Studio Code or Visual Studio Marketplace. The wrappers install the pack and run dotnet new — they do not copy the scaffold.",
+            text: "Same commands from the IDE: install the Visual Studio Code or Visual Studio Marketplace listing. The wrappers install the pack and run dotnet new — they do not copy the scaffold.",
           },
         ],
       },
@@ -291,7 +291,7 @@ builder.Services.AddCatalog();`,
         blocks: [
           {
             type: "callout",
-            title: "Marketplace — search MVVMExpress",
+            title: "Marketplace listings",
             text: "The extensions do not copy the scaffold. They install Plugin.Maui.MVVMExpress.Templates and run the same dotnet new commands as the CLI. Extension version is 1.3.0, matching the template pack. Requires the .NET SDK on PATH.",
           },
           {
@@ -320,7 +320,7 @@ builder.Services.AddCatalog();`,
         blocks: [
           {
             type: "p",
-            text: "Search MVVMExpress and install:",
+            text: "Install the MAUI listings:",
           },
           {
             type: "link",

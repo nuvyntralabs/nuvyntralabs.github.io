@@ -1,10 +1,10 @@
 export const mvvmExpressSlug = "plugin-maui-mvvmexpress";
 
 export const vscodeMarketplaceSearch =
-  "https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VSCode&category=All%20categories&sortBy=Relevance";
+  "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.mvvmexpress";
 
 export const visualStudioMarketplaceSearch =
-  "https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance";
+  "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.MVVMExpres-Visual-Studio";
 
 export const mvvmExpressStatus = {
   version: "1.3.0",
@@ -443,7 +443,7 @@ export const integrationSections: DocSection[] = [
       {
         type: "callout",
         title: "1.3.0 project template",
-        text: "Current packages are 1.3.0. Install without --prerelease. Phases 8–10 are additive on the 1.0 SemVer lock: public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Scaffold with Plugin.Maui.MVVMExpress.Templates, the VS Code or Visual Studio Marketplace extension (search MVVMExpress), or add packages to an existing MAUI app. Generated [RegisterView] / [Route] maps pages from UseMvvmExpress — Map is optional.",
+        text: "Current packages are 1.3.0. Install without --prerelease. Phases 8–10 are additive on the 1.0 SemVer lock: public 1.x APIs stay source-compatible; breaking changes wait for 2.0.0. Scaffold with Plugin.Maui.MVVMExpress.Templates, the VS Code or Visual Studio Marketplace listing, or add packages to an existing MAUI app. Generated [RegisterView] / [Route] maps pages from UseMvvmExpress — Map is optional.",
       },
       {
         type: "link",

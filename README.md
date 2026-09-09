@@ -13,10 +13,13 @@ Professional experience stays on
 | `/research/` | R&D projects (inspection, VoIP, GPS, bindings) |
 | `/pocs/` | Proofs of concept and maintained forks |
 | `/packages/` | .NET MAUI NuGet catalog |
-| `/packages/plugin-maui-mvvmexpress/docs/` | MVVMExpress documentation (expander topics + roadmap) |
-| `/packages/plugin-maui-mvvmexpress/docs/templates/` | MVVMExpress `dotnet new` project template |
-| `/packages/plugin-maui-mvvmexpress/docs/ide-extensions/` | MVVMExpress Visual Studio Code and Visual Studio extensions |
-| `/packages/plugin-maui-mvvmexpress/integration/` | MVVMExpress getting started |
+| `/packages/plugin-maui-mvvmexpress/docs/` | MAUI MVVMExpress documentation (expander topics + roadmap) |
+| `/packages/plugin-maui-mvvmexpress/docs/templates/` | MAUI MVVMExpress `dotnet new` project template |
+| `/packages/plugin-maui-mvvmexpress/docs/ide-extensions/` | MAUI MVVMExpress Visual Studio Code and Visual Studio extensions |
+| `/packages/plugin-maui-mvvmexpress/integration/` | MAUI MVVMExpress getting started |
+| `/packages/plugin-wpf-mvvmexpress/` | WPF MVVMExpress overview |
+| `/packages/plugin-wpf-mvvmexpress/docs/` | WPF MVVMExpress documentation |
+| `/packages/plugin-wpf-mvvmexpress/integration/` | WPF MVVMExpress getting started |
 | `/packages/plugin-maui-leak-analyser/` | LeakAnalyser overview |
 | `/packages/plugin-maui-leak-analyser/docs/` | LeakAnalyser technical documentation |
 | `/packages/plugin-maui-leak-analyser/integration/` | LeakAnalyser getting started |
@@ -59,7 +62,7 @@ have Discussions. A few older POCs still need Issues or Discussions enabled.
 
 - R&D and POCs: `content/works.ts`
 - NuGet catalog: `content/packages.ts`
-- MVVMExpress docs: `content/mvvmexpress.ts`
+- MVVMExpress docs: `content/mvvmexpress.ts` (MAUI) and `content/wpf-mvvmexpress.ts` (WPF)
 - LeakAnalyser docs: `content/leak-analyser.ts`
 - HttpForge docs: `content/http-forge.ts`
 - Lab copy: `content/lab.ts`

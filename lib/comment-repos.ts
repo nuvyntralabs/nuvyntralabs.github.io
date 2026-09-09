@@ -283,6 +283,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUJ_voc4DEmPr",
     },
   },
+  "nuvyntralabs/Plugin.Wpf.MVVMExpress": {
+    repo: "nuvyntralabs/Plugin.Wpf.MVVMExpress",
+    repoId: "R_kgDOUTFtQg",
+    hasIssues: true,
+  },
   "nuvyntralabs/Plugin.Maui.MediaPipeline": {
     repo: "nuvyntralabs/Plugin.Maui.MediaPipeline",
     repoId: "R_kgDOUG7IKw",

@@ -10,6 +10,9 @@
     <loc>https://nuvyntralabs.github.io/getting-started/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/getting-started/github-packages/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/getting-started/hardening/</loc>
   </url>
   <url>
@@ -71,6 +74,9 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-geolocator/</loc>
@@ -196,6 +202,15 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/comparison/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/integration/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/comparison/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/docs/</loc>
   </url>
   <url>
@@ -275,5 +290,62 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/roadmap/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/templates/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/ide-extensions/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/viewmodels/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/commands/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/dependency-injection/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/messaging/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/navigation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/chat-host/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/dialogs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/validation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/forms/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/lists/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/packages/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/composition/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/platforms/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/pipeline/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/testing/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/memory/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/roadmap/</loc>
   </url>
 </urlset>

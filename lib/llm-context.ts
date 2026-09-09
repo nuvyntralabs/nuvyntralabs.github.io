@@ -70,8 +70,19 @@ MVVMExpress roadmap: ${siteConfig.url}/packages/plugin-maui-mvvmexpress/docs/roa
 MVVMExpress current NuGet: 1.3.0 (Phases 8–10 on the 1.0 SemVer lock; library, templates, and IDE extensions aligned)
 MVVMExpress templates GitHub Packages: https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/pkgs/nuget/Plugin.Maui.MVVMExpress.Templates
 MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates
-MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VSCode&category=All%20categories&sortBy=Relevance
-MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/search?term=MVVMExpress&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance
+MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.mvvmexpress
+MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.MVVMExpres-Visual-Studio
+WPF MVVMExpress documentation: ${siteConfig.url}/packages/plugin-wpf-mvvmexpress/docs/
+WPF MVVMExpress getting started: ${siteConfig.url}/packages/plugin-wpf-mvvmexpress/integration/
+WPF MVVMExpress project template (dotnet new wpf-mvvmexpress): ${siteConfig.url}/packages/plugin-wpf-mvvmexpress/docs/templates/
+WPF MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-wpf-mvvmexpress/docs/ide-extensions/
+WPF MVVMExpress comparison: ${siteConfig.url}/packages/plugin-wpf-mvvmexpress/comparison/
+WPF MVVMExpress roadmap: ${siteConfig.url}/packages/plugin-wpf-mvvmexpress/docs/roadmap/
+WPF MVVMExpress current NuGet: 1.0.0 (first stable WPF family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
+WPF MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Wpf.MVVMExpress.Templates
+WPF MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.wpf-mvvmexpress
+WPF MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.Wpf-MVVMExpres-Visual-Studio
+WPF MVVMExpress Playground sample: https://github.com/nuvyntralabs/Plugin.Wpf.MVVMExpress/tree/main/samples/Playground
 LeakAnalyser documentation: ${siteConfig.url}/packages/plugin-maui-leak-analyser/docs/
 LeakAnalyser getting started: ${siteConfig.url}/packages/plugin-maui-leak-analyser/integration/
 LeakAnalyser comparison: ${siteConfig.url}/packages/plugin-maui-leak-analyser/comparison/

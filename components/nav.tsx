@@ -10,6 +10,7 @@ import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const mvvmExpressHref = "/packages/plugin-maui-mvvmexpress/";
+const wpfMvvmExpressHref = "/packages/plugin-wpf-mvvmexpress/";
 
 const links = [
   { href: "/", label: "Home" },
@@ -27,8 +28,12 @@ function isActive(pathname: string, href: string) {
   if (href === "/packages/") {
     return (
       (pathname === "/packages/" || pathname.startsWith("/packages/")) &&
-      !pathname.startsWith(mvvmExpressHref)
+      !pathname.startsWith(mvvmExpressHref) &&
+      !pathname.startsWith(wpfMvvmExpressHref)
     );
+  }
+  if (href === mvvmExpressHref) {
+    return pathname.startsWith(mvvmExpressHref) || pathname.startsWith(wpfMvvmExpressHref);
   }
   return pathname === href || pathname.startsWith(href);
 }

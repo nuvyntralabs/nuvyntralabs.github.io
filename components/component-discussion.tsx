@@ -31,56 +31,74 @@ export function ComponentDiscussion({
   const [engine, setEngine] = useState<Engine>(giscusReady ? "giscus" : "utterances");
   const hostRef = useRef<HTMLDivElement>(null);
   const tablistId = useId();
-
-  useEffect(() => {
-    const host = hostRef.current;
-    if (!host || !repo) return;
-    if (engine === "giscus" && !giscusReady) {
-      host.replaceChildren();
-      return;
-    }
-    if (engine === "utterances" && !utterancesReady) {
-      host.replaceChildren();
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.crossOrigin = "anonymous";
-
-    if (engine === "giscus" && repo.giscus) {
-      script.src = "https://giscus.app/client.js";
-      script.setAttribute("data-repo", repo.repo);
-      script.setAttribute("data-repo-id", repo.repoId);
-      script.setAttribute("data-category", repo.giscus.category);
-      script.setAttribute("data-category-id", repo.giscus.categoryId);
-      script.setAttribute("data-mapping", "specific");
-      script.setAttribute("data-term", commentsAppearance.term);
-      script.setAttribute("data-strict", "1");
-      script.setAttribute("data-reactions-enabled", "1");
-      script.setAttribute("data-emit-metadata", "0");
-      script.setAttribute("data-input-position", "top");
-      script.setAttribute("data-theme", commentsAppearance.giscus.theme);
-      script.setAttribute("data-lang", commentsAppearance.giscus.lang);
-      script.setAttribute("data-loading", "lazy");
-    } else {
-      script.src = "https://utteranc.es/client.js";
-      script.setAttribute("repo", repo.repo);
-      script.setAttribute("issue-term", commentsAppearance.term);
-      script.setAttribute("theme", commentsAppearance.utterances.theme);
-    }
-
-    host.replaceChildren(script);
-
-    return () => {
-      host.replaceChildren();
-    };
-  }, [engine, giscusReady, repo, utterancesReady]);
-
   const paused =
     !repo ||
     (engine === "giscus" && !giscusReady) ||
     (engine === "utterances" && !utterancesReady);
+
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host || !repo || paused) return;
+
+    let cancelled = false;
+    let timeout = 0;
+
+    const inject = () => {
+      if (cancelled || !host.isConnected) return;
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.crossOrigin = "anonymous";
+
+      if (engine === "giscus" && repo.giscus) {
+        script.src = "https://giscus.app/client.js";
+        script.setAttribute("data-repo", repo.repo);
+        script.setAttribute("data-repo-id", repo.repoId);
+        script.setAttribute("data-category", repo.giscus.category);
+        script.setAttribute("data-category-id", repo.giscus.categoryId);
+        script.setAttribute("data-mapping", "specific");
+        script.setAttribute("data-term", commentsAppearance.term);
+        script.setAttribute("data-strict", "1");
+        script.setAttribute("data-reactions-enabled", "1");
+        script.setAttribute("data-emit-metadata", "0");
+        script.setAttribute("data-input-position", "top");
+        script.setAttribute("data-theme", commentsAppearance.giscus.theme);
+        script.setAttribute("data-lang", commentsAppearance.giscus.lang);
+        script.setAttribute("data-loading", "lazy");
+      } else {
+        script.src = "https://utteranc.es/client.js";
+        script.setAttribute("repo", repo.repo);
+        script.setAttribute("issue-term", commentsAppearance.term);
+        script.setAttribute("theme", commentsAppearance.utterances.theme);
+      }
+
+      host.appendChild(script);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        observer.disconnect();
+        timeout = window.setTimeout(inject, 150);
+      },
+      { rootMargin: "200px" },
+    );
+    observer.observe(host);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+      window.clearTimeout(timeout);
+      if (!host.isConnected) return;
+
+      const script = host.querySelector("script");
+      if (script && !host.querySelector("iframe")) {
+        script.type = "text/plain";
+        script.removeAttribute("src");
+      }
+      host.replaceChildren();
+    };
+  }, [engine, giscusReady, paused, repo, utterancesReady]);
 
   return (
     <section id="discussion" className={cn("mt-14 scroll-mt-24", className)}>

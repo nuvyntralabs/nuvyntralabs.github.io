@@ -32,6 +32,10 @@ import {
 import { comparisonHref, comparisonSections } from "@/content/mvvmexpress-comparison";
 import { docsBase, getGuideTopic, integrationHref } from "@/content/mvvmexpress-guide";
 import { integrationSections, mvvmExpressSlug } from "@/content/mvvmexpress";
+import { wpfMvvmExpressSlug } from "@/content/mvvmexpress-family";
+import { wpfComparisonHref, wpfComparisonSections } from "@/content/wpf-mvvmexpress-comparison";
+import { getWpfGuideTopic, wpfDocsBase, wpfIntegrationHref } from "@/content/wpf-mvvmexpress-guide";
+import { wpfIntegrationSections } from "@/content/wpf-mvvmexpress";
 
 export type PackageGuideKind = "docs" | "integration" | "comparison";
 
@@ -69,6 +73,35 @@ export function getPackageGuidePage(slug: string, kind: PackageGuideKind): Packa
         "An architectural comparison of shipped surfaces plus a syntax map from CommunityToolkit and Prism names. Scores are not BenchmarkDotNet or device RSS. Choose the stack that matches the app — CommunityToolkit for a small ViewModel layer, Prism for URI navigation without Shell, ReactiveUI for Rx-first apps, or MVVMExpress for one application shell.",
       sections: comparisonSections,
       currentHref: comparisonHref,
+    };
+  }
+
+  if (slug === wpfMvvmExpressSlug) {
+    if (kind === "docs") {
+      const topic = getWpfGuideTopic("introduction");
+      if (!topic) return undefined;
+      return {
+        title: topic.title,
+        description: topic.description,
+        sections: topic.sections,
+        currentHref: `${wpfDocsBase}/`,
+      };
+    }
+    if (kind === "integration") {
+      return {
+        title: `Get started with WPF MVVMExpress`,
+        description:
+          "From dotnet new wpf-mvvmexpress, a Marketplace IDE extension, or NuGet install to a testable ViewModel: 1.0.0 templates, first screen, UseFrameNavigation, Playground clone, FakeNavigator / LeakProbe, and forms.",
+        sections: wpfIntegrationSections,
+        currentHref: wpfIntegrationHref,
+      };
+    }
+    return {
+      title: "WPF MVVMExpress vs CommunityToolkit, Prism, and ReactiveUI",
+      description:
+        "An architectural comparison of shipped surfaces plus a syntax map from CommunityToolkit and Prism names. Scores are not BenchmarkDotNet or process RSS. Choose the stack that matches the app — CommunityToolkit for a small ViewModel layer, Prism for regions, ReactiveUI for Rx-first apps, or WPF MVVMExpress for one Frame-based application shell.",
+      sections: wpfComparisonSections,
+      currentHref: wpfComparisonHref,
     };
   }
 

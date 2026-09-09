@@ -1,6 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { allGuideHrefs } from "../content/mvvmexpress-guide";
+import { allWpfGuideHrefs } from "../content/wpf-mvvmexpress-guide";
 import { packages } from "../content/packages";
 import { proofOfConcepts, researchProjects } from "../content/works";
 import { siteConfig } from "./site";
@@ -27,6 +28,7 @@ export function sitemapUrls(): string[] {
         : [],
     ),
     ...allGuideHrefs(),
+    ...allWpfGuideHrefs(),
   ];
 
   return [...new Set(paths)].map((path) =>

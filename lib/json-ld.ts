@@ -63,11 +63,13 @@ export function packageJsonLd(pkg: PackageDoc) {
       url: page,
       applicationCategory: "DeveloperApplication",
       operatingSystem:
-        pkg.slug === "plugin-maui-mvvmexpress" ||
-        pkg.slug === "plugin-maui-leak-analyser" ||
-        pkg.slug === "plugin-maui-httpforge"
-          ? "Android, iOS, macOS (Mac Catalyst), Windows"
-          : "Android, iOS",
+        pkg.slug === "plugin-wpf-mvvmexpress"
+          ? "Windows"
+          : pkg.slug === "plugin-maui-mvvmexpress" ||
+              pkg.slug === "plugin-maui-leak-analyser" ||
+              pkg.slug === "plugin-maui-httpforge"
+            ? "Android, iOS, macOS (Mac Catalyst), Windows"
+            : "Android, iOS",
       programmingLanguage: pkg.language ?? "C#",
       codeRepository: pkg.github,
       downloadUrl: packageGithubPackagesUrl(pkg) ?? pkg.nuget ?? pkg.github,

@@ -8,7 +8,9 @@ import { packageGuideJsonLd } from "@/lib/json-ld";
 import type { PackageDoc } from "@/content/packages";
 import type { DocSection } from "@/content/mvvmexpress";
 import { adjacentGuidePages, comparisonHref, docsBase, guideNav, integrationHref } from "@/content/mvvmexpress-guide";
-import { mvvmExpressSlug } from "@/content/mvvmexpress";
+import { isMvvmExpressSlug, wpfMvvmExpressSlug } from "@/content/mvvmexpress-family";
+import { adjacentWpfGuidePages, wpfGuideNav } from "@/content/wpf-mvvmexpress-guide";
+import { MvvmExpressPlatformTabs } from "@/components/mvvmexpress-platform-tabs";
 import { cn } from "@/lib/utils";
 
 export type GuideKind = "docs" | "integration" | "comparison";
@@ -31,7 +33,9 @@ export function PackageGuide({
 }) {
   const guides = pkg.guides;
   if (!guides) return null;
-  const book = pkg.slug === mvvmExpressSlug;
+  const book = isMvvmExpressSlug(pkg.slug);
+  const wpf = pkg.slug === wpfMvvmExpressSlug;
+  const nav = wpf ? wpfGuideNav : guideNav;
   const href =
     currentHref ??
     (kind === "docs" ? `${docsBase}/` : kind === "comparison" ? comparisonHref : integrationHref);
@@ -64,8 +68,11 @@ export function PackageGuide({
     <main className="bg-white">
       <JsonLd data={packageGuideJsonLd(pkg, kind, title, description, href)} />
       <div className="container max-w-7xl py-8 sm:py-10">
+        <div className="mb-8">
+          <MvvmExpressPlatformTabs slug={pkg.slug} />
+        </div>
         <div className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_180px]">
-          <DocsSidebar groups={guideNav} currentHref={href} />
+          <DocsSidebar groups={nav} currentHref={href} />
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700">
               {kind === "docs" ? "Documentation" : kind === "comparison" ? "Comparison" : "Getting started"}
@@ -75,7 +82,7 @@ export function PackageGuide({
             <div className="mt-8">
               <DocsArticle sections={sections} />
             </div>
-            <GuidePager currentHref={href} />
+            <GuidePager currentHref={href} wpf={wpf} />
             <ComponentDiscussion target={{ title: pkg.name, github: pkg.github }} />
           </div>
           <div className="hidden xl:block">
@@ -87,8 +94,8 @@ export function PackageGuide({
   );
 }
 
-function GuidePager({ currentHref }: { currentHref: string }) {
-  const { previous, next } = adjacentGuidePages(currentHref);
+function GuidePager({ currentHref, wpf = false }: { currentHref: string; wpf?: boolean }) {
+  const { previous, next } = wpf ? adjacentWpfGuidePages(currentHref) : adjacentGuidePages(currentHref);
   if (!previous && !next) return null;
 
   return (
