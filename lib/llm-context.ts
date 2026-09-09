@@ -90,6 +90,8 @@ Avalonia MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-avalonia-
 Avalonia MVVMExpress comparison: ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/comparison/
 Avalonia MVVMExpress current NuGet: 1.0.0 (first stable Avalonia family; Frame host; independent of Plugin.Maui.MVVMExpress)
 Avalonia MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Avalonia.MVVMExpress.Templates
+Avalonia MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.avalonia-mvvmexpress
+Avalonia MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.AvaloniaMVVMExpress
 Uno MVVMExpress documentation: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/docs/
 Uno MVVMExpress getting started: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/integration/
 Uno MVVMExpress project template (dotnet new uno-mvvmexpress): ${siteConfig.url}/packages/plugin-uno-mvvmexpress/docs/templates/
@@ -104,6 +106,8 @@ WinUI MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-winui-mvvmex
 WinUI MVVMExpress comparison: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/comparison/
 WinUI MVVMExpress current NuGet: 1.0.0 (first stable WinUI 3 family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
 WinUI MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.WinUI.MVVMExpress.Templates
+WinUI MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.winui-mvvmexpress
+WinUI MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.WinUIMVVMExpress
 LeakAnalyser documentation: ${siteConfig.url}/packages/plugin-maui-leak-analyser/docs/
 LeakAnalyser getting started: ${siteConfig.url}/packages/plugin-maui-leak-analyser/integration/
 LeakAnalyser comparison: ${siteConfig.url}/packages/plugin-maui-leak-analyser/comparison/

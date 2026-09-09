@@ -110,7 +110,7 @@ const avalonia: DesktopMvvmPlatform = {
   vscodeItem: "nuvyntralabs.avalonia-mvvmexpress",
   vscodeSearch: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.avalonia-mvvmexpress",
   vsSearch:
-    "https://marketplace.visualstudio.com/search?term=Avalonia%20MVVMExpress&target=VS&category=All%20categories&sortBy=Relevance",
+    "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.AvaloniaMVVMExpress",
   vscodeCommands: "Avalonia MVVMExpress: Create New App, Avalonia MVVMExpress: Add Page",
   vsMenu: "Tools → Avalonia MVVMExpress → Create New App…, Add Page…",
   vsNewProject: "MVVMExpress Avalonia App",
@@ -323,7 +323,7 @@ const winui: DesktopMvvmPlatform = {
   vscodeItem: "nuvyntralabs.winui-mvvmexpress",
   vscodeSearch: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.winui-mvvmexpress",
   vsSearch:
-    "https://marketplace.visualstudio.com/search?term=WinUI%20MVVMExpress&target=VS&category=All%20categories&sortBy=Relevance",
+    "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.WinUIMVVMExpress",
   vscodeCommands: "WinUI MVVMExpress: Create New App, WinUI MVVMExpress: Add Page",
   vsMenu: "Tools → WinUI MVVMExpress → Create New App…, Add Page…",
   vsNewProject: "MVVMExpress WinUI App",
