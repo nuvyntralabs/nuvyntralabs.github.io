@@ -9,6 +9,7 @@ import {
   visualStudioMarketplaceSearch,
   vscodeMarketplaceSearch,
 } from "@/content/mvvmexpress";
+import { getDesktopMvvmFamily } from "@/content/desktop-mvvmexpress";
 import { mauiMvvmExpressSlug, wpfMvvmExpressSlug, isMvvmExpressSlug } from "@/content/mvvmexpress-family";
 import {
   wpfComposeWith,
@@ -46,7 +47,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: pkg.name,
     description: pkg.description,
-    keywords: [pkg.name, ...pkg.tags, "Nuvyntra Labs", pkg.category === "wpf-plugin" ? "WPF" : ".NET MAUI", "NuGet"],
+    keywords: [
+      pkg.name,
+      ...pkg.tags,
+      "Nuvyntra Labs",
+      pkg.category === "wpf-plugin"
+        ? "WPF"
+        : pkg.category === "avalonia-plugin"
+          ? "Avalonia"
+          : pkg.category === "uno-plugin"
+            ? "Uno Platform"
+            : pkg.category === "winui-plugin"
+              ? "WinUI"
+              : ".NET MAUI",
+      "NuGet",
+    ],
     alternates: { canonical: `/packages/${pkg.slug}/` },
     openGraph: {
       title,
@@ -73,6 +88,8 @@ export default async function PackagePage({ params }: PageProps) {
   const isMvvm = isMvvmExpressSlug(pkg.slug);
   const isMauiMvvm = pkg.slug === mauiMvvmExpressSlug;
   const isWpfMvvm = pkg.slug === wpfMvvmExpressSlug;
+  const desktop = getDesktopMvvmFamily(pkg.slug);
+  const isDesktopHost = isWpfMvvm || Boolean(desktop);
 
   return (
     <main className="container max-w-3xl py-12 sm:py-16">
@@ -123,6 +140,21 @@ export default async function PackagePage({ params }: PageProps) {
             Frame navigation, dialogs, validation, pagination, and IDE wrappers are shipped. This is
             not Plugin.Maui.MVVMExpress — there is no PackageReference between the families. Public
             APIs stay source-compatible in 1.x. Breaking changes wait for 2.0.0.
+          </p>
+        </aside>
+      ) : null}
+      {desktop ? (
+        <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
+          <p className="text-sm font-semibold text-lavender-900">
+            1.0.0 — first stable {desktop.platform.label} family
+          </p>
+          <p className="mt-1 text-sm leading-relaxed text-lavender-800">
+            Scaffold with <code>dotnet new {desktop.platform.appTemplate}</code>, or install the{" "}
+            <strong>{desktop.platform.label} MVVMExpress</strong> listings on the Visual Studio Code and
+            Visual Studio Marketplaces. Frame navigation, dialogs, validation, pagination, and IDE
+            wrappers are shipped. This is not Plugin.Maui.MVVMExpress or Plugin.Wpf.MVVMExpress —
+            there is no PackageReference between the families. Public APIs stay source-compatible in
+            1.x. Breaking changes wait for 2.0.0.
           </p>
         </aside>
       ) : null}
@@ -271,6 +303,58 @@ export default async function PackagePage({ params }: PageProps) {
             </a>
           </>
         ) : null}
+        {desktop ? (
+          <>
+            <a
+              href={githubPackagesPageUrl(desktop.platform.github, desktop.platform.templates)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              <Package className="h-4 w-4" aria-hidden="true" />
+              Templates · GitHub Packages
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+            <a
+              href={`https://www.nuget.org/packages/${desktop.platform.templates}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              <Package className="h-4 w-4" aria-hidden="true" />
+              Templates · nuget.org
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+            <a
+              href={desktop.platform.vscodeSearch}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              VS Code
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+            <a
+              href={desktop.platform.vsSearch}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              Visual Studio
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+            <a
+              href={`${desktop.platform.github}/tree/main/samples/Playground`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            >
+              <Github className="h-4 w-4" aria-hidden="true" />
+              Playground sample
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+          </>
+        ) : null}
       </div>
 
       {pkg.guides ? (
@@ -301,9 +385,11 @@ export default async function PackagePage({ params }: PageProps) {
             ))}
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            {isWpfMvvm ? (
+            {isDesktopHost ? (
               <>
-                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Wpf.*</code>{" "}
+                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+                  {desktop?.platform.prefix ?? "Plugin.Wpf.MVVMExpress"}.*
+                </code>{" "}
                 restores from nuget.org. CI also publishes GitHub Packages — see{" "}
                 <Link href={githubPackagesSetupPath} className="font-medium text-lavender-700 hover:text-lavender-900">
                   Use nuvyntralabs GitHub Packages from a C# project
@@ -361,6 +447,30 @@ dotnet new wpf-mvvmexpress -n MyApp`}</code>
                 . Same commands from the{" "}
                 <Link
                   href="/packages/plugin-wpf-mvvmexpress/docs/ide-extensions/"
+                  className="font-medium text-lavender-700 hover:text-lavender-900"
+                >
+                  VS Code and Visual Studio extensions
+                </Link>
+                .
+              </p>
+            </>
+          ) : null}
+          {desktop ? (
+            <>
+              <p className="mt-6 text-sm font-semibold text-foreground">Or scaffold an app</p>
+              <pre className="mt-3 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+                <code>{`dotnet new install ${desktop.platform.templates}
+dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
+              </pre>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Adds a main window with {desktop.platform.frameType}, login replace-root, a list, a
+                form, and tests. Then{" "}
+                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+                  dotnet new {desktop.platform.pageTemplate} -n Catalog --namespace MyApp
+                </code>
+                . Same commands from the{" "}
+                <Link
+                  href={`${desktop.docsBase}/ide-extensions/`}
                   className="font-medium text-lavender-700 hover:text-lavender-900"
                 >
                   VS Code and Visual Studio extensions
@@ -529,11 +639,43 @@ dotnet new wpf-mvvmexpress -n MyApp`}</code>
                 </li>
               </>
             ) : null}
+            {desktop ? (
+              <>
+                <li>
+                  <Link
+                    href={`${desktop.docsBase}/ide-extensions/`}
+                    className="glass-card focusable block h-full p-5 hover:shadow-glow"
+                  >
+                    <p className="font-semibold text-foreground">IDE extensions</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      Install the {desktop.platform.label} MVVMExpress listings on the Visual Studio
+                      Code and Visual Studio Marketplaces. Thin wrappers that install the template
+                      pack and run dotnet new.
+                    </p>
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href={`${desktop.platform.github}/tree/main/samples/Playground`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-card focusable block h-full p-5 hover:shadow-glow"
+                  >
+                    <p className="font-semibold text-foreground">Playground sample</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      Cloneable 15-minute path in the product repo — command, Frame navigation,
+                      dialog, form, auth, list, and a second window. Not a separate SampleApp
+                      repository.
+                    </p>
+                  </a>
+                </li>
+              </>
+            ) : null}
           </ul>
         </section>
       ) : null}
 
-      {isMauiMvvm || isWpfMvvm ? (
+      {isMauiMvvm || isDesktopHost ? (
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold">Package family</h2>
           <div className="mt-4 overflow-x-auto rounded-2xl border border-lavender-100">
@@ -546,7 +688,7 @@ dotnet new wpf-mvvmexpress -n MyApp`}</code>
                 </tr>
               </thead>
               <tbody>
-                {(isWpfMvvm ? wpfPackageFamily : packageFamily).map((item) => (
+                {(desktop?.packageFamily ?? (isWpfMvvm ? wpfPackageFamily : packageFamily)).map((item) => (
                   <tr key={item.name} className="border-t border-lavender-100 align-top">
                     <td className="px-3 py-2.5 font-medium text-foreground">
                       <span className="flex flex-col gap-1.5">
@@ -582,7 +724,28 @@ dotnet new wpf-mvvmexpress -n MyApp`}</code>
           </div>
           <h3 className="mt-8 font-display text-lg font-semibold">Compose with</h3>
           <ul className="mt-3 grid gap-3">
-            {isWpfMvvm
+            {desktop
+              ? desktop.composeWith.map((item) => (
+                  <li key={item.name}>
+                    {item.slug ? (
+                      <Link href={`/packages/${item.slug}/`} className="glass-card focusable block p-4 hover:shadow-glow">
+                        <span className="font-semibold text-foreground">{item.name}</span>
+                        <span className="mt-1 block text-sm text-muted-foreground">{item.why}</span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={"href" in item ? item.href : undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="glass-card focusable block p-4 hover:shadow-glow"
+                      >
+                        <span className="font-semibold text-foreground">{item.name}</span>
+                        <span className="mt-1 block text-sm text-muted-foreground">{item.why}</span>
+                      </a>
+                    )}
+                  </li>
+                ))
+              : isWpfMvvm
               ? wpfComposeWith.map((item) => (
                   <li key={item.name}>
                     {item.slug ? (

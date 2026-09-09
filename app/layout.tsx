@@ -36,6 +36,9 @@ export const metadata: Metadata = {
     "Plugin.Maui.OfflineSync",
     "Plugin.Maui.MVVMExpress",
     "Plugin.Wpf.MVVMExpress",
+    "Plugin.Avalonia.MVVMExpress",
+    "Plugin.Uno.MVVMExpress",
+    "Plugin.WinUI.MVVMExpress",
     "MVVMExpress",
   ],
   alternates: {

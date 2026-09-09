@@ -20,6 +20,15 @@ Professional experience stays on
 | `/packages/plugin-wpf-mvvmexpress/` | WPF MVVMExpress overview |
 | `/packages/plugin-wpf-mvvmexpress/docs/` | WPF MVVMExpress documentation |
 | `/packages/plugin-wpf-mvvmexpress/integration/` | WPF MVVMExpress getting started |
+| `/packages/plugin-avalonia-mvvmexpress/` | Avalonia MVVMExpress overview |
+| `/packages/plugin-avalonia-mvvmexpress/docs/` | Avalonia MVVMExpress documentation |
+| `/packages/plugin-avalonia-mvvmexpress/integration/` | Avalonia MVVMExpress getting started |
+| `/packages/plugin-uno-mvvmexpress/` | Uno Platform MVVMExpress overview |
+| `/packages/plugin-uno-mvvmexpress/docs/` | Uno Platform MVVMExpress documentation |
+| `/packages/plugin-uno-mvvmexpress/integration/` | Uno Platform MVVMExpress getting started |
+| `/packages/plugin-winui-mvvmexpress/` | WinUI 3 MVVMExpress overview |
+| `/packages/plugin-winui-mvvmexpress/docs/` | WinUI 3 MVVMExpress documentation |
+| `/packages/plugin-winui-mvvmexpress/integration/` | WinUI 3 MVVMExpress getting started |
 | `/packages/plugin-maui-leak-analyser/` | LeakAnalyser overview |
 | `/packages/plugin-maui-leak-analyser/docs/` | LeakAnalyser technical documentation |
 | `/packages/plugin-maui-leak-analyser/integration/` | LeakAnalyser getting started |
@@ -62,7 +71,7 @@ have Discussions. A few older POCs still need Issues or Discussions enabled.
 
 - R&D and POCs: `content/works.ts`
 - NuGet catalog: `content/packages.ts`
-- MVVMExpress docs: `content/mvvmexpress.ts` (MAUI) and `content/wpf-mvvmexpress.ts` (WPF)
+- MVVMExpress docs: `content/mvvmexpress.ts` (MAUI), `content/wpf-mvvmexpress.ts` (WPF), and `content/desktop-mvvmexpress.ts` (Avalonia, Uno, WinUI)
 - LeakAnalyser docs: `content/leak-analyser.ts`
 - HttpForge docs: `content/http-forge.ts`
 - Lab copy: `content/lab.ts`

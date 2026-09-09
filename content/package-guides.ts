@@ -32,6 +32,7 @@ import {
 import { comparisonHref, comparisonSections } from "@/content/mvvmexpress-comparison";
 import { docsBase, getGuideTopic, integrationHref } from "@/content/mvvmexpress-guide";
 import { integrationSections, mvvmExpressSlug } from "@/content/mvvmexpress";
+import { getDesktopMvvmFamily } from "@/content/desktop-mvvmexpress";
 import { wpfMvvmExpressSlug } from "@/content/mvvmexpress-family";
 import { wpfComparisonHref, wpfComparisonSections } from "@/content/wpf-mvvmexpress-comparison";
 import { getWpfGuideTopic, wpfDocsBase, wpfIntegrationHref } from "@/content/wpf-mvvmexpress-guide";
@@ -102,6 +103,34 @@ export function getPackageGuidePage(slug: string, kind: PackageGuideKind): Packa
         "An architectural comparison of shipped surfaces plus a syntax map from CommunityToolkit and Prism names. Scores are not BenchmarkDotNet or process RSS. Choose the stack that matches the app — CommunityToolkit for a small ViewModel layer, Prism for regions, ReactiveUI for Rx-first apps, or WPF MVVMExpress for one Frame-based application shell.",
       sections: wpfComparisonSections,
       currentHref: wpfComparisonHref,
+    };
+  }
+
+  const desktop = getDesktopMvvmFamily(slug);
+  if (desktop) {
+    if (kind === "docs") {
+      const topic = desktop.guideTopics.find((item) => item.slug === "introduction");
+      if (!topic) return undefined;
+      return {
+        title: topic.title,
+        description: topic.description,
+        sections: topic.sections,
+        currentHref: `${desktop.docsBase}/`,
+      };
+    }
+    if (kind === "integration") {
+      return {
+        title: `Get started with ${desktop.platform.label} MVVMExpress`,
+        description: `From dotnet new ${desktop.platform.appTemplate}, a Marketplace IDE extension, or NuGet install to a testable ViewModel: 1.0.0 templates, first screen, UseFrameNavigation, Playground clone, FakeNavigator / LeakProbe, and forms.`,
+        sections: desktop.integrationSections,
+        currentHref: desktop.integrationHref,
+      };
+    }
+    return {
+      title: `${desktop.platform.label} MVVMExpress vs CommunityToolkit, Prism, and ReactiveUI`,
+      description: `An architectural comparison of shipped surfaces plus a syntax map from CommunityToolkit and Prism names. Scores are not BenchmarkDotNet or process RSS. Choose the stack that matches the app — CommunityToolkit for a small ViewModel layer, Prism for regions, ReactiveUI for Rx-first apps, or ${desktop.platform.label} MVVMExpress for one Frame-based application shell.`,
+      sections: desktop.comparisonSections,
+      currentHref: desktop.comparisonHref,
     };
   }
 

@@ -1,3 +1,5 @@
+import { desktopPackageDocs } from "@/content/desktop-mvvmexpress";
+
 export type PackageGroup =
   | "Catalog"
   | "Application framework"
@@ -28,7 +30,7 @@ export interface PackageDoc {
   github: string;
   nuget: string | null;
   language: string | null;
-  category: "suite" | "maui-plugin" | "wpf-plugin";
+  category: "suite" | "maui-plugin" | "wpf-plugin" | "avalonia-plugin" | "uno-plugin" | "winui-plugin";
   group: PackageGroup;
   tags: string[];
   abstract: string;
@@ -204,6 +206,7 @@ export const packages: PackageDoc[] = [
       "integrationSummary": "dotnet new wpf-mvvmexpress, VS Code or Visual Studio Marketplace extensions, install 1.0.0 into an existing app, first screen, UseFrameNavigation, Playground clone, FakeNavigator / LeakProbe, forms, and adapters."
     }
   },
+  ...desktopPackageDocs,
   {
     "slug": "plugin-maui-geolocator",
     "name": "Plugin.Maui.GeoLocator",

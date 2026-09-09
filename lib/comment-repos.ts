@@ -288,6 +288,21 @@ export const commentRepos: Record<string, CommentRepo> = {
     repoId: "R_kgDOUTFtQg",
     hasIssues: true,
   },
+  "nuvyntralabs/Plugin.Avalonia.MVVMExpress": {
+    repo: "nuvyntralabs/Plugin.Avalonia.MVVMExpress",
+    repoId: "R_kgDOUTvdfQ",
+    hasIssues: true,
+  },
+  "nuvyntralabs/Plugin.Uno.MVVMExpress": {
+    repo: "nuvyntralabs/Plugin.Uno.MVVMExpress",
+    repoId: "R_kgDOUTveiQ",
+    hasIssues: true,
+  },
+  "nuvyntralabs/Plugin.WinUI.MVVMExpress": {
+    repo: "nuvyntralabs/Plugin.WinUI.MVVMExpress",
+    repoId: "R_kgDOUTvZmA",
+    hasIssues: true,
+  },
   "nuvyntralabs/Plugin.Maui.MediaPipeline": {
     repo: "nuvyntralabs/Plugin.Maui.MediaPipeline",
     repoId: "R_kgDOUG7IKw",

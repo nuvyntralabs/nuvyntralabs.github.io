@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PackageGuide } from "@/components/package-guide";
 import { documentedPackages, getPackageBySlug } from "@/content/packages";
+import {
+  desktopGuideTopicSlugs,
+  getDesktopGuideTopic,
+  getDesktopMvvmFamily,
+} from "@/content/desktop-mvvmexpress";
 import { docsBase, getGuideTopic, guideTopicSlugs } from "@/content/mvvmexpress-guide";
-import { mauiMvvmExpressSlug, wpfMvvmExpressSlug } from "@/content/mvvmexpress-family";
+import { isMauiMvvmExpressSlug, mauiMvvmExpressSlug, wpfMvvmExpressSlug } from "@/content/mvvmexpress-family";
 import { getWpfGuideTopic, wpfDocsBase, wpfGuideTopicSlugs } from "@/content/wpf-mvvmexpress-guide";
 import { siteConfig } from "@/lib/site";
 
@@ -13,6 +18,20 @@ interface PageProps {
 
 export const dynamicParams = false;
 
+function resolveTopic(slug: string, topicSlug: string) {
+  if (slug === wpfMvvmExpressSlug) return getWpfGuideTopic(topicSlug);
+  const desktop = getDesktopGuideTopic(slug, topicSlug);
+  if (desktop) return desktop;
+  return getGuideTopic(topicSlug);
+}
+
+function resolveDocsBase(slug: string) {
+  if (slug === wpfMvvmExpressSlug) return wpfDocsBase;
+  const desktop = getDesktopMvvmFamily(slug);
+  if (desktop) return desktop.docsBase;
+  return docsBase;
+}
+
 export function generateStaticParams() {
   return documentedPackages.flatMap((item) => {
     if (item.slug === mauiMvvmExpressSlug) {
@@ -21,17 +40,17 @@ export function generateStaticParams() {
     if (item.slug === wpfMvvmExpressSlug) {
       return wpfGuideTopicSlugs().map((topic) => ({ slug: item.slug, topic }));
     }
-    return [];
+    return desktopGuideTopicSlugs(item.slug).map((topic) => ({ slug: item.slug, topic }));
   });
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug, topic: topicSlug } = await params;
   const pkg = getPackageBySlug(slug);
-  const topic = slug === wpfMvvmExpressSlug ? getWpfGuideTopic(topicSlug) : getGuideTopic(topicSlug);
+  const topic = resolveTopic(slug, topicSlug);
   if (!pkg?.guides || !topic) return {};
 
-  const base = slug === wpfMvvmExpressSlug ? wpfDocsBase : docsBase;
+  const base = resolveDocsBase(slug);
   const url = `${base}/${topic.slug}/`;
   const title = `${topic.title} · ${pkg.title}`;
 
@@ -50,13 +69,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function PackageDocTopicPage({ params }: PageProps) {
   const { slug, topic: topicSlug } = await params;
   const pkg = getPackageBySlug(slug);
-  const topic = slug === wpfMvvmExpressSlug ? getWpfGuideTopic(topicSlug) : getGuideTopic(topicSlug);
-  const bookSlug = slug === wpfMvvmExpressSlug || slug === mauiMvvmExpressSlug;
+  const topic = resolveTopic(slug, topicSlug);
+  const bookSlug = isMauiMvvmExpressSlug(slug) || slug === wpfMvvmExpressSlug || Boolean(getDesktopMvvmFamily(slug));
   if (!pkg?.guides || !bookSlug || !topic || topic.slug === "introduction") {
     notFound();
   }
 
-  const base = slug === wpfMvvmExpressSlug ? wpfDocsBase : docsBase;
+  const base = resolveDocsBase(slug);
   return (
     <PackageGuide
       pkg={pkg}

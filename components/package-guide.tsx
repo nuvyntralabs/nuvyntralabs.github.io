@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/json-ld";
 import { packageGuideJsonLd } from "@/lib/json-ld";
 import type { PackageDoc } from "@/content/packages";
 import type { DocSection } from "@/content/mvvmexpress";
+import { adjacentDesktopGuidePages, getDesktopMvvmFamily } from "@/content/desktop-mvvmexpress";
 import { adjacentGuidePages, comparisonHref, docsBase, guideNav, integrationHref } from "@/content/mvvmexpress-guide";
 import { isMvvmExpressSlug, wpfMvvmExpressSlug } from "@/content/mvvmexpress-family";
 import { adjacentWpfGuidePages, wpfGuideNav } from "@/content/wpf-mvvmexpress-guide";
@@ -34,8 +35,9 @@ export function PackageGuide({
   const guides = pkg.guides;
   if (!guides) return null;
   const book = isMvvmExpressSlug(pkg.slug);
+  const desktop = getDesktopMvvmFamily(pkg.slug);
   const wpf = pkg.slug === wpfMvvmExpressSlug;
-  const nav = wpf ? wpfGuideNav : guideNav;
+  const nav = desktop ? desktop.guideNav : wpf ? wpfGuideNav : guideNav;
   const href =
     currentHref ??
     (kind === "docs" ? `${docsBase}/` : kind === "comparison" ? comparisonHref : integrationHref);
@@ -82,7 +84,7 @@ export function PackageGuide({
             <div className="mt-8">
               <DocsArticle sections={sections} />
             </div>
-            <GuidePager currentHref={href} wpf={wpf} />
+            <GuidePager currentHref={href} slug={pkg.slug} />
             <ComponentDiscussion target={{ title: pkg.name, github: pkg.github }} />
           </div>
           <div className="hidden xl:block">
@@ -94,8 +96,13 @@ export function PackageGuide({
   );
 }
 
-function GuidePager({ currentHref, wpf = false }: { currentHref: string; wpf?: boolean }) {
-  const { previous, next } = wpf ? adjacentWpfGuidePages(currentHref) : adjacentGuidePages(currentHref);
+function GuidePager({ currentHref, slug }: { currentHref: string; slug: string }) {
+  const desktop = getDesktopMvvmFamily(slug);
+  const { previous, next } = desktop
+    ? adjacentDesktopGuidePages(slug, currentHref)
+    : slug === wpfMvvmExpressSlug
+      ? adjacentWpfGuidePages(currentHref)
+      : adjacentGuidePages(currentHref);
   if (!previous && !next) return null;
 
   return (

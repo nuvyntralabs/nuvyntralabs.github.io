@@ -135,16 +135,44 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             >
               IDE extensions
             </Link>
-            . It hosts a single window on Android, iOS, Mac Catalyst, and Windows. WPF desktop apps
-            use the independent{" "}
+            . It hosts a single window on Android, iOS, Mac Catalyst, and Windows. Desktop hosts use
+            the independent{" "}
             <Link
               href="/packages/plugin-wpf-mvvmexpress/"
               className="font-medium text-lavender-700 hover:text-lavender-900"
             >
-              WPF family
+              WPF
+            </Link>
+            ,{" "}
+            <Link
+              href="/packages/plugin-avalonia-mvvmexpress/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              Avalonia
+            </Link>
+            ,{" "}
+            <Link
+              href="/packages/plugin-uno-mvvmexpress/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              Uno
+            </Link>
+            , and{" "}
+            <Link
+              href="/packages/plugin-winui-mvvmexpress/"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+            >
+              WinUI 3
             </Link>
             {" "}
-            (<code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">dotnet new wpf-mvvmexpress</code>
+            families (
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">dotnet new wpf-mvvmexpress</code>
+            ,{" "}
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">avalonia-mvvmexpress</code>
+            ,{" "}
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">uno-mvvmexpress</code>
+            ,{" "}
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">winui-mvvmexpress</code>
             ). Technical internals and a step-by-step integration guide live next to each package.
           </p>
         </section>

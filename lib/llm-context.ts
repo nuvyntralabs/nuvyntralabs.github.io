@@ -83,6 +83,27 @@ WPF MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Wpf.M
 WPF MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.wpf-mvvmexpress
 WPF MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.Wpf-MVVMExpres-Visual-Studio
 WPF MVVMExpress Playground sample: https://github.com/nuvyntralabs/Plugin.Wpf.MVVMExpress/tree/main/samples/Playground
+Avalonia MVVMExpress documentation: ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/docs/
+Avalonia MVVMExpress getting started: ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/integration/
+Avalonia MVVMExpress project template (dotnet new avalonia-mvvmexpress): ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/docs/templates/
+Avalonia MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/docs/ide-extensions/
+Avalonia MVVMExpress comparison: ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/comparison/
+Avalonia MVVMExpress current NuGet: 1.0.0 (first stable Avalonia family; Frame host; independent of Plugin.Maui.MVVMExpress)
+Avalonia MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Avalonia.MVVMExpress.Templates
+Uno MVVMExpress documentation: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/docs/
+Uno MVVMExpress getting started: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/integration/
+Uno MVVMExpress project template (dotnet new uno-mvvmexpress): ${siteConfig.url}/packages/plugin-uno-mvvmexpress/docs/templates/
+Uno MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/docs/ide-extensions/
+Uno MVVMExpress comparison: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/comparison/
+Uno MVVMExpress current NuGet: 1.0.0 (first stable Uno Platform family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
+Uno MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Uno.MVVMExpress.Templates
+WinUI MVVMExpress documentation: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/docs/
+WinUI MVVMExpress getting started: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/integration/
+WinUI MVVMExpress project template (dotnet new winui-mvvmexpress): ${siteConfig.url}/packages/plugin-winui-mvvmexpress/docs/templates/
+WinUI MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/docs/ide-extensions/
+WinUI MVVMExpress comparison: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/comparison/
+WinUI MVVMExpress current NuGet: 1.0.0 (first stable WinUI 3 family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
+WinUI MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.WinUI.MVVMExpress.Templates
 LeakAnalyser documentation: ${siteConfig.url}/packages/plugin-maui-leak-analyser/docs/
 LeakAnalyser getting started: ${siteConfig.url}/packages/plugin-maui-leak-analyser/integration/
 LeakAnalyser comparison: ${siteConfig.url}/packages/plugin-maui-leak-analyser/comparison/
