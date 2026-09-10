@@ -14,7 +14,7 @@ Professional experience stays on
 | `/pocs/` | Proofs of concept and maintained forks |
 | `/packages/` | .NET MAUI NuGet catalog |
 | `/toolkits/` | Developer toolkits (MauiDev CLI + VS Code / Cursor extension) |
-| `/toolkits/maui-dev/` | MauiDev 1.2 overview, command usage, sample results, and CI |
+| `/toolkits/maui-dev/` | MauiDev 1.2.1 overview, command usage, sample results, and CI |
 | `/packages/plugin-maui-mvvmexpress/docs/` | MAUI MVVMExpress documentation (expander topics + roadmap) |
 | `/packages/plugin-maui-mvvmexpress/docs/templates/` | MAUI MVVMExpress `dotnet new` project template |
 | `/packages/plugin-maui-mvvmexpress/docs/ide-extensions/` | MAUI MVVMExpress Visual Studio Code and Visual Studio extensions |

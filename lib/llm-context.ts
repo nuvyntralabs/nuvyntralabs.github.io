@@ -64,7 +64,7 @@ ${siteConfig.url}/toolkits/
 
 ${toolkitList}
 
-MauiDev 1.2.0 is a global dotnet tool (Plugin.Maui.MauiDev.Cli, command maui-dev) plus a VS Code / Cursor extension (nuvyntralabs.maui-dev). Commands: doctor, analyze, resources, permissions, platform, signing, workload, version, dependencies, icons, publish --validate, migrate, telemetry, benchmark, clean, package. nuget.org reserved MauiDev.Cli. Do not add Plugin.Maui.MauiDev.Cli as a PackageReference. It does not replace Plugin.Maui.Performance, Plugin.Maui.LeakAnalyser, Plugin.Maui.AppHealth, or Plugin.Maui.Diagnostics.
+MauiDev 1.2.1 is a global dotnet tool (Plugin.Maui.MauiDev.Cli, command maui-dev) plus a VS Code / Cursor extension (nuvyntralabs.maui-dev). Commands: doctor, analyze, resources, permissions, platform, signing, workload, version, dependencies, icons, publish --validate, migrate, telemetry, benchmark, clean, package. nuget.org reserved MauiDev.Cli. Do not add Plugin.Maui.MauiDev.Cli as a PackageReference. It does not replace Plugin.Maui.Performance, Plugin.Maui.LeakAnalyser, Plugin.Maui.AppHealth, or Plugin.Maui.Diagnostics. Docs: ${siteConfig.url}/toolkits/maui-dev/
 
 ## NuGet packages
 

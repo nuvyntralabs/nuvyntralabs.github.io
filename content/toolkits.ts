@@ -57,10 +57,10 @@ export const toolkits: ToolkitDoc[] = [
     packageId: "Plugin.Maui.MauiDev.Cli",
     vscodeMarketplace: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.maui-dev",
     language: "C#",
-    version: "1.2.0",
+    version: "1.2.1",
     notice: {
-      title: "1.2.0 — permissions through benchmark",
-      text: "1.1 added permissions, platform, signing, workload, version, dependencies, and icons. 1.2 adds publish --validate, migrate, telemetry (scan only), and benchmark (shells to maui-perf). PackageId stays Plugin.Maui.MauiDev.Cli — nuget.org reserved MauiDev.Cli. The command stays maui-dev.",
+      title: "1.2.1 — docs URL on the NuGet package",
+      text: "PackageProjectUrl and repo docs links now point at this page. The command surface is still 1.2: permissions through benchmark. PackageId stays Plugin.Maui.MauiDev.Cli — nuget.org reserved MauiDev.Cli. The command stays maui-dev.",
     },
     tags: [".NET MAUI", "CLI", "dotnet tool", "VS Code", "Cursor", "CI", "SARIF"],
     abstract:
@@ -549,6 +549,7 @@ maui-dev package --validate`,
       },
     ],
     releaseNotes: [
+      "1.2.1. PackageProjectUrl and docs links point at https://nuvyntralabs.github.io/toolkits/maui-dev/.",
       "1.2.0. publish --validate (store ApplicationId / CFBundleIdentifier, iOS privacy manifest). --push is rejected.",
       "1.2.0. migrate flags net8/net9 TFMs and Xamarin leftovers without rewriting.",
       "1.2.0. telemetry scans the app for crash / analytics SDKs. The CLI collects nothing.",
