@@ -99,6 +99,8 @@ Uno MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-uno-mvvmexpres
 Uno MVVMExpress comparison: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/comparison/
 Uno MVVMExpress current NuGet: 1.0.0 (first stable Uno Platform family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
 Uno MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Uno.MVVMExpress.Templates
+Uno MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.plugin-uno-mvvmexpress
+Uno MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.UnoMVVMExpress
 WinUI MVVMExpress documentation: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/docs/
 WinUI MVVMExpress getting started: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/integration/
 WinUI MVVMExpress project template (dotnet new winui-mvvmexpress): ${siteConfig.url}/packages/plugin-winui-mvvmexpress/docs/templates/

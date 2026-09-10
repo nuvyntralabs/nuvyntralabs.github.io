@@ -215,10 +215,10 @@ const uno: DesktopMvvmPlatform = {
   templates: "Plugin.Uno.MVVMExpress.Templates",
   appTemplate: "uno-mvvmexpress",
   pageTemplate: "uno-mvvmexpress-page",
-  vscodeItem: "nuvyntralabs.uno-mvvmexpress",
-  vscodeSearch: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.uno-mvvmexpress",
+  vscodeItem: "nuvyntralabs.plugin-uno-mvvmexpress",
+  vscodeSearch: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.plugin-uno-mvvmexpress",
   vsSearch:
-    "https://marketplace.visualstudio.com/search?term=Uno%20MVVMExpress&target=VS&category=All%20categories&sortBy=Relevance",
+    "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.UnoMVVMExpress",
   vscodeCommands: "Uno MVVMExpress: Create New App, Uno MVVMExpress: Add Page",
   vsMenu: "Tools → Uno MVVMExpress → Create New App…, Add Page…",
   vsNewProject: "MVVMExpress Uno App",
