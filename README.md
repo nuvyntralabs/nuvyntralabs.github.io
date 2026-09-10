@@ -13,6 +13,8 @@ Professional experience stays on
 | `/research/` | R&D projects (inspection, VoIP, GPS, bindings) |
 | `/pocs/` | Proofs of concept and maintained forks |
 | `/packages/` | .NET MAUI NuGet catalog |
+| `/toolkits/` | Developer toolkits (MauiDev CLI + VS Code / Cursor extension) |
+| `/toolkits/maui-dev/` | MauiDev overview, install, commands, and CI |
 | `/packages/plugin-maui-mvvmexpress/docs/` | MAUI MVVMExpress documentation (expander topics + roadmap) |
 | `/packages/plugin-maui-mvvmexpress/docs/templates/` | MAUI MVVMExpress `dotnet new` project template |
 | `/packages/plugin-maui-mvvmexpress/docs/ide-extensions/` | MAUI MVVMExpress Visual Studio Code and Visual Studio extensions |
@@ -75,6 +77,7 @@ have Discussions. A few older POCs still need Issues or Discussions enabled.
 
 - R&D and POCs: `content/works.ts`
 - NuGet catalog: `content/packages.ts`
+- Toolkits: `content/toolkits.ts`
 - MVVMExpress docs: `content/mvvmexpress.ts` (MAUI), `content/wpf-mvvmexpress.ts` (WPF), and `content/desktop-mvvmexpress.ts` (Avalonia, Uno, WinUI)
 - LeakAnalyser docs: `content/leak-analyser.ts`
 - Performance docs: `content/performance.ts`

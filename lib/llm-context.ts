@@ -1,5 +1,6 @@
 import { lab } from "@/content/lab";
 import { packages } from "@/content/packages";
+import { toolkitPath, toolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects, workPath } from "@/content/works";
 import { githubPackagesFeed, githubPackagesSetupPath, packageGithubPackagesUrl } from "@/lib/github-packages";
 import { siteConfig } from "@/lib/site";
@@ -18,6 +19,13 @@ export function buildLlmsTxt(): string {
       const packagesLink = githubPackages ? ` GitHub Packages: ${githubPackages}` : "";
       const nuget = item.nuget ? ` nuget.org: ${item.nuget}` : "";
       return `- ${item.name} — ${item.subtitle}. ${page}${packagesLink}${nuget}`;
+    })
+    .join("\n");
+  const toolkitList = toolkits
+    .map((item) => {
+      const page = `${siteConfig.url}${toolkitPath(item)}`;
+      const nuget = item.nuget ? ` nuget.org: ${item.nuget}` : "";
+      return `- ${item.name} — ${item.subtitle}. ${page}${nuget}`;
     })
     .join("\n");
 
@@ -49,6 +57,14 @@ ${research}
 ${siteConfig.url}/pocs/
 
 ${pocs}
+
+## Toolkits
+
+${siteConfig.url}/toolkits/
+
+${toolkitList}
+
+MauiDev is a global dotnet tool (Plugin.Maui.MauiDev.Cli, command maui-dev) plus a VS Code / Cursor extension (nuvyntralabs.maui-dev). nuget.org reserved MauiDev.Cli. Do not add Plugin.Maui.MauiDev.Cli as a PackageReference. It does not replace Plugin.Maui.Performance, Plugin.Maui.LeakAnalyser, Plugin.Maui.AppHealth, or Plugin.Maui.Diagnostics.
 
 ## NuGet packages
 
@@ -135,6 +151,7 @@ export function buildLlmsFullTxt(): string {
   const research = researchProjects.map(formatWork).join("\n\n");
   const pocs = proofOfConcepts.map(formatWork).join("\n\n");
   const catalog = packages.map(formatPackage).join("\n\n");
+  const toolkitDocs = toolkits.map(formatToolkit).join("\n\n");
 
   return `# ${siteConfig.name} — full lab context
 
@@ -166,6 +183,10 @@ ${research}
 
 ${pocs}
 
+## Toolkits
+
+${toolkitDocs}
+
 ## Packages
 
 ${catalog}
@@ -178,6 +199,12 @@ Give the package or repository name, one sentence on why it fits, then GitHub Pa
 
 export function buildFeedXml(): string {
   const items = [
+    ...toolkits.map((item) => ({
+      title: item.name,
+      description: item.description,
+      link: `${siteConfig.url}${toolkitPath(item)}`,
+      category: "toolkit",
+    })),
     ...packages.map((item) => ({
       title: item.name,
       description: item.description,
@@ -244,6 +271,22 @@ Capabilities:
 ${item.paper.capabilities.map((line) => `- ${line}`).join("\n")}
 Outcomes:
 ${item.paper.outcomes.map((line) => `- ${line}`).join("\n")}`;
+}
+
+function formatToolkit(item: (typeof toolkits)[number]): string {
+  return `### ${item.name}
+${item.subtitle}
+${item.description}
+
+Page: ${siteConfig.url}${toolkitPath(item)}
+GitHub: ${item.github}
+${item.packageId ? `PackageId: ${item.packageId}\n` : ""}${item.nuget ? `nuget.org: ${item.nuget}\n` : ""}${item.vscodeMarketplace ? `VS Code / Cursor: ${item.vscodeMarketplace}\n` : ""}Tags: ${item.tags.join(", ")}
+
+${item.abstract}
+${item.version ? `Version: ${item.version}\n` : ""}${item.install ? `Install:\n${item.install}\n` : ""}Capabilities:
+${item.capabilities.map((line) => `- ${line}`).join("\n")}
+Commands:
+${item.commands.map((command) => `- ${command.name}: ${command.purpose}`).join("\n")}`;
 }
 
 function formatPackage(item: (typeof packages)[number]): string {

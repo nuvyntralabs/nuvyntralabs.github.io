@@ -7,6 +7,9 @@
     <loc>https://nuvyntralabs.github.io/packages/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/getting-started/</loc>
   </url>
   <url>
@@ -68,6 +71,9 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/pocs/plugin-firebase-analytics/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/maui-dev/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/maui-essentials/</loc>

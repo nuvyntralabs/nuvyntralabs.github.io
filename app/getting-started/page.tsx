@@ -193,7 +193,32 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">7. Browse the full catalog</h2>
+          <h2 className="font-display text-2xl font-semibold">7. Diagnose the machine and project</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Install the{" "}
+            <Link href="/toolkits/maui-dev/" className="font-medium text-lavender-700 hover:text-lavender-900">
+              MauiDev
+            </Link>{" "}
+            global tool, then run <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">maui-dev doctor</code>.
+            It checks SDK, workloads, Android SDK, JDK, Xcode, TFMs, permissions, and duplicate resources.
+            The VS Code / Cursor extension{" "}
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">nuvyntralabs.maui-dev</code>{" "}
+            shells out to the same CLI. The package ID is{" "}
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.MauiDev.Cli</code>
+            {" "}
+            — nuget.org reserved <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">MauiDev.Cli</code>.
+            Do not add it as a PackageReference.
+          </p>
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+            <code>{`dotnet tool install -g Plugin.Maui.MauiDev.Cli
+maui-dev doctor
+maui-dev doctor --fix --dry-run
+maui-dev analyze --ci`}</code>
+          </pre>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">8. Browse the full catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The suite map is{" "}
             <Link href="/packages/maui-essentials/" className="font-medium text-lavender-700 hover:text-lavender-900">

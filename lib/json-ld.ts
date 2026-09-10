@@ -1,4 +1,5 @@
 import type { PackageDoc } from "@/content/packages";
+import { toolkitPath, type ToolkitDoc } from "@/content/toolkits";
 import { workPath, type WorkItem } from "@/content/works";
 import { siteConfig } from "@/lib/site";
 import { packageGithubPackagesUrl } from "@/lib/github-packages";
@@ -137,6 +138,42 @@ export function packageGuideJsonLd(
       { name: "Products", path: "/packages/" },
       { name: pkg.name, path: `/packages/${pkg.slug}/` },
       { name: label, path: pagePath },
+    ]),
+  ];
+}
+
+export function toolkitJsonLd(toolkit: ToolkitDoc) {
+  const path = toolkitPath(toolkit);
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": ["SoftwareApplication", "SoftwareSourceCode"],
+      name: toolkit.name,
+      alternateName: toolkit.title,
+      description: toolkit.description,
+      url: `${siteConfig.url}${path}`,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Windows, macOS, Linux",
+      programmingLanguage: toolkit.language ?? "C#",
+      codeRepository: toolkit.github,
+      downloadUrl: toolkit.nuget ?? toolkit.github,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      keywords: toolkit.tags.join(", "),
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: "Toolkits", path: "/toolkits/" },
+      { name: toolkit.name, path },
     ]),
   ];
 }

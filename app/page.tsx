@@ -2,8 +2,9 @@ import Link from "next/link";
 import { ArrowRight, Beaker, FlaskConical, Package } from "lucide-react";
 import { lab } from "@/content/lab";
 import { nugetPackages, packages } from "@/content/packages";
+import { toolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects } from "@/content/works";
-import { PackageCard, PocCard, ResearchCard } from "@/components/work-card";
+import { PackageCard, PocCard, ResearchCard, ToolkitCard } from "@/components/work-card";
 import { SectionIntro } from "@/components/section-intro";
 import { CtaBand } from "@/components/cta-band";
 
@@ -159,40 +160,59 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section id="research" className="bg-lavender-50/60">
+      <section id="toolkits" className="bg-lavender-50/60">
         <div className="container py-16 sm:py-20">
           <SectionIntro
-            eyebrow="Research"
-            title="Investigations that become products"
-            description="Inspection, calling, GPS accuracy, and Xamarin bindings — documented as research, not flattened into a plugin list."
-            href="/research/"
-            cta="All research"
+            eyebrow="Toolkits"
+            title="Diagnose before you ship"
+            description="MauiDev is a maui-dev CLI plus a VS Code / Cursor extension. It reads the project, can apply a small allow-list of fixes, and emits JSON/SARIF for CI."
+            href="/toolkits/"
+            cta="All toolkits"
           />
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {researchProjects.slice(0, 6).map((work) => (
-              <li key={work.slug}>
-                <ResearchCard work={work} />
+            {toolkits.map((item) => (
+              <li key={item.slug}>
+                <ToolkitCard item={item} />
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section id="pocs" className="container py-16 sm:py-20">
+      <section id="research" className="container py-16 sm:py-20">
         <SectionIntro
-          eyebrow="Proofs of concept"
-          title="Public proofs, then packages"
-          description="Short prototypes and maintained forks. Evaluate the idea here; adopt the NuGet package when the pattern is reusable."
-          href="/pocs/"
-          cta="All POCs"
+          eyebrow="Research"
+          title="Investigations that become products"
+          description="Inspection, calling, GPS accuracy, and Xamarin bindings — documented as research, not flattened into a plugin list."
+          href="/research/"
+          cta="All research"
         />
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {proofOfConcepts.map((work) => (
+          {researchProjects.slice(0, 6).map((work) => (
             <li key={work.slug}>
-              <PocCard work={work} />
+              <ResearchCard work={work} />
             </li>
           ))}
         </ul>
+      </section>
+
+      <section id="pocs" className="bg-lavender-50/60">
+        <div className="container py-16 sm:py-20">
+          <SectionIntro
+            eyebrow="Proofs of concept"
+            title="Public proofs, then packages"
+            description="Short prototypes and maintained forks. Evaluate the idea here; adopt the NuGet package when the pattern is reusable."
+            href="/pocs/"
+            cta="All POCs"
+          />
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {proofOfConcepts.map((work) => (
+              <li key={work.slug}>
+                <PocCard work={work} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <CtaBand />

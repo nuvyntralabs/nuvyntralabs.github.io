@@ -4,6 +4,7 @@ import { allDesktopGuideHrefs } from "../content/desktop-mvvmexpress";
 import { allGuideHrefs } from "../content/mvvmexpress-guide";
 import { allWpfGuideHrefs } from "../content/wpf-mvvmexpress-guide";
 import { packages } from "../content/packages";
+import { toolkits } from "../content/toolkits";
 import { proofOfConcepts, researchProjects } from "../content/works";
 import { siteConfig } from "./site";
 
@@ -11,6 +12,7 @@ export function sitemapUrls(): string[] {
   const paths = [
     "/",
     "/packages/",
+    "/toolkits/",
     "/getting-started/",
     "/getting-started/github-packages/",
     "/getting-started/hardening/",
@@ -20,6 +22,7 @@ export function sitemapUrls(): string[] {
     "/contact/",
     ...researchProjects.map((item) => `/research/${item.slug}/`),
     ...proofOfConcepts.map((item) => `/pocs/${item.slug}/`),
+    ...toolkits.map((item) => `/toolkits/${item.slug}/`),
     ...packages.map((item) => `/packages/${item.slug}/`),
     ...packages.flatMap((item) =>
       item.guides

@@ -6,7 +6,7 @@ export const lab = {
     "We research hard mobile problems, prove them in public, and publish the reusable pieces as focused .NET MAUI packages.",
   about: [
     "Nuvyntra Labs is an independent applied R&D company. We work on the mobile infrastructure that field, inspection, and always-connected apps actually depend on — location, connectivity, offline sync, voice, and device security.",
-    "Research, public proofs of concept, and production NuGet packages each have their own home here so the catalog can grow without burying the rest. Client delivery and professional experience stay on the founder's site.",
+    "Research, public proofs of concept, production NuGet packages, and developer toolkits each have their own home here so the catalog can grow without burying the rest. Client delivery and professional experience stay on the founder's site.",
   ],
   audience:
     "Product teams building .NET MAUI apps for Android and iOS who need focused plugins — not a mega-SDK — and teams evaluating longer research in inspection, VoIP, and field accuracy.",

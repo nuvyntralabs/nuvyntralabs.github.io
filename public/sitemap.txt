@@ -1,5 +1,6 @@
 https://nuvyntralabs.github.io/
 https://nuvyntralabs.github.io/packages/
+https://nuvyntralabs.github.io/toolkits/
 https://nuvyntralabs.github.io/getting-started/
 https://nuvyntralabs.github.io/getting-started/github-packages/
 https://nuvyntralabs.github.io/getting-started/hardening/
@@ -21,6 +22,7 @@ https://nuvyntralabs.github.io/pocs/file-processor-test/
 https://nuvyntralabs.github.io/pocs/callkit-sample/
 https://nuvyntralabs.github.io/pocs/html-label-plugin/
 https://nuvyntralabs.github.io/pocs/plugin-firebase-analytics/
+https://nuvyntralabs.github.io/toolkits/maui-dev/
 https://nuvyntralabs.github.io/packages/maui-essentials/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/
 https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/

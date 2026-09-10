@@ -1,14 +1,16 @@
 import Link from "next/link";
-import { Beaker, FlaskConical, Package } from "lucide-react";
+import { Beaker, FlaskConical, Package, Wrench } from "lucide-react";
 import { workPath, type WorkItem } from "@/content/works";
 import type { PackageDoc } from "@/content/packages";
+import { toolkitPath, type ToolkitDoc } from "@/content/toolkits";
 
-type CardKind = "research" | "poc" | "package";
+type CardKind = "research" | "poc" | "package" | "toolkit";
 
 const icons = {
   research: Beaker,
   poc: FlaskConical,
   package: Package,
+  toolkit: Wrench,
 } as const;
 
 export function WorkCard({
@@ -86,6 +88,19 @@ export function PackageCard({ item }: { item: PackageDoc }) {
       href={`/packages/${item.slug}/`}
       kind="package"
       eyebrow={item.group}
+      title={item.name}
+      subtitle={item.subtitle}
+      tags={item.tags}
+    />
+  );
+}
+
+export function ToolkitCard({ item }: { item: ToolkitDoc }) {
+  return (
+    <WorkCard
+      href={toolkitPath(item)}
+      kind="toolkit"
+      eyebrow="Toolkit"
       title={item.name}
       subtitle={item.subtitle}
       tags={item.tags}

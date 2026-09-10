@@ -53,6 +53,15 @@ export const commentRepos: Record<string, CommentRepo> = {
     repoId: "R_kgDOGaujvA",
     hasIssues: true,
   },
+  "nuvyntralabs/MauiDev": {
+    repo: "nuvyntralabs/MauiDev",
+    repoId: "R_kgDOUU3G8g",
+    hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUU3G8s4DFTO2",
+    },
+  },
   "nuvyntralabs/MauiEssentials": {
     repo: "nuvyntralabs/MauiEssentials",
     repoId: "R_kgDOUGYUIg",

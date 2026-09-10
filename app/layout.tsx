@@ -40,6 +40,10 @@ export const metadata: Metadata = {
     "Plugin.Uno.MVVMExpress",
     "Plugin.WinUI.MVVMExpress",
     "MVVMExpress",
+    "MauiDev",
+    "Plugin.Maui.MauiDev.Cli",
+    "MauiDev.Cli",
+    "maui-dev",
   ],
   alternates: {
     canonical: "/",
