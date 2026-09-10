@@ -772,8 +772,8 @@ export const packages: PackageDoc[] = [
     "slug": "plugin-maui-performance",
     "name": "Plugin.Maui.Performance",
     "title": "Plugin.Maui.Performance",
-    "subtitle": "Lightweight profiler for startup, pages, APIs, and memory",
-    "description": "A lightweight MAUI profiler that times startup, page loads, API calls, image loading, SQLite, and memory so regressions are visible on device.",
+    "subtitle": "On-device profiler plus maui profile / maui-perf wrapper",
+    "description": "A lightweight MAUI profiler that times startup, page loads, API calls, image loading, SQLite, and memory, and wraps maui profile so a startup .nettrace can stop on first frame or a named scenario.",
     "github": "https://github.com/nuvyntralabs/Plugin.Maui.Performance",
     "nuget": "https://www.nuget.org/packages/Plugin.Maui.Performance",
     "language": "C#",
@@ -783,18 +783,30 @@ export const packages: PackageDoc[] = [
       ".NET MAUI",
       "Performance",
       "Profiling",
+      "maui profile",
       "C#"
     ],
-    "abstract": "Plugin.Maui.Performance is a lightweight on-device profiler for MAUI. It measures app startup, page timing, API latency, image loading, database operations, UI rendering, and memory so teams can see a scoreboard like 'App Startup 1.82 sec' without attaching a full IDE profiler in the field. It is not a leak detector — use LeakAnalyser for WeakReference liveness after a page is popped.",
-    "version": "1.0.6",
+    "abstract": "Plugin.Maui.Performance is a lightweight on-device profiler for MAUI on Android and iOS. It measures app startup, page timing, API latency, image loading, database operations, UI rendering, and memory so teams can see a scoreboard like 'App Startup 1.82 sec' without attaching a full IDE profiler in the field. 1.0.7 adds MauiProfile — an in-app wrapper for maui profile / Microsoft.Maui.ProfilingHelper — and the maui-perf dotnet tool (Plugin.Maui.Performance.Cli) so a startup .nettrace can stop on first frame or a named scenario. It is not a leak detector — use LeakAnalyser for WeakReference liveness after a page is popped.",
+    "version": "1.0.7",
     "releaseNotes": [
-      "1.0.6. Documented pack artifact matches the shipped package. No API change."
+      "1.0.7. MauiProfile wraps maui profile / MauiProfilingHelper with first-frame, first-page, or named-scenario stop, marks, and command helpers.",
+      "Plugin.Maui.Performance.Cli ships maui-perf at the same 1.0.7 version (android / ios aliases, 30s durations, official StartupComplete stopping events)."
     ],
     "capabilities": [
-      "Startup and page timing.",
-      "API and image-load measurement.",
-      "SQLite and memory snapshots."
-    ]
+      "Startup, page, navigation, API, image, render, and memory scoreboard.",
+      "Named traces: Trace, TraceApi, TraceDatabase, Measure, and FormatReport.",
+      "MauiProfile stops maui profile startup on first frame or a named scenario.",
+      "maui-perf (Plugin.Maui.Performance.Cli) wraps maui profile with shorter commands.",
+      "Android and iOS. maui profile / maui-perf: Android device and iOS simulator only."
+    ],
+    "guides": {
+      "technical": "/packages/plugin-maui-performance/docs/",
+      "integration": "/packages/plugin-maui-performance/integration/",
+      "comparison": "/packages/plugin-maui-performance/comparison/",
+      "technicalSummary": "Automatic hooks, named traces, MauiProfile stop modes, the report, and Android / iOS limits.",
+      "integrationSummary": "Install 1.0.7, UseMauiPerformance, HTTP handler, MauiProfile, and maui-perf startup / screen.",
+      "comparisonSummary": "Versus APM, EventCounters, raw maui profile, Diagnostics, LeakAnalyser, and Observability."
+    }
   },
   {
     "slug": "plugin-maui-diagnostics",

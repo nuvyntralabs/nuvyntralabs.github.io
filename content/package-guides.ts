@@ -29,6 +29,21 @@ import {
   leakAnalyserTechnicalSections,
   leakAnalyserTechnicalTitle,
 } from "@/content/leak-analyser";
+import {
+  performanceComparisonDescription,
+  performanceComparisonHref,
+  performanceComparisonSections,
+  performanceComparisonTitle,
+  performanceDocsHref,
+  performanceIntegrationDescription,
+  performanceIntegrationHref,
+  performanceIntegrationSections,
+  performanceIntegrationTitle,
+  performanceSlug,
+  performanceTechnicalDescription,
+  performanceTechnicalSections,
+  performanceTechnicalTitle,
+} from "@/content/performance";
 import { comparisonHref, comparisonSections } from "@/content/mvvmexpress-comparison";
 import { docsBase, getGuideTopic, integrationHref } from "@/content/mvvmexpress-guide";
 import { integrationSections, mvvmExpressSlug } from "@/content/mvvmexpress";
@@ -181,6 +196,31 @@ export function getPackageGuidePage(slug: string, kind: PackageGuideKind): Packa
       description: leakAnalyserComparisonDescription,
       sections: leakAnalyserComparisonSections,
       currentHref: leakAnalyserComparisonHref,
+    };
+  }
+
+  if (slug === performanceSlug) {
+    if (kind === "docs") {
+      return {
+        title: performanceTechnicalTitle,
+        description: performanceTechnicalDescription,
+        sections: performanceTechnicalSections,
+        currentHref: performanceDocsHref,
+      };
+    }
+    if (kind === "integration") {
+      return {
+        title: performanceIntegrationTitle,
+        description: performanceIntegrationDescription,
+        sections: performanceIntegrationSections,
+        currentHref: performanceIntegrationHref,
+      };
+    }
+    return {
+      title: performanceComparisonTitle,
+      description: performanceComparisonDescription,
+      sections: performanceComparisonSections,
+      currentHref: performanceComparisonHref,
     };
   }
 

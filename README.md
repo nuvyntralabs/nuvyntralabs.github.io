@@ -32,6 +32,10 @@ Professional experience stays on
 | `/packages/plugin-maui-leak-analyser/` | LeakAnalyser overview |
 | `/packages/plugin-maui-leak-analyser/docs/` | LeakAnalyser technical documentation |
 | `/packages/plugin-maui-leak-analyser/integration/` | LeakAnalyser getting started |
+| `/packages/plugin-maui-performance/` | Performance overview |
+| `/packages/plugin-maui-performance/docs/` | Performance technical documentation |
+| `/packages/plugin-maui-performance/integration/` | Performance getting started |
+| `/packages/plugin-maui-performance/comparison/` | Performance vs APM, Diagnostics, and maui profile |
 | `/packages/plugin-maui-httpforge/` | HttpForge overview |
 | `/packages/plugin-maui-httpforge/docs/` | HttpForge technical documentation |
 | `/packages/plugin-maui-httpforge/integration/` | HttpForge getting started |
@@ -73,6 +77,7 @@ have Discussions. A few older POCs still need Issues or Discussions enabled.
 - NuGet catalog: `content/packages.ts`
 - MVVMExpress docs: `content/mvvmexpress.ts` (MAUI), `content/wpf-mvvmexpress.ts` (WPF), and `content/desktop-mvvmexpress.ts` (Avalonia, Uno, WinUI)
 - LeakAnalyser docs: `content/leak-analyser.ts`
+- Performance docs: `content/performance.ts`
 - HttpForge docs: `content/http-forge.ts`
 - Lab copy: `content/lab.ts`
 - Comment repo IDs: `lib/comment-repos.ts`

@@ -113,6 +113,12 @@ WinUI MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.co
 LeakAnalyser documentation: ${siteConfig.url}/packages/plugin-maui-leak-analyser/docs/
 LeakAnalyser getting started: ${siteConfig.url}/packages/plugin-maui-leak-analyser/integration/
 LeakAnalyser comparison: ${siteConfig.url}/packages/plugin-maui-leak-analyser/comparison/
+Performance documentation: ${siteConfig.url}/packages/plugin-maui-performance/docs/
+Performance getting started: ${siteConfig.url}/packages/plugin-maui-performance/integration/
+Performance comparison: ${siteConfig.url}/packages/plugin-maui-performance/comparison/
+Performance current NuGet: 1.0.7 (MauiProfile + maui-perf)
+Performance CLI nuget.org: https://www.nuget.org/packages/Plugin.Maui.Performance.Cli
+Performance CLI GitHub Packages: https://github.com/nuvyntralabs/Plugin.Maui.Performance/pkgs/nuget/Plugin.Maui.Performance.Cli
 HttpForge documentation: ${siteConfig.url}/packages/plugin-maui-httpforge/docs/
 HttpForge getting started: ${siteConfig.url}/packages/plugin-maui-httpforge/integration/
 HttpForge comparison: ${siteConfig.url}/packages/plugin-maui-httpforge/comparison/

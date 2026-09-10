@@ -463,7 +463,7 @@ export const leakAnalyserComparisonSections: DocSection[] = [
         rows: [
           ["Page / view still alive after pop", "Plugin.Maui.LeakAnalyser"],
           ["Crash, ANR, pre-crash breadcrumbs", "Plugin.Maui.Diagnostics"],
-          ["Startup / page / API timings and memory scoreboard", "Plugin.Maui.Performance"],
+          ["Startup / page / API timings, memory scoreboard, or maui profile wrap", "Plugin.Maui.Performance"],
           ["Umbrella export of sibling events", "Plugin.Maui.Observability"],
           ["Unit-test WeakReference for ViewModels", "Plugin.Maui.MVVMExpress.Testing LeakProbe"],
         ],

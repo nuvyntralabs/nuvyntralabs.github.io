@@ -79,6 +79,15 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-geolocator/</loc>
   </url>
   <url>
@@ -211,6 +220,33 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/comparison/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/integration/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/comparison/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/integration/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/comparison/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/integration/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/comparison/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/docs/</loc>
   </url>
   <url>
@@ -218,6 +254,15 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/comparison/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-performance/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-performance/integration/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-performance/comparison/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/docs/</loc>
@@ -347,5 +392,176 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/docs/roadmap/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/templates/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/ide-extensions/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/viewmodels/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/commands/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/dependency-injection/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/messaging/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/navigation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/chat-host/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/dialogs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/validation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/forms/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/lists/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/packages/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/composition/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/platforms/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/pipeline/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/testing/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/memory/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-avalonia-mvvmexpress/docs/roadmap/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/templates/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/ide-extensions/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/viewmodels/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/commands/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/dependency-injection/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/messaging/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/navigation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/chat-host/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/dialogs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/validation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/forms/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/lists/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/packages/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/composition/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/platforms/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/pipeline/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/testing/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/memory/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/docs/roadmap/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/templates/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/ide-extensions/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/viewmodels/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/commands/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/dependency-injection/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/messaging/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/navigation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/chat-host/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/dialogs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/validation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/forms/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/lists/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/packages/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/composition/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/platforms/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/pipeline/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/testing/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/memory/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/roadmap/</loc>
   </url>
 </urlset>
