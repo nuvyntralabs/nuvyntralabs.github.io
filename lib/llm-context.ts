@@ -104,7 +104,7 @@ Avalonia MVVMExpress getting started: ${siteConfig.url}/packages/plugin-avalonia
 Avalonia MVVMExpress project template (dotnet new avalonia-mvvmexpress): ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/docs/templates/
 Avalonia MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/docs/ide-extensions/
 Avalonia MVVMExpress comparison: ${siteConfig.url}/packages/plugin-avalonia-mvvmexpress/comparison/
-Avalonia MVVMExpress current NuGet: 1.0.0 (first stable Avalonia family; Frame host; independent of Plugin.Maui.MVVMExpress)
+Avalonia MVVMExpress current NuGet: 1.0.1 (README markdown on nuget.org; 1.0.0 remains first stable Avalonia family; Frame host; independent of Plugin.Maui.MVVMExpress)
 Avalonia MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Avalonia.MVVMExpress.Templates
 Avalonia MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.avalonia-mvvmexpress
 Avalonia MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.AvaloniaMVVMExpress
@@ -113,7 +113,7 @@ Uno MVVMExpress getting started: ${siteConfig.url}/packages/plugin-uno-mvvmexpre
 Uno MVVMExpress project template (dotnet new uno-mvvmexpress): ${siteConfig.url}/packages/plugin-uno-mvvmexpress/docs/templates/
 Uno MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/docs/ide-extensions/
 Uno MVVMExpress comparison: ${siteConfig.url}/packages/plugin-uno-mvvmexpress/comparison/
-Uno MVVMExpress current NuGet: 1.0.0 (first stable Uno Platform family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
+Uno MVVMExpress current NuGet: 1.0.1 (README markdown on nuget.org; 1.0.0 remains first stable Uno Platform family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
 Uno MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.Uno.MVVMExpress.Templates
 Uno MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.plugin-uno-mvvmexpress
 Uno MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.UnoMVVMExpress
@@ -122,7 +122,7 @@ WinUI MVVMExpress getting started: ${siteConfig.url}/packages/plugin-winui-mvvme
 WinUI MVVMExpress project template (dotnet new winui-mvvmexpress): ${siteConfig.url}/packages/plugin-winui-mvvmexpress/docs/templates/
 WinUI MVVMExpress IDE extensions: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/docs/ide-extensions/
 WinUI MVVMExpress comparison: ${siteConfig.url}/packages/plugin-winui-mvvmexpress/comparison/
-WinUI MVVMExpress current NuGet: 1.0.0 (first stable WinUI 3 family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
+WinUI MVVMExpress current NuGet: 1.0.1 (README markdown on nuget.org; 1.0.0 remains first stable WinUI 3 family; Frame navigation; independent of Plugin.Maui.MVVMExpress)
 WinUI MVVMExpress templates nuget.org: https://www.nuget.org/packages/Plugin.WinUI.MVVMExpress.Templates
 WinUI MVVMExpress VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.winui-mvvmexpress
 WinUI MVVMExpress Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.WinUIMVVMExpress

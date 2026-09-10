@@ -136,7 +136,7 @@ export function getPackageGuidePage(slug: string, kind: PackageGuideKind): Packa
     if (kind === "integration") {
       return {
         title: `Get started with ${desktop.platform.label} MVVMExpress`,
-        description: `From dotnet new ${desktop.platform.appTemplate}, a Marketplace IDE extension, or NuGet install to a testable ViewModel: 1.0.0 templates, first screen, UseFrameNavigation, Playground clone, FakeNavigator / LeakProbe, and forms.`,
+        description: `From dotnet new ${desktop.platform.appTemplate}, a Marketplace IDE extension, or NuGet install to a testable ViewModel: ${desktop.platform.version} templates, first screen, UseFrameNavigation, Playground clone, FakeNavigator / LeakProbe, and forms.`,
         sections: desktop.integrationSections,
         currentHref: desktop.integrationHref,
       };

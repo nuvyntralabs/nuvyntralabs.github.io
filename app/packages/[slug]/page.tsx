@@ -146,7 +146,7 @@ export default async function PackagePage({ params }: PageProps) {
       {desktop ? (
         <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
           <p className="text-sm font-semibold text-lavender-900">
-            1.0.0 — first stable {desktop.platform.label} family
+            {desktop.platform.version} — current {desktop.platform.label} family (nuget.org README markdown)
           </p>
           <p className="mt-1 text-sm leading-relaxed text-lavender-800">
             Scaffold with <code>dotnet new {desktop.platform.appTemplate}</code>, or install the{" "}

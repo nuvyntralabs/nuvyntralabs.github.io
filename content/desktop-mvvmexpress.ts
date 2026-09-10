@@ -57,6 +57,7 @@ export interface DesktopMvvmPlatform {
   comparisonPeers: string;
   comparisonNav: string;
   virtualize: string;
+  version: string;
 }
 
 const avalonia: DesktopMvvmPlatform = {
@@ -72,7 +73,7 @@ const avalonia: DesktopMvvmPlatform = {
   description:
     "A modular MVVM framework for Avalonia on .NET 10: observable models, async commands, bindable AsyncState, lifecycle-aware cancellation, typed Frame navigation, dialogs, overlay toast, validation, pagination, forms, and a testing package. 1.0.0 is the first stable Avalonia family — independent of Plugin.Maui.MVVMExpress and Plugin.Wpf.MVVMExpress, with the same Core contract and no Shell host.",
   abstract:
-    "Avalonia MVVMExpress is the application shell for production Avalonia apps on Windows, macOS, and Linux. CommunityToolkit.Mvvm covers properties and commands, and ReactiveUI covers observable pipelines. A desktop app often needs both plus bindable async state, lifecycle-aware cancellation, and typed Frame navigation — without taking overlapping frameworks. Core targets net10.0 and does not reference Avalonia or MAUI. Host / Navigation / Dialogs also target net10.0. Current NuGet is 1.0.0. Scaffold with Plugin.Avalonia.MVVMExpress.Templates (dotnet new avalonia-mvvmexpress / avalonia-mvvmexpress-page), or install the Avalonia MVVMExpress listings on the Visual Studio Code and Visual Studio Marketplaces. This is not Plugin.Maui.MVVMExpress or Plugin.Wpf.MVVMExpress: there is no PackageReference between the families. UseAvaloniaMvvmExpress registers AvaloniaDispatcherMainThread and AvaloniaWindowContext. UseFrameNavigation maps ViewModels onto Plugin.Avalonia.MVVMExpress.Controls.Frame named NavigationHost. UseAuth<TChallenge>() wraps GuardedNavigator. Toasts draw on an overlay — never Window.Content. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth are out of 1.0.",
+    "Avalonia MVVMExpress is the application shell for production Avalonia apps on Windows, macOS, and Linux. CommunityToolkit.Mvvm covers properties and commands, and ReactiveUI covers observable pipelines. A desktop app often needs both plus bindable async state, lifecycle-aware cancellation, and typed Frame navigation — without taking overlapping frameworks. Core targets net10.0 and does not reference Avalonia or MAUI. Host / Navigation / Dialogs also target net10.0. Current NuGet is 1.0.1. Scaffold with Plugin.Avalonia.MVVMExpress.Templates (dotnet new avalonia-mvvmexpress / avalonia-mvvmexpress-page), or install the Avalonia MVVMExpress listings on the Visual Studio Code and Visual Studio Marketplaces. This is not Plugin.Maui.MVVMExpress or Plugin.Wpf.MVVMExpress: there is no PackageReference between the families. UseAvaloniaMvvmExpress registers AvaloniaDispatcherMainThread and AvaloniaWindowContext. UseFrameNavigation maps ViewModels onto Plugin.Avalonia.MVVMExpress.Controls.Frame named NavigationHost. UseAuth<TChallenge>() wraps GuardedNavigator. Toasts draw on an overlay — never Window.Content. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth are out of 1.0.",
   capabilities: [
     "ObservableModel, ViewModel lifecycle, and ViewModelCancellationToken cancelled on dispose.",
     "Sync and async commands with UI-thread marshal, weak CanExecuteChanged, no-throw ICommand.Execute, timeout, retry, debounce, and throttle.",
@@ -91,8 +92,8 @@ const avalonia: DesktopMvvmPlatform = {
     "VS Code (Create New App / Add Page) and Visual Studio 2022+ (Tools → Avalonia MVVMExpress; File → New → Project) Marketplace wrappers.",
   ],
   releaseNotes: [
+    "1.0.1. Host / Navigation / Dialogs / Templates README files pack as real markdown so nuget.org renders them. IDE extensions pin the 1.0.1 template pack.",
     "1.0.0. First stable Avalonia family. Frame host, modal Window dialogs, overlay toasts, validation, pagination, templates, and Visual Studio Code / Visual Studio wrappers.",
-    "Templates and Marketplace IDE wrappers pin Plugin.Avalonia.MVVMExpress.Templates 1.0.0.",
     "Independent of Plugin.Maui.MVVMExpress and Plugin.Wpf.MVVMExpress. Core contract aligns with MAUI 1.3; a ViewModel ports with a namespace swap. Breaking changes wait for 2.0.0.",
   ],
   useHost: "UseAvaloniaMvvmExpress",
@@ -108,6 +109,7 @@ const avalonia: DesktopMvvmPlatform = {
   appTemplate: "avalonia-mvvmexpress",
   pageTemplate: "avalonia-mvvmexpress-page",
   vscodeItem: "nuvyntralabs.avalonia-mvvmexpress",
+  version: "1.0.1",
   vscodeSearch: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.avalonia-mvvmexpress",
   vsSearch:
     "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.AvaloniaMVVMExpress",
@@ -180,7 +182,7 @@ const uno: DesktopMvvmPlatform = {
   description:
     "A modular MVVM framework for Uno Platform on .NET 10: observable models, async commands, bindable AsyncState, lifecycle-aware cancellation, typed Frame navigation, ContentDialog, overlay toast, validation, pagination, forms, and a testing package. 1.0.0 is the first stable Uno family — independent of Plugin.Maui.MVVMExpress and Plugin.Wpf.MVVMExpress, with the same Core contract and no Shell host.",
   abstract:
-    "Uno Platform MVVMExpress is the application shell for production Uno apps. CommunityToolkit.Mvvm covers properties and commands, Prism covers regions, and ReactiveUI covers observable pipelines. An Uno app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed Frame navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference Uno or MAUI. Host / Navigation / Dialogs target net10.0 and net10.0-desktop. Current NuGet is 1.0.0. Scaffold with Plugin.Uno.MVVMExpress.Templates (dotnet new uno-mvvmexpress / uno-mvvmexpress-page), or install the Uno MVVMExpress listings on the Visual Studio Code and Visual Studio Marketplaces. This is not Plugin.Maui.MVVMExpress or Plugin.Wpf.MVVMExpress: there is no PackageReference between the families. UseUnoMvvmExpress registers UnoDispatcherMainThread and UnoWindowContext. UseFrameNavigation maps ViewModels onto a Frame named NavigationHost. UseAuth<TChallenge>() wraps GuardedNavigator. Dialogs use ContentDialog. Toasts draw on an overlay — never Window.Content. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth are out of 1.0.",
+    "Uno Platform MVVMExpress is the application shell for production Uno apps. CommunityToolkit.Mvvm covers properties and commands, Prism covers regions, and ReactiveUI covers observable pipelines. An Uno app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed Frame navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference Uno or MAUI. Host / Navigation / Dialogs target net10.0 and net10.0-desktop. Current NuGet is 1.0.1. Scaffold with Plugin.Uno.MVVMExpress.Templates (dotnet new uno-mvvmexpress / uno-mvvmexpress-page), or install the Uno MVVMExpress listings on the Visual Studio Code and Visual Studio Marketplaces. This is not Plugin.Maui.MVVMExpress or Plugin.Wpf.MVVMExpress: there is no PackageReference between the families. UseUnoMvvmExpress registers UnoDispatcherMainThread and UnoWindowContext. UseFrameNavigation maps ViewModels onto a Frame named NavigationHost. UseAuth<TChallenge>() wraps GuardedNavigator. Dialogs use ContentDialog. Toasts draw on an overlay — never Window.Content. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth are out of 1.0.",
   capabilities: [
     "ObservableModel, ViewModel lifecycle, and ViewModelCancellationToken cancelled on dispose.",
     "Sync and async commands with UI-thread marshal, weak CanExecuteChanged, no-throw ICommand.Execute, timeout, retry, debounce, and throttle.",
@@ -199,8 +201,8 @@ const uno: DesktopMvvmPlatform = {
     "VS Code (Create New App / Add Page) and Visual Studio 2022+ (Tools → Uno MVVMExpress; File → New → Project) Marketplace wrappers.",
   ],
   releaseNotes: [
+    "1.0.1. Host / Navigation / Dialogs / Templates README files pack as real markdown so nuget.org renders them. IDE extensions pin the 1.0.1 template pack.",
     "1.0.0. First stable Uno Platform family. Frame navigation, ContentDialog, overlay toasts, validation, pagination, templates, and Visual Studio Code / Visual Studio wrappers.",
-    "Templates and Marketplace IDE wrappers pin Plugin.Uno.MVVMExpress.Templates 1.0.0.",
     "Independent of Plugin.Maui.MVVMExpress and Plugin.Wpf.MVVMExpress. Core contract aligns with MAUI 1.3; a ViewModel ports with a namespace swap. Breaking changes wait for 2.0.0.",
   ],
   useHost: "UseUnoMvvmExpress",
@@ -216,6 +218,7 @@ const uno: DesktopMvvmPlatform = {
   appTemplate: "uno-mvvmexpress",
   pageTemplate: "uno-mvvmexpress-page",
   vscodeItem: "nuvyntralabs.plugin-uno-mvvmexpress",
+  version: "1.0.1",
   vscodeSearch: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.plugin-uno-mvvmexpress",
   vsSearch:
     "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.UnoMVVMExpress",
@@ -285,7 +288,7 @@ const winui: DesktopMvvmPlatform = {
   description:
     "A modular MVVM framework for native WinUI 3 on .NET 10: observable models, async commands, bindable AsyncState, lifecycle-aware cancellation, typed Frame navigation, ContentDialog, overlay toast, validation, pagination, forms, and a testing package. 1.0.0 is the first stable WinUI family — independent of Plugin.Maui.MVVMExpress and Plugin.Wpf.MVVMExpress, with the same Core contract and no Shell host.",
   abstract:
-    "WinUI 3 MVVMExpress is the application shell for production native WinUI apps on Windows. CommunityToolkit.Mvvm covers properties and commands, Prism covers regions, and ReactiveUI covers observable pipelines. A desktop app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed Frame navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference WinUI or MAUI. Host / Navigation / Dialogs target net10.0-windows10.0.19041.0. Current NuGet is 1.0.0. Scaffold with Plugin.WinUI.MVVMExpress.Templates (dotnet new winui-mvvmexpress / winui-mvvmexpress-page), or install the WinUI 3 MVVMExpress listings on the Visual Studio Code and Visual Studio Marketplaces. This is not Plugin.Maui.MVVMExpress or Plugin.Wpf.MVVMExpress: there is no PackageReference between the families. UseWinUIMvvmExpress registers DispatcherQueueMainThread and WinUIWindowContext. UseFrameNavigation maps ViewModels onto a Frame named NavigationHost. UseAuth<TChallenge>() wraps GuardedNavigator. Dialogs use ContentDialog. Toasts draw on an overlay — never Window.Content. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth are out of 1.0.",
+    "WinUI 3 MVVMExpress is the application shell for production native WinUI apps on Windows. CommunityToolkit.Mvvm covers properties and commands, Prism covers regions, and ReactiveUI covers observable pipelines. A desktop app often needs all three plus bindable async state, lifecycle-aware cancellation, and typed Frame navigation — without taking three overlapping frameworks. Core targets net10.0 and does not reference WinUI or MAUI. Host / Navigation / Dialogs target net10.0-windows10.0.19041.0. Current NuGet is 1.0.1. Scaffold with Plugin.WinUI.MVVMExpress.Templates (dotnet new winui-mvvmexpress / winui-mvvmexpress-page), or install the WinUI 3 MVVMExpress listings on the Visual Studio Code and Visual Studio Marketplaces. This is not Plugin.Maui.MVVMExpress or Plugin.Wpf.MVVMExpress: there is no PackageReference between the families. UseWinUIMvvmExpress registers DispatcherQueueMainThread and WinUIWindowContext. UseFrameNavigation maps ViewModels onto a Frame named NavigationHost. UseAuth<TChallenge>() wraps GuardedNavigator. Dialogs use ContentDialog. Toasts draw on an overlay — never Window.Content. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth are out of 1.0.",
   capabilities: [
     "ObservableModel, ViewModel lifecycle, and ViewModelCancellationToken cancelled on dispose.",
     "Sync and async commands with UI-thread marshal, weak CanExecuteChanged, no-throw ICommand.Execute, timeout, retry, debounce, and throttle.",
@@ -304,8 +307,8 @@ const winui: DesktopMvvmPlatform = {
     "VS Code (Create New App / Add Page) and Visual Studio 2022+ (Tools → WinUI MVVMExpress; File → New → Project) Marketplace wrappers.",
   ],
   releaseNotes: [
+    "1.0.1. Host / Navigation / Dialogs / Templates README files pack as real markdown so nuget.org renders them. IDE extensions pin the 1.0.1 template pack.",
     "1.0.0. First stable WinUI 3 family. Frame navigation, ContentDialog, overlay toasts, validation, pagination, templates, and Visual Studio Code / Visual Studio wrappers.",
-    "Templates and Marketplace IDE wrappers pin Plugin.WinUI.MVVMExpress.Templates 1.0.0.",
     "Independent of Plugin.Maui.MVVMExpress and Plugin.Wpf.MVVMExpress. Core contract aligns with MAUI 1.3; a ViewModel ports with a namespace swap. Breaking changes wait for 2.0.0.",
   ],
   useHost: "UseWinUIMvvmExpress",
@@ -321,6 +324,7 @@ const winui: DesktopMvvmPlatform = {
   appTemplate: "winui-mvvmexpress",
   pageTemplate: "winui-mvvmexpress-page",
   vscodeItem: "nuvyntralabs.winui-mvvmexpress",
+  version: "1.0.1",
   vscodeSearch: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.winui-mvvmexpress",
   vsSearch:
     "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.WinUIMVVMExpress",
@@ -492,8 +496,8 @@ function buildTechnicalSections(platform: DesktopMvvmPlatform): DocSection[] {
       blocks: [
         {
           type: "callout",
-          title: "1.0.0",
-          text: `Current packages are 1.0.0 (2026-09-09). First stable ${label} family. Public APIs match the Core contract documented in API-DESIGN.md: ObservableModel, ViewModel, commands, AsyncState, Outcome, INavigator, UseAuth<TChallenge>(), Frame navigation, dialogs, validation, pagination, templates, and Marketplace IDE wrappers. Host / Navigation / Dialogs target ${platform.hostTfms}. Core, Validation, Pagination, and Testing stay net10.0. This is not a type-forward of Plugin.Maui.MVVMExpress.* or Plugin.Wpf.MVVMExpress.* — namespaces start with ${prefix}. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth wait for a later release.`,
+          title: platform.version,
+          text: `Current packages are ${platform.version} (2026-09-10). Host / Navigation / Dialogs / Templates README files pack as real markdown so nuget.org renders them. 1.0.0 remains the first stable ${label} family. Public APIs match the Core contract documented in API-DESIGN.md: ObservableModel, ViewModel, commands, AsyncState, Outcome, INavigator, UseAuth<TChallenge>(), Frame navigation, dialogs, validation, pagination, templates, and Marketplace IDE wrappers. Host / Navigation / Dialogs target ${platform.hostTfms}. Core, Validation, Pagination, and Testing stay net10.0. This is not a type-forward of Plugin.Maui.MVVMExpress.* or Plugin.Wpf.MVVMExpress.* — namespaces start with ${prefix}. Source generators, Reactive, Shell, UseDeepLinks, and UseSecureSessionAuth wait for a later release.`,
         },
         {
           type: "p",
@@ -782,8 +786,8 @@ function buildIntegrationSections(platform: DesktopMvvmPlatform): DocSection[] {
       blocks: [
         {
           type: "callout",
-          title: "1.0.0 project template",
-          text: `Current packages are 1.0.0. Install without --prerelease. Scaffold with ${platform.templates}, the Visual Studio Code or Visual Studio Marketplace listing, or add packages to an existing ${label} app. There is no Shell — the template puts a ${platform.frameType} in the main window. ${platform.toastSetup}`,
+          title: `${platform.version} project template`,
+          text: `Current packages are ${platform.version}. Install without --prerelease. Scaffold with ${platform.templates}, the Visual Studio Code or Visual Studio Marketplace listing, or add packages to an existing ${label} app. There is no Shell — the template puts a ${platform.frameType} in the main window. ${platform.toastSetup}`,
         },
         {
           type: "link",
@@ -1515,8 +1519,8 @@ function buildGuideTopics(platform: DesktopMvvmPlatform, technical: DocSection[]
           blocks: [
             {
               type: "callout",
-              title: "1.0.0",
-              text: `${platform.templates} ships with 1.0.0. It is a dotnet new pack, not a PackageReference. The generated app pins the 1.0.0 runtime packages and maps pages in App startup. This is not Plugin.Maui.MVVMExpress.Templates.`,
+              title: platform.version,
+              text: `${platform.templates} ships with ${platform.version}. It is a dotnet new pack, not a PackageReference. The generated app pins the ${platform.version} runtime packages and maps pages in App startup. This is not Plugin.Maui.MVVMExpress.Templates.`,
             },
             {
               type: "code",
@@ -1528,13 +1532,13 @@ dotnet test MyApp.Tests`,
             {
               type: "link",
               note: "nuget.org:",
-              label: `${platform.templates} 1.0.0`,
+              label: `${platform.templates} ${platform.version}`,
               href: nuget(platform.templates),
             },
             {
               type: "link",
               note: "GitHub Packages:",
-              label: `${platform.templates} 1.0.0`,
+              label: `${platform.templates} ${platform.version}`,
               href: `${platform.github}/pkgs/nuget/${platform.templates}`,
             },
             {
@@ -1640,7 +1644,7 @@ builder.Services.AddCatalog();`,
             {
               type: "callout",
               title: "Marketplace listings",
-              text: `The extensions do not copy the scaffold. They install ${platform.templates} and run the same dotnet new commands as the CLI. Extension version is 1.0.0, matching the template pack. Requires the .NET SDK on PATH. This is not the MAUI MVVMExpress extension.`,
+              text: `The extensions do not copy the scaffold. They install ${platform.templates} and run the same dotnet new commands as the CLI. Extension version is ${platform.version}, matching the template pack. Requires the .NET SDK on PATH. This is not the MAUI MVVMExpress extension.`,
             },
             {
               type: "table",
@@ -2285,7 +2289,7 @@ export function desktopPackageDoc(platform: DesktopMvvmPlatform) {
     group: "Application framework" as const,
     tags: platform.tags,
     abstract: platform.abstract,
-    version: "1.0.0",
+    version: platform.version,
     releaseNotes: platform.releaseNotes,
     capabilities: platform.capabilities,
     prerelease: false,
@@ -2295,7 +2299,7 @@ export function desktopPackageDoc(platform: DesktopMvvmPlatform) {
       integration: integrationHref(platform.slug),
       comparison: comparisonHref(platform.slug),
       technicalSummary: `ViewModels, commands, DI, messaging, Frame navigation, modules, chat host, forms, project template, IDE extensions, and the shipped 1.0.0 roadmap.`,
-      integrationSummary: `dotnet new ${platform.appTemplate}, VS Code or Visual Studio Marketplace extensions, install 1.0.0 into an existing app, first screen, UseFrameNavigation, Playground clone, FakeNavigator / LeakProbe, and forms.`,
+      integrationSummary: `dotnet new ${platform.appTemplate}, VS Code or Visual Studio Marketplace extensions, install ${platform.version} into an existing app, first screen, UseFrameNavigation, Playground clone, FakeNavigator / LeakProbe, and forms.`,
     },
   };
 }
