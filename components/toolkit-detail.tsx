@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink, Github, Package } from "lucide-react";
 import { ComponentDiscussion } from "@/components/component-discussion";
 import { JsonLd } from "@/components/json-ld";
-import type { ToolkitDoc } from "@/content/toolkits";
+import { toolkitCommandGroups, type ToolkitDoc } from "@/content/toolkits";
 import { toolkitJsonLd } from "@/lib/json-ld";
 
 export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
@@ -118,7 +118,9 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
       </section>
 
       <section className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">Commands (1.0)</h2>
+        <h2 className="font-display text-2xl font-semibold">
+          Commands{toolkit.version ? ` (${toolkit.version.replace(/\.0$/, "")})` : ""}
+        </h2>
         <div className="mt-4 overflow-x-auto rounded-2xl border border-lavender-100">
           <table className="min-w-full text-left text-sm">
             <thead className="bg-lavender-50 text-lavender-900">
@@ -131,7 +133,9 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
               {toolkit.commands.map((command) => (
                 <tr key={command.name} className="border-t border-lavender-100 align-top">
                   <td className="px-3 py-2.5 font-medium text-foreground">
-                    <code>{command.name}</code>
+                    <a href={`#${commandAnchor(command.name)}`} className="hover:text-lavender-800">
+                      <code>{command.name}</code>
+                    </a>
                   </td>
                   <td className="px-3 py-2.5 text-muted-foreground">{command.purpose}</td>
                 </tr>
@@ -161,9 +165,67 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
         </p>
       </section>
 
+      {toolkit.ciJsonSample ? (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">CI JSON</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">--ci</code> (or{" "}
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">--format json</code>) prints this
+            schema. The VS Code / Cursor extension maps{" "}
+            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">diagnostics</code> into the Problems
+            panel. <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">--format sarif</code> is the
+            same findings for GitHub code scanning.
+          </p>
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+            <code>{toolkit.ciJsonSample}</code>
+          </pre>
+        </section>
+      ) : null}
+
+      <section className="mt-10">
+        <h2 className="font-display text-2xl font-semibold">Usage and sample results</h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          Each sample is a typical human report from a project with problems. A healthy tree prints green checks and
+          exits 0. Run with <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">--dry-run</code>{" "}
+          before <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">--fix</code>.
+        </p>
+        {toolkitCommandGroups(toolkit).map((group) => (
+          <div key={group.name} className="mt-8">
+            <h3 className="font-display text-lg font-semibold text-lavender-900">{group.name}</h3>
+            <div className="mt-4 space-y-6">
+              {group.commands.map((command) => (
+                <article
+                  key={command.name}
+                  id={commandAnchor(command.name)}
+                  className="scroll-mt-24 rounded-2xl border border-lavender-100 bg-white p-5"
+                >
+                  <h4 className="font-display text-base font-semibold text-foreground">
+                    <code>{command.name}</code>
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{command.purpose}</p>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-lavender-600">Usage</p>
+                  <pre className="mt-2 overflow-x-auto rounded-xl bg-lavender-950 p-3 text-sm text-lavender-50">
+                    <code>{command.usage}</code>
+                  </pre>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-lavender-600">
+                    Sample result
+                  </p>
+                  <pre className="mt-2 overflow-x-auto rounded-xl bg-lavender-950 p-3 text-sm text-lavender-50">
+                    <code>{command.sample}</code>
+                  </pre>
+                  {command.notes ? (
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{command.notes}</p>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
       <div className="mt-10 grid gap-6 sm:grid-cols-2">
         <section className="glass-card p-6">
-          <h2 className="font-display text-lg font-semibold">doctor --fix only</h2>
+          <h2 className="font-display text-lg font-semibold">--fix allow-list</h2>
           <ul className="mt-3 space-y-2">
             {toolkit.fixAllowList.map((item) => (
               <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
@@ -185,20 +247,6 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
           </ul>
         </section>
       </div>
-
-      <section className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">Capabilities</h2>
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-          {toolkit.capabilities.map((item) => (
-            <li
-              key={item}
-              className="rounded-xl border border-lavender-100 bg-white px-4 py-3 text-sm leading-relaxed text-muted-foreground"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </section>
 
       <section className="mt-10">
         <h2 className="font-display text-2xl font-semibold">CI</h2>
@@ -228,17 +276,19 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
         </ul>
       </section>
 
-      <section className="mt-10">
-        <h2 className="font-display text-2xl font-semibold">Later (not 1.0)</h2>
-        <ul className="mt-4 space-y-3">
-          {toolkit.later.map((item) => (
-            <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
-              <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lavender-500" />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </section>
+      {toolkit.later.length > 0 ? (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">Later</h2>
+          <ul className="mt-4 space-y-3">
+            {toolkit.later.map((item) => (
+              <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
+                <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lavender-500" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       {toolkit.releaseNotes?.length ? (
         <section className="mt-10">
@@ -268,4 +318,8 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
       <ComponentDiscussion target={{ title: toolkit.title, github: toolkit.github }} />
     </main>
   );
+}
+
+function commandAnchor(name: string): string {
+  return name.replaceAll(" ", "-");
 }

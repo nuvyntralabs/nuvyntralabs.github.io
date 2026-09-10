@@ -165,7 +165,7 @@ export default function HomePage() {
           <SectionIntro
             eyebrow="Toolkits"
             title="Diagnose before you ship"
-            description="MauiDev is a maui-dev CLI plus a VS Code / Cursor extension. It reads the project, can apply a small allow-list of fixes, and emits JSON/SARIF for CI."
+            description="MauiDev 1.2 is a maui-dev CLI plus a VS Code / Cursor extension. Doctor, permissions, publish, migrate, and benchmark — with JSON/SARIF for CI."
             href="/toolkits/"
             cta="All toolkits"
           />

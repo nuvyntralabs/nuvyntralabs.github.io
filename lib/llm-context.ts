@@ -64,7 +64,7 @@ ${siteConfig.url}/toolkits/
 
 ${toolkitList}
 
-MauiDev is a global dotnet tool (Plugin.Maui.MauiDev.Cli, command maui-dev) plus a VS Code / Cursor extension (nuvyntralabs.maui-dev). nuget.org reserved MauiDev.Cli. Do not add Plugin.Maui.MauiDev.Cli as a PackageReference. It does not replace Plugin.Maui.Performance, Plugin.Maui.LeakAnalyser, Plugin.Maui.AppHealth, or Plugin.Maui.Diagnostics.
+MauiDev 1.2.0 is a global dotnet tool (Plugin.Maui.MauiDev.Cli, command maui-dev) plus a VS Code / Cursor extension (nuvyntralabs.maui-dev). Commands: doctor, analyze, resources, permissions, platform, signing, workload, version, dependencies, icons, publish --validate, migrate, telemetry, benchmark, clean, package. nuget.org reserved MauiDev.Cli. Do not add Plugin.Maui.MauiDev.Cli as a PackageReference. It does not replace Plugin.Maui.Performance, Plugin.Maui.LeakAnalyser, Plugin.Maui.AppHealth, or Plugin.Maui.Diagnostics.
 
 ## NuGet packages
 
@@ -286,7 +286,15 @@ ${item.abstract}
 ${item.version ? `Version: ${item.version}\n` : ""}${item.install ? `Install:\n${item.install}\n` : ""}Capabilities:
 ${item.capabilities.map((line) => `- ${line}`).join("\n")}
 Commands:
-${item.commands.map((command) => `- ${command.name}: ${command.purpose}`).join("\n")}`;
+${item.commands
+  .map(
+    (command) =>
+      `- ${command.name}: ${command.purpose}\n  Usage:\n${command.usage
+        .split("\n")
+        .map((line) => `  ${line}`)
+        .join("\n")}`,
+  )
+  .join("\n")}`;
 }
 
 function formatPackage(item: (typeof packages)[number]): string {

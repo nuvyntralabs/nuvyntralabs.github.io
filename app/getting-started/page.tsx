@@ -200,7 +200,8 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
               MauiDev
             </Link>{" "}
             global tool, then run <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">maui-dev doctor</code>.
-            It checks SDK, workloads, Android SDK, JDK, Xcode, TFMs, permissions, and duplicate resources.
+            It checks SDK, workloads, Android SDK, JDK, Xcode, TFMs, permissions, duplicate resources, store
+            identity, and leftover Xamarin / net8 TFMs.
             The VS Code / Cursor extension{" "}
             <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">nuvyntralabs.maui-dev</code>{" "}
             shells out to the same CLI. The package ID is{" "}
@@ -212,7 +213,8 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
             <code>{`dotnet tool install -g Plugin.Maui.MauiDev.Cli
 maui-dev doctor
-maui-dev doctor --fix --dry-run
+maui-dev permissions --fix --dry-run
+maui-dev publish --validate
 maui-dev analyze --ci`}</code>
           </pre>
         </section>
