@@ -4,6 +4,7 @@ https://nuvyntralabs.github.io/toolkits/
 https://nuvyntralabs.github.io/getting-started/
 https://nuvyntralabs.github.io/getting-started/github-packages/
 https://nuvyntralabs.github.io/getting-started/hardening/
+https://nuvyntralabs.github.io/releases/
 https://nuvyntralabs.github.io/research/
 https://nuvyntralabs.github.io/pocs/
 https://nuvyntralabs.github.io/about/

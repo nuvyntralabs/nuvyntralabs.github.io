@@ -49,6 +49,23 @@ export default function GettingStartedPage() {
 dotnet new install Plugin.Maui.MVVMExpress.Templates
 dotnet new mvvmexpress -n MyApp`}</code>
           </pre>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Match the MAUI workload on the machine to an official tag. The live feed — sourced from{" "}
+            <a
+              href="https://github.com/dotnet/maui/releases"
+              className="font-medium text-lavender-700 hover:text-lavender-900"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/dotnet/maui/releases
+            </a>
+            {" "}
+            — is on the{" "}
+            <Link href="/releases/" className="font-medium text-lavender-700 hover:text-lavender-900">
+              .NET MAUI release feed
+            </Link>
+            .
+          </p>
         </section>
 
         <section className="mt-10">

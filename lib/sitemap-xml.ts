@@ -16,6 +16,7 @@ export function sitemapUrls(): string[] {
     "/getting-started/",
     "/getting-started/github-packages/",
     "/getting-started/hardening/",
+    "/releases/",
     "/research/",
     "/pocs/",
     "/about/",

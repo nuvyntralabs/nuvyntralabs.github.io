@@ -94,10 +94,16 @@ export default function HomePage() {
       <CommunityBand />
 
       <section className="border-y border-lavender-100 bg-white">
-        <div className="container py-6">
+        <div className="container flex flex-col items-center justify-center gap-2 py-6 sm:flex-row sm:gap-4">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
             Built for .NET MAUI teams on Android and iOS
           </p>
+          <Link
+            href="/releases/"
+            className="text-xs font-semibold text-lavender-700 hover:text-lavender-900"
+          >
+            Official MAUI release feed →
+          </Link>
         </div>
       </section>
 
