@@ -61,7 +61,7 @@ export const packages: PackageDoc[] = [
     "name": "MauiEssentials",
     "title": "MauiEssentials (NugetWorld)",
     "subtitle": "Catalog of production .NET MAUI plugins",
-    "description": "A curated catalog of Android/iOS .NET MAUI plugins — each in its own repository, referenced as git submodules — covering location, networking, sync, security, BLE, NFC, printing, VoIP, and observability. MVVMExpress, HttpForge, and LeakAnalyser also target Mac Catalyst and Windows.",
+    "description": "A curated catalog of Android/iOS .NET MAUI plugins — each in its own repository, referenced as git submodules — covering location, networking, sync, security, BLE, classic Bluetooth serial, NFC, printing, video, TLS pinning, VoIP, and observability. MVVMExpress, HttpForge, LeakAnalyser, VideoPipeline, and TlsPin also target Mac Catalyst and Windows.",
     "github": "https://github.com/nuvyntralabs/MauiEssentials",
     "nuget": null,
     "language": null,
@@ -76,13 +76,13 @@ export const packages: PackageDoc[] = [
     ],
     "abstract": "MauiEssentials (published as NugetWorld) is the public index for a family of .NET MAUI plugins aimed at field, enterprise, and always-connected mobile apps. Instead of a single mega-package, each capability lives in its own repository and NuGet package, then is composed here as git submodules so teams can adopt only what they need. Fourteen plugins shipped hardened 1.x NuGet releases on 3 September 2026 (351 tests) — DeepLinks, PushRouter, SmartUpload, and FeatureFlags are fail-closed by default.",
     "capabilities": [
-      "Location, tracking, and reverse geocoding (GeoLocator).",
-      "Real internet, captive portals, layered connectivity diagnostics, and typed REST clients (HttpForge).",
+      "Location, tracking, reverse geocoding, and circular geofences (GeoLocator, Geofence).",
+      "Real internet, captive portals, layered connectivity diagnostics, typed REST clients (HttpForge), and TLS / SPKI pinning (TlsPin).",
       "Background jobs, durable queues, failed-call retry, chunked uploads, and offline-first sync.",
-      "Device identity, fingerprint, NFC, BLE peripherals, permissions, feature flags, and deep links.",
-      "Secure storage, sessions, app lock, file vault, and media pipelines.",
-      "Share, clipboard, keyboard, printing, form validation, and orientation lock.",
-      "VoIP session model, app updates, diagnostics, performance, leak detection, and telemetry.",
+      "Device identity, fingerprint, NFC, BLE peripherals, classic Bluetooth serial, permissions, feature flags, and deep links.",
+      "Secure storage, sessions, app lock, one-shot biometric, screenshot guard, file vault, and media / video pipelines.",
+      "Share, clipboard, keyboard, printing, form validation, orientation lock, and keep-awake.",
+      "VoIP session model, app updates, store review, local notifications, diagnostics, performance, leak detection, and telemetry.",
       "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue."
     ]
   },
@@ -225,11 +225,45 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.GeoLocator gives MAUI apps a single API for on-demand location, continuous tracking, and reverse geocoding on Android and iOS. It is designed for field operations where a reliable last-known position and a clean tracking session matter more than a thin wrapper around the platform location manager.",
+    "version": "1.0.8",
+    "releaseNotes": [
+      "1.0.8. Current nuget.org pack."
+    ],
     "capabilities": [
       "Single location request with accuracy intent.",
       "Continuous tracking suitable for trip and survey routes.",
       "Reverse geocoding of captured coordinates.",
       "Android and iOS targets for .NET MAUI."
+    ]
+  },
+  {
+    "slug": "plugin-maui-geofence",
+    "name": "Plugin.Maui.Geofence",
+    "title": "Plugin.Maui.Geofence",
+    "subtitle": "Circular geofence enter, exit, and dwell (max 20)",
+    "description": "Registers circular geofence regions and raises enter, exit, and dwell transitions for depot, site, and attendance apps on Android and iOS.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.Geofence",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.Geofence",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Location & network",
+    "tags": [
+      ".NET MAUI",
+      "Geofence",
+      "Location",
+      "C#"
+    ],
+    "abstract": "Plugin.Maui.Geofence is a circular-region monitor for MAUI on Android and iOS. It is not a GPS tracker. GeoLocator answers where the device is now. This plugin answers when the user enters, exits, or dwells in up to 20 named regions. 1.0 Android is an in-memory register plus Raise() for samples — it does not take a Play Services GeofencingClient dependency. iOS uses CLCircularRegion. Invalid radius or empty ids fail closed.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. Max 20 regions, enter / exit / dwell, Raise() for tests and samples."
+    ],
+    "capabilities": [
+      "Add, list, and remove circular regions (max 20).",
+      "Enter, exit, and optional dwell transitions.",
+      "Raise() so samples and tests can simulate a transition.",
+      "Android in-memory 1.0; iOS CLCircularRegion. Not a Maps SDK."
     ]
   },
   {
@@ -279,8 +313,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.BackgroundTasks wraps Android JobScheduler and iOS BGTaskScheduler behind one MAUI registration so apps can schedule one-time and periodic work without owning two platform schedulers. It is the OS-facing counterpart to Plugin.Maui.JobQueue, which owns durable in-app work items.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "releaseNotes": [
+      "1.0.7. Current nuget.org pack.",
       "Android JobService logs handler exceptions. OperationCanceledException is a cancelled run and is not retried."
     ],
     "capabilities": [
@@ -337,9 +372,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.SmartUpload implements chunked, resumable uploads for MAUI so large field photos and documents can survive flaky networks and process death. Progress is persisted; the next attempt continues instead of restarting from byte zero.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "releaseNotes": [
-      "Upload endpoints must be https (RequireHttps = true). Set RequireHttps = false only for local development."
+      "1.0.7. Current nuget.org pack. Upload endpoints must be https (RequireHttps = true). Set RequireHttps = false only for local development."
     ],
     "capabilities": [
       "Chunked uploads.",
@@ -396,8 +431,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.OfflineSync is an offline-first sync layer for MAUI: writes land locally, a queue ships them when the network is real, and conflicts are resolved instead of last-write-wins by accident. It is built for field apps that cannot block the user on connectivity.",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "releaseNotes": [
+      "1.0.10. Current nuget.org pack.",
       "Auto-sync isolates failures so a failed push does not crash the process. Subscribe to SyncCompleted / StatusChanged when the UI must surface errors. Android JobFinished is null-safe."
     ],
     "capabilities": [
@@ -425,8 +461,9 @@ export const packages: PackageDoc[] = [
       "APNs"
     ],
     "abstract": "Plugin.Maui.PushRouter does not replace Firebase or APNs registration. It takes the payload your app already received and routes it: parse FCM data / Android extras / APNs userInfo, dispatch by route or type, invoke a handler or open a Shell page, queue cold-start taps until Shell is ready, and dedupe the same message_id.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "releaseNotes": [
+      "1.0.7. Current nuget.org pack.",
       "Navigation uses registered Map keys or DefaultRoute only. Raw payload Shell paths are ignored unless AllowUnmappedPayloadRoutes is true."
     ],
     "capabilities": [
@@ -435,6 +472,36 @@ export const packages: PackageDoc[] = [
       "Cold-start tap handling.",
       "Duplicate delivery suppression.",
       "Fail-closed unmapped payload routes (opt in to restore raw paths)."
+    ]
+  },
+  {
+    "slug": "plugin-maui-local-notifications",
+    "name": "Plugin.Maui.LocalNotifications",
+    "title": "Plugin.Maui.LocalNotifications",
+    "subtitle": "Schedule and route local notifications — not FCM",
+    "description": "Schedules, cancels, and routes taps for local notifications on Android and iOS. Does not register FCM or APNs tokens.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.LocalNotifications",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.LocalNotifications",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "App services",
+    "tags": [
+      ".NET MAUI",
+      "Notifications",
+      "Alarm",
+      "C#"
+    ],
+    "abstract": "Plugin.Maui.LocalNotifications schedules and cancels on-device alerts and routes taps — Immediate, At, and Every — on Android and iOS. It is not a push stack. PushRouter owns FCM / APNs payloads the host already received. This plugin does not register remote tokens. Android uses channels plus AlarmManager (inexact by default; Exact needs SCHEDULE_EXACT_ALARM). iOS uses UNUserNotificationCenter.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. Immediate / At / Every schedules, pending list, cancel, and tap actions."
+    ],
+    "capabilities": [
+      "Immediate, At, and Every schedules.",
+      "GetPendingAsync and CancelAllAsync.",
+      "NotificationTapped with action ids.",
+      "Does not register FCM or APNs tokens."
     ]
   },
   {
@@ -455,6 +522,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.PermissionFlow replaces scattered Permissions.RequestAsync calls with named flows. The orchestrator shows rationale first, requests permissions one at a time (expanding LocationAlways to when-in-use first), honors denial cooldown, detects Android “Don't ask again” and iOS permanent denials, and offers Settings when the OS will not prompt again.",
+    "version": "1.0.5",
+    "releaseNotes": [
+      "1.0.5. Current nuget.org pack."
+    ],
     "capabilities": [
       "In-app rationale before the system dialog.",
       "One-at-a-time permission requests.",
@@ -480,6 +551,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.AppHealth produces structured health reports for the app, device, and environment. It is the snapshot layer Observability and support tools can attach to a crash, a failed sync, or a customer ticket.",
+    "version": "1.0.5",
+    "releaseNotes": [
+      "1.0.5. Current nuget.org pack."
+    ],
     "capabilities": [
       "Point-in-time health snapshots.",
       "Device and environment context for support.",
@@ -504,6 +579,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.SecureStoragePlus sits on top of MAUI SecureStorage (Keychain / EncryptedSharedPreferences) and adds an AES-256-GCM envelope, GCM integrity bound to the key name, expiry with automatic purge, migration from SecureStorage or a custom ILegacyStorageSource, key listing, metadata, and typed JSON get/set.",
+    "version": "1.0.8",
+    "releaseNotes": [
+      "1.0.8. Current nuget.org pack."
+    ],
     "capabilities": [
       "Encrypted get/set with integrity.",
       "Automatic expiry.",
@@ -529,8 +608,9 @@ export const packages: PackageDoc[] = [
       "Biometrics"
     ],
     "abstract": "Plugin.Maui.SecureSession owns the authentication session: login, Bearer attachment, single-flight refresh on 401 or near-expiry, rotating refresh tokens, idle and absolute timeouts, this-device or all-device logout, multi-device list/revoke, and biometric unlock after lock or process death. Persistence is delegated to SecureStoragePlus.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "releaseNotes": [
+      "1.0.7. Current nuget.org pack.",
       "LoginAsync(TokenBundle) is still host-trusted by default. Set AcceptUnvalidatedTokens = false so only IAuthGateway can create a session."
     ],
     "capabilities": [
@@ -594,8 +674,9 @@ export const packages: PackageDoc[] = [
       "Windows"
     ],
     "abstract": "Plugin.Maui.HttpForge is the contract layer: declare GET/POST/PUT/DELETE/PATCH/HEAD as a C# interface and the source generator emits the HttpClient implementation — no runtime reflection request builder. 1.1.0 adds the Refit-parity request surface (query objects, collection formats, naming presets, [Timeout]/[Url]/[PathPrefix], optional segments, [QueryName]/[FormObject], IAsyncEnumerable streaming, request compression, and AuthorizationHeaderValueGetter) plus optional Testing, Newtonsoft.Json, and XML packages. It is a MauiEssentials-shaped subset of Refit for Android, iOS, Mac Catalyst, and Windows, not a drop-in Refit replacement. Retry, cache, token refresh, and resumable uploads stay on ApiResilience, ApiCache, SecureSession, and SmartUpload; AddHttpForgeClient returns IHttpClientBuilder so those handlers chain on the same client.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "releaseNotes": [
+      "1.1.1. Current nuget.org pack. The 1.1 request surface is unchanged.",
       "1.1.0. Refit-parity request surface: query objects, collection formats (Multi / Csv / Ssv / Tsv / Pipes), camel/snake/kebab keys, [Timeout] / [Url] / [PathPrefix], optional {id?} segments, [QueryName], [FormObject], IAsyncEnumerable streaming (JSON Lines / SSE), request-body gzip/brotli, and AuthorizationHeaderValueGetter (attach only; absolute URI).",
       "Optional packages: Plugin.Maui.HttpForge.Testing, Plugin.Maui.HttpForge.NewtonsoftJson, and Plugin.Maui.HttpForge.Xml. Compile-time diagnostics are now HFG001–HFG010. Reflection fallback stays out of scope."
     ],
@@ -616,10 +697,43 @@ export const packages: PackageDoc[] = [
       "technical": "/packages/plugin-maui-httpforge/docs/",
       "integration": "/packages/plugin-maui-httpforge/integration/",
       "comparison": "/packages/plugin-maui-httpforge/comparison/",
-      "technicalSummary": "1.1.0 contract, query objects, streaming, compression, optional packages, analyzers, and what stays on sibling plugins.",
-      "integrationSummary": "Install 1.1.0, UseHttpForge, AddHttpForgeClient, and recipes for ApiResilience, ApiCache, SecureSession, and SmartUpload.",
-      "comparisonSummary": "HttpForge 1.1.0 vs Refit 15, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload."
+      "technicalSummary": "1.1.1 pack, 1.1.0 contract, query objects, streaming, compression, optional packages, analyzers, and what stays on sibling plugins.",
+      "integrationSummary": "Install 1.1.1, UseHttpForge, AddHttpForgeClient, and recipes for ApiResilience, ApiCache, SecureSession, and SmartUpload.",
+      "comparisonSummary": "HttpForge 1.1.1 vs Refit 15, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload."
     }
+  },
+  {
+    "slug": "plugin-maui-tls-pin",
+    "name": "Plugin.Maui.TlsPin",
+    "title": "Plugin.Maui.TlsPin",
+    "subtitle": "HttpClient SPKI / public-key pin — fail-closed",
+    "description": "Pins HttpClient TLS to SPKI / public-key hashes for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. Empty or mismatched pins reject the request unless report-only staging is on.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.TlsPin",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.TlsPin",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "HTTP & APIs",
+    "tags": [
+      ".NET MAUI",
+      "TLS",
+      "SPKI",
+      "HTTPS",
+      "C#",
+      "Mac Catalyst",
+      "Windows"
+    ],
+    "abstract": "Plugin.Maui.TlsPin is the certificate-pin layer for MAUI HttpClient. UseTlsPin() is a no-op registrar; IHttpClientBuilder.AddTlsPin(...) attaches pins per named client. Empty pin sets throw on registration. A mismatch fails the request unless ReportOnly is true — report-only still raises OnPinFailure. Ship at least one backup pin. RequireHttps defaults true. Retry, typed REST, and token refresh stay on ApiResilience, HttpForge, and SecureSession.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. AddTlsPin, fail-closed empty pins, optional ReportOnly staging."
+    ],
+    "capabilities": [
+      "IHttpClientBuilder.AddTlsPin with host → SPKI SHA-256 sets.",
+      "Fail-closed empty or mismatched pins.",
+      "Report-only staging that still calls OnPinFailure.",
+      "HTTPS required by default. Android, iOS, Mac Catalyst, and Windows."
+    ]
   },
   {
     "slug": "plugin-maui-file-vault",
@@ -682,6 +796,38 @@ export const packages: PackageDoc[] = [
     ]
   },
   {
+    "slug": "plugin-maui-video-pipeline",
+    "name": "Plugin.Maui.VideoPipeline",
+    "title": "Plugin.Maui.VideoPipeline",
+    "subtitle": "Camera/gallery video — limits, thumbnail, encrypt",
+    "description": "A video pipeline for .NET MAUI: camera or gallery → duration, resolution, and size limits, thumbnail, AES-256-GCM encrypt, then FileVault or SmartUpload. 1.0 does not bundle FFmpeg.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.VideoPipeline",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.VideoPipeline",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Device & UX",
+    "tags": [
+      ".NET MAUI",
+      "Video",
+      "Camera",
+      "C#",
+      "Mac Catalyst",
+      "Windows"
+    ],
+    "abstract": "Plugin.Maui.VideoPipeline is the video counterpart to MediaPipeline. Pick from camera or gallery, then apply MaxDuration, MaxResolution, and MaxBytes. Over-size or over-duration files fail with TooLarge / TooLong / CannotTranscode — 1.0 does not transcode with FFmpeg. Encrypt(key) writes an AES-256-GCM .vault file. Handoff through UploadWith or StoreIn. Android, iOS, Mac Catalyst, and Windows.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. FromCamera / FromGallery, limits, thumbnail, Encrypt, no FFmpeg."
+    ],
+    "capabilities": [
+      "FromCamera, FromGallery, and FileVideoSource.",
+      "MaxDuration, MaxResolution, and MaxBytes gates.",
+      "AES-256-GCM Encrypt(key) to a .vault file.",
+      "UploadWith / StoreIn handoff. Images stay on MediaPipeline."
+    ]
+  },
+  {
     "slug": "plugin-maui-voip-core",
     "name": "Plugin.Maui.VoipCore",
     "title": "Plugin.Maui.VoipCore",
@@ -699,8 +845,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.VoipCore models SIP/VoIP sessions for MAUI and keeps signaling pluggable. Call state, hold, mute, and session lifetime live in one core so apps are not locked to a single CPaaS SDK at the architecture layer.",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "releaseNotes": [
+      "1.0.9. Current nuget.org pack. No API change.",
       "1.0.8. Documented pack artifact matches the shipped package. No API change."
     ],
     "capabilities": [
@@ -926,14 +1073,45 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.AppUpdate handles store-aware update UX: Google Play In-App Updates, App Store version checks, mandatory versus recommended prompts, and maintenance messaging so a broken API can be fenced without waiting for every user to notice.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "releaseNotes": [
+      "1.0.7. Current nuget.org pack.",
       "Adds a Visual Studio solution. No API change."
     ],
     "capabilities": [
       "In-app update flow on Play.",
       "Store version checks on iOS.",
       "Mandatory upgrade and maintenance messaging."
+    ]
+  },
+  {
+    "slug": "plugin-maui-app-review",
+    "name": "Plugin.Maui.AppReview",
+    "title": "Plugin.Maui.AppReview",
+    "subtitle": "In-app store review eligibility and listing",
+    "description": "Prompts a Play / App Store review when launch, day, and cooldown rules allow, and opens the store listing as a fallback. Not an in-app binary update.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.AppReview",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.AppReview",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "App services",
+    "tags": [
+      ".NET MAUI",
+      "Review",
+      "Play Store",
+      "C#"
+    ],
+    "abstract": "Plugin.Maui.AppReview owns review eligibility and the store listing — not binary updates. AppUpdate ships Play In-App Updates and App Store version checks. This plugin counts launches and days, honors a cooldown, then calls RequestAsync. Android 1.0 opens the Play listing (market://details?id=); Play Core in-app review is not bundled. iOS uses SKStoreReviewController when eligible and iOSAppStoreId for the listing fallback. Shown means the OS was asked, not that the user rated.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. Eligibility counters, RequestAsync, OpenStoreListingAsync, ResetCounters."
+    ],
+    "capabilities": [
+      "Launch, day, and cooldown eligibility in Preferences.",
+      "RequestAsync — OS review UI or listing fallback.",
+      "OpenStoreListingAsync and ResetCounters.",
+      "Not a binary update path — use AppUpdate for that."
     ]
   },
   {
@@ -1043,11 +1221,45 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.BluetoothManager is a high-level BLE connection manager for MAUI on Android and iOS. It is not another low-level GATT wrapper. The plugin owns connection lifecycle — permissions, adapter state, scan filters, connect timeout, retry, RSSI, notify, unexpected disconnect, and automatic reconnect — for printers, POS, medical devices, IoT sensors, vehicle diagnostics, attendance devices, and industrial equipment.",
+    "version": "1.0.3",
+    "releaseNotes": [
+      "1.0.3. Current nuget.org pack."
+    ],
     "capabilities": [
       "Scan, connect, read, write, and notify against a real peripheral.",
       "Automatic reconnect with a configurable attempt cap.",
       "Permission and adapter-state handling in the lifecycle, not the page.",
       "Filters for printers and named devices."
+    ]
+  },
+  {
+    "slug": "plugin-maui-bluetooth-serial",
+    "name": "Plugin.Maui.BluetoothSerial",
+    "title": "Plugin.Maui.BluetoothSerial",
+    "subtitle": "Classic Bluetooth SPP / RFCOMM serial",
+    "description": "Classic Bluetooth serial sessions for MAUI — scan, connect, read, write. Android SPP is first-class; iOS is MFi / External Accessory only. Not a BLE GATT library.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.BluetoothSerial",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.BluetoothSerial",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Device & UX",
+    "tags": [
+      ".NET MAUI",
+      "Bluetooth",
+      "SPP",
+      "C#"
+    ],
+    "abstract": "Plugin.Maui.BluetoothSerial is classic Bluetooth serial for MAUI — SPP / RFCOMM, not BLE. BluetoothManager owns GATT connection lifecycle. This plugin scans bonded SPP devices on Android, opens a session, and reads/writes bytes. iOS has no public RFCOMM; MFi External Accessory is required or the API returns NotSupported. net10.0 ships a loopback session for tests.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. Scan, ConnectAsync, WriteAsync / ReadAsync, ConnectionStateChanged."
+    ],
+    "capabilities": [
+      "Scan bonded SPP on Android; MFi on iOS; loopback on net10.0.",
+      "ConnectAsync, WriteAsync, ReadAsync, DisconnectAsync.",
+      "ConnectionStateChanged for session lifecycle.",
+      "Not BLE GATT — use BluetoothManager for peripherals."
     ]
   },
   {
@@ -1184,8 +1396,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.AppLock is an application-security workflow for MAUI on Android and iOS. It is not another biometric API. Biometric plugins prove who the user is. AppLock owns the lock timer, lifecycle, and gate: app enters background, lock timer elapses, app returns, authentication, unlock. Face ID, Touch ID, fingerprint, and the device PIN are how the user unlocks.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "releaseNotes": [
+      "1.0.7. Current nuget.org pack.",
       "1.0.6. Android library AAR includes a resource so project-reference sample builds succeed.",
       "If the automatic resume prompt throws, AuthenticationCompleted still fires with a failed result so the cover stays up."
     ],
@@ -1195,6 +1408,99 @@ export const packages: PackageDoc[] = [
       "RequireAuthenticationAsync gate for sensitive screens.",
       "Privacy cover while the app is locked.",
       "AuthenticationCompleted on auto-prompt failures."
+    ]
+  },
+  {
+    "slug": "plugin-maui-biometric",
+    "name": "Plugin.Maui.BiometricPlus",
+    "title": "Plugin.Maui.BiometricPlus",
+    "subtitle": "One-shot Face ID, fingerprint, or device PIN",
+    "description": "A one-shot biometric or device-PIN prompt for MAUI on Android and iOS. nuget.org reserved Plugin.Maui.Biometric; this package id is Plugin.Maui.BiometricPlus. Not an app-lock timer.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.Biometric",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.BiometricPlus",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Security & identity",
+    "tags": [
+      ".NET MAUI",
+      "Biometrics",
+      "Face ID",
+      "C#"
+    ],
+    "abstract": "Plugin.Maui.BiometricPlus is a one-shot Face ID / fingerprint / device PIN prompt for MAUI. AppLock owns the lock timer, cover, and gate after background. This plugin answers AuthenticateAsync once and reports availability. Android uses AndroidX BiometricPrompt (API 23+). iOS uses LAContext; Face ID needs NSFaceIDUsageDescription. nuget.org already reserved Plugin.Maui.Biometric (FreakyAli), so the package id is Plugin.Maui.BiometricPlus while the repo stays Plugin.Maui.Biometric.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. GetAvailabilityAsync, AuthenticateAsync, AllowDeviceCredential. Package id Plugin.Maui.BiometricPlus."
+    ],
+    "installPackages": [
+      "Plugin.Maui.BiometricPlus"
+    ],
+    "capabilities": [
+      "GetAvailabilityAsync — Available / NotEnrolled / NotSupported.",
+      "AuthenticateAsync with biometric only or device credential.",
+      "UseBiometric plus Biometric.Current.",
+      "Not an app-lock timer — use AppLock for that."
+    ]
+  },
+  {
+    "slug": "plugin-maui-screen-guard",
+    "name": "Plugin.Maui.ScreenGuard",
+    "title": "Plugin.Maui.ScreenGuard",
+    "subtitle": "Screenshot and recents-thumbnail guard",
+    "description": "Protects sensitive screens: FLAG_SECURE on Android blanks recents and blocks screenshots; iOS shows a capture overlay and reports recording. iOS cannot block screenshots.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.ScreenGuard",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.ScreenGuard",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Security & identity",
+    "tags": [
+      ".NET MAUI",
+      "Privacy",
+      "FLAG_SECURE",
+      "C#"
+    ],
+    "abstract": "Plugin.Maui.ScreenGuard is a screenshot and recents guard for MAUI. Android sets FLAG_SECURE so recents are blank and screenshots are blocked. iOS cannot block screenshots; the plugin shows a capture overlay and raises CaptureStateChanged / IsCaptured when the screen is being recorded. Protect / Unprotect is reference-counted. SetProtected(page, true) ties a hold to a page. It is not AppLock and not FileVault.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. Protect / Unprotect, page helper, iOS CaptureStateChanged."
+    ],
+    "capabilities": [
+      "Reference-counted Protect / Unprotect.",
+      "ScreenGuard.SetProtected(page, true) for a single screen.",
+      "Android FLAG_SECURE blanks recents and blocks screenshots.",
+      "iOS capture overlay and CaptureStateChanged — not a screenshot block."
+    ]
+  },
+  {
+    "slug": "plugin-maui-keep-awake",
+    "name": "Plugin.Maui.KeepAwake",
+    "title": "Plugin.Maui.KeepAwake",
+    "subtitle": "Reference-counted keep-screen-on",
+    "description": "Keeps the screen on during scan, POS, or video with acquire / release counting. Uses FLAG_KEEP_SCREEN_ON on Android and IdleTimerDisabled on iOS — not a WakeLock.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.KeepAwake",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.KeepAwake",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Device & UX",
+    "tags": [
+      ".NET MAUI",
+      "Keep awake",
+      "Screen",
+      "C#"
+    ],
+    "abstract": "Plugin.Maui.KeepAwake keeps the screen on for MAUI scan, POS, and video flows. Acquire() / Dispose is reference-counted so nested holds do not fight. SetEnabled(page, true) ties a hold to a page. Android uses WindowManagerFlags.KeepScreenOn, not a WAKE_LOCK. iOS sets UIApplication.SharedApplication.IdleTimerDisabled. It is not BackgroundTasks and not DeviceOrientationPlus.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack.",
+      "1.0.0. First stable release. Acquire / Release, page helper, IsActive / ActiveCount."
+    ],
+    "capabilities": [
+      "Reference-counted Acquire / Release.",
+      "KeepAwake.SetEnabled(page, true) for a single screen.",
+      "IsActive and ActiveCount.",
+      "No WakeLock permission. Not OS background work."
     ]
   },
   {
@@ -1215,8 +1521,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.Printing is a print API for MAUI on Android and iOS. .NET MAUI has no first-class print API. Production apps still need invoices, receipts, labels, tickets, delivery challans, and vehicle inspection reports — often on a cheap Bluetooth thermal printer. The plugin abstracts PDF, images, text, system / AirPrint, Bluetooth, and ESC/POS thermal printers behind Printer.PrintAsync.",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "releaseNotes": [
+      "1.0.5. Current nuget.org pack.",
       "1.0.4. Android library AAR includes a resource so project-reference sample builds succeed. Documented pack artifact matches the shipped package."
     ],
     "capabilities": [
@@ -1244,8 +1551,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.DeviceOrientationPlus locks, unlocks, and listens for screen orientation in MAUI on Android and iOS. DeviceDisplay.MainDisplayInfo.Orientation is read-only. This package is the missing write path: Orientation.Lock(Portrait), Unlock, SetAsync(Landscape), Changed, and a stack so a video page can lock landscape on top of a portrait lock and restore on disappear.",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "releaseNotes": [
+      "1.0.5. Current nuget.org pack.",
       "1.0.4. Documented pack artifact matches the shipped package. No API change."
     ],
     "capabilities": [
@@ -1302,6 +1610,10 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.FormValidation is a mobile-first validation library for MAUI on Android and iOS. Rules live next to the model. XAML stays a property name.",
+    "version": "1.0.4",
+    "releaseNotes": [
+      "1.0.4. Current nuget.org pack."
+    ],
     "capabilities": [
       "Required, email, phone, URL, numeric, min/max, min length, equal-to.",
       "Conditional rules.",
@@ -1327,8 +1639,9 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.CommunityToolkitPlus is an unofficial, opt-in layer of production extensions that sit above CommunityToolkit.Maui. All seven modules ship in one assembly and every module is disabled until explicitly enabled: accessibility visual-tree auditing with SARIF export, Shell state restoration after process death, journaled upgrade migrations with safe mode, tamper-aware trusted time from a host ITimeSource plus HTTP Date URLs, App Attest / Play Integrity challenge-and-proof, Apple Wallet and Google Wallet pass handoff, and a versioned privacy-consent ledger with SDK activation gates.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "releaseNotes": [
+      "1.0.2. Current nuget.org pack.",
       "1.0.1. HTTP Date sources register alongside a host ITimeSource so Trusted Time no longer collides in DI."
     ],
     "capabilities": [

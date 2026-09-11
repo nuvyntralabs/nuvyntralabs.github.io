@@ -42,6 +42,16 @@ Professional experience stays on
 | `/packages/plugin-maui-httpforge/docs/` | HttpForge technical documentation |
 | `/packages/plugin-maui-httpforge/integration/` | HttpForge getting started |
 | `/packages/plugin-maui-httpforge/comparison/` | HttpForge vs Refit and sibling HTTP plugins |
+| `/packages/plugin-maui-community-toolkit-plus/` | CommunityToolkitPlus overview |
+| `/packages/plugin-maui-geofence/` | Geofence overview |
+| `/packages/plugin-maui-local-notifications/` | LocalNotifications overview |
+| `/packages/plugin-maui-tls-pin/` | TlsPin overview |
+| `/packages/plugin-maui-video-pipeline/` | VideoPipeline overview |
+| `/packages/plugin-maui-app-review/` | AppReview overview |
+| `/packages/plugin-maui-bluetooth-serial/` | BluetoothSerial overview |
+| `/packages/plugin-maui-biometric/` | BiometricPlus overview |
+| `/packages/plugin-maui-screen-guard/` | ScreenGuard overview |
+| `/packages/plugin-maui-keep-awake/` | KeepAwake overview |
 | `/releases/` | Live .NET MAUI release feed from official GitHub + Learn links |
 | `/getting-started/` | Install + compose plugins |
 | `/getting-started/github-packages/` | Two-feed setup: GitHub Packages for Plugin.Maui.*, nuget.org for everything else |

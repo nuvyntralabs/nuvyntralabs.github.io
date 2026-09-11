@@ -29,11 +29,11 @@ export const lab = {
   capabilities: [
     {
       title: "Location & field",
-      body: "On-demand fixes, tracking sessions, reverse geocoding, and trip-meter accuracy research.",
+      body: "On-demand fixes, tracking sessions, reverse geocoding, circular geofences, and trip-meter accuracy research.",
     },
     {
       title: "Connectivity",
-      body: "Real internet checks, captive portals, and layered diagnostics for always-connected apps.",
+      body: "Real internet checks, captive portals, layered diagnostics, and HttpClient TLS / SPKI pinning.",
     },
     {
       title: "Offline & sync",
@@ -45,11 +45,11 @@ export const lab = {
     },
     {
       title: "Security & identity",
-      body: "Secure storage, sessions, app lock, device identity, and permission-aware device APIs.",
+      body: "Secure storage, sessions, app lock, one-shot biometric, screenshot guard, device identity, and permission-aware device APIs.",
     },
     {
       title: "Device & UX",
-      body: "NFC, BLE, printing, clipboard, deep links, feature flags, and form validation.",
+      body: "NFC, BLE, classic Bluetooth serial, printing, clipboard, video pipeline, keep-awake, deep links, feature flags, and form validation.",
     },
   ],
 } as const;

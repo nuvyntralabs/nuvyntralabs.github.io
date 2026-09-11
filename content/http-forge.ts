@@ -12,11 +12,11 @@ export const httpForgeTechnicalDescription =
 
 export const httpForgeIntegrationTitle = "Get started with HttpForge";
 export const httpForgeIntegrationDescription =
-  "Install 1.1.0, register UseHttpForge, add a typed client, then optionally chain ApiResilience, ApiCache, SecureSession, or SmartUpload on the same IHttpClientBuilder.";
+  "Install 1.1.1, register UseHttpForge, add a typed client, then optionally chain ApiResilience, ApiCache, SecureSession, or SmartUpload on the same IHttpClientBuilder.";
 
 export const httpForgeComparisonTitle = "HttpForge vs Refit and sibling HTTP plugins";
 export const httpForgeComparisonDescription =
-  "Compare HttpForge 1.1.0 with Refit 15, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload — and when to choose each.";
+  "Compare HttpForge 1.1.1 with Refit 15, hand-written HttpClient, ApiResilience, ApiCache, SecureSession, and SmartUpload — and when to choose each.";
 
 export const httpForgeTechnicalSections: DocSection[] = [
   {
@@ -269,7 +269,7 @@ settings.ContentSerializer = new XmlContentSerializer();`,
     blocks: [
       {
         type: "p",
-        text: "Version 1.1.0. Target frameworks: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+), net10.0-maccatalyst (15+), and net10.0-windows10.0.19041.0 (Windows 10.0.17763+). CI packs the Windows TFM on windows-latest and merges it into the nupkg published from macOS.",
+        text: "Version 1.1.1. Target frameworks: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+), net10.0-maccatalyst (15+), and net10.0-windows10.0.19041.0 (Windows 10.0.17763+). CI packs the Windows TFM on windows-latest and merges it into the nupkg published from macOS. The 1.1.0 Refit-parity request surface is unchanged.",
       },
       {
         type: "link",
@@ -296,7 +296,7 @@ export const httpForgeIntegrationSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "Package ID: Plugin.Maui.HttpForge. Current package is 1.1.0 on GitHub Packages. Install only the sibling or optional packages the host actually needs — HttpForge alone is enough for a typed client.",
+        text: "Package ID: Plugin.Maui.HttpForge. Current package is 1.1.1 on nuget.org and GitHub Packages. Install only the sibling or optional packages the host actually needs — HttpForge alone is enough for a typed client.",
       },
       {
         type: "link",
@@ -366,6 +366,7 @@ builder.Services.AddHttpForgeClient<IUserApi>(client =>
           ["GET response cache (CacheFirst / SWR)", "ApiCache", "Host-owned cache"],
           ["Tokens / 401 refresh", "SecureSession or ApiResilience", "MSAL / Auth0 / host-owned handler"],
           ["Chunked resume after process death", "SmartUpload", "tus / host-owned chunks"],
+          ["TLS / SPKI pin (fail-closed)", "TlsPin", "Native TrustManager / NSURLSession pin"],
         ],
       },
     ],

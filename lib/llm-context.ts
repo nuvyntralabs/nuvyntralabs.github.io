@@ -143,7 +143,7 @@ Performance CLI GitHub Packages: https://github.com/nuvyntralabs/Plugin.Maui.Per
 HttpForge documentation: ${siteConfig.url}/packages/plugin-maui-httpforge/docs/
 HttpForge getting started: ${siteConfig.url}/packages/plugin-maui-httpforge/integration/
 HttpForge comparison: ${siteConfig.url}/packages/plugin-maui-httpforge/comparison/
-HttpForge current NuGet: 1.1.0 (Testing, Newtonsoft.Json, and XML optional packages)
+HttpForge current NuGet: 1.1.1 (Testing, Newtonsoft.Json, and XML optional packages)
 HttpForge Testing: https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/pkgs/nuget/Plugin.Maui.HttpForge.Testing
 HttpForge Newtonsoft.Json: https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/pkgs/nuget/Plugin.Maui.HttpForge.NewtonsoftJson
 HttpForge XML: https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/pkgs/nuget/Plugin.Maui.HttpForge.Xml

@@ -121,6 +121,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUHvQTM4DEcv9",
     },
   },
+  "nuvyntralabs/Plugin.Maui.AppReview": {
+    repo: "nuvyntralabs/Plugin.Maui.AppReview",
+    repoId: "R_kgDOUXJFtg",
+    hasIssues: true,
+  },
   "nuvyntralabs/Plugin.Maui.AppUpdate": {
     repo: "nuvyntralabs/Plugin.Maui.AppUpdate",
     repoId: "R_kgDOUHDpTw",
@@ -129,6 +134,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       category: "Announcements",
       categoryId: "DIC_kwDOUHDpT84DEcvx",
     },
+  },
+  "nuvyntralabs/Plugin.Maui.Biometric": {
+    repo: "nuvyntralabs/Plugin.Maui.Biometric",
+    repoId: "R_kgDOUXJCBQ",
+    hasIssues: true,
   },
   "nuvyntralabs/Plugin.Maui.BackgroundTasks": {
     repo: "nuvyntralabs/Plugin.Maui.BackgroundTasks",
@@ -147,6 +157,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       category: "Announcements",
       categoryId: "DIC_kwDOUHfXeM4DEcvl",
     },
+  },
+  "nuvyntralabs/Plugin.Maui.BluetoothSerial": {
+    repo: "nuvyntralabs/Plugin.Maui.BluetoothSerial",
+    repoId: "R_kgDOUXJJaA",
+    hasIssues: true,
   },
   "nuvyntralabs/Plugin.Maui.ClipboardPlus": {
     repo: "nuvyntralabs/Plugin.Maui.ClipboardPlus",
@@ -238,6 +253,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUHzso84DEcuj",
     },
   },
+  "nuvyntralabs/Plugin.Maui.Geofence": {
+    repo: "nuvyntralabs/Plugin.Maui.Geofence",
+    repoId: "R_kgDOUXJINw",
+    hasIssues: true,
+  },
   "nuvyntralabs/Plugin.Maui.GeoLocator": {
     repo: "nuvyntralabs/Plugin.Maui.GeoLocator",
     repoId: "R_kgDOUF926A",
@@ -265,6 +285,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUHCOGs4DEcuR",
     },
   },
+  "nuvyntralabs/Plugin.Maui.KeepAwake": {
+    repo: "nuvyntralabs/Plugin.Maui.KeepAwake",
+    repoId: "R_kgDOUXJDSA",
+    hasIssues: true,
+  },
   "nuvyntralabs/Plugin.Maui.KeyboardManager": {
     repo: "nuvyntralabs/Plugin.Maui.KeyboardManager",
     repoId: "R_kgDOUH2NbQ",
@@ -273,6 +298,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       category: "Announcements",
       categoryId: "DIC_kwDOUH2Nbc4DEcuF",
     },
+  },
+  "nuvyntralabs/Plugin.Maui.LocalNotifications": {
+    repo: "nuvyntralabs/Plugin.Maui.LocalNotifications",
+    repoId: "R_kgDOUXJG9A",
+    hasIssues: true,
   },
   "nuvyntralabs/Plugin.Maui.LeakAnalyser": {
     repo: "nuvyntralabs/Plugin.Maui.LeakAnalyser",
@@ -411,6 +441,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUH0cMc4DEcsr",
     },
   },
+  "nuvyntralabs/Plugin.Maui.ScreenGuard": {
+    repo: "nuvyntralabs/Plugin.Maui.ScreenGuard",
+    repoId: "R_kgDOUXJEbA",
+    hasIssues: true,
+  },
   "nuvyntralabs/Plugin.Maui.SecureSession": {
     repo: "nuvyntralabs/Plugin.Maui.SecureSession",
     repoId: "R_kgDOUG5vmg",
@@ -438,6 +473,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUHrhKc4DEcsN",
     },
   },
+  "nuvyntralabs/Plugin.Maui.TlsPin": {
+    repo: "nuvyntralabs/Plugin.Maui.TlsPin",
+    repoId: "R_kgDOUXJMFg",
+    hasIssues: true,
+  },
   "nuvyntralabs/Plugin.Maui.SmartUpload": {
     repo: "nuvyntralabs/Plugin.Maui.SmartUpload",
     repoId: "R_kgDOUGMWiA",
@@ -446,6 +486,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       category: "Announcements",
       categoryId: "DIC_kwDOUGMWiM4DEbh7",
     },
+  },
+  "nuvyntralabs/Plugin.Maui.VideoPipeline": {
+    repo: "nuvyntralabs/Plugin.Maui.VideoPipeline",
+    repoId: "R_kgDOUXJKug",
+    hasIssues: true,
   },
   "nuvyntralabs/Plugin.Maui.VoipCore": {
     repo: "nuvyntralabs/Plugin.Maui.VoipCore",

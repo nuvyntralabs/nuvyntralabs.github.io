@@ -100,6 +100,9 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-geolocator/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-geofence/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-network-monitor/</loc>
   </url>
   <url>
@@ -121,6 +124,9 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-push-router/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-local-notifications/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-permission-flow/</loc>
   </url>
   <url>
@@ -139,10 +145,16 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-tls-pin/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-file-vault/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-media-pipeline/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-video-pipeline/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-voip-core/</loc>
@@ -169,6 +181,9 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-app-update/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-app-review/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-network-diagnostics/</loc>
   </url>
   <url>
@@ -179,6 +194,9 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-bluetooth-manager/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-bluetooth-serial/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-share-plus/</loc>
@@ -194,6 +212,15 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-app-lock/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-biometric/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-screen-guard/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-keep-awake/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-printing/</loc>
