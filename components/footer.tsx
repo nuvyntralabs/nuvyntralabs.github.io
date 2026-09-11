@@ -19,6 +19,7 @@ const work = [
 
 const resources = [
   { href: "/getting-started/", label: "Getting started" },
+  { href: siteConfig.discord, label: "Discord community", external: true },
   { href: siteConfig.githubOrg, label: "GitHub organization", external: true },
   { href: siteConfig.githubSponsors, label: "GitHub Sponsors", external: true },
   { href: siteConfig.buyMeACoffee, label: "Buy Me a Coffee", external: true },

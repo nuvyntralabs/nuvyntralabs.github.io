@@ -36,6 +36,7 @@ export function buildLlmsTxt(): string {
 Hub: ${siteConfig.url}
 Founder: ${siteConfig.author} — ${siteConfig.authorUrl}
 Organization: ${siteConfig.githubOrg}
+Discord: ${siteConfig.discord}
 GitHub: ${siteConfig.authorGithub}
 Sponsors: ${siteConfig.githubSponsors}
 Buy Me a Coffee: ${siteConfig.buyMeACoffee}

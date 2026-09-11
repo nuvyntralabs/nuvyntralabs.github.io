@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F17"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="gradCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+
+    <linearGradient id="gradPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+
+    <linearGradient id="gradEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="160" rx="16" fill="url(#bgGlow)"/>
+
+  <g transform="translate(45, 30)">
+    <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="none" stroke="#1E293B" stroke-width="3"/>
+    <path d="M 25 35 L 25 75 L 37 68 L 37 42 Z" fill="url(#gradCyan)"/>
+    <path d="M 37 42 L 63 68 L 63 52 L 37 26 Z" fill="url(#gradPurple)"/>
+    <path d="M 63 25 L 63 65 L 75 58 L 75 32 Z" fill="url(#gradEmerald)"/>
+
+    <circle cx="50" cy="5" r="4" fill="#38BDF8"/>
+    <circle cx="90" cy="27.5" r="4" fill="#818CF8"/>
+    <circle cx="90" cy="72.5" r="4" fill="#34D399"/>
+    <circle cx="50" cy="95" r="4" fill="#38BDF8"/>
+    <circle cx="10" cy="72.5" r="4" fill="#818CF8"/>
+    <circle cx="10" cy="27.5" r="4" fill="#34D399"/>
+  </g>
+
+  <text x="165" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="36" fill="#F8FAFC" letter-spacing="1.5">
+    NUVYNTRA
+  </text>
+  
+  <text x="166" y="106" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="16" fill="#0EA5E9" letter-spacing="6">
+    LABS
+  </text>
+
+  <text x="400" y="106" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="400" font-size="11" fill="#64748B" letter-spacing="1">
+    APPLIED R&amp;D
+  </text>
+</svg>

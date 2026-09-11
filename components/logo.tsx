@@ -10,9 +10,13 @@ export function Logo({
 }) {
   return (
     <Link href="/" className="focusable inline-flex items-center gap-2.5 rounded-full">
-      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary text-[13px] font-extrabold tracking-tight text-white shadow-glow">
-        NL
-      </span>
+      <img
+        src="/brand/logo.svg"
+        alt={compact ? siteConfig.shortName : ""}
+        width={36}
+        height={36}
+        className="h-9 w-9 rounded-[10px]"
+      />
       {compact ? null : (
         <span
           className={

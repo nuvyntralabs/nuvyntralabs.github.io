@@ -100,7 +100,10 @@ export const metadata: Metadata = {
         },
       }
     : {}),
-  icons: { icon: "/favicon.svg" },
+  icons: {
+    icon: [{ url: "/brand/logo.svg", type: "image/svg+xml" }, { url: "/favicon.svg" }],
+    apple: "/brand/logo.png",
+  },
 };
 
 export default function RootLayout({

@@ -6,6 +6,7 @@ export const siteConfig = {
     "Independent applied R&D company for mobile infrastructure. We research hard field problems, prove them in public, and ship focused .NET MAUI NuGet packages.",
   url: "https://nuvyntralabs.github.io",
   githubOrg: "https://github.com/nuvyntralabs",
+  discord: "https://discord.gg/2rg8s7P8xE",
   githubPackagesFeed: "https://nuget.pkg.github.com/nuvyntralabs/index.json",
   author: "Niladri Prasad Padhy",
   authorUrl: "https://niladri-padhy-website.vercel.app",
