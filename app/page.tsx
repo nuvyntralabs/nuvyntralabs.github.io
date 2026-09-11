@@ -42,14 +42,7 @@ export default function HomePage() {
       <section className="bg-gradient-ink text-white">
         <div className="container grid items-center gap-12 pb-16 pt-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:pb-24 lg:pt-24">
           <div>
-            <img
-              src="/brand/logo.svg"
-              alt=""
-              width={56}
-              height={56}
-              className="h-14 w-14 rounded-2xl"
-            />
-            <p className="eyebrow-on-dark mt-6">{lab.tagline}</p>
+            <p className="eyebrow-on-dark">{lab.tagline}</p>
             <h1 className="mt-6 max-w-3xl font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               Mobile infrastructure, <span className="heading-gradient">researched and shipped</span>
             </h1>
@@ -63,6 +56,9 @@ export default function HomePage() {
               </Link>
               <Link href="#community" className="focusable btn-on-dark">
                 Join the community
+              </Link>
+              <Link href="/releases/" className="focusable btn-on-dark">
+                MAUI Platform releases
               </Link>
             </div>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-lavender-100/70">
@@ -94,16 +90,10 @@ export default function HomePage() {
       <CommunityBand />
 
       <section className="border-y border-lavender-100 bg-white">
-        <div className="container flex flex-col items-center justify-center gap-2 py-6 sm:flex-row sm:gap-4">
+        <div className="container py-6">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
             Built for .NET MAUI teams on Android and iOS
           </p>
-          <Link
-            href="/releases/"
-            className="text-xs font-semibold text-lavender-700 hover:text-lavender-900"
-          >
-            Official MAUI release feed →
-          </Link>
         </div>
       </section>
 

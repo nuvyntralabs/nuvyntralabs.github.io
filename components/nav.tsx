@@ -23,7 +23,6 @@ const links = [
   { href: "/packages/", label: "Products" },
   { href: mvvmExpressHref, label: "MVVMExpress" },
   { href: "/toolkits/", label: "Toolkits" },
-  { href: "/releases/", label: "Releases" },
   { href: "/research/", label: "Research" },
   { href: "/pocs/", label: "POCs" },
   { href: "/about/", label: "About" },
