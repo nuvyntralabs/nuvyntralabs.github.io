@@ -5,7 +5,7 @@ export function DocsArticle({ sections }: { sections: DocSection[] }) {
   return (
     <article className="min-w-0">
       {sections.map((section) => (
-        <section key={section.id} id={section.id} className="scroll-mt-24 border-b border-lavender-100 py-10 last:border-b-0 last:pb-0 first:pt-0">
+        <section key={section.id} id={section.id} className="scroll-mt-24 border-b border-border py-10 last:border-b-0 last:pb-0 first:pt-0">
           <h2 className="font-display text-2xl font-semibold tracking-tight">{section.title}</h2>
           <div className="mt-4 space-y-4">
             {section.blocks.map((block, index) => (
@@ -45,15 +45,15 @@ function DocBlockView({ block }: { block: DocBlock }) {
       );
     case "code":
       return (
-        <pre className="overflow-x-auto rounded-2xl bg-[#160d2c] p-4 text-[13px] leading-relaxed text-lavender-50">
+        <pre className="overflow-x-auto rounded-2xl bg-ink p-4 text-[13px] leading-relaxed text-lavender-50">
           <code>{block.code}</code>
         </pre>
       );
     case "table":
       return (
-        <div className="overflow-x-auto rounded-2xl border border-lavender-100">
+        <div className="overflow-x-auto rounded-2xl border border-border">
           <table className="min-w-full text-left text-sm">
-            <thead className="bg-lavender-50 text-lavender-900">
+            <thead className="bg-muted text-foreground">
               <tr>
                 {block.headers.map((header) => (
                   <th key={header} className="px-3 py-2.5 font-semibold">
@@ -64,7 +64,7 @@ function DocBlockView({ block }: { block: DocBlock }) {
             </thead>
             <tbody>
               {block.rows.map((row) => (
-                <tr key={row.join("|")} className="border-t border-lavender-100 align-top">
+                <tr key={row.join("|")} className="border-t border-border align-top">
                   {row.map((cell, cellIndex) => (
                     <td
                       key={`${cell}-${cellIndex}`}
@@ -81,9 +81,9 @@ function DocBlockView({ block }: { block: DocBlock }) {
       );
     case "callout":
       return (
-        <aside className="rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
-          <p className="text-sm font-semibold text-lavender-900">{block.title}</p>
-          <p className="mt-1 text-sm leading-relaxed text-lavender-800">{block.text}</p>
+        <aside className="callout px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">{block.title}</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{block.text}</p>
         </aside>
       );
     case "link":
@@ -91,7 +91,7 @@ function DocBlockView({ block }: { block: DocBlock }) {
         <p className="text-base leading-relaxed text-muted-foreground">
           {block.note ? `${block.note} ` : null}
           {block.href.startsWith("/") ? (
-            <Link href={block.href} className="font-medium text-lavender-700 hover:text-lavender-900">
+            <Link href={block.href} className="text-link">
               {block.label}
             </Link>
           ) : (
@@ -99,7 +99,7 @@ function DocBlockView({ block }: { block: DocBlock }) {
               href={block.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               {block.label}
             </a>

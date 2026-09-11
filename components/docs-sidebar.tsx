@@ -43,7 +43,7 @@ export function DocsSidebar({
                 type="button"
                 aria-expanded={open}
                 onClick={() => toggle(group.id)}
-                className="focusable flex w-full items-center justify-between gap-2 py-0.5 text-left text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700"
+                className="focusable flex w-full items-center justify-between gap-2 py-0.5 text-left text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300"
               >
                 {group.title}
                 <ChevronDown
@@ -52,7 +52,7 @@ export function DocsSidebar({
                 />
               </button>
               {open ? (
-                <ul className="mt-1.5 border-l border-lavender-100">
+                <ul className="mt-1.5 border-l border-border">
                   {group.items.map((item) => {
                     const selected = item.href === currentHref;
                     return (
@@ -63,8 +63,8 @@ export function DocsSidebar({
                           className={cn(
                             "focusable -ml-px block border-l py-1.5 pl-3 text-sm",
                             selected
-                              ? "border-lavender-600 font-semibold text-lavender-950"
-                              : "border-transparent text-muted-foreground hover:border-lavender-300 hover:text-lavender-900",
+                              ? "border-lavender-600 font-semibold text-lavender-950 dark:border-lavender-400 dark:text-lavender-100"
+                              : "border-transparent text-muted-foreground hover:border-lavender-300 hover:text-lavender-900 dark:hover:border-lavender-400 dark:hover:text-lavender-100",
                           )}
                         >
                           {item.title}

@@ -98,7 +98,7 @@ export default async function PackagePage({ params }: PageProps) {
       {!isMvvm ? (
         <Link
           href="/packages/"
-          className="focusable inline-flex items-center gap-2 rounded-full text-sm font-medium text-lavender-700 hover:text-lavender-900"
+          className="focusable text-link inline-flex items-center gap-2 rounded-full text-sm"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           All packages
@@ -107,22 +107,22 @@ export default async function PackagePage({ params }: PageProps) {
 
       <p className={isMvvm ? "eyebrow mt-8" : "eyebrow mt-8"}>{pkg.group}</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{pkg.title}</h1>
-      <p className="mt-3 text-lg text-lavender-700">{pkg.subtitle}</p>
+      <p className="mt-3 text-lg text-lavender-700 dark:text-lavender-300">{pkg.subtitle}</p>
       {pkg.prerelease ? (
-        <p className="mt-4 inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900">
+        <p className="mt-4 inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900 dark:bg-amber-950/40 dark:text-amber-200">
           Public preview — APIs may change
         </p>
       ) : null}
       {pkg.version ? (
-        <p className="mt-4 inline-flex rounded-full bg-lavender-50 px-3 py-1 text-xs font-semibold text-lavender-900">
+        <p className="chip mt-4 inline-flex px-3 font-semibold">
           Current NuGet {pkg.version}
         </p>
       ) : null}
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{pkg.description}</p>
       {isMauiMvvm ? (
-        <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
-          <p className="text-sm font-semibold text-lavender-900">1.3.0 — Phases 8–10 on the 1.0 SemVer lock</p>
-          <p className="mt-1 text-sm leading-relaxed text-lavender-800">
+        <aside className="callout mt-6 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">1.3.0 — Phases 8–10 on the 1.0 SemVer lock</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             Scaffold with <code>dotnet new mvvmexpress</code>, or install the{" "}
             <strong>MVVMExpress</strong> listings on the Visual Studio Code and Visual Studio Marketplaces.
             One registration path, analyzers, modules, modal stack, and sibling host adapters are
@@ -132,9 +132,9 @@ export default async function PackagePage({ params }: PageProps) {
         </aside>
       ) : null}
       {isWpfMvvm ? (
-        <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
-          <p className="text-sm font-semibold text-lavender-900">1.0.0 — first stable WPF family</p>
-          <p className="mt-1 text-sm leading-relaxed text-lavender-800">
+        <aside className="callout mt-6 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">1.0.0 — first stable WPF family</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             Scaffold with <code>dotnet new wpf-mvvmexpress</code>, or install the{" "}
             <strong>WPF MVVMExpress</strong> listings on the Visual Studio Code and Visual Studio Marketplaces.
             Frame navigation, dialogs, validation, pagination, and IDE wrappers are shipped. This is
@@ -144,11 +144,11 @@ export default async function PackagePage({ params }: PageProps) {
         </aside>
       ) : null}
       {desktop ? (
-        <aside className="mt-6 rounded-2xl border border-lavender-200 bg-lavender-50 px-4 py-3">
-          <p className="text-sm font-semibold text-lavender-900">
+        <aside className="callout mt-6 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">
             {desktop.platform.version} — current {desktop.platform.label} family (nuget.org README markdown)
           </p>
-          <p className="mt-1 text-sm leading-relaxed text-lavender-800">
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             Scaffold with <code>dotnet new {desktop.platform.appTemplate}</code>, or install the{" "}
             <strong>{desktop.platform.label} MVVMExpress</strong> listings on the Visual Studio Code and
             Visual Studio Marketplaces. Frame navigation, dialogs, validation, pagination, and IDE
@@ -175,7 +175,7 @@ export default async function PackagePage({ params }: PageProps) {
             href={githubPackages}
             target="_blank"
             rel="noopener noreferrer"
-            className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            className="focusable btn-secondary"
           >
             <Package className="h-4 w-4" aria-hidden="true" />
             GitHub Packages
@@ -187,7 +187,7 @@ export default async function PackagePage({ params }: PageProps) {
             href={pkg.nuget}
             target="_blank"
             rel="noopener noreferrer"
-            className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            className="focusable btn-secondary"
           >
             <Package className="h-4 w-4" aria-hidden="true" />
             nuget.org
@@ -202,7 +202,7 @@ export default async function PackagePage({ params }: PageProps) {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Package className="h-4 w-4" aria-hidden="true" />
               Templates · GitHub Packages
@@ -212,7 +212,7 @@ export default async function PackagePage({ params }: PageProps) {
               href="https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Templates"
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Package className="h-4 w-4" aria-hidden="true" />
               Templates · nuget.org
@@ -222,7 +222,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={vscodeMarketplaceSearch}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               VS Code
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -231,7 +231,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={visualStudioMarketplaceSearch}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               Visual Studio
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -240,7 +240,7 @@ export default async function PackagePage({ params }: PageProps) {
               href="https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress/tree/main/samples/Playground"
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Github className="h-4 w-4" aria-hidden="true" />
               Playground sample
@@ -257,7 +257,7 @@ export default async function PackagePage({ params }: PageProps) {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Package className="h-4 w-4" aria-hidden="true" />
               Templates · GitHub Packages
@@ -267,7 +267,7 @@ export default async function PackagePage({ params }: PageProps) {
               href="https://www.nuget.org/packages/Plugin.Wpf.MVVMExpress.Templates"
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Package className="h-4 w-4" aria-hidden="true" />
               Templates · nuget.org
@@ -277,7 +277,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={wpfVscodeMarketplaceSearch}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               VS Code
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -286,7 +286,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={wpfVisualStudioMarketplaceSearch}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               Visual Studio
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -295,7 +295,7 @@ export default async function PackagePage({ params }: PageProps) {
               href="https://github.com/nuvyntralabs/Plugin.Wpf.MVVMExpress/tree/main/samples/Playground"
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Github className="h-4 w-4" aria-hidden="true" />
               Playground sample
@@ -309,7 +309,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={githubPackagesPageUrl(desktop.platform.github, desktop.platform.templates)}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Package className="h-4 w-4" aria-hidden="true" />
               Templates · GitHub Packages
@@ -319,7 +319,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={`https://www.nuget.org/packages/${desktop.platform.templates}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Package className="h-4 w-4" aria-hidden="true" />
               Templates · nuget.org
@@ -329,7 +329,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={desktop.platform.vscodeSearch}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               VS Code
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -338,7 +338,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={desktop.platform.vsSearch}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               Visual Studio
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -347,7 +347,7 @@ export default async function PackagePage({ params }: PageProps) {
               href={`${desktop.platform.github}/tree/main/samples/Playground`}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               <Github className="h-4 w-4" aria-hidden="true" />
               Playground sample
@@ -372,14 +372,14 @@ export default async function PackagePage({ params }: PageProps) {
       {install ? (
         <section className="mt-12">
           <h2 className="font-display text-2xl font-semibold">Install</h2>
-          <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{install}</code>
           </pre>
           <p className="mt-3 text-sm text-muted-foreground">
             {pkg.prerelease ? "Preview packages need --prerelease. " : ""}
             Package ID{installNames.length > 1 ? "s" : ""}:{" "}
             {installNames.map((name) => (
-              <code key={name} className="mr-1.5 rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+              <code key={name} className="code-inline mr-1.5">
                 {name}
               </code>
             ))}
@@ -387,20 +387,20 @@ export default async function PackagePage({ params }: PageProps) {
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             {isDesktopHost ? (
               <>
-                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+                <code className="code-inline">
                   {desktop?.platform.prefix ?? "Plugin.Wpf.MVVMExpress"}.*
                 </code>{" "}
                 restores from nuget.org. CI also publishes GitHub Packages — see{" "}
-                <Link href={githubPackagesSetupPath} className="font-medium text-lavender-700 hover:text-lavender-900">
+                <Link href={githubPackagesSetupPath} className="text-link">
                   Use nuvyntralabs GitHub Packages from a C# project
                 </Link>
                 .
               </>
             ) : (
               <>
-                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.*</code>{" "}
+                <code className="code-inline">Plugin.Maui.*</code>{" "}
                 restores from GitHub Packages. Add the org feed first — see{" "}
-                <Link href={githubPackagesSetupPath} className="font-medium text-lavender-700 hover:text-lavender-900">
+                <Link href={githubPackagesSetupPath} className="text-link">
                   Use nuvyntralabs GitHub Packages from a C# project
                 </Link>
                 .
@@ -410,20 +410,20 @@ export default async function PackagePage({ params }: PageProps) {
           {isMauiMvvm ? (
             <>
               <p className="mt-6 text-sm font-semibold text-foreground">Or scaffold an app</p>
-              <pre className="mt-3 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+              <pre className="mt-3 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
                 <code>{`dotnet new install Plugin.Maui.MVVMExpress.Templates
 dotnet new mvvmexpress -n MyApp`}</code>
               </pre>
               <p className="mt-3 text-sm text-muted-foreground">
                 Adds MainPage + MainPageViewModel, login replace-root, a list, a form, and tests.
                 Then{" "}
-                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+                <code className="code-inline">
                   dotnet new mvvmexpress-page -n Catalog --namespace MyApp
                 </code>
                 . Same commands from the{" "}
                 <Link
                   href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
-                  className="font-medium text-lavender-700 hover:text-lavender-900"
+                  className="text-link"
                 >
                   VS Code and Visual Studio extensions
                 </Link>
@@ -434,20 +434,20 @@ dotnet new mvvmexpress -n MyApp`}</code>
           {isWpfMvvm ? (
             <>
               <p className="mt-6 text-sm font-semibold text-foreground">Or scaffold an app</p>
-              <pre className="mt-3 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+              <pre className="mt-3 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
                 <code>{`dotnet new install Plugin.Wpf.MVVMExpress.Templates
 dotnet new wpf-mvvmexpress -n MyApp`}</code>
               </pre>
               <p className="mt-3 text-sm text-muted-foreground">
                 Adds MainWindow with a Frame named NavigationHost, login replace-root, a list, a
                 form, and tests. Then{" "}
-                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+                <code className="code-inline">
                   dotnet new wpf-mvvmexpress-page -n Catalog --namespace MyApp
                 </code>
                 . Same commands from the{" "}
                 <Link
                   href="/packages/plugin-wpf-mvvmexpress/docs/ide-extensions/"
-                  className="font-medium text-lavender-700 hover:text-lavender-900"
+                  className="text-link"
                 >
                   VS Code and Visual Studio extensions
                 </Link>
@@ -458,20 +458,20 @@ dotnet new wpf-mvvmexpress -n MyApp`}</code>
           {desktop ? (
             <>
               <p className="mt-6 text-sm font-semibold text-foreground">Or scaffold an app</p>
-              <pre className="mt-3 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+              <pre className="mt-3 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
                 <code>{`dotnet new install ${desktop.platform.templates}
 dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
               </pre>
               <p className="mt-3 text-sm text-muted-foreground">
                 Adds a main window with {desktop.platform.frameType}, login replace-root, a list, a
                 form, and tests. Then{" "}
-                <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+                <code className="code-inline">
                   dotnet new {desktop.platform.pageTemplate} -n Catalog --namespace MyApp
                 </code>
                 . Same commands from the{" "}
                 <Link
                   href={`${desktop.docsBase}/ide-extensions/`}
-                  className="font-medium text-lavender-700 hover:text-lavender-900"
+                  className="text-link"
                 >
                   VS Code and Visual Studio extensions
                 </Link>
@@ -489,13 +489,13 @@ dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
             hardened 1.x releases on 3 September 2026 — see the{" "}
             <Link
               href="/getting-started/hardening/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               upgrade map
             </Link>
             .
           </p>
-          <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{`git clone --recurse-submodules ${pkg.github}.git`}</code>
           </pre>
         </section>
@@ -522,7 +522,7 @@ dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
               Full upgrade map for the 3 September 2026 hardening wave:{" "}
               <Link
                 href="/getting-started/hardening/"
-                className="font-medium text-lavender-700 hover:text-lavender-900"
+                className="text-link"
               >
                 Hardened plugin releases
               </Link>
@@ -678,9 +678,9 @@ dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
       {isMauiMvvm || isDesktopHost ? (
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold">Package family</h2>
-          <div className="mt-4 overflow-x-auto rounded-2xl border border-lavender-100">
+          <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
             <table className="min-w-full text-left text-sm">
-              <thead className="bg-lavender-50 text-lavender-900">
+              <thead className="bg-muted text-foreground">
                 <tr>
                   <th className="px-3 py-2.5 font-semibold">Package</th>
                   <th className="px-3 py-2.5 font-semibold">Purpose</th>
@@ -689,7 +689,7 @@ dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
               </thead>
               <tbody>
                 {(desktop?.packageFamily ?? (isWpfMvvm ? wpfPackageFamily : packageFamily)).map((item) => (
-                  <tr key={item.name} className="border-t border-lavender-100 align-top">
+                  <tr key={item.name} className="border-t border-border align-top">
                     <td className="px-3 py-2.5 font-medium text-foreground">
                       <span className="flex flex-col gap-1.5">
                         <span>{item.name}</span>
@@ -699,7 +699,7 @@ dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
                               href={githubPackagesPageUrl(pkg.github, item.name)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-lavender-800 hover:text-lavender-900"
+                              className="text-link"
                             >
                               GitHub Packages
                             </a>
@@ -707,7 +707,7 @@ dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
                               href={item.nuget}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-lavender-800 hover:text-lavender-900"
+                              className="text-link"
                             >
                               nuget.org
                             </a>
@@ -782,7 +782,7 @@ dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
         {pkg.tags.map((tag) => (
           <li
             key={tag}
-            className="rounded-full border border-lavender-200 bg-lavender-50 px-3 py-1 text-xs font-medium text-lavender-800"
+            className="chip border border-border px-3"
           >
             {tag}
           </li>

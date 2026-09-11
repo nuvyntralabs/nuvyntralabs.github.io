@@ -8,11 +8,11 @@ export type DiscussionTarget = {
 export const commentsAppearance = {
   term: "Website comments",
   giscus: {
-    theme: "noborder_light",
+    theme: "preferred_color_scheme",
     lang: "en",
   },
   utterances: {
-    theme: "github-light",
+    theme: "preferred-color-scheme",
   },
 } as const;
 

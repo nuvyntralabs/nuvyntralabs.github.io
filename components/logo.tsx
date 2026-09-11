@@ -15,7 +15,7 @@ export function Logo({
         alt={compact ? siteConfig.shortName : ""}
         width={36}
         height={36}
-        className="h-9 w-9 rounded-[10px]"
+        className="h-9 w-9 rounded-xl shadow-soft"
       />
       {compact ? null : (
         <span

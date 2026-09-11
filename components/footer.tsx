@@ -36,8 +36,10 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0c0618] text-lavender-100">
-      <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative overflow-hidden bg-ink text-lavender-100">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-lavender-400/50 to-transparent" />
+      <div className="pointer-events-none absolute -left-24 top-0 h-64 w-64 rounded-full bg-lavender-600/15 blur-3xl" />
+      <div className="container grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-4 lg:col-span-1">
           <Logo onDark />
           <p className="max-w-xs text-sm leading-relaxed text-lavender-100/70">
@@ -56,7 +58,7 @@ export function Footer() {
           </p>
           <p className="flex flex-wrap gap-x-3 gap-y-1">
             {discovery.map((item) => (
-              <a key={item.href} href={item.href} className="hover:text-white">
+              <a key={item.href} href={item.href} className="transition hover:text-white">
                 {item.label}
               </a>
             ))}
@@ -83,14 +85,14 @@ function FooterColumn({
             {link.external ? (
               <a
                 href={link.href}
-                className="focusable text-sm text-lavender-100/75 hover:text-white"
+                className="focusable text-sm text-lavender-100/75 transition hover:text-white"
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
               >
                 {link.label}
               </a>
             ) : (
-              <Link href={link.href} className="focusable text-sm text-lavender-100/75 hover:text-white">
+              <Link href={link.href} className="focusable text-sm text-lavender-100/75 transition hover:text-white">
                 {link.label}
               </Link>
             )}

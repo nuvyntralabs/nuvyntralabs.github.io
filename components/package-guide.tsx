@@ -67,7 +67,7 @@ export function PackageGuide({
   }
 
   return (
-    <main className="bg-white">
+    <main className="bg-background">
       <JsonLd data={packageGuideJsonLd(pkg, kind, title, description, href)} />
       <div className="container max-w-7xl py-8 sm:py-10">
         <div className="mb-8">
@@ -76,7 +76,7 @@ export function PackageGuide({
         <div className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_180px]">
           <DocsSidebar groups={nav} currentHref={href} />
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
               {kind === "docs" ? "Documentation" : kind === "comparison" ? "Comparison" : "Getting started"}
             </p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
@@ -106,10 +106,10 @@ function GuidePager({ currentHref, slug }: { currentHref: string; slug: string }
   if (!previous && !next) return null;
 
   return (
-    <nav aria-label="Adjacent topics" className="mt-12 grid gap-3 border-t border-lavender-100 pt-8 sm:grid-cols-2">
+    <nav aria-label="Adjacent topics" className="mt-12 grid gap-3 border-t border-border pt-8 sm:grid-cols-2">
       {previous ? (
-        <Link href={previous.href} className="focusable rounded-xl border border-lavender-100 p-4 hover:bg-lavender-50">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700">Previous</p>
+        <Link href={previous.href} className="focusable rounded-xl border border-border p-4 hover:bg-muted">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">Previous</p>
           <p className="mt-1 font-semibold text-foreground">{previous.title}</p>
         </Link>
       ) : (
@@ -118,9 +118,9 @@ function GuidePager({ currentHref, slug }: { currentHref: string; slug: string }
       {next ? (
         <Link
           href={next.href}
-          className="focusable rounded-xl border border-lavender-100 p-4 text-right hover:bg-lavender-50 sm:justify-self-end"
+          className="focusable rounded-xl border border-border p-4 text-right hover:bg-muted sm:justify-self-end"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700">Next</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">Next</p>
           <p className="mt-1 font-semibold text-foreground">{next.title}</p>
         </Link>
       ) : null}
@@ -131,13 +131,13 @@ function GuidePager({ currentHref, slug }: { currentHref: string; slug: string }
 function OnThisPage({ sections }: { sections: DocSection[] }) {
   return (
     <nav aria-label="On this page" className="lg:sticky lg:top-20 lg:self-start">
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700">On this page</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">On this page</p>
       <ol className="mt-3 space-y-1">
         {sections.map((section) => (
           <li key={section.id}>
             <a
               href={`#${section.id}`}
-              className="focusable block py-1 text-sm text-muted-foreground hover:text-lavender-900"
+              className="focusable block py-1 text-sm text-muted-foreground hover:text-foreground"
             >
               {section.title}
             </a>
@@ -185,7 +185,7 @@ export function GuideTabs({
               "focusable inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold",
               selected
                 ? "bg-gradient-primary text-white shadow-glow"
-                : "border border-lavender-200 bg-white text-lavender-800 hover:bg-lavender-50",
+                : "filter-idle",
             )}
           >
             {Icon ? <Icon className="h-4 w-4" aria-hidden="true" /> : null}

@@ -51,7 +51,7 @@ export default function MauiReleasesPage() {
         description="Microsoft Learn publishes what's-new notes per major version. There is no separate Microsoft RSS of every MAUI service release — those land on github.com/dotnet/maui/releases. This page mirrors that feed live and keeps the original link on every card."
       />
 
-      <section className="border-b border-lavender-100 bg-white">
+      <section className="border-b border-border bg-card">
         <div className="container py-16 sm:py-20">
           <h2 className="font-display text-2xl font-semibold text-foreground">Where Microsoft publishes notes</h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
@@ -64,7 +64,7 @@ export default function MauiReleasesPage() {
               const Icon = source.icon;
               return (
                 <li key={source.href} className="glass-card flex h-full flex-col p-6">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-lavender-100 text-lavender-700">
+                  <span className="icon-well h-10 w-10 rounded-xl">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <h3 className="mt-4 font-display text-lg font-semibold text-foreground">{source.title}</h3>
@@ -78,7 +78,7 @@ export default function MauiReleasesPage() {
                     {source.cta}
                     <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </a>
-                  <p className="mt-3 break-all text-xs leading-relaxed text-lavender-700">{source.href}</p>
+                  <p className="mt-3 break-all text-xs leading-relaxed text-lavender-700 dark:text-lavender-300">{source.href}</p>
                 </li>
               );
             })}
@@ -86,7 +86,7 @@ export default function MauiReleasesPage() {
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <a
               href={mauiReleaseSources.learnDotnet11}
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -94,7 +94,7 @@ export default function MauiReleasesPage() {
             </a>
             <a
               href={mauiReleaseSources.learnDotnet10}
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -102,7 +102,7 @@ export default function MauiReleasesPage() {
             </a>
             <a
               href={mauiReleaseSources.supportPolicy}
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -110,7 +110,7 @@ export default function MauiReleasesPage() {
             </a>
             <a
               href={mauiReleaseSources.githubAtom}
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -120,7 +120,7 @@ export default function MauiReleasesPage() {
         </div>
       </section>
 
-      <section className="bg-lavender-50/60">
+      <section className="section-muted">
         <div className="container py-16 sm:py-20">
           <MauiReleaseFeed />
         </div>

@@ -39,14 +39,17 @@ const pillars = [
 export default function HomePage() {
   return (
     <main>
-      <section className="bg-gradient-ink text-white">
-        <div className="container grid items-center gap-12 pb-16 pt-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:pb-24 lg:pt-24">
-          <div>
-            <p className="eyebrow-on-dark">{lab.tagline}</p>
-            <h1 className="mt-6 max-w-3xl font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+      <section className="relative overflow-hidden bg-gradient-hero">
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
+        <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 animate-pulse-soft rounded-full bg-lavender-400/25 blur-3xl" />
+        <div className="pointer-events-none absolute right-0 top-24 h-64 w-64 animate-pulse-soft rounded-full bg-cyan-300/20 blur-3xl" />
+        <div className="container relative grid items-center gap-12 pb-16 pt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:pb-24 lg:pt-20">
+          <div className="animate-fade-up">
+            <p className="eyebrow">{lab.tagline}</p>
+            <h1 className="mt-6 max-w-3xl font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-[4.1rem] lg:leading-[1.05]">
               Mobile infrastructure, <span className="heading-gradient">researched and shipped</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-lavender-100/80 sm:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               {lab.mission}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -54,44 +57,48 @@ export default function HomePage() {
                 View products
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <Link href="#community" className="focusable btn-on-dark">
+              <Link href="#community" className="focusable btn-secondary">
                 Join the community
               </Link>
-              <Link href="/releases/" className="focusable btn-on-dark">
+              <Link href="/releases/" className="focusable btn-secondary">
                 MAUI Platform releases
               </Link>
             </div>
-            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-lavender-100/70">
+            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {lab.sponsorshipNote}
             </p>
-            <dl className="mt-12 grid max-w-xl grid-cols-3 gap-3">
+            <dl className="mt-12 grid max-w-xl grid-cols-3 gap-6">
               <Stat value={String(researchProjects.length)} label="R&D projects" />
               <Stat value={String(proofOfConcepts.length)} label="POCs" />
               <Stat value={String(nugetPackages.length)} label="NuGet packages" />
             </dl>
           </div>
-          <aside className="hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm lg:block">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-200/80">
-              Workstreams
-            </p>
-            <ul className="mt-5 space-y-4">
-              {pillars.map((pillar) => (
-                <li key={pillar.href} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs font-semibold text-lavender-200">{pillar.step}</p>
-                  <p className="mt-1 font-display text-lg font-semibold text-white">{pillar.title}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-lavender-100/70">{pillar.body}</p>
-                </li>
-              ))}
-            </ul>
+          <aside className="relative hidden lg:block">
+            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-lavender-200/50 via-transparent to-cyan-200/30 blur-2xl" />
+            <div className="relative rounded-[1.75rem] border border-white/80 bg-white/70 p-6 shadow-lift backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04]">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lavender-700 dark:text-lavender-300">
+                Workstreams
+              </p>
+              <ul className="mt-5 space-y-3">
+                {pillars.map((pillar) => (
+                  <li
+                    key={pillar.href}
+                    className="rounded-2xl border border-lavender-100 bg-white/90 p-4 shadow-soft dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none"
+                  >
+                    <p className="text-xs font-semibold text-lavender-500">{pillar.step}</p>
+                    <p className="mt-1 font-display text-lg font-semibold text-foreground">{pillar.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{pillar.body}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </aside>
         </div>
       </section>
 
-      <CommunityBand />
-
-      <section className="border-y border-lavender-100 bg-white">
-        <div className="container py-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+      <section className="section-muted">
+        <div className="container py-5">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             Built for .NET MAUI teams on Android and iOS
           </p>
         </div>
@@ -110,18 +117,18 @@ export default function HomePage() {
               <Link
                 key={pillar.href}
                 href={pillar.href}
-                className="glass-card focusable flex flex-col p-6 transition hover:-translate-y-0.5 hover:shadow-lift"
+                className="glass-card focusable group flex flex-col p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift"
               >
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-lavender-100 text-lavender-700">
+                  <span className="icon-well h-11 w-11 transition group-hover:bg-gradient-primary group-hover:text-white">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500 dark:text-lavender-300">
                     {pillar.step}
                   </span>
                 </div>
                 <h2 className="mt-5 font-display text-xl font-semibold text-foreground">{pillar.title}</h2>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-lavender-700">
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-lavender-700 dark:text-lavender-300">
                   {pillar.count}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{pillar.body}</p>
@@ -131,7 +138,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-lavender-50/60">
+      <section className="section-muted">
         <div className="container py-16 sm:py-20">
           <SectionIntro
             eyebrow="Capabilities"
@@ -139,8 +146,11 @@ export default function HomePage() {
             description={lab.audience}
           />
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {lab.capabilities.map((capability) => (
-              <li key={capability.title} className="glass-card p-6">
+            {lab.capabilities.map((capability, index) => (
+              <li
+                key={capability.title}
+                className={`glass-card p-6 ${index === 0 ? "lg:col-span-2" : ""}`}
+              >
                 <h3 className="font-display text-lg font-semibold text-foreground">{capability.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{capability.body}</p>
               </li>
@@ -148,6 +158,8 @@ export default function HomePage() {
           </ul>
         </div>
       </section>
+
+      <CommunityBand />
 
       <section id="packages" className="container py-16 sm:py-20">
         <SectionIntro
@@ -166,7 +178,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section id="toolkits" className="bg-lavender-50/60">
+      <section id="toolkits" className="section-muted">
         <div className="container py-16 sm:py-20">
           <SectionIntro
             eyebrow="Toolkits"
@@ -202,7 +214,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section id="pocs" className="bg-lavender-50/60">
+      <section id="pocs" className="section-muted">
         <div className="container py-16 sm:py-20">
           <SectionIntro
             eyebrow="Proofs of concept"
@@ -228,9 +240,9 @@ export default function HomePage() {
 
 function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 px-3 py-4 text-center">
-      <dt className="text-xs font-medium text-lavender-100/70">{label}</dt>
-      <dd className="mt-1 font-display text-2xl font-bold text-white">{value}</dd>
+    <div>
+      <dt className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">{label}</dt>
+      <dd className="mt-1 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">{value}</dd>
     </div>
   );
 }

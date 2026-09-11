@@ -35,7 +35,7 @@ export default function HardeningPage() {
           host apps already on 1.x. Hub write-up:{" "}
           <a
             href="https://github.com/nuvyntralabs/MauiEssentials/blob/main/docs/hardened-releases.md"
-            className="font-medium text-lavender-700 hover:text-lavender-900"
+            className="text-link"
           >
             docs/hardened-releases.md
           </a>
@@ -44,9 +44,9 @@ export default function HardeningPage() {
 
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold">Shipped versions</h2>
-          <div className="mt-4 overflow-x-auto rounded-2xl border border-lavender-100">
+          <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
             <table className="min-w-full text-left text-sm">
-              <thead className="bg-lavender-50 text-lavender-900">
+              <thead className="bg-muted text-foreground">
                 <tr>
                   <th className="px-3 py-2.5 font-semibold">Package</th>
                   <th className="px-3 py-2.5 font-semibold">Version</th>
@@ -56,11 +56,11 @@ export default function HardeningPage() {
               </thead>
               <tbody>
                 {hardenedPlugins.map((item) => (
-                  <tr key={item.slug} className="border-t border-lavender-100 align-top">
+                  <tr key={item.slug} className="border-t border-border align-top">
                     <td className="px-3 py-2.5 font-medium text-foreground">
                       <Link
                         href={`/packages/${item.slug}/`}
-                        className="text-lavender-800 hover:text-lavender-900"
+                        className="text-link"
                       >
                         {item.name}
                       </Link>
@@ -116,13 +116,13 @@ export default function HardeningPage() {
             Plugin.Maui.* restores from GitHub Packages. Add the org feed first —{" "}
             <Link
               href="/getting-started/github-packages/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               Use nuvyntralabs GitHub Packages from a C# project
             </Link>
             .
           </p>
-          <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{`dotnet add package Plugin.Maui.DeepLinks --version 1.0.6
 dotnet add package Plugin.Maui.PushRouter --version 1.0.6
 dotnet add package Plugin.Maui.SmartUpload --version 1.0.6
@@ -133,11 +133,11 @@ dotnet add package Plugin.Maui.ApiResilience --version 1.0.8`}</code>
 
         <p className="mt-10 text-sm text-muted-foreground">
           Back to{" "}
-          <Link href="/getting-started/" className="font-medium text-lavender-700 hover:text-lavender-900">
+          <Link href="/getting-started/" className="text-link">
             getting started
           </Link>{" "}
           or the{" "}
-          <Link href="/packages/" className="font-medium text-lavender-700 hover:text-lavender-900">
+          <Link href="/packages/" className="text-link">
             package catalog
           </Link>
           .

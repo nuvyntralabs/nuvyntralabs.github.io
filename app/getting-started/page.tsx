@@ -37,13 +37,13 @@ export default function GettingStartedPage() {
             replace-root, a list, a form, and tests already wired. Same scaffold from the{" "}
             <Link
               href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               VS Code and Visual Studio extensions
             </Link>{" "}
             — install the <strong>MVVMExpress</strong> Marketplace listings.
           </p>
-          <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{`dotnet new maui -n FieldApp
 
 dotnet new install Plugin.Maui.MVVMExpress.Templates
@@ -53,7 +53,7 @@ dotnet new mvvmexpress -n MyApp`}</code>
             Match the MAUI workload on the machine to an official tag. The live feed — sourced from{" "}
             <a
               href="https://github.com/dotnet/maui/releases"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -61,7 +61,7 @@ dotnet new mvvmexpress -n MyApp`}</code>
             </a>
             {" "}
             — is on the{" "}
-            <Link href="/releases/" className="font-medium text-lavender-700 hover:text-lavender-900">
+            <Link href="/releases/" className="text-link">
               .NET MAUI release feed
             </Link>
             .
@@ -71,7 +71,7 @@ dotnet new mvvmexpress -n MyApp`}</code>
         <section className="mt-10">
           <h2 className="font-display text-2xl font-semibold">2. Add the GitHub Packages feed</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.*</code>{" "}
+            <code className="code-inline">Plugin.Maui.*</code>{" "}
             comes from GitHub Packages. Everything else (Microsoft.*, MAUI, and other public
             packages) comes from nuget.org. GitHub Packages requires a token even when the packages
             are public. Full steps:{" "}
@@ -79,14 +79,14 @@ dotnet new mvvmexpress -n MyApp`}</code>
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Create a classic PAT with <strong>read:packages</strong> only. Add a repo{" "}
-            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">nuget.config</code>{" "}
-            that maps <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.*</code>{" "}
+            <code className="code-inline">nuget.config</code>{" "}
+            that maps <code className="code-inline">Plugin.Maui.*</code>{" "}
             to the org feed. Store the token in the user-level NuGet config — never in the repo.
           </p>
           <p className="mt-3">
             <Link
               href={githubPackagesSetupPath}
-              className="focusable inline-flex rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+              className="focusable btn-secondary"
             >
               GitHub Packages setup
             </Link>
@@ -99,7 +99,7 @@ dotnet new mvvmexpress -n MyApp`}</code>
             After the two feeds are configured, restore from GitHub Packages. Registration helpers
             live in each repository README.
           </p>
-          <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{`dotnet add package Plugin.Maui.GeoLocator
 dotnet add package Plugin.Maui.NetworkMonitor
 dotnet add package Plugin.Maui.JobQueue
@@ -133,7 +133,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             For ViewModels, async state, Shell or page navigation, dialogs, and toast, start with{" "}
             <Link
               href="/packages/plugin-maui-mvvmexpress/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               MVVMExpress for MAUI
             </Link>
@@ -141,14 +141,14 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             1.3.0. Scaffold with{" "}
             <Link
               href="/packages/plugin-maui-mvvmexpress/docs/templates/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               dotnet new mvvmexpress
             </Link>{" "}
             or the{" "}
             <Link
               href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               IDE extensions
             </Link>
@@ -156,40 +156,40 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             the independent{" "}
             <Link
               href="/packages/plugin-wpf-mvvmexpress/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               WPF
             </Link>
             ,{" "}
             <Link
               href="/packages/plugin-avalonia-mvvmexpress/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               Avalonia
             </Link>
             ,{" "}
             <Link
               href="/packages/plugin-uno-mvvmexpress/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               Uno
             </Link>
             , and{" "}
             <Link
               href="/packages/plugin-winui-mvvmexpress/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               WinUI 3
             </Link>
             {" "}
             families (
-            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">dotnet new wpf-mvvmexpress</code>
+            <code className="code-inline">dotnet new wpf-mvvmexpress</code>
             ,{" "}
-            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">avalonia-mvvmexpress</code>
+            <code className="code-inline">avalonia-mvvmexpress</code>
             ,{" "}
-            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">uno-mvvmexpress</code>
+            <code className="code-inline">uno-mvvmexpress</code>
             ,{" "}
-            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">winui-mvvmexpress</code>
+            <code className="code-inline">winui-mvvmexpress</code>
             ). Technical internals and a step-by-step integration guide live next to each package.
           </p>
         </section>
@@ -201,7 +201,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             DeepLinks, PushRouter, SmartUpload, and FeatureFlags changed defaults. Read the{" "}
             <Link
               href="/getting-started/hardening/"
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
             >
               hardened release upgrade map
             </Link>{" "}
@@ -213,21 +213,21 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
           <h2 className="font-display text-2xl font-semibold">7. Diagnose the machine and project</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Install the{" "}
-            <Link href="/toolkits/maui-dev/" className="font-medium text-lavender-700 hover:text-lavender-900">
+            <Link href="/toolkits/maui-dev/" className="text-link">
               MauiDev
             </Link>{" "}
-            global tool, then run <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">maui-dev doctor</code>.
+            global tool, then run <code className="code-inline">maui-dev doctor</code>.
             It checks SDK, workloads, Android SDK, JDK, Xcode, TFMs, permissions, duplicate resources, store
             identity, and leftover Xamarin / net8 TFMs.
             The VS Code / Cursor extension{" "}
-            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">nuvyntralabs.maui-dev</code>{" "}
+            <code className="code-inline">nuvyntralabs.maui-dev</code>{" "}
             shells out to the same CLI. The package ID is{" "}
-            <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.MauiDev.Cli</code>
+            <code className="code-inline">Plugin.Maui.MauiDev.Cli</code>
             {" "}
-            — nuget.org reserved <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">MauiDev.Cli</code>.
+            — nuget.org reserved <code className="code-inline">MauiDev.Cli</code>.
             Do not add it as a PackageReference.
           </p>
-          <pre className="mt-4 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{`dotnet tool install -g Plugin.Maui.MauiDev.Cli
 maui-dev doctor
 maui-dev permissions --fix --dry-run
@@ -240,7 +240,7 @@ maui-dev analyze --ci`}</code>
           <h2 className="font-display text-2xl font-semibold">8. Browse the full catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The suite map is{" "}
-            <Link href="/packages/maui-essentials/" className="font-medium text-lavender-700 hover:text-lavender-900">
+            <Link href="/packages/maui-essentials/" className="text-link">
               MauiEssentials
             </Link>
             . R&D projects and POCs that informed these plugins live in their own sections on this

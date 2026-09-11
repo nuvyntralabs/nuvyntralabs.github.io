@@ -30,15 +30,15 @@ export default function GithubPackagesPage() {
         <GithubPackagesSetup />
         <p className="mt-10 text-sm leading-relaxed text-muted-foreground">
           Org feed:{" "}
-          <code className="break-all rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+          <code className="code-inline break-all">
             {githubPackagesFeed}
           </code>
           . Browse a package page from the{" "}
-          <Link href="/packages/" className="font-medium text-lavender-700 hover:text-lavender-900">
+          <Link href="/packages/" className="text-link">
             catalog
           </Link>{" "}
           or return to{" "}
-          <Link href="/getting-started/" className="font-medium text-lavender-700 hover:text-lavender-900">
+          <Link href="/getting-started/" className="text-link">
             getting started
           </Link>
           .

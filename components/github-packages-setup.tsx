@@ -25,7 +25,7 @@ export function GithubPackagesSetup({
     <div className="space-y-10">
       {showIntro ? (
         <p className="text-sm leading-relaxed text-muted-foreground">
-          A project needs two feeds. <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.*</code>{" "}
+          A project needs two feeds. <code className="code-inline">Plugin.Maui.*</code>{" "}
           comes from GitHub Packages. Everything else (Microsoft.*, MAUI, and other public packages)
           comes from nuget.org. GitHub Packages requires a token even when the packages are public.
         </p>
@@ -44,28 +44,28 @@ export function GithubPackagesSetup({
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           Do not put the PAT in this file. Commit the config so every clone uses the same mapping.
         </p>
-        <pre className="mt-4 overflow-x-auto rounded-2xl bg-[#160d2c] p-4 text-[13px] leading-relaxed text-lavender-50">
+        <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-[13px] leading-relaxed text-lavender-50">
           <code>{nugetConfigXml}</code>
         </pre>
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           NuGet uses the most specific mapping:
         </p>
-        <div className="mt-4 overflow-x-auto rounded-2xl border border-lavender-100">
+        <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
           <table className="min-w-full text-left text-sm">
-            <thead className="bg-lavender-50 text-lavender-900">
+            <thead className="bg-muted text-foreground">
               <tr>
                 <th className="px-3 py-2.5 font-semibold">Package ID</th>
                 <th className="px-3 py-2.5 font-semibold">Source</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-t border-lavender-100 align-top">
+              <tr className="border-t border-border align-top">
                 <td className="px-3 py-2.5 font-medium text-foreground">
                   <code>Plugin.Maui.*</code>
                 </td>
                 <td className="px-3 py-2.5 text-muted-foreground">GitHub Packages only</td>
               </tr>
-              <tr className="border-t border-lavender-100 align-top">
+              <tr className="border-t border-border align-top">
                 <td className="px-3 py-2.5 font-medium text-foreground">everything else</td>
                 <td className="px-3 py-2.5 text-muted-foreground">nuget.org only</td>
               </tr>
@@ -73,7 +73,7 @@ export function GithubPackagesSetup({
           </table>
         </div>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          There is no nuget.org fallback for <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">Plugin.Maui.*</code>.
+          There is no nuget.org fallback for <code className="code-inline">Plugin.Maui.*</code>.
           If that version is not on the org feed, restore fails.
         </p>
       </section>
@@ -83,12 +83,12 @@ export function GithubPackagesSetup({
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           Add the source in the user-level NuGet config, not the repo:
         </p>
-        <pre className="mt-4 overflow-x-auto rounded-2xl bg-[#160d2c] p-4 text-[13px] leading-relaxed text-lavender-50">
+        <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-[13px] leading-relaxed text-lavender-50">
           <code>{githubPackagesAddSourceCommand}</code>
         </pre>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           Feed URL:{" "}
-          <code className="break-all rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">
+          <code className="code-inline break-all">
             {githubPackagesFeed}
           </code>
         </p>
@@ -96,12 +96,12 @@ export function GithubPackagesSetup({
 
       <section>
         <TitleTag className={titleClass}>4. Reference a package and restore</TitleTag>
-        <pre className="mt-4 overflow-x-auto rounded-2xl bg-[#160d2c] p-4 text-[13px] leading-relaxed text-lavender-50">
+        <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-[13px] leading-relaxed text-lavender-50">
           <code>{`${githubPackagesPackageReferenceExample}
 dotnet restore`}</code>
         </pre>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          CI: use <code className="rounded bg-lavender-50 px-1.5 py-0.5 text-lavender-800">GITHUB_TOKEN</code>{" "}
+          CI: use <code className="code-inline">GITHUB_TOKEN</code>{" "}
           as the password when that workflow can read the package.
         </p>
       </section>
@@ -117,7 +117,7 @@ export function GithubPackagesSetupLink({
   return (
     <Link
       href={githubPackagesSetupPath}
-      className="font-medium text-lavender-700 hover:text-lavender-900"
+      className="text-link"
     >
       {children}
     </Link>

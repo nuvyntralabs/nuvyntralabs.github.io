@@ -73,7 +73,7 @@ export function MauiReleaseFeed() {
             This list is fetched from the official{" "}
             <a
               href={mauiReleaseSources.githubReleases}
-              className="font-medium text-lavender-700 hover:text-lavender-900"
+              className="text-link"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -109,7 +109,7 @@ export function MauiReleaseFeed() {
           Last checked {updatedAt.toLocaleTimeString()} · Source{" "}
           <a
             href={mauiReleaseSources.githubReleases}
-            className="font-medium text-lavender-700 hover:text-lavender-900"
+            className="text-link"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -138,7 +138,7 @@ export function MauiReleaseFeed() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search 10.0.101, CollectionView, workload…"
-          className="focusable w-full rounded-full border border-lavender-200 bg-white px-5 py-3 text-sm shadow-soft"
+          className="focusable input-search"
         />
       </div>
 
@@ -152,7 +152,7 @@ export function MauiReleaseFeed() {
               "focusable rounded-full px-3 py-1.5 text-xs font-semibold capitalize sm:text-sm",
               filter === id
                 ? "bg-gradient-primary text-white shadow-glow"
-                : "border border-lavender-200 bg-white text-lavender-800 hover:bg-lavender-50",
+                : "filter-idle",
             )}
           >
             {id}
@@ -256,14 +256,14 @@ function ReleaseCard({
             <p className="text-sm text-muted-foreground">{formatReleaseDate(release.publishedAt)}</p>
           </div>
           <h3 className="mt-3 font-display text-xl font-semibold text-foreground">{release.name}</h3>
-          <p className="mt-1 font-mono text-xs text-lavender-700">{release.tag}</p>
+          <p className="mt-1 font-mono text-xs text-lavender-700 dark:text-lavender-300">{release.tag}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{release.summary}</p>
           {release.changeAreas.length > 0 ? (
             <ul className="mt-4 flex flex-wrap gap-2">
               {release.changeAreas.map((area) => (
                 <li
                   key={area}
-                  className="rounded-full bg-lavender-50 px-2.5 py-1 text-xs font-medium text-lavender-800"
+                  className="chip"
                 >
                   {area}
                 </li>
@@ -290,7 +290,7 @@ function ReleaseCard({
       <OriginalLink href={release.htmlUrl} />
 
       {open ? (
-        <div className="mt-5 space-y-4 border-t border-lavender-100 pt-5">
+        <div className="mt-5 space-y-4 border-t border-border pt-5">
           {release.recommendedTools.length > 0 ? (
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
@@ -308,7 +308,7 @@ function ReleaseCard({
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
                 Workload command
               </p>
-              <pre className="mt-2 overflow-x-auto rounded-2xl bg-lavender-950 p-4 text-sm text-lavender-50">
+              <pre className="mt-2 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
                 <code>{release.installCommand}</code>
               </pre>
             </div>
@@ -331,9 +331,9 @@ function ChannelBadge({ channel }: { channel: "Latest" | "Preview" | "Stable" })
     <span
       className={cn(
         "rounded-full px-2.5 py-1 text-xs font-semibold",
-        channel === "Latest" && "bg-emerald-50 text-emerald-800",
-        channel === "Preview" && "bg-amber-50 text-amber-800",
-        channel === "Stable" && "bg-lavender-50 text-lavender-800",
+        channel === "Latest" && "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-200",
+        channel === "Preview" && "bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200",
+        channel === "Stable" && "chip",
       )}
     >
       {channel}
@@ -355,17 +355,17 @@ function OriginalLink({ href }: { href: string }) {
   }
 
   return (
-    <div className="mt-4 flex flex-col gap-2 rounded-xl bg-lavender-50/80 px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between">
-      <p className="min-w-0 text-xs leading-relaxed text-lavender-800">
-        <span className="font-semibold">Original: </span>
-        <a href={href} className="break-all hover:text-lavender-950" target="_blank" rel="noopener noreferrer">
+    <div className="mt-4 flex flex-col gap-2 rounded-xl bg-muted px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between">
+      <p className="min-w-0 text-xs leading-relaxed text-muted-foreground">
+        <span className="font-semibold text-foreground">Original: </span>
+        <a href={href} className="break-all hover:text-foreground" target="_blank" rel="noopener noreferrer">
           {href}
         </a>
       </p>
       <button
         type="button"
         onClick={() => void copy()}
-        className="focusable inline-flex shrink-0 items-center gap-1.5 self-start rounded-full border border-lavender-200 bg-white px-2.5 py-1 text-xs font-semibold text-lavender-800 hover:bg-white"
+        className="focusable btn-secondary !px-2.5 !py-1 text-xs"
       >
         {copied ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
         {copied ? "Copied" : "Copy link"}

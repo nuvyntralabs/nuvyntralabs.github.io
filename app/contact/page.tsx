@@ -79,11 +79,11 @@ export default function ContactPage() {
         </ul>
         <p className="mt-10 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           Prefer to start from a package? Browse the{" "}
-          <Link href="/packages/" className="font-medium text-lavender-700 hover:text-lavender-900">
+          <Link href="/packages/" className="text-link">
             product catalog
           </Link>{" "}
           or follow the{" "}
-          <Link href="/getting-started/" className="font-medium text-lavender-700 hover:text-lavender-900">
+          <Link href="/getting-started/" className="text-link">
             getting started
           </Link>{" "}
           guide.

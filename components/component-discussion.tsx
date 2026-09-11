@@ -113,7 +113,7 @@ export function ComponentDiscussion({
               href={`https://github.com/${repo.repo}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-lavender-800 hover:text-lavender-950"
+              className="text-link"
             >
               {repo.repo}
             </a>
@@ -140,7 +140,7 @@ export function ComponentDiscussion({
                 "focusable inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold",
                 selected
                   ? "bg-gradient-primary text-white shadow-glow"
-                  : "border border-lavender-200 bg-white text-lavender-800 hover:bg-lavender-50",
+                  : "filter-idle",
               )}
             >
               {item.id === "giscus" ? (
@@ -149,7 +149,7 @@ export function ComponentDiscussion({
                 <GitBranch className="h-4 w-4" aria-hidden="true" />
               )}
               {item.label}
-              <span className={cn("text-xs font-medium", selected ? "text-white/80" : "text-lavender-600")}>
+              <span className={cn("text-xs font-medium", selected ? "text-white/80" : "text-lavender-600 dark:text-lavender-300")}>
                 {item.hint}
               </span>
             </button>
@@ -164,11 +164,11 @@ export function ComponentDiscussion({
         className="mt-6"
       >
         {paused ? (
-          <div className="rounded-2xl border border-lavender-100 bg-lavender-50 px-4 py-5 text-sm leading-relaxed text-lavender-900">
+          <div className="callout px-4 py-5 text-sm leading-relaxed text-foreground">
             <p className="font-semibold">
               {engine === "giscus" ? "Discussions are not enabled on this repository" : "Issues are not enabled on this repository"}
             </p>
-            <p className="mt-2 text-lavender-800">
+            <p className="mt-2 text-muted-foreground">
               Open the conversation on{" "}
               <a
                 href={commentsRepoUrl(target.github, engine === "giscus" ? "discussions" : "issues")}

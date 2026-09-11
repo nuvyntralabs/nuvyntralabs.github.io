@@ -16,7 +16,7 @@ export function WorkDetail({ work }: { work: WorkItem }) {
       <JsonLd data={workJsonLd(work)} />
       <Link
         href={indexHref}
-        className="focusable inline-flex items-center gap-2 rounded-full text-sm font-medium text-lavender-700 hover:text-lavender-900"
+        className="focusable text-link inline-flex items-center gap-2 rounded-full text-sm"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         {indexLabel}
@@ -24,15 +24,15 @@ export function WorkDetail({ work }: { work: WorkItem }) {
 
       <p className="eyebrow mt-8">{kindLabel}</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{work.title}</h1>
-      <p className="mt-3 text-lg text-lavender-700">{work.subtitle}</p>
+      <p className="mt-3 text-lg text-lavender-700 dark:text-lavender-300">{work.subtitle}</p>
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{work.description}</p>
 
       <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-        <span className="rounded-full bg-lavender-50 px-3 py-1 font-medium text-lavender-800">
+        <span className="chip px-3 font-medium">
           {work.language ?? "Multi-language"}
         </span>
         {work.fork ? (
-          <span className="rounded-full bg-amber-50 px-3 py-1 font-medium text-amber-800">Public fork</span>
+          <span className="rounded-full bg-amber-50 px-3 py-1 font-medium text-amber-800 dark:bg-amber-950/40 dark:text-amber-200">Public fork</span>
         ) : null}
       </div>
 
@@ -52,7 +52,7 @@ export function WorkDetail({ work }: { work: WorkItem }) {
             href={work.homepage}
             target="_blank"
             rel="noopener noreferrer"
-            className="focusable inline-flex items-center gap-2 rounded-full border border-lavender-300 bg-white px-4 py-2 text-sm font-semibold text-lavender-800 hover:bg-lavender-50"
+            className="focusable btn-secondary"
           >
             Live preview
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -94,7 +94,7 @@ export function WorkDetail({ work }: { work: WorkItem }) {
           {work.paper.capabilities.map((item) => (
             <li
               key={item}
-              className="rounded-xl border border-lavender-100 bg-white px-4 py-3 text-sm leading-relaxed text-muted-foreground"
+              className="rounded-xl border border-border bg-card px-4 py-3 text-sm leading-relaxed text-muted-foreground"
             >
               {item}
             </li>
@@ -123,7 +123,7 @@ export function WorkDetail({ work }: { work: WorkItem }) {
         {work.tags.map((tag) => (
           <li
             key={tag}
-            className="rounded-full border border-lavender-200 bg-lavender-50 px-3 py-1 text-xs font-medium text-lavender-800"
+            className="chip border border-border px-3"
           >
             {tag}
           </li>

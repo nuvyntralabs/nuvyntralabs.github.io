@@ -37,7 +37,7 @@ export default function AboutPage() {
         <p className="mt-4 text-base leading-relaxed text-muted-foreground">{lab.audience}</p>
       </section>
 
-      <section className="bg-lavender-50/60">
+      <section className="section-muted">
         <div className="container py-16 sm:py-20">
           <h2 className="font-display text-2xl font-semibold">How the company works</h2>
           <ul className="mt-8 grid gap-4 md:grid-cols-3">
@@ -105,7 +105,7 @@ export default function AboutPage() {
             <h2 className="mt-4 font-display text-2xl font-semibold">Public by default</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Work is published under the{" "}
-              <a href={siteConfig.githubOrg} className="font-medium text-lavender-700 hover:text-lavender-900">
+              <a href={siteConfig.githubOrg} className="text-link">
                 {siteConfig.name} GitHub organization
               </a>
               . Packages version independently on GitHub Packages. There is no mega-package

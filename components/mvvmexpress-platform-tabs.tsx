@@ -30,7 +30,7 @@ export function MvvmExpressPlatformTabs({ slug }: { slug: string }) {
               "focusable inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold",
               selected
                 ? "bg-gradient-primary text-white shadow-glow"
-                : "border border-lavender-200 bg-white text-lavender-800 hover:bg-lavender-50",
+                : "filter-idle",
             )}
           >
             {platform.label}

@@ -59,9 +59,9 @@ export function Nav() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0c0618]/90 text-white backdrop-blur-md">
-      <div className="container flex h-16 items-center justify-between gap-4">
-        <Logo onDark />
+    <header className="sticky top-0 z-40 border-b border-lavender-100/70 bg-white/72 text-foreground backdrop-blur-xl dark:border-white/10 dark:bg-ink/75">
+      <div className="container flex h-[4.25rem] items-center justify-between gap-4">
+        <Logo />
         <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
           {links.map((link) => {
             const active = isActive(pathname, link.href);
@@ -74,8 +74,10 @@ export function Nav() {
                   if (link.href === "/") scrollHomeIfCurrent(pathname);
                 }}
                 className={cn(
-                  "focusable whitespace-nowrap rounded-full px-2 py-1.5 text-sm font-semibold xl:px-3",
-                  active ? "bg-white/15 text-white" : "text-lavender-100 hover:bg-white/10",
+                  "focusable whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm font-semibold xl:px-3",
+                  active
+                    ? "bg-lavender-100 text-lavender-900 dark:bg-white/[0.12] dark:text-white"
+                    : "text-muted-foreground hover:bg-lavender-50 hover:text-foreground dark:hover:bg-white/[0.08]",
                 )}
               >
                 {link.label}
@@ -91,7 +93,7 @@ export function Nav() {
         </nav>
         <button
           type="button"
-          className="focusable inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 lg:hidden"
+          className="focusable inline-flex h-10 w-10 items-center justify-center rounded-full border border-lavender-200 bg-white dark:border-white/15 dark:bg-white/5 lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((value) => !value)}
@@ -101,7 +103,7 @@ export function Nav() {
         </button>
       </div>
       {open ? (
-        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-white/10 lg:hidden">
+        <nav id="mobile-nav" aria-label="Mobile" className="border-t border-lavender-100 bg-white/95 dark:border-white/10 dark:bg-ink/95 lg:hidden">
           <div className="container flex flex-col gap-1 py-3">
             {links.map((link) => {
               const active = isActive(pathname, link.href);
@@ -116,7 +118,9 @@ export function Nav() {
                   }}
                   className={cn(
                     "focusable rounded-xl px-3 py-2.5 text-sm font-semibold",
-                    active ? "bg-white/15 text-white" : "text-lavender-100 hover:bg-white/10",
+                    active
+                      ? "bg-lavender-100 text-lavender-900 dark:bg-white/[0.12] dark:text-white"
+                      : "text-muted-foreground hover:bg-lavender-50 hover:text-foreground dark:hover:bg-white/[0.08]",
                   )}
                 >
                   {link.label}
@@ -152,7 +156,7 @@ function SponsorButtons({
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub Sponsors"
-        className={cn("focusable btn-on-dark", compact && "!px-2.5 !py-1.5 xl:!px-4")}
+        className={cn("focusable btn-secondary", compact && "!px-2.5 !py-1.5 xl:!px-4")}
       >
         <GitHubSponsorsIcon className="h-5 w-5 shrink-0" />
         <span className={compact ? "hidden xl:inline" : undefined}>Sponsor</span>
@@ -162,7 +166,7 @@ function SponsorButtons({
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Buy Me a Coffee"
-        className={cn("focusable btn-on-dark", compact && "!px-2.5 !py-1.5 xl:!px-4")}
+        className={cn("focusable btn-secondary", compact && "!px-2.5 !py-1.5 xl:!px-4")}
       >
         <BuyMeACoffeeIcon className="h-5 w-5 shrink-0" />
         <span className={compact ? "hidden xl:inline" : undefined}>Coffee</span>

@@ -31,7 +31,7 @@ export function Catalog() {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search GeoLocator, offline sync, VoIP…"
-          className="focusable w-full rounded-full border border-lavender-200 bg-white px-5 py-3 text-sm shadow-soft"
+          className="focusable input-search"
         />
       </div>
 
@@ -51,7 +51,7 @@ export function Catalog() {
                 "focusable rounded-full px-3 py-1.5 text-xs font-semibold sm:text-sm",
                 active
                   ? "bg-gradient-primary text-white shadow-glow"
-                  : "border border-lavender-200 bg-white text-lavender-800 hover:bg-lavender-50",
+                  : "filter-idle",
               )}
             >
               {id === "all" ? "All" : id}
@@ -69,15 +69,13 @@ export function Catalog() {
           <li key={item.slug}>
             <Link
               href={`/packages/${item.slug}/`}
-              className="glass-card focusable flex h-full flex-col p-6 transition hover:-translate-y-0.5 hover:shadow-lift"
+              className="glass-card focusable flex h-full flex-col p-6 transition duration-300 hover:-translate-y-1 hover:border-lavender-200 hover:shadow-lift dark:hover:border-white/20"
             >
               <div className="flex items-start justify-between gap-3">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-lavender-100 text-lavender-700">
+                <span className="icon-well h-9 w-9 rounded-xl">
                   <Package className="h-4 w-4" aria-hidden="true" />
                 </span>
-                <span className="rounded-full bg-lavender-50 px-2.5 py-1 text-xs font-medium text-lavender-800">
-                  {item.group}
-                </span>
+                <span className="chip">{item.group}</span>
               </div>
               <h2 className="mt-4 font-display text-lg font-semibold text-foreground">{item.name}</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.subtitle}</p>
@@ -85,7 +83,7 @@ export function Catalog() {
                 {item.tags.slice(0, 3).map((tag) => (
                   <li
                     key={tag}
-                    className="rounded-full border border-lavender-100 bg-white px-2 py-0.5 text-[11px] font-medium text-lavender-700"
+                    className="chip-tag"
                   >
                     {tag}
                   </li>
