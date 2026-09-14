@@ -5,7 +5,7 @@
 | | |
 | --- | --- |
 | **Product** | NuvexaDB (`Nuventra.NuvexaDB`) |
-| **Version** | 1.0.4 |
+| **Version** | 1.0.5 |
 | **Author** | Niladri Prasad Padhy / Nuventra |
 | **License** | MIT |
 | **Repository** | https://github.com/nuvyntralabs/NuvexaDB |
@@ -236,14 +236,14 @@ Golden NQL cases live in `tests/interop/cases.json`. Every native / SDK pack job
 
 ---
 
-## 4. File format (version 2; v1 stays readable)
+## 4. File format (version 2; format 1 deprecated)
 
-A `.nvx` file is one portable embedded database. New files write format **2** (order-preserving numeric index keys and a 32-byte WAL header that records page size). Format **1** files still open. Language bindings treat the file as **opaque**.
+A `.nvx` file is one portable embedded database. **Creates and writes always use format 2** (order-preserving numeric `d:` keys and a 32-byte WAL header that records page size). Format **1** is deprecated and still opens. Language bindings treat the file as **opaque**.
 
 | Item | Value |
 | --- | --- |
 | Magic (bytes 0–3) | `NVX1` |
-| Format version | `2` on new files; `1` accepted on open (uint16 LE at offset 4) |
+| Format version | `2` on every create / write; `1` deprecated, accepted on open (uint16 LE at offset 4) |
 | Physical page size | 8192 bytes |
 | Logical payload (after GCM) | 8164 bytes |
 | Page header | 40 bytes |
@@ -457,7 +457,7 @@ Every shippable surface shares `<Version>` / `<PackageVersion>` in `Directory.Bu
 python3 .github/scripts/check-versions.py --repo-root . --write
 ```
 
-That copies the same number onto NuGet metadata, Java, Android (`versionName` + `versionCode` = major×10000 + minor×100 + patch; **1.0.4 → 10004**), Python, Node, React Native, Flutter, Go, C++, Swift, Data Studio installers, VS Code, and Visual Studio. CI **fails** if any of those drift. Sample apps are not bumped.
+That copies the same number onto NuGet metadata, Java, Android (`versionName` + `versionCode` = major×10000 + minor×100 + patch; **1.0.5 → 10005**), Python, Node, React Native, Flutter, Go, C++, Swift, Data Studio installers, VS Code, and Visual Studio. CI **fails** if any of those drift. Sample apps are not bumped.
 
 ### 7.5 Two download channels (intentional)
 
@@ -533,7 +533,7 @@ dotnet run --project src/Nuventra.NuvexaDB.Explorer/Nuventra.NuvexaDB.Explorer.c
 
 ## 9. Future roadmap
 
-Items below are **intentional 1.x follow-ons** or documented gaps. Do not treat them as shipped in 1.0.4.
+Items below are **intentional 1.x follow-ons** or documented gaps. Do not treat them as shipped in 1.0.5.
 
 ### 9.1 Future (not planned yet)
 

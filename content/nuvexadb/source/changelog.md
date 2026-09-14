@@ -2,6 +2,14 @@
 
 Working-tree notes for unreleased work. Publishing still happens only through CI.
 
+## 1.0.5 — 14 September 2026
+
+Published as [v1.0.5](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.5).
+
+**Creates and writes always use format 2** (order-preserving numeric `d:` keys, WAL v2 header). **Format 1 is deprecated**, not removed: open / find still read format-1 superblocks, `n:` index keys, and WAL v1 headers. `NuvexaCreateOptions.FormatVersion` is obsolete and ignored. A write on a format-1 file promotes the superblock to 2; new index entries are `d:`. `CompactAsync` rewrites as format 2.
+
+Samples, language binding examples, and [platform integration](Integration/README.md) guides show format-2 `Create`. Data Studio / VS Code / Visual Studio About copy names format 2 and that format 1 stays readable. `nuvexa --complex` writes format 2; `--complex-v1` is an internal fixture for older Data Studio.
+
 ## 1.0.4 — 14 September 2026
 
 Published as [v1.0.4](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.4).
