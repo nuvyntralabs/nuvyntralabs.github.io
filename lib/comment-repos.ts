@@ -33,6 +33,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/FileProcessorTest",
     repoId: "R_kgDOQXVZtA",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOQXVZtM4DFHgd",
+    },
   },
   "nuvyntralabs/GPSSensorTrackingService": {
     repo: "nuvyntralabs/GPSSensorTrackingService",
@@ -47,11 +51,19 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/HtmlLabelPlugin",
     repoId: "R_kgDOIO6Urw",
     hasIssues: false,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOIO6Ur84DFHhl",
+    },
   },
   "nuvyntralabs/LocatinTrackingJobScheduler-XamarinAndroid": {
     repo: "nuvyntralabs/LocatinTrackingJobScheduler-XamarinAndroid",
     repoId: "R_kgDOGaujvA",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOGaujvM4DFHgv",
+    },
   },
   "nuvyntralabs/MauiDev": {
     repo: "nuvyntralabs/MauiDev",
@@ -93,6 +105,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.FirebaseAnalytics",
     repoId: "R_kgDOIfLMVg",
     hasIssues: false,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOIfLMVs4DFHhx",
+    },
   },
   "nuvyntralabs/Plugin.Maui.ApiCache": {
     repo: "nuvyntralabs/Plugin.Maui.ApiCache",
@@ -134,6 +150,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.AppReview",
     repoId: "R_kgDOUXJFtg",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJFts4DFnbF",
+    },
   },
   "nuvyntralabs/Plugin.Maui.AppUpdate": {
     repo: "nuvyntralabs/Plugin.Maui.AppUpdate",
@@ -148,6 +168,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.Biometric",
     repoId: "R_kgDOUXJCBQ",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJCBc4DFnbL",
+    },
   },
   "nuvyntralabs/Plugin.Maui.BackgroundTasks": {
     repo: "nuvyntralabs/Plugin.Maui.BackgroundTasks",
@@ -171,6 +195,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.BluetoothSerial",
     repoId: "R_kgDOUXJJaA",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJJaM4DFnbR",
+    },
   },
   "nuvyntralabs/Plugin.Maui.ClipboardPlus": {
     repo: "nuvyntralabs/Plugin.Maui.ClipboardPlus",
@@ -266,6 +294,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.Geofence",
     repoId: "R_kgDOUXJINw",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJIN84DFnbd",
+    },
   },
   "nuvyntralabs/Plugin.Maui.GeoLocator": {
     repo: "nuvyntralabs/Plugin.Maui.GeoLocator",
@@ -298,6 +330,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.KeepAwake",
     repoId: "R_kgDOUXJDSA",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJDSM4DFnbj",
+    },
   },
   "nuvyntralabs/Plugin.Maui.KeyboardManager": {
     repo: "nuvyntralabs/Plugin.Maui.KeyboardManager",
@@ -312,6 +348,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.LocalNotifications",
     repoId: "R_kgDOUXJG9A",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJG9M4DFnbp",
+    },
   },
   "nuvyntralabs/Plugin.Maui.LocalStore": {
     repo: "nuvyntralabs/Plugin.Maui.LocalStore",
@@ -344,21 +384,37 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Wpf.MVVMExpress",
     repoId: "R_kgDOUTFtQg",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUTFtQs4DFORr",
+    },
   },
   "nuvyntralabs/Plugin.Avalonia.MVVMExpress": {
     repo: "nuvyntralabs/Plugin.Avalonia.MVVMExpress",
     repoId: "R_kgDOUTvdfQ",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUTvdfc4DFP-a",
+    },
   },
   "nuvyntralabs/Plugin.Uno.MVVMExpress": {
     repo: "nuvyntralabs/Plugin.Uno.MVVMExpress",
     repoId: "R_kgDOUTveiQ",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUTveic4DFP-g",
+    },
   },
   "nuvyntralabs/Plugin.WinUI.MVVMExpress": {
     repo: "nuvyntralabs/Plugin.WinUI.MVVMExpress",
     repoId: "R_kgDOUTvZmA",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUTvZmM4DFP-s",
+    },
   },
   "nuvyntralabs/Plugin.Maui.MediaPipeline": {
     repo: "nuvyntralabs/Plugin.Maui.MediaPipeline",
@@ -463,6 +519,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.ScreenGuard",
     repoId: "R_kgDOUXJEbA",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJEbM4DFnbv",
+    },
   },
   "nuvyntralabs/Plugin.Maui.SecureSession": {
     repo: "nuvyntralabs/Plugin.Maui.SecureSession",
@@ -495,6 +555,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.TlsPin",
     repoId: "R_kgDOUXJMFg",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJMFs4DFnb1",
+    },
   },
   "nuvyntralabs/Plugin.Maui.SmartUpload": {
     repo: "nuvyntralabs/Plugin.Maui.SmartUpload",
@@ -509,6 +573,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.VideoPipeline",
     repoId: "R_kgDOUXJKug",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUXJKus4DFnb7",
+    },
   },
   "nuvyntralabs/Plugin.Maui.VoipCore": {
     repo: "nuvyntralabs/Plugin.Maui.VoipCore",
@@ -523,11 +591,19 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Twilio.Voice.Android.XamarinBinding",
     repoId: "MDEwOlJlcG9zaXRvcnkzOTk0MDAyODE=",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOF85dWc4DFHg7",
+    },
   },
   "nuvyntralabs/Twilio.Voice.iOS.XamarinBinding": {
     repo: "nuvyntralabs/Twilio.Voice.iOS.XamarinBinding",
     repoId: "MDEwOlJlcG9zaXRvcnkzOTk0MDA0NjY=",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOF85eEs4DFHhH",
+    },
   },
   "nuvyntralabs/VOBIZ-VOIP-Call": {
     repo: "nuvyntralabs/VOBIZ-VOIP-Call",
@@ -551,6 +627,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/callkitsample",
     repoId: "MDEwOlJlcG9zaXRvcnk0MDIxNjM5ODk=",
     hasIssues: false,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOF_iJFc4DFHh3",
+    },
   },
   "nuvyntralabs/solar-sales-automation": {
     repo: "nuvyntralabs/solar-sales-automation",
