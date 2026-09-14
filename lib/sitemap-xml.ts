@@ -2,6 +2,7 @@ import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { allDesktopGuideHrefs } from "../content/desktop-mvvmexpress";
 import { allGuideHrefs } from "../content/mvvmexpress-guide";
+import { allNuvexaHrefs } from "../content/nuvexadb-guide";
 import { allWpfGuideHrefs } from "../content/wpf-mvvmexpress-guide";
 import { packages } from "../content/packages";
 import { toolkits } from "../content/toolkits";
@@ -35,6 +36,7 @@ export function sitemapUrls(): string[] {
     ...allGuideHrefs(),
     ...allWpfGuideHrefs(),
     ...allDesktopGuideHrefs(),
+    ...allNuvexaHrefs(),
   ];
 
   return [...new Set(paths)].map((path) =>

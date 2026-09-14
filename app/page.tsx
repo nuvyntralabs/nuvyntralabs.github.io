@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Beaker, FlaskConical, Package } from "lucide-react";
 import { lab } from "@/content/lab";
+import { nuvexaDb } from "@/content/nuvexadb";
 import { nugetPackages, packages } from "@/content/packages";
 import { toolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects } from "@/content/works";
@@ -101,6 +102,38 @@ export default function HomePage() {
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             Built for .NET MAUI teams on Android and iOS
           </p>
+        </div>
+      </section>
+
+      <section className="section-muted">
+        <div className="container py-16 sm:py-20">
+        <SectionIntro
+          eyebrow="Embedded database"
+          title={nuvexaDb.name}
+          description={nuvexaDb.subtitle}
+          href="/nuvexadb/"
+          cta="NuvexaDB docs"
+        />
+        <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+          <Link href="/nuvexadb/" className="glass-card focusable group p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+              {nuvexaDb.packageId} · {nuvexaDb.version}
+            </p>
+            <h2 className="mt-3 font-display text-2xl font-semibold text-foreground">One engine, one .nvx file</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{nuvexaDb.abstract}</p>
+            <p className="mt-4 text-sm font-semibold text-lavender-800 dark:text-lavender-200">
+              White paper, NQL, and integration guides for every supported host
+            </p>
+          </Link>
+          <Link href="/nuvexadb/integration/" className="glass-card focusable p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">Getting started</p>
+            <h2 className="mt-3 font-display text-xl font-semibold text-foreground">Ten platform guides</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              .NET / MAUI, Java, Kotlin, Android, Swift, Flutter, React Native, Python, Node.js, Go, and C++.
+              Each guide names the Release zip, empty project, CRUD, and encryption password.
+            </p>
+          </Link>
+        </div>
         </div>
       </section>
 

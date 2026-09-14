@@ -1,4 +1,5 @@
 import { lab } from "@/content/lab";
+import { nuvexaDb, nuvexaDocsBase, nuvexaIntegrationHref, nuvexaPlatforms } from "@/content/nuvexadb";
 import { packages } from "@/content/packages";
 import { toolkitPath, toolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects, workPath } from "@/content/works";
@@ -61,6 +62,22 @@ ${research}
 ${siteConfig.url}/pocs/
 
 ${pocs}
+
+## NuvexaDB
+
+${siteConfig.url}/nuvexadb/
+Embedded NoSQL database (${nuvexaDb.packageId} ${nuvexaDb.version}). One .nvx file, NQL, optional AES-256-GCM. .NET / MAUI plus Native AOT bindings for Java, Kotlin, Swift, Flutter, React Native, Python, Node.js, Go, and C++. MIT. Install from GitHub Releases (${nuvexaDb.publishedTag}), not nuget.org yet.
+GitHub: ${nuvexaDb.github}
+Releases: ${nuvexaDb.releases}
+White paper: ${siteConfig.url}${nuvexaDocsBase}/
+Platform integration: ${siteConfig.url}${nuvexaIntegrationHref}
+${nuvexaPlatforms.map((item) => `- ${item.title}: ${siteConfig.url}${nuvexaIntegrationHref}${item.slug}/`).join("\n")}
+Engine sharing: ${siteConfig.url}${nuvexaDocsBase}/architecture/
+File format: ${siteConfig.url}${nuvexaDocsBase}/format/
+Encryption: ${siteConfig.url}${nuvexaDocsBase}/encryption/
+NQL: ${siteConfig.url}${nuvexaDocsBase}/query/
+Language bindings: ${siteConfig.url}${nuvexaDocsBase}/bindings/
+Data Studio: ${siteConfig.url}${nuvexaDocsBase}/explorer/
 
 ## Toolkits
 
@@ -193,6 +210,22 @@ ${pocs}
 
 ${toolkitDocs}
 
+## NuvexaDB
+
+${nuvexaDb.name} — ${nuvexaDb.subtitle}
+${nuvexaDb.abstract}
+
+Page: ${siteConfig.url}/nuvexadb/
+GitHub: ${nuvexaDb.github}
+Releases: ${nuvexaDb.releases}
+Version: ${nuvexaDb.version}
+Published tag: ${nuvexaDb.publishedTag}
+White paper: ${siteConfig.url}${nuvexaDocsBase}/
+Integration: ${siteConfig.url}${nuvexaIntegrationHref}
+
+Capabilities:
+${nuvexaDb.capabilities.map((line) => `- ${line}`).join("\n")}
+
 ## Packages
 
 ${catalog}
@@ -211,6 +244,12 @@ export function buildFeedXml(): string {
       link: `${siteConfig.url}${toolkitPath(item)}`,
       category: "toolkit",
     })),
+    {
+      title: nuvexaDb.name,
+      description: nuvexaDb.description,
+      link: `${siteConfig.url}/nuvexadb/`,
+      category: "database",
+    },
     ...packages.map((item) => ({
       title: item.name,
       description: item.description,

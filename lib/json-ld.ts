@@ -1,3 +1,4 @@
+import { nuvexaDb } from "@/content/nuvexadb";
 import type { PackageDoc } from "@/content/packages";
 import { toolkitPath, type ToolkitDoc } from "@/content/toolkits";
 import { workPath, type WorkItem } from "@/content/works";
@@ -139,6 +140,75 @@ export function packageGuideJsonLd(
       { name: "Products", path: "/packages/" },
       { name: pkg.name, path: `/packages/${pkg.slug}/` },
       { name: label, path: pagePath },
+    ]),
+  ];
+}
+
+export function nuvexaJsonLd() {
+  const page = `${siteConfig.url}/nuvexadb/`;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": ["SoftwareApplication", "SoftwareSourceCode"],
+      name: nuvexaDb.name,
+      alternateName: nuvexaDb.packageId,
+      description: nuvexaDb.description,
+      url: page,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Windows, macOS, Linux, Android, iOS",
+      programmingLanguage: "C#",
+      codeRepository: nuvexaDb.github,
+      downloadUrl: nuvexaDb.releases,
+      softwareVersion: nuvexaDb.version,
+      license: "https://opensource.org/licenses/MIT",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      keywords: nuvexaDb.tags.join(", "),
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: nuvexaDb.name, path: "/nuvexadb/" },
+    ]),
+  ];
+}
+
+export function nuvexaGuideJsonLd(
+  title: string,
+  description: string,
+  articlePath: string,
+  kind: "docs" | "integration",
+) {
+  const label = kind === "docs" ? "Documentation" : "Platform integration";
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: title,
+      description,
+      url: `${siteConfig.url}${articlePath}`,
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      about: {
+        "@type": "SoftwareApplication",
+        name: nuvexaDb.name,
+        url: `${siteConfig.url}/nuvexadb/`,
+      },
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: nuvexaDb.name, path: "/nuvexadb/" },
+      { name: label, path: articlePath },
     ]),
   ];
 }

@@ -12,6 +12,9 @@ Professional experience stays on
 | --- | --- |
 | `/research/` | R&D projects (inspection, VoIP, GPS, bindings) |
 | `/pocs/` | Proofs of concept and maintained forks |
+| `/nuvexadb/` | NuvexaDB embedded NoSQL database (white paper + platform integration) |
+| `/nuvexadb/docs/` | NuvexaDB white paper and engine docs |
+| `/nuvexadb/integration/` | NuvexaDB getting started for every supported host |
 | `/packages/` | .NET MAUI NuGet catalog |
 | `/toolkits/` | Developer toolkits (MauiDev CLI + VS Code / Cursor extension) |
 | `/toolkits/maui-dev/` | MauiDev 1.2.1 overview, command usage, sample results, and CI |
@@ -93,5 +96,6 @@ have Discussions. A few older POCs still need Issues or Discussions enabled.
 - LeakAnalyser docs: `content/leak-analyser.ts`
 - Performance docs: `content/performance.ts`
 - HttpForge docs: `content/http-forge.ts`
+- NuvexaDB docs: `content/nuvexadb.ts`, `content/nuvexadb-guide.ts`, official markdown in `content/nuvexadb/source/`
 - Lab copy: `content/lab.ts`
 - Comment repo IDs: `lib/comment-repos.ts`

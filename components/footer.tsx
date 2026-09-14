@@ -12,6 +12,7 @@ const company = [
 const work = [
   { href: "/packages/", label: "Products" },
   { href: "/packages/plugin-maui-mvvmexpress/", label: "MVVMExpress" },
+  { href: "/nuvexadb/", label: "NuvexaDB" },
   { href: "/toolkits/", label: "Toolkits" },
   { href: "/research/", label: "Research" },
   { href: "/pocs/", label: "Proofs of concept" },
@@ -19,6 +20,8 @@ const work = [
 
 const resources = [
   { href: "/getting-started/", label: "Getting started" },
+  { href: "/nuvexadb/docs/", label: "NuvexaDB white paper" },
+  { href: "/nuvexadb/integration/", label: "NuvexaDB integration" },
   { href: "/releases/", label: ".NET MAUI releases" },
   { href: siteConfig.discord, label: "Discord community", external: true },
   { href: siteConfig.githubOrg, label: "GitHub organization", external: true },

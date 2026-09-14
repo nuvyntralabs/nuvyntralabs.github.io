@@ -21,14 +21,20 @@ export function DocsArticle({ sections }: { sections: DocSection[] }) {
 function DocBlockView({ block }: { block: DocBlock }) {
   switch (block.type) {
     case "p":
-      return <p className="text-base leading-relaxed text-muted-foreground">{block.text}</p>;
+      return (
+        <p className="text-base leading-relaxed text-muted-foreground">
+          <RichText text={block.text} />
+        </p>
+      );
     case "ul":
       return (
         <ul className="space-y-2.5">
           {block.items.map((item) => (
             <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
               <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lavender-500" />
-              <span>{item}</span>
+              <span>
+                <RichText text={item} />
+              </span>
             </li>
           ))}
         </ul>
@@ -38,7 +44,7 @@ function DocBlockView({ block }: { block: DocBlock }) {
         <ol className="list-decimal space-y-2.5 pl-5 text-sm leading-relaxed text-muted-foreground">
           {block.items.map((item) => (
             <li key={item} className="pl-1">
-              {item}
+              <RichText text={item} />
             </li>
           ))}
         </ol>
@@ -57,7 +63,7 @@ function DocBlockView({ block }: { block: DocBlock }) {
               <tr>
                 {block.headers.map((header) => (
                   <th key={header} className="px-3 py-2.5 font-semibold">
-                    {header}
+                    <RichText text={header} />
                   </th>
                 ))}
               </tr>
@@ -70,7 +76,7 @@ function DocBlockView({ block }: { block: DocBlock }) {
                       key={`${cell}-${cellIndex}`}
                       className="px-3 py-2.5 text-muted-foreground first:font-medium first:text-foreground"
                     >
-                      {cell}
+                      <RichText text={cell} />
                     </td>
                   ))}
                 </tr>
@@ -109,4 +115,49 @@ function DocBlockView({ block }: { block: DocBlock }) {
     default:
       return null;
   }
+}
+
+function RichText({ text }: { text: string }) {
+  const tokens = text.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean);
+  return (
+    <>
+      {tokens.map((token, index) => {
+        const link = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (link) {
+          const [, label, href] = link;
+          if (href.startsWith("/")) {
+            return (
+              <Link key={`${href}-${index}`} href={href} className="text-link">
+                {label}
+              </Link>
+            );
+          }
+          return (
+            <a
+              key={`${href}-${index}`}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+            >
+              {label}
+            </a>
+          );
+        }
+        const bold = token.match(/^\*\*([^*]+)\*\*$/);
+        if (bold) {
+          return <strong key={`${bold[1]}-${index}`}>{bold[1]}</strong>;
+        }
+        const code = token.match(/^`([^`]+)`$/);
+        if (code) {
+          return (
+            <code key={`${code[1]}-${index}`} className="code-inline">
+              {code[1]}
+            </code>
+          );
+        }
+        return <span key={`${token}-${index}`}>{token}</span>;
+      })}
+    </>
+  );
 }
