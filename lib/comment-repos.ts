@@ -66,6 +66,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/NuvexaDB",
     repoId: "R_kgDOUX7-mg",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUX7-ms4DFkzJ",
+    },
   },
   "nuvyntralabs/MauiEssentials": {
     repo: "nuvyntralabs/MauiEssentials",
@@ -313,6 +317,10 @@ export const commentRepos: Record<string, CommentRepo> = {
     repo: "nuvyntralabs/Plugin.Maui.LocalStore",
     repoId: "R_kgDOUa675A",
     hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUa675M4DFnU7",
+    },
   },
   "nuvyntralabs/Plugin.Maui.LeakAnalyser": {
     repo: "nuvyntralabs/Plugin.Maui.LeakAnalyser",
