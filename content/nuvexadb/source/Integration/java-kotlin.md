@@ -4,7 +4,7 @@ JNA wrapper over the C ABI. You need **two** zips: the JVM jar and the native li
 
 ## 1. Download
 
-From [NuvexaDB v1.0.3](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.3), pick **one** pair that matches the machine that will run the JVM:
+From [NuvexaDB v1.0.4](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.4), pick **one** pair that matches the machine that will run the JVM:
 
 | Your machine | JVM zip | Native zip | Library file inside the native zip |
 | --- | --- | --- | --- |
@@ -27,11 +27,11 @@ Or a Kotlin JVM app with the same Gradle layout.
 
 ## 3. Add the downloaded package
 
-Copy the jar next to the project (example `libs/jvm-1.0.3.jar`). In `build.gradle.kts`:
+Copy the jar next to the project (example `libs/jvm-1.0.4.jar`). In `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation(files("libs/jvm-1.0.3.jar"))
+    implementation(files("libs/jvm-1.0.4.jar"))
     implementation("net.java.dev.jna:jna:5.17.0")
     implementation("org.json:json:20250107")
 }

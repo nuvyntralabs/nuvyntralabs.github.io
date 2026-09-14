@@ -4,7 +4,7 @@ Header-only C++ wrapper (`nuvexa.hpp`) plus `nuvexa.h`. You link the published s
 
 ## 1. Download
 
-From [NuvexaDB v1.0.3](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.3):
+From [NuvexaDB v1.0.4](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.4):
 
 | Your machine | C++ zip | Native zip | Library file |
 | --- | --- | --- | --- |
@@ -85,7 +85,7 @@ db.insert("users", R"({"name":"Ada","age":36})");
 auto names = db.list_collections(); // JSON array string
 ```
 
-`nuvexa.hpp` on 1.0.3 does not wrap drop/rename. Call `nuvexa_drop_collection` / `nuvexa_rename_collection` from `nuvexa.h`, or delete the `.nvx` file.
+`nuvexa.hpp` on 1.0.4 does not wrap drop/rename. Call `nuvexa_drop_collection` / `nuvexa_rename_collection` from `nuvexa.h`, or delete the `.nvx` file.
 
 ## 7. Documents
 
@@ -100,6 +100,6 @@ auto rows = db.execute(R"(db.users.find({ age: { $gte: 21 } }).limit(20))");
 
 ## 8. Password for an encrypted file
 
-Pass the key into `create` / `open`. Do not compile `1234` into the binary. Rekey through `nuvexa_change_encryption_key` in `nuvexa.h` (not wrapped on `nuvexa.hpp` in 1.0.3).
+Pass the key into `create` / `open`. Do not compile `1234` into the binary. Rekey through `nuvexa_change_encryption_key` in `nuvexa.h` (not wrapped on `nuvexa.hpp` in 1.0.4).
 
 See [Encryption notes](README.md#encrypted-databases--choose-a-password).

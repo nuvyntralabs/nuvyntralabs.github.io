@@ -4,7 +4,7 @@ Step-by-step guides for each host that can open a NuvexaDB `.nvx` file. Start he
 
 **Public downloads:** [github.com/nuvyntralabs/NuvexaDB/releases](https://github.com/nuvyntralabs/NuvexaDB/releases)
 
-The current published tag is **[v1.0.3](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.3)**. Later tags keep the same zip names. Pick the asset whose suffix matches your machine (`osx-arm64`, `win-x64`, `linux-x64`, …). Do not download every zip.
+The current published tag is **[v1.0.4](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.4)**. Later tags keep the same zip names. Pick the asset whose suffix matches your machine (`osx-arm64`, `win-x64`, `linux-x64`, …). Do not download every zip.
 
 nuget.org and language package registries are not the install path yet. You add the file from the Release zip (or a CI artifact with the same name).
 
@@ -40,7 +40,7 @@ Language SDKs (except managed .NET) load the Native AOT C ABI. The library **fil
 | Android arm64 | `NuvexaDB-Native-android-arm64.zip` | `libnuvexa.so` |
 | iOS device + simulator | `NuvexaDB-Native-iOS.zip` | `Nuvexa.xcframework` (and `nuvexa.h`) |
 
-On [v1.0.3](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.3) those are the native zips that shipped, including Windows ARM64 and Linux ARM64.
+On [v1.0.4](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.4) those are the native zips that shipped, including Windows ARM64 and Linux ARM64.
 
 Set `NUVEXA_NATIVE_LIB` to the **full path** of that library file (Python, Node, Flutter desktop, JVM fallback). Set `NUVEXA_NATIVE_DIR` to the **folder** that contains it (Swift, Go, C++).
 
