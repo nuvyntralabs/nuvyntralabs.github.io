@@ -45,6 +45,10 @@ Professional experience stays on
 | `/packages/plugin-maui-httpforge/docs/` | HttpForge technical documentation |
 | `/packages/plugin-maui-httpforge/integration/` | HttpForge getting started |
 | `/packages/plugin-maui-httpforge/comparison/` | HttpForge vs Refit and sibling HTTP plugins |
+| `/packages/plugin-maui-local-store/` | LocalStore overview |
+| `/packages/plugin-maui-local-store/docs/` | LocalStore technical documentation |
+| `/packages/plugin-maui-local-store/integration/` | LocalStore getting started |
+| `/packages/plugin-maui-local-store/comparison/` | LocalStore vs SQLite, NuvexaDB, Room, and sibling plugins |
 | `/packages/plugin-maui-community-toolkit-plus/` | CommunityToolkitPlus overview |
 | `/packages/plugin-maui-geofence/` | Geofence overview |
 | `/packages/plugin-maui-local-notifications/` | LocalNotifications overview |
@@ -96,6 +100,7 @@ have Discussions. A few older POCs still need Issues or Discussions enabled.
 - LeakAnalyser docs: `content/leak-analyser.ts`
 - Performance docs: `content/performance.ts`
 - HttpForge docs: `content/http-forge.ts`
+- LocalStore docs: `content/local-store.ts`
 - NuvexaDB docs: `content/nuvexadb.ts`, `content/nuvexadb-guide.ts`, official markdown in `content/nuvexadb/source/`
 - Lab copy: `content/lab.ts`
 - Comment repo IDs: `lib/comment-repos.ts`

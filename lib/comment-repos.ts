@@ -309,6 +309,11 @@ export const commentRepos: Record<string, CommentRepo> = {
     repoId: "R_kgDOUXJG9A",
     hasIssues: true,
   },
+  "nuvyntralabs/Plugin.Maui.LocalStore": {
+    repo: "nuvyntralabs/Plugin.Maui.LocalStore",
+    repoId: "R_kgDOUa675A",
+    hasIssues: true,
+  },
   "nuvyntralabs/Plugin.Maui.LeakAnalyser": {
     repo: "nuvyntralabs/Plugin.Maui.LeakAnalyser",
     repoId: "R_kgDOUN_whg",

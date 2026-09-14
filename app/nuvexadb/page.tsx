@@ -33,6 +33,17 @@ export default function NuvexaDbPage() {
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{nuvexaDb.description}</p>
 
       <aside className="callout mt-6 px-4 py-3">
+        <p className="text-sm font-semibold text-foreground">MAUI host layer</p>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+          For Room-style insert / find / replace / delete that can host this engine or SQLite, use{" "}
+          <Link href="/packages/plugin-maui-local-store/" className="text-link">
+            Plugin.Maui.LocalStore
+          </Link>
+          . NuvexaDB stays the document engine, NQL, and Data Studio.
+        </p>
+      </aside>
+
+      <aside className="callout mt-6 px-4 py-3">
         <p className="text-sm font-semibold text-foreground">Install from GitHub Releases</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           nuget.org, Maven, npm, and the other language feeds are not the install path yet. Download the zip

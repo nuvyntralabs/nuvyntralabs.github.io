@@ -134,6 +134,21 @@ export default function HomePage() {
             </p>
           </Link>
         </div>
+        <Link
+          href="/packages/plugin-maui-local-store/"
+          className="glass-card focusable mt-4 block p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+            Plugin.Maui.LocalStore · 1.0.1
+          </p>
+          <h2 className="mt-3 font-display text-xl font-semibold text-foreground">
+            Room-style MAUI local store
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Host picks SQLite, NuvexaDB, Realm, LiteDB, or another shipped engine. Application code stays on
+            the same ILocalStore / IStoreCollection methods. Switching engines does not migrate data.
+          </p>
+        </Link>
         </div>
       </section>
 

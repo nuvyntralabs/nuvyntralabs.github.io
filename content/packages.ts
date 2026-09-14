@@ -61,7 +61,7 @@ export const packages: PackageDoc[] = [
     "name": "MauiEssentials",
     "title": "MauiEssentials (NugetWorld)",
     "subtitle": "Catalog of production .NET MAUI plugins",
-    "description": "A curated catalog of Android/iOS .NET MAUI plugins — each in its own repository, referenced as git submodules — covering location, networking, sync, security, BLE, classic Bluetooth serial, NFC, printing, video, TLS pinning, VoIP, and observability. MVVMExpress, HttpForge, LeakAnalyser, VideoPipeline, and TlsPin also target Mac Catalyst and Windows.",
+    "description": "A curated catalog of Android/iOS .NET MAUI plugins — each in its own repository, referenced as git submodules — covering location, networking, sync, local storage, security, BLE, classic Bluetooth serial, NFC, printing, video, TLS pinning, VoIP, and observability. MVVMExpress, HttpForge, LeakAnalyser, LocalStore, VideoPipeline, and TlsPin also target Mac Catalyst and Windows.",
     "github": "https://github.com/nuvyntralabs/MauiEssentials",
     "nuget": null,
     "language": null,
@@ -78,7 +78,7 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Location, tracking, reverse geocoding, and circular geofences (GeoLocator, Geofence).",
       "Real internet, captive portals, layered connectivity diagnostics, typed REST clients (HttpForge), and TLS / SPKI pinning (TlsPin).",
-      "Background jobs, durable queues, failed-call retry, chunked uploads, and offline-first sync.",
+      "Room-style local store (SQLite, NuvexaDB, Realm, LiteDB, and more), background jobs, durable queues, failed-call retry, chunked uploads, and offline-first sync.",
       "Device identity, fingerprint, NFC, BLE peripherals, classic Bluetooth serial, permissions, feature flags, and deep links.",
       "Secure storage, sessions, app lock, one-shot biometric, screenshot guard, file vault, and media / video pipelines.",
       "Share, clipboard, keyboard, printing, form validation, orientation lock, and keep-awake.",
@@ -342,7 +342,7 @@ export const packages: PackageDoc[] = [
       "Queue",
       "C#"
     ],
-    "abstract": "Plugin.Maui.JobQueue is a durable SQLite-backed task queue for MAUI. Jobs are registered by type, can require network, retry with backoff, and land in a dead-letter path when they exhaust attempts — so photo uploads and sync units survive app kills.",
+    "abstract": "Plugin.Maui.JobQueue is a durable SQLite-backed task queue for MAUI. Jobs are registered by type, can require network, retry with backoff, and land in a dead-letter path when they exhaust attempts — so photo uploads and sync units survive app kills. It is not a local document store — use Plugin.Maui.LocalStore for Room-style CRUD.",
     "version": "1.0.8",
     "releaseNotes": [
       "1.0.8. Documented pack artifact matches the shipped package. No API change."
@@ -430,7 +430,7 @@ export const packages: PackageDoc[] = [
       "Sync",
       "C#"
     ],
-    "abstract": "Plugin.Maui.OfflineSync is an offline-first sync layer for MAUI: writes land locally, a queue ships them when the network is real, and conflicts are resolved instead of last-write-wins by accident. It is built for field apps that cannot block the user on connectivity.",
+    "abstract": "Plugin.Maui.OfflineSync is an offline-first sync layer for MAUI: writes land locally, a queue ships them when the network is real, and conflicts are resolved instead of last-write-wins by accident. It is built for field apps that cannot block the user on connectivity. It is not a local CRUD API — use Plugin.Maui.LocalStore when the host needs Room-style insert / find / replace / delete across SQLite, NuvexaDB, or another engine.",
     "version": "1.0.10",
     "releaseNotes": [
       "1.0.10. Current nuget.org pack.",
@@ -442,6 +442,50 @@ export const packages: PackageDoc[] = [
       "Conflict resolution rather than silent overwrite.",
       "Isolated auto-sync failures with status events for the UI."
     ]
+  },
+  {
+    "slug": "plugin-maui-local-store",
+    "name": "Plugin.Maui.LocalStore",
+    "title": "Plugin.Maui.LocalStore",
+    "subtitle": "Room-style local store — host picks SQLite, NuvexaDB, or another engine",
+    "description": "An abstract database layer for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. The host picks StoreBackend; application code always uses the same ILocalStore / IStoreCollection<T> methods.",
+    "github": "https://github.com/nuvyntralabs/Plugin.Maui.LocalStore",
+    "nuget": "https://www.nuget.org/packages/Plugin.Maui.LocalStore",
+    "language": "C#",
+    "category": "maui-plugin",
+    "group": "Background & sync",
+    "tags": [
+      ".NET MAUI",
+      "SQLite",
+      "NuvexaDB",
+      "Local store",
+      "C#",
+      "Mac Catalyst",
+      "Windows"
+    ],
+    "abstract": "Plugin.Maui.LocalStore is a Room-style abstract database layer for MAUI. The host sets StoreBackend (SQLite, NuvexaDB, Realm, LiteDB, DuckDB, SQLCipher, Firebird, LMDB, RocksDB, or LevelDB). Application code stays on InsertAsync / FindByIdAsync / ReplaceAsync / DeleteByIdAsync / FindAsync. Switching engines does not migrate data. Some engines fall back to JSON files when the native library is missing. It is not JobQueue, OfflineSync, FileVault, or androidx.room.",
+    "version": "1.0.1",
+    "releaseNotes": [
+      "1.0.1. Current nuget.org pack. Ten engines behind IStoreCollection<T>, platform table, and JSON fallback when a native library is missing. Sample uses the same OS TFMs as the library.",
+      "1.0.0. First stable release. Host-selected SQLite or NuvexaDB, reserved StoreBackend values, StoreFilter / StoreQuery, and INuvexaLocalStore.ExecuteNqlAsync."
+    ],
+    "capabilities": [
+      "Host-selected StoreBackend; the same IStoreCollection<T> CRUD on every engine.",
+      "SQLite, NuvexaDB, Realm, LiteDB, and SQLCipher run on Android, iOS, Windows, and Mac Catalyst.",
+      "DuckDB, Firebird, RocksDB, LevelDB, and LMDB (Catalyst) use a JSON-file fallback when natives are missing.",
+      "StoreFilter (Eq, Ne, Gte, Lt, And, Or) and StoreQuery (sort / skip / limit).",
+      "Optional Nuvexa-only INuvexaLocalStore.ExecuteNqlAsync.",
+      "UseMauiLocalStore, AddMauiLocalStore, or LocalStore.Open without the host.",
+      "No automatic migration between engines. No sibling PackageReference to OfflineSync, JobQueue, or FileVault."
+    ],
+    "guides": {
+      "technical": "/packages/plugin-maui-local-store/docs/",
+      "integration": "/packages/plugin-maui-local-store/integration/",
+      "comparison": "/packages/plugin-maui-local-store/comparison/",
+      "technicalSummary": "1.0.1 pack, ten engines, platform table, JSON fallback, options, and what stays on sibling plugins.",
+      "integrationSummary": "Install 1.0.1, UseMauiLocalStore, POCO + CRUD, filters, and how to switch StoreBackend.",
+      "comparisonSummary": "LocalStore vs a direct engine API, Android Room, OfflineSync, JobQueue, FileVault, and NuvexaDB."
+    }
   },
   {
     "slug": "plugin-maui-push-router",

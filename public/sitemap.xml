@@ -121,6 +121,9 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-offline-sync/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-local-store/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-push-router/</loc>
   </url>
   <url>
@@ -281,6 +284,15 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/comparison/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-local-store/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-local-store/integration/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/plugin-maui-local-store/comparison/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/docs/</loc>

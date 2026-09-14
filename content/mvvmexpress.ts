@@ -1230,6 +1230,11 @@ export const relatedAdapters = [
     why: "HTTP GET CacheFirst / SWR behind ICache.",
   },
   {
+    name: "Plugin.Maui.LocalStore",
+    slug: "plugin-maui-local-store",
+    why: "Room-style local CRUD — host picks SQLite, NuvexaDB, or another engine.",
+  },
+  {
     name: "Plugin.Maui.OfflineSync",
     slug: "plugin-maui-offline-sync",
     why: "Local writes and queued sync — not a database inside MVVMExpress.",

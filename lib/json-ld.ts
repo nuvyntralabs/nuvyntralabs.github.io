@@ -74,7 +74,8 @@ export function packageJsonLd(pkg: PackageDoc) {
               ? "Windows, Uno Platform"
               : pkg.slug === "plugin-maui-mvvmexpress" ||
                   pkg.slug === "plugin-maui-leak-analyser" ||
-                  pkg.slug === "plugin-maui-httpforge"
+                  pkg.slug === "plugin-maui-httpforge" ||
+                  pkg.slug === "plugin-maui-local-store"
                 ? "Android, iOS, macOS (Mac Catalyst), Windows"
                 : "Android, iOS",
       programmingLanguage: pkg.language ?? "C#",

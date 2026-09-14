@@ -25,6 +25,8 @@ nuget.org and language package registries are not the install path yet. You add 
 
 `<rid>` is the runtime identifier in the file name. Match it to the table below.
 
+MAUI apps that want Room-style CRUD (host picks NuvexaDB or SQLite) can use [Plugin.Maui.LocalStore](https://nuvyntralabs.github.io/packages/plugin-maui-local-store/) on top of this engine. Stay on `Nuventra.NuvexaDB` when you need NQL or Data Studio.
+
 ## Native library file names
 
 Language SDKs (except managed .NET) load the Native AOT C ABI. The library **file name** inside `NuvexaDB-Native-*.zip` is:

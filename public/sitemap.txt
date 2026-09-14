@@ -38,6 +38,7 @@ https://nuvyntralabs.github.io/packages/plugin-maui-job-queue/
 https://nuvyntralabs.github.io/packages/plugin-maui-smart-upload/
 https://nuvyntralabs.github.io/packages/plugin-maui-device-session/
 https://nuvyntralabs.github.io/packages/plugin-maui-offline-sync/
+https://nuvyntralabs.github.io/packages/plugin-maui-local-store/
 https://nuvyntralabs.github.io/packages/plugin-maui-push-router/
 https://nuvyntralabs.github.io/packages/plugin-maui-local-notifications/
 https://nuvyntralabs.github.io/packages/plugin-maui-permission-flow/
@@ -92,6 +93,9 @@ https://nuvyntralabs.github.io/packages/plugin-uno-mvvmexpress/comparison/
 https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/docs/
 https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/integration/
 https://nuvyntralabs.github.io/packages/plugin-winui-mvvmexpress/comparison/
+https://nuvyntralabs.github.io/packages/plugin-maui-local-store/docs/
+https://nuvyntralabs.github.io/packages/plugin-maui-local-store/integration/
+https://nuvyntralabs.github.io/packages/plugin-maui-local-store/comparison/
 https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/docs/
 https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/integration/
 https://nuvyntralabs.github.io/packages/plugin-maui-httpforge/comparison/

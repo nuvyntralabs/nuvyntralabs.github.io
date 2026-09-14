@@ -160,6 +160,10 @@ Performance CLI GitHub Packages: https://github.com/nuvyntralabs/Plugin.Maui.Per
 HttpForge documentation: ${siteConfig.url}/packages/plugin-maui-httpforge/docs/
 HttpForge getting started: ${siteConfig.url}/packages/plugin-maui-httpforge/integration/
 HttpForge comparison: ${siteConfig.url}/packages/plugin-maui-httpforge/comparison/
+LocalStore documentation: ${siteConfig.url}/packages/plugin-maui-local-store/docs/
+LocalStore getting started: ${siteConfig.url}/packages/plugin-maui-local-store/integration/
+LocalStore comparison: ${siteConfig.url}/packages/plugin-maui-local-store/comparison/
+LocalStore current NuGet: 1.0.1 (Room-style ILocalStore / IStoreCollection; host picks SQLite, NuvexaDB, Realm, LiteDB, DuckDB, SQLCipher, Firebird, LMDB, RocksDB, or LevelDB)
 HttpForge current NuGet: 1.1.1 (Testing, Newtonsoft.Json, and XML optional packages)
 HttpForge Testing: https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/pkgs/nuget/Plugin.Maui.HttpForge.Testing
 HttpForge Newtonsoft.Json: https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/pkgs/nuget/Plugin.Maui.HttpForge.NewtonsoftJson

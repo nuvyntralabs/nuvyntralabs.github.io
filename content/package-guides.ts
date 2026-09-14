@@ -30,6 +30,21 @@ import {
   leakAnalyserTechnicalTitle,
 } from "@/content/leak-analyser";
 import {
+  localStoreComparisonDescription,
+  localStoreComparisonHref,
+  localStoreComparisonSections,
+  localStoreComparisonTitle,
+  localStoreDocsHref,
+  localStoreIntegrationDescription,
+  localStoreIntegrationHref,
+  localStoreIntegrationSections,
+  localStoreIntegrationTitle,
+  localStoreSlug,
+  localStoreTechnicalDescription,
+  localStoreTechnicalSections,
+  localStoreTechnicalTitle,
+} from "@/content/local-store";
+import {
   performanceComparisonDescription,
   performanceComparisonHref,
   performanceComparisonSections,
@@ -196,6 +211,31 @@ export function getPackageGuidePage(slug: string, kind: PackageGuideKind): Packa
       description: leakAnalyserComparisonDescription,
       sections: leakAnalyserComparisonSections,
       currentHref: leakAnalyserComparisonHref,
+    };
+  }
+
+  if (slug === localStoreSlug) {
+    if (kind === "docs") {
+      return {
+        title: localStoreTechnicalTitle,
+        description: localStoreTechnicalDescription,
+        sections: localStoreTechnicalSections,
+        currentHref: localStoreDocsHref,
+      };
+    }
+    if (kind === "integration") {
+      return {
+        title: localStoreIntegrationTitle,
+        description: localStoreIntegrationDescription,
+        sections: localStoreIntegrationSections,
+        currentHref: localStoreIntegrationHref,
+      };
+    }
+    return {
+      title: localStoreComparisonTitle,
+      description: localStoreComparisonDescription,
+      sections: localStoreComparisonSections,
+      currentHref: localStoreComparisonHref,
     };
   }
 

@@ -27,7 +27,7 @@ export default function GettingStartedPage() {
       <PageHero
         eyebrow="Documentation"
         title="Getting started"
-        description="Packages ship independently from GitHub Packages. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress, HttpForge, LeakAnalyser, VideoPipeline, and TlsPin also target Mac Catalyst and Windows."
+        description="Packages ship independently from GitHub Packages. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress, HttpForge, LeakAnalyser, LocalStore, VideoPipeline, and TlsPin also target Mac Catalyst and Windows."
       />
       <div className="container max-w-3xl py-16 sm:py-20">
         <aside className="callout mb-12 px-4 py-3">
@@ -40,6 +40,10 @@ export default function GettingStartedPage() {
             tab or the{" "}
             <Link href="/nuvexadb/integration/" className="text-link">
               platform integration guides
+            </Link>
+            . For Room-style MAUI CRUD that can host NuvexaDB or SQLite, use{" "}
+            <Link href="/packages/plugin-maui-local-store/" className="text-link">
+              Plugin.Maui.LocalStore
             </Link>
             .
           </p>
@@ -116,6 +120,7 @@ dotnet new mvvmexpress -n MyApp`}</code>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{`dotnet add package Plugin.Maui.GeoLocator
 dotnet add package Plugin.Maui.NetworkMonitor
+dotnet add package Plugin.Maui.LocalStore
 dotnet add package Plugin.Maui.JobQueue
 dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
           </pre>
