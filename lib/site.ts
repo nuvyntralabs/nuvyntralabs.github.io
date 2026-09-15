@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Nuvyntra Labs",
   shortName: "Nuvyntra Labs",
-  title: "Nuvyntra Labs — Applied R&D and .NET MAUI infrastructure",
+  title: "Nuvyntra Labs — .NET MAUI development ecosystem",
   description:
-    "Independent applied R&D company for mobile infrastructure. We research hard field problems, prove them in public, and ship focused .NET MAUI NuGet packages.",
+    "A composable development ecosystem for .NET MAUI: UIKit for rich UI, MVVMExpress for architecture, HttpForge for typed REST, and focused plugins for the rest of the app.",
   url: "https://nuvyntralabs.github.io",
   githubOrg: "https://github.com/nuvyntralabs",
   discord: "https://discord.gg/2rg8s7P8xE",

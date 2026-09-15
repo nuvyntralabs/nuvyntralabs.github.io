@@ -10,6 +10,7 @@ Professional experience stays on
 
 | Path | Content |
 | --- | --- |
+| `/whitepaper/` | MAUI development ecosystem white paper (UIKit, MVVMExpress, HttpForge, gallery) |
 | `/research/` | R&D projects (inspection, VoIP, GPS, bindings) |
 | `/pocs/` | Proofs of concept and maintained forks |
 | `/nuvexadb/` | NuvexaDB embedded NoSQL database (white paper + platform integration) |

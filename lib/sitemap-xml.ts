@@ -13,6 +13,7 @@ import { siteConfig } from "./site";
 export function sitemapUrls(): string[] {
   const paths = [
     "/",
+    "/whitepaper/",
     "/uikit/",
     "/packages/",
     "/toolkits/",

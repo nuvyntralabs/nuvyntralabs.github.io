@@ -23,7 +23,7 @@ export default function AboutPage() {
     <main>
       <PageHero
         eyebrow="Company"
-        title="An independent lab that ships infrastructure"
+        title="An independent lab that ships a MAUI ecosystem"
         description={lab.tagline}
       />
 
@@ -35,6 +35,13 @@ export default function AboutPage() {
           ))}
         </div>
         <p className="mt-4 text-base leading-relaxed text-muted-foreground">{lab.audience}</p>
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          The{" "}
+          <Link href="/whitepaper/" className="text-link">
+            development ecosystem white paper
+          </Link>{" "}
+          maps UIKit, MVVMExpress, HttpForge, and the gallery libraries a team uses to ship a MAUI app.
+        </p>
       </section>
 
       <section className="section-muted">

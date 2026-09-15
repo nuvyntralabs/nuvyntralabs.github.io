@@ -5,7 +5,7 @@ import { DocsArticle } from "@/components/docs-article";
 import { DocsSidebar } from "@/components/docs-sidebar";
 import { JsonLd } from "@/components/json-ld";
 import { adjacentUiKitPages, uiKitDocsBase, uiKitGuideNav, type UiKitGuidePage } from "@/content/uikit-guide";
-import { uiKit, uiKitHref } from "@/content/uikit";
+import { uiKit, uiKitCatalogHighlight, uiKitHref } from "@/content/uikit";
 import { uiKitGuideJsonLd } from "@/lib/json-ld";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +25,7 @@ export function UiKitGuide({ page }: { page: UiKitGuidePage }) {
             </p>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">{page.title}</h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">{page.description}</p>
+            {page.kind === "index" ? <UiKitCatalogHighlight className="mt-6 max-w-2xl" /> : null}
             <div className="mt-8">
               <DocsArticle sections={page.sections} />
             </div>
@@ -59,6 +60,30 @@ export function UiKitGuide({ page }: { page: UiKitGuidePage }) {
         </div>
       </div>
     </main>
+  );
+}
+
+export function UiKitCatalogHighlight({ className }: { className?: string }) {
+  return (
+    <aside
+      aria-label={uiKitCatalogHighlight}
+      className={cn(
+        "rounded-2xl border border-lavender-300 bg-lavender-50 px-5 py-4 dark:border-lavender-300/25 dark:bg-lavender-950/55",
+        className,
+      )}
+    >
+      <p className="text-base font-semibold leading-relaxed text-foreground">
+        {uiKit.packageId} ships{" "}
+        <mark className="rounded bg-lavender-200/90 px-1.5 py-0.5 text-lavender-950 dark:bg-lavender-800 dark:text-lavender-50">
+          {uiKit.controlCount} unique UI controls
+        </mark>
+        , plus{" "}
+        <mark className="rounded bg-lavender-200/90 px-1.5 py-0.5 text-lavender-950 dark:bg-lavender-800 dark:text-lavender-50">
+          {uiKit.recipeCount} page recipes
+        </mark>
+        .
+      </p>
+    </aside>
   );
 }
 

@@ -1,4 +1,5 @@
 https://nuvyntralabs.github.io/
+https://nuvyntralabs.github.io/whitepaper/
 https://nuvyntralabs.github.io/uikit/
 https://nuvyntralabs.github.io/packages/
 https://nuvyntralabs.github.io/toolkits/

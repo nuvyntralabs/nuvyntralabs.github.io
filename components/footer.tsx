@@ -10,6 +10,7 @@ const company = [
 ];
 
 const work = [
+  { href: "/whitepaper/", label: "White paper" },
   { href: "/packages/", label: "Products" },
   { href: "/packages/plugin-maui-mvvmexpress/", label: "MVVMExpress" },
   { href: "/nuvexadb/", label: "NuvexaDB" },
@@ -21,6 +22,7 @@ const work = [
 
 const resources = [
   { href: "/getting-started/", label: "Getting started" },
+  { href: "/whitepaper/", label: "MAUI ecosystem white paper" },
   { href: "/uikit/docs/", label: "UIKit(MAUI) components" },
   { href: "/nuvexadb/docs/", label: "NuvexaDB white paper" },
   { href: "/nuvexadb/integration/", label: "NuvexaDB integration" },
@@ -48,8 +50,8 @@ export function Footer() {
         <div className="space-y-4 lg:col-span-1">
           <Logo onDark />
           <p className="max-w-xs text-sm leading-relaxed text-lavender-100/70">
-            Independent applied R&D company for mobile infrastructure. Research, public proofs, and
-            production .NET MAUI packages.
+            A composable .NET MAUI development ecosystem. Research, public proofs, and independently
+            versioned packages.
           </p>
         </div>
         <FooterColumn title="Company" links={company} />

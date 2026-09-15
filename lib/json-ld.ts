@@ -1,3 +1,4 @@
+import { whitepaper, whitepaperHref } from "@/content/ecosystem-whitepaper";
 import { nuvexaDb } from "@/content/nuvexadb";
 import { uiKit, uiKitHref } from "@/content/uikit";
 import { uiKitDocsBase } from "@/content/uikit-guide";
@@ -212,6 +213,42 @@ export function nuvexaGuideJsonLd(
       { name: "Home", path: "/" },
       { name: nuvexaDb.name, path: "/nuvexadb/" },
       { name: label, path: articlePath },
+    ]),
+  ];
+}
+
+export function ecosystemWhitepaperJsonLd() {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: whitepaper.title,
+      alternativeHeadline: whitepaper.subtitle,
+      description: whitepaper.description,
+      abstract: whitepaper.abstract,
+      url: `${siteConfig.url}${whitepaperHref}`,
+      datePublished: "2026-09-15",
+      author: {
+        "@type": "Person",
+        name: siteConfig.author,
+        url: siteConfig.authorUrl,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      about: {
+        "@type": "SoftwareApplication",
+        name: "Nuvyntra Labs .NET MAUI development ecosystem",
+        url: `${siteConfig.url}/`,
+      },
+      keywords:
+        "Nuvyntra Labs, .NET MAUI, UIKit, MVVMExpress, HttpForge, development ecosystem, white paper",
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: "White paper", path: whitepaperHref },
     ]),
   ];
 }

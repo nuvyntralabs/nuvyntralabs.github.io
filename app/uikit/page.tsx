@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ExternalLink, Github, Package } from "lucide-react";
 import { ComponentDiscussion } from "@/components/component-discussion";
 import { JsonLd } from "@/components/json-ld";
-import { UiKitGuideTabs } from "@/components/uikit-guide";
+import { UiKitCatalogHighlight, UiKitGuideTabs } from "@/components/uikit-guide";
 import { uiKitDocsBase } from "@/content/uikit-guide";
 import {
   uiKit,
@@ -40,6 +40,7 @@ export default function UiKitPage() {
       <p className="chip mt-4 inline-flex px-3 font-semibold">
         {uiKit.packageId} · {uiKit.version}
       </p>
+      <UiKitCatalogHighlight className="mt-6" />
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{uiKit.description}</p>
 
       <aside className="callout mt-6 px-4 py-3">

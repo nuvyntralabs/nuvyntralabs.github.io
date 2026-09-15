@@ -1,15 +1,15 @@
 export const lab = {
   name: "Nuvyntra Labs",
   legalName: "Nuvyntra Labs",
-  tagline: "Applied R&D for mobile infrastructure",
+  tagline: "A composable development ecosystem for .NET MAUI",
   mission:
-    "We research hard mobile problems, prove them in public, and publish the reusable pieces as focused .NET MAUI packages.",
+    "We research hard mobile problems, prove them in public, and ship the reusable pieces as independently versioned .NET MAUI products — a UI kit, an MVVM application shell, a typed REST client, and a catalog of focused plugins.",
   about: [
-    "Nuvyntra Labs is an independent applied R&D company. We work on the mobile infrastructure that field, inspection, and always-connected apps actually depend on — location, connectivity, offline sync, voice, and device security.",
-    "Research, public proofs of concept, production NuGet packages, and developer toolkits each have their own home here so the catalog can grow without burying the rest. Client delivery and professional experience stay on the founder's site.",
+    "Nuvyntra Labs is an independent applied R&D company and a composable development ecosystem for .NET MAUI. Teams paint screens with UIKit, host the app with MVVMExpress, talk to APIs with HttpForge, then add only the gallery plugins the product needs — location, connectivity, offline sync, voice, and device security.",
+    "Research, public proofs of concept, production NuGet packages, and developer toolkits each have their own home here so the catalog can grow without burying the rest. There is no mega-SDK. Client delivery and professional experience stay on the founder's site.",
   ],
   audience:
-    "Product teams building .NET MAUI apps for Android and iOS who need focused plugins — not a mega-SDK — and teams evaluating longer research in inspection, VoIP, and field accuracy.",
+    "Product teams building .NET MAUI apps for Android, iOS, Mac Catalyst, and Windows who need a UI, an application shell, a typed REST client, and focused plugins — not a mega-SDK — and teams evaluating longer research in inspection, VoIP, and field accuracy.",
   sponsorshipNote:
     "Nuvyntra Labs is independently maintained. Sponsorship helps keep the organization, packages, and research in good order — thank you for considering it.",
   principles: [

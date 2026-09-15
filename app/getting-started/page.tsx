@@ -30,6 +30,17 @@ export default function GettingStartedPage() {
         description="Packages ship independently from GitHub Packages. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress, HttpForge, LeakAnalyser, LocalStore, VideoPipeline, and TlsPin also target Mac Catalyst and Windows."
       />
       <div className="container max-w-3xl py-16 sm:py-20">
+        <aside className="callout mb-6 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">The ecosystem map</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            UIKit, MVVMExpress, HttpForge, and the gallery plugins that show up in a real MAUI app are mapped in
+            the{" "}
+            <Link href="/whitepaper/" className="text-link">
+              development ecosystem white paper
+            </Link>
+            . This page is the install path.
+          </p>
+        </aside>
         <aside className="callout mb-12 px-4 py-3">
           <p className="text-sm font-semibold text-foreground">Looking for the embedded database?</p>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">

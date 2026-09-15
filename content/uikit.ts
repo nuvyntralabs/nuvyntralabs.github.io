@@ -40,6 +40,8 @@ export const uiKit = {
   ],
 } as const;
 
+export const uiKitCatalogHighlight = `${uiKit.packageId} ships ${uiKit.controlCount} unique UI controls, plus ${uiKit.recipeCount} page recipes.`;
+
 export const uiKitLayers = [
   {
     name: "Foundation",

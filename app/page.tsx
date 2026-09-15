@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Beaker, FlaskConical, Package } from "lucide-react";
 import { lab } from "@/content/lab";
+import { whitepaperHref, whitepaperPillars } from "@/content/ecosystem-whitepaper";
 import { nuvexaDb } from "@/content/nuvexadb";
 import { uiKit } from "@/content/uikit";
 import { nugetPackages, packages } from "@/content/packages";
@@ -49,21 +50,21 @@ export default function HomePage() {
           <div className="animate-fade-up">
             <p className="eyebrow">{lab.tagline}</p>
             <h1 className="mt-6 max-w-3xl font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-[4.1rem] lg:leading-[1.05]">
-              Mobile infrastructure, <span className="heading-gradient">researched and shipped</span>
+              The .NET MAUI <span className="heading-gradient">development ecosystem</span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               {lab.mission}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/packages/" className="focusable btn-primary">
-                View products
+              <Link href={whitepaperHref} className="focusable btn-primary">
+                Read the white paper
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link href="/packages/" className="focusable btn-secondary">
+                View products
               </Link>
               <Link href="#community" className="focusable btn-secondary">
                 Join the community
-              </Link>
-              <Link href="/releases/" className="focusable btn-secondary">
-                MAUI Platform releases
               </Link>
             </div>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
@@ -101,9 +102,36 @@ export default function HomePage() {
       <section className="section-muted">
         <div className="container py-5">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Built for .NET MAUI teams on Android and iOS
+            Built for .NET MAUI teams on Android, iOS, Mac Catalyst, and Windows
           </p>
         </div>
+      </section>
+
+      <section className="container py-16 sm:py-20">
+        <SectionIntro
+          eyebrow="White paper"
+          title="Three pillars, then the gallery"
+          description="UIKit paints screens. MVVMExpress hosts the app. HttpForge talks to the API. The catalog fills in local data, network truth, security, and operations — adopt only what the product needs."
+          href={whitepaperHref}
+          cta="Read the white paper"
+        />
+        <ul className="mt-10 grid gap-4 md:grid-cols-3">
+          {whitepaperPillars.map((pillar) => (
+            <li key={pillar.href}>
+              <Link
+                href={pillar.href}
+                className="glass-card focusable flex h-full flex-col p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">{pillar.role}</p>
+                <h2 className="mt-3 font-display text-xl font-semibold text-foreground">{pillar.name}</h2>
+                <p className="mt-1 text-xs font-semibold text-lavender-800 dark:text-lavender-200">
+                  {pillar.product} · {pillar.version}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{pillar.body}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="section-muted">
