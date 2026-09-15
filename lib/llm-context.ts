@@ -1,5 +1,7 @@
 import { lab } from "@/content/lab";
 import { nuvexaDb, nuvexaDocsBase, nuvexaIntegrationHref, nuvexaPlatforms } from "@/content/nuvexadb";
+import { uiKit, uiKitHref } from "@/content/uikit";
+import { uiKitDocsBase } from "@/content/uikit-guide";
 import { packages } from "@/content/packages";
 import { toolkitPath, toolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects, workPath } from "@/content/works";
@@ -78,6 +80,16 @@ Encryption: ${siteConfig.url}${nuvexaDocsBase}/encryption/
 NQL: ${siteConfig.url}${nuvexaDocsBase}/query/
 Language bindings: ${siteConfig.url}${nuvexaDocsBase}/bindings/
 Data Studio: ${siteConfig.url}${nuvexaDocsBase}/explorer/
+
+## UIKit(MAUI)
+
+${siteConfig.url}${uiKitHref}
+Lumina UI library (${uiKit.packageId} ${uiKit.version}). ${uiKit.controlCount} NV* controls and ${uiKit.recipeCount} page recipes for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. Register with ${uiKit.register}. xmlns nv = ${uiKit.xmlns}. This is a UI library, not a MauiEssentials runtime plugin. Compose FormValidation, KeyboardManager, and MVVMExpress at the host. MIT. nuget.org publish is pipeline-owned.
+GitHub: ${uiKit.github}
+NuGet: ${uiKit.nuget}
+Control reference: ${uiKit.reference}
+Component docs (XAML + every attribute): ${siteConfig.url}${uiKitDocsBase}/
+Sample: ${uiKit.sample}
 
 ## Toolkits
 
@@ -214,6 +226,19 @@ ${pocs}
 
 ${toolkitDocs}
 
+## UIKit(MAUI)
+
+${uiKit.name} — ${uiKit.subtitle}
+${uiKit.abstract}
+
+Page: ${siteConfig.url}${uiKitHref}
+GitHub: ${uiKit.github}
+NuGet: ${uiKit.nuget}
+Version: ${uiKit.version}
+
+Capabilities:
+${uiKit.capabilities.map((line) => `- ${line}`).join("\n")}
+
 ## NuvexaDB
 
 ${nuvexaDb.name} — ${nuvexaDb.subtitle}
@@ -253,6 +278,12 @@ export function buildFeedXml(): string {
       description: nuvexaDb.description,
       link: `${siteConfig.url}/nuvexadb/`,
       category: "database",
+    },
+    {
+      title: uiKit.name,
+      description: uiKit.description,
+      link: `${siteConfig.url}${uiKitHref}`,
+      category: "ui-kit",
     },
     ...packages.map((item) => ({
       title: item.name,

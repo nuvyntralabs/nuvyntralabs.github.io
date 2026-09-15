@@ -1,4 +1,6 @@
 import { nuvexaDb } from "@/content/nuvexadb";
+import { uiKit, uiKitHref } from "@/content/uikit";
+import { uiKitDocsBase } from "@/content/uikit-guide";
 import type { PackageDoc } from "@/content/packages";
 import { toolkitPath, type ToolkitDoc } from "@/content/toolkits";
 import { workPath, type WorkItem } from "@/content/works";
@@ -210,6 +212,72 @@ export function nuvexaGuideJsonLd(
       { name: "Home", path: "/" },
       { name: nuvexaDb.name, path: "/nuvexadb/" },
       { name: label, path: articlePath },
+    ]),
+  ];
+}
+
+export function uiKitJsonLd() {
+  const page = `${siteConfig.url}${uiKitHref}`;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": ["SoftwareApplication", "SoftwareSourceCode"],
+      name: uiKit.title,
+      alternateName: [uiKit.name, uiKit.packageId],
+      description: uiKit.description,
+      url: page,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Android, iOS, macOS (Mac Catalyst), Windows",
+      programmingLanguage: "C#",
+      codeRepository: uiKit.github,
+      downloadUrl: uiKit.nuget,
+      softwareVersion: uiKit.version,
+      license: "https://opensource.org/licenses/MIT",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      keywords: uiKit.tags.join(", "),
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: uiKit.name, path: uiKitHref },
+    ]),
+  ];
+}
+
+export function uiKitGuideJsonLd(title: string, description: string, articlePath: string) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: title,
+      description,
+      url: `${siteConfig.url}${articlePath}`,
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      about: {
+        "@type": "SoftwareApplication",
+        name: uiKit.title,
+        url: `${siteConfig.url}${uiKitHref}`,
+      },
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: uiKit.name, path: uiKitHref },
+      { name: "Components", path: `${uiKitDocsBase}/` },
+      ...(articlePath === `${uiKitDocsBase}/`
+        ? []
+        : [{ name: title, path: articlePath }]),
     ]),
   ];
 }

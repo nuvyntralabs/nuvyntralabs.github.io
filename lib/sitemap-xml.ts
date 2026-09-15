@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { allDesktopGuideHrefs } from "../content/desktop-mvvmexpress";
 import { allGuideHrefs } from "../content/mvvmexpress-guide";
 import { allNuvexaHrefs } from "../content/nuvexadb-guide";
+import { allUiKitHrefs } from "../content/uikit-guide";
 import { allWpfGuideHrefs } from "../content/wpf-mvvmexpress-guide";
 import { packages } from "../content/packages";
 import { toolkits } from "../content/toolkits";
@@ -12,6 +13,7 @@ import { siteConfig } from "./site";
 export function sitemapUrls(): string[] {
   const paths = [
     "/",
+    "/uikit/",
     "/packages/",
     "/toolkits/",
     "/getting-started/",
@@ -37,6 +39,7 @@ export function sitemapUrls(): string[] {
     ...allWpfGuideHrefs(),
     ...allDesktopGuideHrefs(),
     ...allNuvexaHrefs(),
+    ...allUiKitHrefs(),
   ];
 
   return [...new Set(paths)].map((path) =>

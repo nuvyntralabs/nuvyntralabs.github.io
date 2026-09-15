@@ -13,6 +13,8 @@ Professional experience stays on
 | `/research/` | R&D projects (inspection, VoIP, GPS, bindings) |
 | `/pocs/` | Proofs of concept and maintained forks |
 | `/nuvexadb/` | NuvexaDB embedded NoSQL database (white paper + platform integration) |
+| `/uikit/` | UIKit(MAUI) — Lumina NV* controls and page recipes |
+| `/uikit/docs/` | UIKit(MAUI) component reference (XAML + attributes) |
 | `/nuvexadb/docs/` | NuvexaDB white paper and engine docs |
 | `/nuvexadb/integration/` | NuvexaDB getting started for every supported host |
 | `/packages/` | .NET MAUI NuGet catalog |
@@ -102,5 +104,6 @@ have Discussions. A few older POCs still need Issues or Discussions enabled.
 - HttpForge docs: `content/http-forge.ts`
 - LocalStore docs: `content/local-store.ts`
 - NuvexaDB docs: `content/nuvexadb.ts`, `content/nuvexadb-guide.ts`, official markdown in `content/nuvexadb/source/`
+- UIKit(MAUI): `content/uikit.ts`, `content/uikit-guide.ts`, official control reference in `content/uikit/source/UIKitLib.md`
 - Lab copy: `content/lab.ts`
 - Comment repo IDs: `lib/comment-repos.ts`

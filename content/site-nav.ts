@@ -33,6 +33,14 @@ export const featuredProducts: FeaturedNavItem[] = [
     prefixes: ["/nuvexadb/"],
   },
   {
+    href: "/uikit/",
+    label: "UIKit(MAUI)",
+    blurb: "Lumina NV* controls and page recipes",
+    badge: "New",
+    pin: true,
+    prefixes: ["/uikit/"],
+  },
+  {
     href: mvvmExpressHref,
     label: "MVVMExpress",
     blurb: "MVVM for MAUI, WPF, Avalonia, Uno, and WinUI",

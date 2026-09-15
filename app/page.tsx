@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Beaker, FlaskConical, Package } from "lucide-react";
 import { lab } from "@/content/lab";
 import { nuvexaDb } from "@/content/nuvexadb";
+import { uiKit } from "@/content/uikit";
 import { nugetPackages, packages } from "@/content/packages";
 import { toolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects } from "@/content/works";
@@ -150,6 +151,37 @@ export default function HomePage() {
             [StoreDao] interfaces.
           </p>
         </Link>
+        <div className="mt-14">
+        <SectionIntro
+          eyebrow="Lumina UI library"
+          title={uiKit.name}
+          description={uiKit.subtitle}
+          href="/uikit/"
+          cta="UIKit(MAUI) docs"
+        />
+        </div>
+        <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+          <Link href="/uikit/" className="glass-card focusable group p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+              {uiKit.packageId} · {uiKit.version}
+            </p>
+            <h2 className="mt-3 font-display text-2xl font-semibold text-foreground">
+              {uiKit.controlCount} NV* controls, {uiKit.recipeCount} page recipes
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{uiKit.abstract}</p>
+            <p className="mt-4 text-sm font-semibold text-lavender-800 dark:text-lavender-200">
+              Register with UseNuvyntraUIKit(), then use xmlns nv
+            </p>
+          </Link>
+          <Link href="/packages/plugin-maui-mvvmexpress/" className="glass-card focusable p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">Host composition</p>
+            <h2 className="mt-3 font-display text-xl font-semibold text-foreground">Paint with UIKit, host with MVVMExpress</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              The kit does not PackageReference Plugin.Maui.*. Compose MVVMExpress, FormValidation, and
+              KeyboardManager in the app.
+            </p>
+          </Link>
+        </div>
         </div>
       </section>
 

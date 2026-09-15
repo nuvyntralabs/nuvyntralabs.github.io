@@ -13,6 +13,7 @@ const work = [
   { href: "/packages/", label: "Products" },
   { href: "/packages/plugin-maui-mvvmexpress/", label: "MVVMExpress" },
   { href: "/nuvexadb/", label: "NuvexaDB" },
+  { href: "/uikit/", label: "UIKit(MAUI)" },
   { href: "/toolkits/", label: "Toolkits" },
   { href: "/research/", label: "Research" },
   { href: "/pocs/", label: "Proofs of concept" },
@@ -20,6 +21,7 @@ const work = [
 
 const resources = [
   { href: "/getting-started/", label: "Getting started" },
+  { href: "/uikit/docs/", label: "UIKit(MAUI) components" },
   { href: "/nuvexadb/docs/", label: "NuvexaDB white paper" },
   { href: "/nuvexadb/integration/", label: "NuvexaDB integration" },
   { href: "/releases/", label: ".NET MAUI releases" },

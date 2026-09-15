@@ -45,7 +45,11 @@ export default function GettingStartedPage() {
             <Link href="/packages/plugin-maui-local-store/" className="text-link">
               Plugin.Maui.LocalStore
             </Link>
-            .
+            . For Lumina NV* screens, start at the{" "}
+            <Link href="/uikit/" className="text-link">
+              UIKit(MAUI)
+            </Link>{" "}
+            tab.
           </p>
         </aside>
         <section>
