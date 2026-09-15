@@ -2,7 +2,7 @@
 
 Managed engine. You do **not** download `libnuvexa` / `nuvexa.dll`. The `Nuventra.NuvexaDB` package is the database.
 
-For a Room-style MAUI facade that can host this engine or SQLite behind the same `IStoreCollection<T>` methods, use [Plugin.Maui.LocalStore](https://nuvyntralabs.github.io/packages/plugin-maui-local-store/). That plugin is not a replacement for NQL, Data Studio, or `NuvexaDatabase` — it is the host-selected CRUD layer.
+For a Room-style MAUI facade that can host this engine or SQLite behind the same `IStoreCollection<T>` methods, use [Plugin.Maui.LocalStore](https://nuvyntralabs.github.io/packages/plugin-maui-local-store/). `QueryAsync` can run NQL when the backend is Nuvexa. Stay on `NuvexaDatabase` / Data Studio when you need the full engine surface.
 
 ## 1. Download
 

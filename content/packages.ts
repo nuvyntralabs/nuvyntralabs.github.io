@@ -463,10 +463,11 @@ export const packages: PackageDoc[] = [
       "Mac Catalyst",
       "Windows"
     ],
-    "abstract": "Plugin.Maui.LocalStore is a Room-style abstract database layer for MAUI. The host sets StoreBackend (SQLite, NuvexaDB, Realm, LiteDB, DuckDB, SQLCipher, Firebird, LMDB, RocksDB, or LevelDB). Application code stays on InsertAsync / FindByIdAsync / ReplaceAsync / DeleteByIdAsync / FindAsync. Switching engines does not migrate data. Some engines fall back to JSON files when the native library is missing. It is not JobQueue, OfflineSync, FileVault, or androidx.room.",
-    "version": "1.0.1",
+    "abstract": "Plugin.Maui.LocalStore is a Room-style abstract database layer for MAUI. The host sets StoreBackend (SQLite, NuvexaDB, Realm, LiteDB, DuckDB, SQLCipher, Firebird, LMDB, RocksDB, or LevelDB). Application code stays on InsertAsync / FindByIdAsync / ReplaceAsync / DeleteByIdAsync / FindAsync. 1.1 adds AutoMigrate + Map<T>, ILocalStore.QueryAsync / ExecuteAsync, and source-generated [StoreDao] interfaces. Some engines fall back to JSON files when the native library is missing. It is not JobQueue, OfflineSync, FileVault, or androidx.room.",
+    "version": "1.1.0",
     "releaseNotes": [
-      "1.0.1. Current nuget.org pack. Ten engines behind IStoreCollection<T>, platform table, and JSON fallback when a native library is missing. Sample uses the same OS TFMs as the library.",
+      "1.1.0. Current pack. Automatic engine migration (AutoMigrate, MigrateFrom, Map<T>, LocalStore.MigrateAsync). Raw SQL / NQL on ILocalStore.QueryAsync / ExecuteAsync (StoreQueryLanguage). Source-generated [StoreDao] implementations (GetDao<T>, AddMauiLocalStoreDao<T>).",
+      "1.0.1. Ten engines behind IStoreCollection<T>, platform table, and JSON fallback when a native library is missing. Sample uses the same OS TFMs as the library.",
       "1.0.0. First stable release. Host-selected SQLite or NuvexaDB, reserved StoreBackend values, StoreFilter / StoreQuery, and INuvexaLocalStore.ExecuteNqlAsync."
     ],
     "capabilities": [
@@ -474,16 +475,18 @@ export const packages: PackageDoc[] = [
       "SQLite, NuvexaDB, Realm, LiteDB, and SQLCipher run on Android, iOS, Windows, and Mac Catalyst.",
       "DuckDB, Firebird, RocksDB, LevelDB, and LMDB (Catalyst) use a JSON-file fallback when natives are missing.",
       "StoreFilter (Eq, Ne, Gte, Lt, And, Or) and StoreQuery (sort / skip / limit).",
-      "Optional Nuvexa-only INuvexaLocalStore.ExecuteNqlAsync.",
+      "AutoMigrate + Map<T>, or LocalStore.MigrateAsync, to copy collections when the destination is empty.",
+      "ILocalStore.QueryAsync / ExecuteAsync when QueryLanguage is Sql or Nql.",
+      "Source-generated [StoreDao] / [StoreRaw] via GetDao<T> or AddMauiLocalStoreDao<T>.",
       "UseMauiLocalStore, AddMauiLocalStore, or LocalStore.Open without the host.",
-      "No automatic migration between engines. No sibling PackageReference to OfflineSync, JobQueue, or FileVault."
+      "No sibling PackageReference to OfflineSync, JobQueue, or FileVault."
     ],
     "guides": {
       "technical": "/packages/plugin-maui-local-store/docs/",
       "integration": "/packages/plugin-maui-local-store/integration/",
       "comparison": "/packages/plugin-maui-local-store/comparison/",
-      "technicalSummary": "1.0.1 pack, ten engines, platform table, JSON fallback, options, and what stays on sibling plugins.",
-      "integrationSummary": "Install 1.0.1, UseMauiLocalStore, POCO + CRUD, filters, and how to switch StoreBackend.",
+      "technicalSummary": "1.1.0 pack, ten engines, AutoMigrate, QueryAsync, [StoreDao], platform table, and JSON fallback.",
+      "integrationSummary": "Install 1.1.0, UseMauiLocalStore, POCO + CRUD, filters, migrate, raw query, and generated DAOs.",
       "comparisonSummary": "LocalStore vs a direct engine API, Android Room, OfflineSync, JobQueue, FileVault, and NuvexaDB."
     }
   },

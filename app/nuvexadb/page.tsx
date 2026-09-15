@@ -39,7 +39,8 @@ export default function NuvexaDbPage() {
           <Link href="/packages/plugin-maui-local-store/" className="text-link">
             Plugin.Maui.LocalStore
           </Link>
-          . NuvexaDB stays the document engine, NQL, and Data Studio.
+          . QueryAsync can run NQL when the backend is Nuvexa. Data Studio and NuvexaDatabase stay on this
+          engine.
         </p>
       </aside>
 

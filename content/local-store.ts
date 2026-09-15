@@ -8,11 +8,11 @@ export const localStoreComparisonHref = `/packages/${localStoreSlug}/comparison/
 
 export const localStoreTechnicalTitle = "How LocalStore works";
 export const localStoreTechnicalDescription =
-  "A Room-style abstract database layer for .NET MAUI. The host picks StoreBackend; application code always uses the same ILocalStore / IStoreCollection<T> methods.";
+  "A Room-style abstract database layer for .NET MAUI. The host picks StoreBackend; application code always uses the same ILocalStore / IStoreCollection<T> methods. 1.1 adds AutoMigrate, QueryAsync / ExecuteAsync, and source-generated [StoreDao] interfaces.";
 
 export const localStoreIntegrationTitle = "Get started with LocalStore";
 export const localStoreIntegrationDescription =
-  "Install 1.0.1, register UseMauiLocalStore, define a POCO with a string Id, then insert / find / replace / delete / select. The same methods work on every engine.";
+  "Install 1.1.0, register UseMauiLocalStore, define a POCO with a string Id, then insert / find / replace / delete / select. The same methods work on every engine. Opt into AutoMigrate, QueryAsync, or a generated DAO when you need them.";
 
 export const localStoreComparisonTitle = "LocalStore vs SQLite, NuvexaDB, Room, and sibling plugins";
 export const localStoreComparisonDescription =
@@ -25,7 +25,7 @@ export const localStoreTechnicalSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "LocalStore is an abstract database layer for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. The host picks an engine (StoreBackend). Application code always uses the same methods on ILocalStore / IStoreCollection<T>. You do not change insert / find / replace / delete / select when you add or switch a backend. Each engine has its own file. Switching does not migrate data.",
+        text: "LocalStore is an abstract database layer for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. The host picks an engine (StoreBackend). Application code always uses the same methods on ILocalStore / IStoreCollection<T>. You do not change insert / find / replace / delete / select when you add or switch a backend. Each engine has its own file. Set AutoMigrate and Map<T> to copy collections when you switch. Raw SQL or NQL runs on ILocalStore.QueryAsync. Optional [StoreDao] interfaces are source-generated.",
       },
       {
         type: "code",
@@ -39,8 +39,8 @@ export const localStoreTechnicalSections: DocSection[] = [
       },
       {
         type: "callout",
-        title: "Not a job queue, sync engine, or Room port",
-        text: "This is not JobQueue or RetryQueue (durable jobs). It is not OfflineSync (sync + conflicts). It is not androidx.room. There is no sibling PackageReference to those plugins.",
+        title: "Not a job queue, sync engine, or androidx.room",
+        text: "This is not JobQueue or RetryQueue (durable jobs). It is not OfflineSync (sync + conflicts). [StoreDao] is a Room-style generator over this facade, not androidx.room. There is no sibling PackageReference to those plugins.",
       },
     ],
   },
@@ -50,7 +50,7 @@ export const localStoreTechnicalSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "1.0 opens every engine in the table. Host CRUD stays the same. NuvexaDB is Nuventra.NuvexaDB. Every row is reached through the same IStoreCollection<T> methods.",
+        text: "1.1 opens every engine in the table. Host CRUD stays the same. NuvexaDB is Nuventra.NuvexaDB. Every row is reached through the same IStoreCollection<T> methods.",
       },
       {
         type: "table",
@@ -96,12 +96,12 @@ export const localStoreTechnicalSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "Selection does not change on an unsupported platform. Keep o.Backend = StoreBackend.DuckDb (or Firebird, RocksDB, LevelDB, or LMDB on Catalyst). LocalStore.Open / UseMauiLocalStore does not throw. On that OS, each row is a JSON file. InsertAsync, FindByIdAsync, ReplaceAsync, DeleteByIdAsync, and FindAsync still work. Filters run in memory. EnsureIndexAsync does nothing.",
+        text: "Selection does not change on an unsupported platform. Keep o.Backend = StoreBackend.DuckDb (or Firebird, RocksDB, LevelDB, or LMDB on Catalyst). LocalStore.Open / UseMauiLocalStore does not throw. On that OS, each row is a JSON file. InsertAsync, FindByIdAsync, ReplaceAsync, DeleteByIdAsync, and FindAsync still work. Filters run in memory. EnsureIndexAsync does nothing. QueryLanguage is None.",
       },
       {
         type: "callout",
         title: "JSON fallback is not the native engine",
-        text: "This is not DuckDB / Firebird / RocksDB / LevelDB / LMDB. Switching later to a native file on a supported OS does not migrate those JSON rows. Use SQLite, SQLCipher, NuvexaDB, LiteDB, or Realm when you need the real engine on every MAUI platform.",
+        text: "This is not DuckDB / Firebird / RocksDB / LevelDB / LMDB. Switching later to a native file on a supported OS still needs AutoMigrate + Map<T>, the same as any other engine switch. Use SQLite, SQLCipher, NuvexaDB, LiteDB, or Realm when you need the real engine on every MAUI platform.",
       },
     ],
   },
@@ -111,7 +111,7 @@ export const localStoreTechnicalSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "The host never writes SQL, NQL, or engine APIs on the shared path. Every backend must implement these operations:",
+        text: "Portable CRUD stays on IStoreCollection<T>. Raw SQL / NQL is optional on ILocalStore. Every backend must implement the collection operations:",
       },
       {
         type: "table",
@@ -122,6 +122,8 @@ export const localStoreTechnicalSections: DocSection[] = [
           ["Update", "ReplaceAsync"],
           ["Delete", "DeleteByIdAsync"],
           ["Select", "FindAsync(StoreFilter, StoreQuery)"],
+          ["Raw SQL / NQL", "ILocalStore.QueryAsync<T> / ExecuteAsync"],
+          ["Generated DAO", "store.GetDao<T>()"],
           ["Index", "EnsureIndexAsync"],
           ["Close", "DisposeAsync"],
         ],
@@ -153,6 +155,12 @@ export const localStoreTechnicalSections: DocSection[] = [
             "Nuvexa (required to open an encrypted .nvx), SQLCipher (required), LiteDB password, Realm, Firebird SYSDBA password. Ignored by SQLite, DuckDB, LMDB, RocksDB, LevelDB",
           ],
           ["CacheSizeMb", "16", "Nuvexa only"],
+          ["AutoMigrate", "false", "Copy Map<T> collections from another engine file when the destination is empty"],
+          ["MigrateFrom", "none", "Source engine. Required when more than one sibling file exists"],
+          ["MigrateFromPath", "none", "Source file. Empty uses the destination folder"],
+          ["MigrateFromEncryptionKey", "none", "Source key. Empty reuses EncryptionKey"],
+          ["DeleteSourceAfterMigrate", "false", "Remove the source file after a successful copy"],
+          ["Map<T>(name)", "none", "Registers a collection for migrate (required when AutoMigrate is true)"],
         ],
       },
     ],
@@ -183,39 +191,125 @@ export const localStoreTechnicalSections: DocSection[] = [
     ],
   },
   {
-    id: "nql",
-    title: "Engine-only: NQL",
+    id: "raw-query",
+    title: "Raw SQL / NQL",
     blocks: [
       {
         type: "p",
-        text: "Optional. Not part of the common layer. Other engines have no NQL. NQL update / delete needs NuvexaDB 1.0.2+.",
+        text: "ILocalStore.QueryAsync<T> / ExecuteAsync are on the shared store. The dialect is store.QueryLanguage. JSON fallback (mobile DuckDB / Firebird / RocksDB / LevelDB, and LMDB on Catalyst) reports None.",
+      },
+      {
+        type: "table",
+        headers: ["Engine", "QueryLanguage", "Command"],
+        rows: [
+          ["SQLite, SQLCipher", "Sql", "SQL"],
+          ["DuckDB, Firebird", "Sql when native; None on the JSON fallback", "SQL when native"],
+          ["Nuvexa", "Nql", "NQL"],
+          ["LiteDB, Realm, LMDB, RocksDB, LevelDB", "None", "throws LocalStoreException"],
+        ],
       },
       {
         type: "code",
-        code: `if (store is INuvexaLocalStore nuvexa)
+        code: `if (store.QueryLanguage == StoreQueryLanguage.Sql)
 {
-    var rows = await nuvexa.ExecuteNqlAsync(
+    var adults = await store.QueryAsync<Person>(
+        "SELECT * FROM users WHERE Age >= ?",
+        [21]);
+}
+
+if (store.QueryLanguage == StoreQueryLanguage.Nql)
+{
+    var adults = await store.QueryAsync<Person>(
         """db.users.find({ age: { $gte: 21 } }).sort({ name: 1 }).limit(20)""");
 }`,
+      },
+      {
+        type: "p",
+        text: "INuvexaLocalStore.ExecuteNqlAsync still returns raw JSON strings. Prefer QueryAsync<T> when you want POCOs. NQL update / delete needs NuvexaDB 1.0.2+.",
       },
       {
         type: "link",
         href: "/nuvexadb/docs/query/",
         label: "NuvexaDB NQL",
-        note: "Engine query language when you opt into INuvexaLocalStore.",
+        note: "Engine query language when QueryLanguage is Nql.",
+      },
+    ],
+  },
+  {
+    id: "migrate",
+    title: "Automatic migration",
+    blocks: [
+      {
+        type: "p",
+        text: "Each engine keeps its own file. On open, LocalStore can copy registered collections when the destination is empty. Map<T> is required so both engines can read and write the same POCOs. If MigrateFrom is omitted and exactly one other engine file sits next to the destination, that file is used. Two or more siblings throw until you set MigrateFrom.",
+      },
+      {
+        type: "code",
+        code: `builder.UseMauiLocalStore(o =>
+{
+    o.Backend = StoreBackend.Nuvexa;
+    o.Path = Path.Combine(FileSystem.AppDataDirectory, "app.nvx");
+    o.EncryptionKey = key;
+    o.AutoMigrate = true;
+    o.MigrateFrom = StoreBackend.Sqlite;
+    o.Map<Person>("users");
+});`,
+      },
+      {
+        type: "p",
+        text: "Or copy without changing LocalStore.Current:",
+      },
+      {
+        type: "code",
+        code: `var result = await LocalStore.MigrateAsync(
+    new LocalStoreOptions { Backend = StoreBackend.Sqlite, Path = sqlitePath },
+    new LocalStoreOptions { Backend = StoreBackend.Nuvexa, Path = nvxPath, EncryptionKey = key }
+        .Map<Person>("users"));`,
+      },
+      {
+        type: "p",
+        text: "Destination rows win: a non-empty mapped collection is left unchanged (Skipped). JSON-fallback folders migrate the same way as native files. StoreMigrationResult reports From, To, Collections, Documents, Skipped, and Reason.",
+      },
+    ],
+  },
+  {
+    id: "dao",
+    title: "Source-generated DAOs",
+    blocks: [
+      {
+        type: "p",
+        text: "[StoreDao] marks an interface. The generator emits an implementation that wraps IStoreCollection<T> and QueryAsync. CRUD method names map to the collection. [StoreRaw] calls QueryAsync. Placeholders are {parameterName}. Register services.AddMauiLocalStoreDao<T>() when you want the DAO in DI.",
+      },
+      {
+        type: "code",
+        code: `[StoreDao("users", typeof(Person))]
+public interface IPersonDao
+{
+    Task<string> InsertAsync(Person item, CancellationToken cancellationToken = default);
+    Task<Person?> FindByIdAsync(string id, CancellationToken cancellationToken = default);
+
+    [StoreRaw(
+        Sql = "SELECT * FROM users WHERE Age >= {minAge}",
+        Nql = "db.users.find({ age: { $gte: {minAge} } })")]
+    Task<IReadOnlyList<Person>> FindAdultsAsync(int minAge, CancellationToken cancellationToken = default);
+}
+
+var dao = store.GetDao<IPersonDao>();
+var adults = await dao.FindAdultsAsync(21);`,
       },
     ],
   },
   {
     id: "not-in-scope",
-    title: "What 1.0 does not do",
+    title: "What 1.1 does not do",
     blocks: [
       {
         type: "ul",
         items: [
-          "Automatic migration between engines",
-          "Source-generated DAOs or raw SQL / NQL on the shared interface",
-          "Automatic promotion from the JSON fallback to a later native DuckDB / Firebird / RocksDB / LevelDB file",
+          "Copy collections unless AutoMigrate (or MigrateAsync) and Map<T> are set",
+          "Promote a JSON-fallback folder to a later native DuckDB / Firebird / RocksDB / LevelDB file without that migrate path",
+          "Room-style schema migrations inside one engine",
+          "SQL or NQL on engines whose QueryLanguage is None",
           "Sibling PackageReference to OfflineSync, JobQueue, or FileVault",
         ],
       },
@@ -227,7 +321,7 @@ export const localStoreTechnicalSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "Version 1.0.1. Library and sample share the OS TFMs: net10.0-android, net10.0-ios, net10.0-maccatalyst, plus net10.0-windows10.0.19041.0 when built on Windows. The library also packs net10.0 for tests and shared hosts.",
+        text: "Version 1.1.0. Library and sample share the OS TFMs: net10.0-android, net10.0-ios, net10.0-maccatalyst, plus net10.0-windows10.0.19041.0 when built on Windows. The library also packs net10.0 for tests and shared hosts.",
       },
       {
         type: "link",
@@ -254,7 +348,7 @@ export const localStoreIntegrationSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "Package ID: Plugin.Maui.LocalStore. Current package is 1.0.1 on nuget.org and GitHub Packages. Host registration is UseMauiLocalStore. Non-MAUI hosts can call services.AddMauiLocalStore(...) or LocalStore.Open(...).",
+        text: "Package ID: Plugin.Maui.LocalStore. Current package is 1.1.0 on nuget.org and GitHub Packages. Host registration is UseMauiLocalStore. Non-MAUI hosts can call services.AddMauiLocalStore(...) or LocalStore.Open(...).",
       },
       {
         type: "link",
@@ -425,12 +519,86 @@ await users.EnsureIndexAsync("City", "Status");`,
     ],
   },
   {
+    id: "raw-query",
+    title: "Raw SQL / NQL",
+    blocks: [
+      {
+        type: "p",
+        text: "Check store.QueryLanguage before QueryAsync or ExecuteAsync. SQL engines take ? placeholders. Nuvexa takes NQL. Engines (and JSON fallbacks) with QueryLanguage.None throw LocalStoreException.",
+      },
+      {
+        type: "code",
+        code: `if (store.QueryLanguage == StoreQueryLanguage.Sql)
+{
+    await store.ExecuteAsync("UPDATE users SET Status = ? WHERE City = ?", ["active", "London"]);
+    var adults = await store.QueryAsync<Person>("SELECT * FROM users WHERE Age >= ?", [21]);
+}
+
+if (store.QueryLanguage == StoreQueryLanguage.Nql)
+{
+    var adults = await store.QueryAsync<Person>(
+        """db.users.find({ age: { $gte: 21 } }).sort({ name: 1 }).limit(20)""");
+}`,
+      },
+    ],
+  },
+  {
+    id: "migrate",
+    title: "Migrate between engines",
+    blocks: [
+      {
+        type: "p",
+        text: "Dispose is not enough to copy data. Set AutoMigrate and Map<T> on the destination, or call LocalStore.MigrateAsync. Destination rows win when a mapped collection is already non-empty.",
+      },
+      {
+        type: "code",
+        code: `builder.UseMauiLocalStore(o =>
+{
+    o.Backend = StoreBackend.Nuvexa;
+    o.Path = Path.Combine(FileSystem.AppDataDirectory, "app.nvx");
+    o.EncryptionKey = key;
+    o.AutoMigrate = true;
+    o.MigrateFrom = StoreBackend.Sqlite;
+    o.Map<Person>("users");
+});`,
+      },
+    ],
+  },
+  {
+    id: "dao",
+    title: "Generated DAO",
+    blocks: [
+      {
+        type: "p",
+        text: "Mark an interface with [StoreDao]. CRUD names map to IStoreCollection<T>. [StoreRaw] runs QueryAsync. Resolve with store.GetDao<T>() or services.AddMauiLocalStoreDao<T>().",
+      },
+      {
+        type: "code",
+        code: `[StoreDao("users", typeof(Person))]
+public interface IPersonDao
+{
+    Task<string> InsertAsync(Person item, CancellationToken cancellationToken = default);
+    Task<Person?> FindByIdAsync(string id, CancellationToken cancellationToken = default);
+
+    [StoreRaw(
+        Sql = "SELECT * FROM users WHERE Age >= {minAge}",
+        Nql = "db.users.find({ age: { $gte: {minAge} } })")]
+    Task<IReadOnlyList<Person>> FindAdultsAsync(int minAge, CancellationToken cancellationToken = default);
+}
+
+services.AddMauiLocalStoreDao<IPersonDao>();
+var dao = store.GetDao<IPersonDao>();
+var adults = await dao.FindAdultsAsync(21);`,
+      },
+    ],
+  },
+  {
     id: "switch",
     title: "Switch engine",
     blocks: [
       {
         type: "p",
-        text: "A new engine implements ILocalStore / IStoreCollection<T> and a StoreBackend value. Host code stays on the common methods. Dispose, then Open with the new backend and a different path — data does not copy. CreateIfMissing = false throws LocalStoreException when the file is missing.",
+        text: "A new engine implements ILocalStore / IStoreCollection<T> and a StoreBackend value. Host code stays on the common methods. Dispose, then Open with the new backend and a different path. Data does not copy unless AutoMigrate + Map<T> (or MigrateAsync) is set. CreateIfMissing = false throws LocalStoreException when the file is missing.",
       },
       {
         type: "code",
@@ -458,7 +626,7 @@ LocalStore.Open(new LocalStoreOptions
       },
       {
         type: "p",
-        text: "Use insert / update / delete / find by Id, FindAsync presets, Seed, Reset file, Contract tour, and Test all engines. DuckDB, Firebird, and RocksDB pass on device via the JSON fallback (they are not silent skips).",
+        text: "Use insert / update / delete / find by Id, FindAsync presets, Seed, Reset file, Contract tour, and Test all engines. The 1.1 buttons run Migrate SQLite → Nuvexa, raw QueryAsync (SQL or NQL), and the generated IPersonDao. Test migrate + DAO asserts those two flows. DuckDB, Firebird, and RocksDB pass on device via the JSON fallback (CRUD only; QueryLanguage is None).",
       },
       {
         type: "link",
@@ -505,10 +673,11 @@ export const localStoreComparisonSections: DocSection[] = [
         headers: ["Need", "LocalStore", "Direct engine"],
         rows: [
           ["Same CRUD if the backend changes", "Yes", "Rewrite the data layer"],
-          ["SQL / NQL / Realm queries", "StoreFilter / StoreQuery only", "Full engine language"],
-          ["Relationships / migrations", "Limited / none between engines", "Engine-specific"],
+          ["SQL / NQL / Realm queries", "StoreFilter / StoreQuery; QueryAsync when QueryLanguage is Sql or Nql", "Full engine language"],
+          ["Copy collections to another engine", "AutoMigrate + Map<T>, or MigrateAsync", "Write your own exporter"],
+          ["Relationships / schema migrations", "Limited / none inside one engine", "Engine-specific"],
           ["Encrypted .nvx or SQLCipher", "EncryptionKey on options", "Engine-native APIs"],
-          ["Nuvexa Data Studio / NQL update", "INuvexaLocalStore only", "Nuventra.NuvexaDB"],
+          ["Nuvexa Data Studio / NQL update", "QueryAsync / INuvexaLocalStore", "Nuventra.NuvexaDB"],
         ],
       },
       {
@@ -524,16 +693,17 @@ export const localStoreComparisonSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "Room is a compile-time SQLite mapper for Android. LocalStore is not a Room port: there are no source-generated DAOs, no @Query SQL on the shared interface, and no automatic schema migrations. The resemblance is the host-picks-the-engine / app-uses-one-API shape.",
+        text: "Room is a compile-time SQLite mapper for Android. LocalStore is not a Room port: [StoreDao] generates a facade over IStoreCollection<T>, [StoreRaw] is not @Query with compile-time SQL validation, and there are no automatic schema migrations inside one engine. The resemblance is the host-picks-the-engine / app-uses-one-API shape, plus optional generated DAOs.",
       },
       {
         type: "table",
         headers: ["Requirement", "LocalStore", "Android Room"],
         rows: [
           ["Host-selected engine", "Yes (10 backends)", "SQLite only"],
-          ["Generated DAOs / @Query", "No", "Yes"],
+          ["Generated DAOs", "Yes ([StoreDao] / [StoreRaw])", "Yes (@Dao / @Query)"],
           ["Cross-platform MAUI", "Android, iOS, Mac Catalyst, Windows", "Android"],
-          ["Schema migrations", "No automatic migration", "Yes"],
+          ["Copy between engines", "AutoMigrate + Map<T>", "N/A"],
+          ["Schema migrations", "No automatic migration inside one engine", "Yes"],
         ],
       },
     ],
@@ -556,7 +726,7 @@ export const localStoreComparisonSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "OfflineSync is a sync engine. JobQueue is a durable task queue that happens to use SQLite. FileVault encrypts files, not collections. NuvexaDB is the document engine LocalStore can host — use it directly when you want NQL and Data Studio, not a Room-style facade.",
+        text: "OfflineSync is a sync engine. JobQueue is a durable task queue that happens to use SQLite. FileVault encrypts files, not collections. NuvexaDB is the document engine LocalStore can host — use it directly when you want Data Studio and the full NuvexaDatabase surface, not a Room-style facade.",
       },
       {
         type: "link",
@@ -581,8 +751,9 @@ export const localStoreComparisonSections: DocSection[] = [
         items: [
           "You want Room-style local CRUD on MAUI without writing SQL or NQL on the shared path.",
           "The host must pick SQLite, NuvexaDB, Realm, LiteDB, SQLCipher, or another shipped engine.",
+          "You may later copy collections with AutoMigrate + Map<T>, or run QueryAsync / a generated DAO.",
           "You need Android, iOS, Mac Catalyst, and Windows on net10.0.",
-          "You accept that switching engines does not migrate data, and that some engines fall back to JSON files on mobile.",
+          "You accept that some engines fall back to JSON files on mobile, and that QueryLanguage is None there.",
         ],
       },
       {
