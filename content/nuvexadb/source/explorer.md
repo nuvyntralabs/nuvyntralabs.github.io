@@ -88,6 +88,7 @@ These hosts use the same session APIs as the desktop IDE. They do not duplicate 
 | Feature | Visual Studio | VS Code / Cursor |
 | --- | --- | --- |
 | Open Database / Close Database | In-process `NuvexaToolWindow` | `nuvexa.open` / `nuvexa.close` |
+| Encrypted open | Prompt + 3 retries | Prompt when `nuvexa info` reports a locked file; pretty-printed `"encrypted": true` no longer skips the box; 3 retries. Exit code 2 on `tree` / `query` is an error |
 | **About** (author, license, links) | About tab (`NuvexaAbout`) | About tab + `nuvexa.about` |
 | Collapsible collection tree (Columns / Indexes, row counts) | Same session tree | `nuvexa tree` |
 | **Browse Data** (filter, **Build filter**, find-in-page, JSON/Tree, 200-row pager, editable cells) | `BrowsePageAsync` + `ReplaceDocumentAsync` | `nuvexa browse` / `nuvexa replace` |

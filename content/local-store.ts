@@ -167,7 +167,7 @@ export const localStoreTechnicalSections: DocSection[] = [
         rows: [
           ["SQLite", "sqlite-net-base, SQLitePCLRaw.bundle_e_sqlite3"],
           ["SQLCipher", "same mapping + SQLitePCLRaw.bundle_e_sqlcipher (do not also reference sqlite-net-sqlcipher)"],
-          ["NuvexaDB", "Nuventra.NuvexaDB 1.0.5"],
+          ["NuvexaDB", "Nuventra.NuvexaDB 1.0.6"],
           ["LiteDB", "LiteDB"],
           ["Realm", "Realm"],
           ["DuckDB", "DuckDB.NET.Data.Full (desktop natives)"],

@@ -5,12 +5,12 @@
 | | |
 | --- | --- |
 | **Product** | NuvexaDB (`Nuventra.NuvexaDB`) |
-| **Version** | 1.0.5 |
+| **Version** | 1.0.6 |
 | **Author** | Niladri Prasad Padhy / Nuventra |
 | **License** | MIT |
 | **Repository** | https://github.com/nuvyntralabs/NuvexaDB |
 | **Release downloads** | https://github.com/nuvyntralabs/NuvexaDB/releases |
-| **Date** | 14 September 2026 |
+| **Date** | 15 September 2026 |
 
 This paper describes the **core engine**, on-disk architecture, security model, performance contract, how platform libraries are produced, the desktop and editor tools, and the 1.x roadmap. Companion pages hold the byte-level and API inventories: [format.md](format.md), [architecture.md](architecture.md), [bindings.md](bindings.md), [Integration/README.md](Integration/README.md), [query.md](query.md), [benchmarks.md](benchmarks.md), [explorer.md](explorer.md).
 
@@ -457,7 +457,7 @@ Every shippable surface shares `<Version>` / `<PackageVersion>` in `Directory.Bu
 python3 .github/scripts/check-versions.py --repo-root . --write
 ```
 
-That copies the same number onto NuGet metadata, Java, Android (`versionName` + `versionCode` = major×10000 + minor×100 + patch; **1.0.5 → 10005**), Python, Node, React Native, Flutter, Go, C++, Swift, Data Studio installers, VS Code, and Visual Studio. CI **fails** if any of those drift. Sample apps are not bumped.
+That copies the same number onto NuGet metadata, Java, Android (`versionName` + `versionCode` = major×10000 + minor×100 + patch; **1.0.6 → 10006**), Python, Node, React Native, Flutter, Go, C++, Swift, Data Studio installers, VS Code, and Visual Studio. CI **fails** if any of those drift. Sample apps are not bumped.
 
 ### 7.5 Two download channels (intentional)
 
@@ -533,7 +533,7 @@ dotnet run --project src/Nuventra.NuvexaDB.Explorer/Nuventra.NuvexaDB.Explorer.c
 
 ## 9. Future roadmap
 
-Items below are **intentional 1.x follow-ons** or documented gaps. Do not treat them as shipped in 1.0.5.
+Items below are **intentional 1.x follow-ons** or documented gaps. Do not treat them as shipped in 1.0.6.
 
 ### 9.1 Future (not planned yet)
 

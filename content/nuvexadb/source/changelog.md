@@ -2,6 +2,12 @@
 
 Working-tree notes for unreleased work. Publishing still happens only through CI.
 
+## 1.0.6 — 15 September 2026
+
+Published as [v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6).
+
+VS Code: prompt for the encryption key when `nuvexa info` reports a locked file. Pretty-printed CLI JSON (`"encrypted": true`) no longer skips the password box. Exit code 2 on `tree` / `query` is an error, not an empty successful open. Wrong keys can be retried (3 attempts), matching Visual Studio.
+
 ## 1.0.5 — 14 September 2026
 
 Published as [v1.0.5](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.5).

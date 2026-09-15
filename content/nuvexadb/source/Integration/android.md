@@ -4,7 +4,7 @@ Same Kotlin API as the desktop JVM SDK, packaged as an AAR with `libnuvexa.so` f
 
 ## 1. Download
 
-From [NuvexaDB v1.0.5](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.5):
+From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6):
 
 | Release asset | What you use |
 | --- | --- |
