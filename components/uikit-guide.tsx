@@ -4,8 +4,10 @@ import { ComponentDiscussion } from "@/components/component-discussion";
 import { DocsArticle } from "@/components/docs-article";
 import { DocsSidebar } from "@/components/docs-sidebar";
 import { JsonLd } from "@/components/json-ld";
-import { adjacentUiKitPages, uiKitDocsBase, uiKitGuideNav, type UiKitGuidePage } from "@/content/uikit-guide";
+import { adjacentUiKitPages, uiKitDocsBase, uiKitGuideNav, uiKitPreviewGroups, type UiKitGuidePage } from "@/content/uikit-guide";
 import { uiKit, uiKitCatalogHighlight, uiKitHref } from "@/content/uikit";
+import { UiKitPreview, UiKitPreviewGallery } from "@/components/uikit-preview";
+import { uiKitPreviewSrc } from "@/lib/uikit-previews";
 import { uiKitGuideJsonLd } from "@/lib/json-ld";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +28,13 @@ export function UiKitGuide({ page }: { page: UiKitGuidePage }) {
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">{page.title}</h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">{page.description}</p>
             {page.kind === "index" ? <UiKitCatalogHighlight className="mt-6 max-w-2xl" /> : null}
+            <div className="mt-8">
+              {page.kind === "index" ? (
+                <UiKitPreviewGallery groups={uiKitPreviewGroups()} />
+              ) : (
+                <UiKitPreview name={page.title} src={uiKitPreviewSrc(page.title)} kind={page.kind} />
+              )}
+            </div>
             <div className="mt-8">
               <DocsArticle sections={page.sections} />
             </div>
@@ -55,7 +64,12 @@ export function UiKitGuide({ page }: { page: UiKitGuidePage }) {
             <ComponentDiscussion target={{ title: uiKit.name, github: uiKit.github }} />
           </div>
           <div className="hidden xl:block">
-            <OnThisPage sections={page.sections} />
+            <OnThisPage
+              sections={[
+                { id: "preview", title: page.kind === "index" ? "Sample gallery" : "Preview" },
+                ...page.sections,
+              ]}
+            />
           </div>
         </div>
       </div>
@@ -118,7 +132,7 @@ export function UiKitGuideTabs({ active }: { active: "overview" | "docs" }) {
   );
 }
 
-function OnThisPage({ sections }: { sections: UiKitGuidePage["sections"] }) {
+function OnThisPage({ sections }: { sections: { id: string; title: string }[] }) {
   return (
     <nav aria-label="On this page" className="lg:sticky lg:top-20 lg:self-start">
       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">

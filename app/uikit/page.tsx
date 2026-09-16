@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ExternalLink, Github, Package } from "lucide-react";
 import { ComponentDiscussion } from "@/components/component-discussion";
 import { JsonLd } from "@/components/json-ld";
-import { UiKitCatalogHighlight, UiKitGuideTabs } from "@/components/uikit-guide";
+import { UiKitCatalogHighlight } from "@/components/uikit-guide";
 import { uiKitDocsBase } from "@/content/uikit-guide";
 import {
   uiKit,
@@ -32,9 +32,8 @@ export default function UiKitPage() {
   return (
     <main className="container max-w-3xl py-12 sm:py-16">
       <JsonLd data={uiKitJsonLd()} />
-      <UiKitGuideTabs active="overview" />
 
-      <p className="eyebrow mt-8">Lumina UI library</p>
+      <p className="eyebrow">Lumina UI library</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{uiKit.name}</h1>
       <p className="mt-3 text-lg text-lavender-700 dark:text-lavender-300">{uiKit.subtitle}</p>
       <p className="chip mt-4 inline-flex px-3 font-semibold">
@@ -114,7 +113,9 @@ builder
 <nv:NVRadioButton GroupName="Plan" Text="Monthly" />
 <nv:NVTextField Label="Email" Text="{Binding Email}" />
 <nv:NVButton Text="Continue" Variant="Filled" Command="{Binding Submit}" />
-<nv:NVSignInView />`}</code>
+<nv:NVCommandPalette Query="{Binding Query}" />
+<nv:NVSignInView />
+<nv:NVInvoiceView />`}</code>
         </pre>
       </section>
 
@@ -221,7 +222,7 @@ builder
           <a href={uiKit.sample} target="_blank" rel="noopener noreferrer" className="text-link">
             NuvyntraLabs.UIKit.Sample
           </a>{" "}
-          is a MAUI Shell flyout: Theme through Media, plus Basics, Advanced, and every page recipe.
+          is a MAUI Shell flyout: Theme through Media, plus Basics, Advanced, Next (1.2), and every page recipe.
         </p>
       </section>
 

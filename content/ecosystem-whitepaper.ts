@@ -81,7 +81,7 @@ export const whitepaperSections: DocSection[] = [
       {
         type: "ul",
         items: [
-          "**Independently versioned.** UIKit 1.0, MVVMExpress 1.3, HttpForge 1.1, and each gallery plugin ship on their own SemVer lock.",
+          "**Independently versioned.** UIKit 1.4, MVVMExpress 1.3, HttpForge 1.1, and each gallery plugin ship on their own SemVer lock.",
           "**Compose at the host.** The UI kit does not PackageReference Plugin.Maui.*. HttpForge does not retry, cache, or refresh tokens. Missing siblings fail closed instead of silently degrading.",
           "**Adopt only what the app needs.** A catalog app can take UIKit + MVVMExpress + HttpForge. A depot inspection app adds GeoLocator, OfflineSync, MediaPipeline, and FileVault.",
           "**Honest boundaries.** PDF viewers are viewers. NVBarcode generates; it does not scan. LocalStore is not OfflineSync. HttpForge is a MauiEssentials-shaped subset of Refit, not a drop-in replacement.",
@@ -104,7 +104,7 @@ export const whitepaperSections: DocSection[] = [
           [
             "Presentation",
             "[NuvyntraLabs.UIKit](/uikit/)",
-            "NV* controls, Lumina tokens, 57 page recipes",
+            `NV* controls, Lumina tokens, ${uiKit.recipeCount} page recipes`,
           ],
           [
             "Application",
@@ -163,7 +163,7 @@ builder.Services.AddHttpForgeClient<IFieldApi>(client =>
     blocks: [
       {
         type: "p",
-        text: `[NuvyntraLabs.UIKit](/uikit/) (${uiKit.version}) is the Lumina catalog for a typical MAUI app: foundation tokens, ${uiKit.controlCount} NV* controls from primitives through advanced surfaces, and ${uiKit.recipeCount} NV*View page recipes. Register with \`UseNuvyntraUIKit()\`, then use \`xmlns:nv=\"${uiKit.xmlns}\"\`. Kit-level 1.0 is a working Lumina API — not Telerik or Syncfusion parity.`,
+        text: `[NuvyntraLabs.UIKit](/uikit/) (${uiKit.version}) is the Lumina catalog for a typical MAUI app: foundation tokens, ${uiKit.controlCount} NV* controls from primitives through advanced and Next chrome, and ${uiKit.recipeCount} NV*View page recipes. Register with \`UseNuvyntraUIKit()\`, then use \`xmlns:nv=\"${uiKit.xmlns}\"\`. 1.4 deepens lists, grids, charts, calendar, and media. Kit-level APIs stay a working Lumina surface — not Telerik or Syncfusion parity.`,
       },
       {
         type: "table",
@@ -173,9 +173,10 @@ builder.Services.AddHttpForgeClient<IFieldApi>(client =>
           ["Primitives", "NVSurface, NVAvatar, NVBadge, NVSkeleton, NVOverlay", "Themed paper, glyphs, overlays."],
           ["Actions & inputs", "NVButton, NVTextField, NVPinPad, NVFormField", "Filled / tonal / outline / ghost; labeled fields."],
           ["Feedback & nav", "NVBanner, NVTabView, NVBottomSheet, NVAppScaffold", "Status, sheets, tabs, app chrome."],
-          ["Data & viz", "NVDataGrid, NVChart, NVCalendar, NVKanban, NVGantt", "Grids, charts, planning surfaces."],
-          ["Social & media", "NVChat, NVVideoPlayer, NVPdfViewer, NVWebView", "Chrome and viewers — not playback engines."],
-          ["Pages", "NVSignInView … NVOrderSummaryView", `${uiKit.recipeCount} recipes for auth, commerce, content, social, files, system.`],
+          ["Data & viz", "NVDataGrid, NVChart, NVCalendar, NVKanban, NVGantt", "Grids, charts, planning surfaces. 1.4 adds filter, sort, frozen columns, and multi-day calendar."],
+          ["Social & media", "NVChat, NVVideoPlayer, NVPdfViewer, NVWebView", "Chrome and viewers — not playback engines. Chat can stream and attach files."],
+          ["Next", "NVCommandPalette, NVDiffView, NVCallBar, NVReviewPrompt", "1.2 / 1.3 app chrome. Host plugins stay out of this package."],
+          ["Pages", "NVSignInView … NVAddressFormView", `${uiKit.recipeCount} recipes for auth, commerce, content, social, files, system, plus invoice / call / address.`],
         ],
       },
       {

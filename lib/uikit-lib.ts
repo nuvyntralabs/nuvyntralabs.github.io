@@ -223,6 +223,50 @@ const attributeHelp: Record<string, string> = {
   Nodes: "Tree-map nodes (Title, Value / Weight).",
   Seats: "Seat cells (Label, Taken).",
   Groups: "Grouped-list headers. Custom vs Items.",
+  SelectionMode: "List selection: None, Single, or Multiple (NVSelectionKind).",
+  SelectedItems: "Currently selected NVListItem rows when SelectionMode is not None.",
+  Grouped: "When true, items are first-letter grouped as NVListGroup rows.",
+  AllowSwipe: "Shows swipe actions on hosted CollectionView rows.",
+  Filter: "Case-insensitive cell match that drives VisibleRows.",
+  SortKey: "Column Binding / Key the grid is sorted by. Header tap cycles none → asc → desc.",
+  SortDirection: "None, Ascending, or Descending (NVSortDirection).",
+  FrozenColumnCount: "How many leading columns stay pinned, plus per-column Frozen.",
+  VisibleRows: "Computed filtered / sorted / paged row set.",
+  SelectedDates: "Tapped days when AllowMultiple is true.",
+  AllowMultiple: "Calendar can keep more than one SelectedDate.",
+  AgendaDate: "Day the scheduler agenda is filtered to.",
+  RecurrenceCap: "Max expanded recurrence instances (default 64).",
+  Query: "Filter string — command palette, emoji picker, or PDF find.",
+  Commands: "Command-palette actions (NVCommandItem Title + Command).",
+  Recents: "Palette rows shown when Query is empty.",
+  IsAccepted: "Consent banner accepted flag. Accept() sets this true.",
+  IsBlocking: "Paywall Dismiss is a no-op when true.",
+  VersionTitle: "What's-new heading (default What's new).",
+  Files: "Dropped or picked file chips (Name required).",
+  Values: "Heat-calendar day values (Date + Value).",
+  Actions: "Speed-dial actions (label + command).",
+  Facts: "Pivot-grid facts.",
+  Json: "JSON source for NVJsonTree.",
+  Left: "Diff left / original text.",
+  Right: "Diff right / changed text.",
+  Mode: "NVDiffMode: Unified or SideBySide.",
+  IsMuted: "In-call mute state.",
+  Elapsed: "In-call elapsed label.",
+  Keypad: "In-call keypad visibility.",
+  Local: "Local side of a sync conflict.",
+  Remote: "Remote side of a sync conflict.",
+  FileName: "Upload tile file name.",
+  Bytes: "Upload tile size.",
+  Status: "NFC prompt status copy.",
+  Rating: "Review-prompt star value.",
+  Attachments: "Chat file chips. Attach() appends one.",
+  IsStreaming: "Chat is receiving an AppendStream token.",
+  Pages: "Document page count on the PDF / Docx viewer.",
+  Zoom: "Viewer zoom factor.",
+  MatchCount: "How many Query hits the document viewer found.",
+  RotationDegrees: "Image-editor rotation.",
+  CropRect: "Image-editor crop rectangle.",
+  Annotations: "Image-editor annotation list.",
   Source: "Image source.",
   ImageSource: "Optional photo; Initials show when this is null.",
   Initials: "Fallback letters on the avatar.",
@@ -339,9 +383,15 @@ function parseComponents(markdown: string): UiKitComponent[] {
       }
       continue;
     }
+    if (layer.title.startsWith("Next")) {
+      for (const component of parseNextLayer(layer.body)) {
+        byName.set(component.name, component);
+      }
+      continue;
+    }
 
     for (const heading of splitHeadings(layer.body)) {
-      const names = nvNames(heading.title);
+      const names = uniqueNames([...nvNames(heading.title), ...prefixedOwners(heading.body)]);
       if (names.length === 0) continue;
       const summary = firstParagraph(heading.body);
       const sample = firstFence(heading.body);
@@ -399,6 +449,117 @@ function parseFoundation(body: string): UiKitComponent[] {
   });
 }
 
+function parseNextLayer(body: string): UiKitComponent[] {
+  const [chrome12 = "", chrome13 = ""] = body.split(/^### 1\.3 types/m);
+  const sample = firstFence(body);
+  return [
+    ...parseTypedPropertyTables(chrome12, "Next · 1.2", sample.code),
+    ...parseTypedPropertyTables(chrome13, "Next · 1.3", sample.code),
+  ];
+}
+
+function parseTypedPropertyTables(body: string, layer: string, sample: string): UiKitComponent[] {
+  const byName = new Map<string, UiKitComponent>();
+  let current = "";
+
+  for (const table of readTables(body)) {
+    const headers = table.headers.map((item) => item.toLowerCase());
+    if (headers[0] !== "type" || !headers.includes("property")) continue;
+    const defaultIndex = headers[3] === "default" ? 3 : -1;
+    const noteIndex = defaultIndex >= 0 ? 4 : 3;
+
+    for (const row of table.rows) {
+      const owners = nvNames(row[0] ?? "");
+      if (owners[0]) current = owners[0];
+      if (!current) continue;
+
+      if (!byName.has(current)) {
+        byName.set(current, {
+          slug: slugifyHeading(current),
+          name: current,
+          layer,
+          kind: "view",
+          summary: nextSummary(current),
+          officialSample: nextSample(current, sample),
+          sampleLanguage: "xml",
+          attributes: [],
+          inherits: inheritFrom[current],
+          related: [],
+        });
+      }
+
+      const props = parseNameList(row[1] ?? "");
+      const types = splitSlash(row[2] ?? "");
+      const defaults = defaultIndex >= 0 ? splitSlash(row[defaultIndex] ?? "") : [];
+      const note = [row[noteIndex], defaultIndex < 0 ? row[3] : ""].filter(Boolean).join(" ");
+
+      props.forEach((prop, index) => {
+        const attribute = toAttribute(
+          prop.name,
+          typeForIndex(types, index, props.length),
+          defaults[index] ?? defaults[0] ?? "",
+          note,
+          prop.custom,
+        );
+        const list = byName.get(current)!.attributes;
+        if (!list.some((item) => item.name === attribute.name)) list.push(attribute);
+      });
+    }
+  }
+
+  return [...byName.values()];
+}
+
+function nextSummary(name: string): string {
+  const summaries: Record<string, string> = {
+    NVCommandPalette: "Command palette. Empty Query shows Recents; filter is case-insensitive.",
+    NVCoachMark: "Coach-mark steps with an Index into Steps.",
+    NVContextMenu: "Context menu of NVMenuAction items plus OpenCommand.",
+    NVFileDrop: "File drop / pick chrome. Ignores chips with an empty Name.",
+    NVPaywall: "Plan wall. Dismiss is a no-op when IsBlocking.",
+    NVWhatsNew: "What's-new list with a VersionTitle heading.",
+    NVConsentBanner: "Privacy / cookie banner. Accept() sets IsAccepted.",
+    NVHeatCalendar: "Month heatmap. Cells equal days in Month; missing Values draw empty.",
+    NVSpeedDial: "FAB speed dial of NVSpeedDialAction items.",
+    NVSubscriptionCard: "Plan card with name, price, features, and CTA.",
+    NVEmojiPicker: "Emoji picker with Query, Glyphs, and Selected.",
+    NVPivotGrid: "Pivot surface over NVPivotFact rows.",
+    NVPropertyGrid: "Property inspector over NVPropertyItem rows.",
+    NVJsonTree: "Tree view of a JSON string.",
+    NVDiffView: "Unified or side-by-side text diff.",
+    NVCodeEditor: "Code editor chrome. Host supplies language services.",
+    NVCallBar: "In-call bar with mute and end commands. Host supplies VoIP.",
+    NVInCallView: "In-call surface with name, elapsed, and optional keypad.",
+    NVSyncConflictCard: "Local vs remote conflict card. Host supplies sync.",
+    NVUploadTile: "Upload progress tile with retry.",
+    NVDeviceSheet: "Nearby / paired device sheet. Host supplies transport.",
+    NVPrintPreview: "Print / share preview. Host supplies Printing.",
+    NVNfcPrompt: "NFC hold-near prompt. Host supplies the tag session.",
+    NVReviewPrompt: "Store-review prompt chrome. Host supplies AppReview.",
+  };
+  return summaries[name] ?? `${name} is Next-layer Lumina chrome. Host plugins stay out of this package.`;
+}
+
+function nextSample(name: string, fence: string): string {
+  const match = fence.match(new RegExp(`<nv:${name}\\b[\\s\\S]*?(?:/>|></nv:${name}>)`));
+  return match?.[0] ?? `<nv:${name} />`;
+}
+
+function splitSlash(cell: string): string[] {
+  return unwrap(cell)
+    .split(" / ")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function typeForIndex(types: string[], index: number, count: number): string {
+  if (!types.length) return "";
+  if (types.length === count) return types[index] ?? "";
+  if (count === 1) return types.join(" / ");
+  if (index === count - 1) return types[types.length - 1] ?? types[0] ?? "";
+  return types[0] ?? "";
+}
+
 function parseRecipes(body: string): UiKitComponent[] {
   const table = readTables(body).find((item) => item.headers[0]?.toLowerCase().includes("group"));
   if (!table) return [];
@@ -450,18 +611,24 @@ function collectAttributes(names: string[], tables: ParsedTable[], body: string)
       if (isProperty) {
         const props = parseNameList(row[0] ?? "");
         if (props.length === 1 && props[0].name.startsWith("(")) continue;
-        const type = unwrap(row[1] ?? "");
-        const fallback = unwrap(row[2] ?? "");
+        const types = splitSlash(row[1] ?? "");
+        const defaults = splitSlash(row[2] ?? "");
         const note = [row[2], row[3]].filter(Boolean).join(" ");
-        for (const prop of props) {
+        props.forEach((prop, index) => {
           const owner = ownerFromPrefixed(prop.name);
-          const attribute = toAttribute(owner?.property ?? prop.name, type, fallback, note, prop.custom);
+          const attribute = toAttribute(
+            owner?.property ?? prop.name,
+            typeForIndex(types, index, props.length),
+            defaults[index] ?? defaults[0] ?? "",
+            note,
+            prop.custom,
+          );
           if (owner) {
             push(owner.type, attribute);
           } else {
             for (const name of names) push(name, attribute);
           }
-        }
+        });
       }
     }
   }
@@ -571,7 +738,22 @@ function firstFence(body: string): { language: string; code: string } {
 }
 
 function nvNames(text: string): string[] {
-  return [...text.matchAll(/NV[A-Za-z0-9]+/g)].map((match) => match[0]).filter((item, index, all) => all.indexOf(item) === index);
+  return uniqueNames([...text.matchAll(/NV[A-Za-z0-9]+/g)].map((match) => match[0]));
+}
+
+function uniqueNames(names: string[]): string[] {
+  return names.filter((item, index, all) => all.indexOf(item) === index);
+}
+
+function prefixedOwners(body: string): string[] {
+  return uniqueNames(
+    readTables(body).flatMap((table) =>
+      table.rows.flatMap((row) => {
+        const owner = ownerFromPrefixed(unwrap(row[0] ?? "").split(/\s+/)[0] ?? "");
+        return owner ? [owner.type] : [];
+      }),
+    ),
+  );
 }
 
 function unwrap(value: string): string {

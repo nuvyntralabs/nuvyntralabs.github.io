@@ -11,6 +11,7 @@ import {
   type UiKitComponent,
   type UiKitKind,
 } from "@/lib/uikit-lib";
+import { uiKitPreviewSrc } from "@/lib/uikit-previews";
 
 export const uiKitDocsBase = "/uikit/docs";
 
@@ -262,6 +263,20 @@ export const uiKitGuideNav: GuideNavGroup[] = [
     items: group.items.map((item) => ({ title: item.name, href: item.href })),
   })),
 ];
+
+export function uiKitPreviewGroups() {
+  const { components } = loadUiKitCatalog();
+  return groupByLayer(components).map((group) => ({
+    layer: group.layer,
+    items: group.items.map((item) => ({
+      name: item.name,
+      href: item.href,
+      kind: components.find((component) => component.name === item.name)?.kind ?? "view",
+      layer: group.layer,
+      src: uiKitPreviewSrc(item.name),
+    })),
+  }));
+}
 
 export function getUiKitGuidePage(slug: string): UiKitGuidePage | undefined {
   return bySlug.get(slug);
