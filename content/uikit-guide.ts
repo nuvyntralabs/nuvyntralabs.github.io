@@ -205,24 +205,81 @@ function slugify(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
-function groupByLayer(components: UiKitComponent[]): { layer: string; items: { name: string; href: string; description: string }[] }[] {
-  const order: string[] = [];
+const basicControlLayers = [
+  "Foundation",
+  "Primitives",
+  "Actions",
+  "Inputs",
+  "Forms plus",
+  "Feedback",
+  "Basics",
+  "Layout and navigation",
+] as const;
+
+const complexControlLayers = [
+  "Data",
+  "Visualization and calendar",
+  "Media, chat, AI",
+  "Social and extra media",
+  "Patterns",
+  "Advanced",
+  "Next · 1.2",
+  "Next · 1.3",
+] as const;
+
+const pageLayers = [
+  "Pages · Auth",
+  "Pages · Commerce",
+  "Pages · Content",
+  "Pages · Social",
+  "Pages · Files",
+  "Pages · System",
+  "Pages · Extras",
+  "Pages · Next (1.2)",
+  "Pages · Next (1.3)",
+] as const;
+
+const layerOrder = [...basicControlLayers, ...complexControlLayers, ...pageLayers];
+
+function layerSection(layer: string): string {
+  if ((basicControlLayers as readonly string[]).includes(layer)) return "Basic controls";
+  if ((complexControlLayers as readonly string[]).includes(layer)) return "Complex controls";
+  if (layer.startsWith("Pages")) return "Pages";
+  return "Complex controls";
+}
+
+function layerRank(layer: string): number {
+  const index = layerOrder.indexOf(layer as (typeof layerOrder)[number]);
+  if (index >= 0) return index;
+  return layer.startsWith("Pages") ? layerOrder.length + 1 : layerOrder.length;
+}
+
+function sidebarTitle(layer: string): string {
+  return layer.startsWith("Pages · ") ? layer.replace("Pages · ", "") : layer;
+}
+
+function groupByLayer(components: UiKitComponent[]): { layer: string; section: string; items: { name: string; href: string; description: string }[] }[] {
   const map = new Map<string, UiKitComponent[]>();
   for (const component of components) {
     if (!map.has(component.layer)) {
       map.set(component.layer, []);
-      order.push(component.layer);
     }
     map.get(component.layer)!.push(component);
   }
-  return order.map((layer) => ({
-    layer,
-    items: (map.get(layer) ?? []).map((item) => ({
-      name: item.name,
-      href: componentHref(item.slug),
-      description: item.summary,
-    })),
-  }));
+  return [...map.keys()]
+    .sort((a, b) => layerRank(a) - layerRank(b) || a.localeCompare(b))
+    .map((layer) => ({
+      layer,
+      section: layerSection(layer),
+      items: (map.get(layer) ?? [])
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((item) => ({
+          name: item.name,
+          href: componentHref(item.slug),
+          description: item.summary,
+        })),
+    }));
 }
 
 const componentPages: UiKitGuidePage[] = loadUiKitCatalog().components.map((component) => ({
@@ -259,7 +316,8 @@ export const uiKitGuideNav: GuideNavGroup[] = [
   },
   ...groupByLayer(loadUiKitCatalog().components).map((group) => ({
     id: slugify(group.layer),
-    title: group.layer,
+    title: sidebarTitle(group.layer),
+    section: group.section,
     items: group.items.map((item) => ({ title: item.name, href: item.href })),
   })),
 ];

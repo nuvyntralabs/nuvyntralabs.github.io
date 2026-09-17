@@ -1,5 +1,5 @@
 import { ArrowUpRight, Github } from "lucide-react";
-import { DiscordIcon } from "@/components/brand-icons";
+import { DiscordIcon, LinkedInIcon } from "@/components/brand-icons";
 import { siteConfig } from "@/lib/site";
 
 const channels = [
@@ -10,6 +10,14 @@ const channels = [
     cta: "Join Discord",
     iconWrap: "bg-[#5865F2]/10 text-[#5865F2]",
     Icon: DiscordIcon,
+  },
+  {
+    href: siteConfig.linkedin,
+    title: "LinkedIn Group",
+    body: "Follow lab updates, featured examples, and community posts in the LinkedIn group.",
+    cta: "Join LinkedIn",
+    iconWrap: "bg-[#0A66C2]/10 text-[#0A66C2]",
+    Icon: LinkedInIcon,
   },
   {
     href: siteConfig.githubOrg,
@@ -52,7 +60,7 @@ export function CommunityBand() {
               technical help, and collaborate with the community.
             </p>
 
-            <ul className="mt-8 grid gap-4 md:grid-cols-2">
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {channels.map((channel) => {
                 const Icon = channel.Icon;
                 return (

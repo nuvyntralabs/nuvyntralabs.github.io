@@ -35,10 +35,17 @@ export function DocsSidebar({
       className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:overflow-y-auto"
     >
       <ul className="space-y-5">
-        {groups.map((group) => {
+        {groups.map((group, index) => {
           const open = openIds.includes(group.id);
+          const section = group.section;
+          const showSection = Boolean(section && section !== groups[index - 1]?.section);
           return (
             <li key={group.id}>
+              {showSection ? (
+                <p className="mb-2 border-t border-border pt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-foreground">
+                  {section}
+                </p>
+              ) : null}
               <button
                 type="button"
                 aria-expanded={open}

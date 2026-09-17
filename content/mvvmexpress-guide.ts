@@ -30,6 +30,7 @@ export interface GuideNavGroup {
   id: string;
   title: string;
   items: GuideNavItem[];
+  section?: string;
 }
 
 export interface GuideTopic {
