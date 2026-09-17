@@ -9,7 +9,7 @@ export const playground = {
   description:
     "Lumina Playground is the Nuvyntra Labs repo space where real-time .NET MAUI examples are created. Walk the five product heads already there, then share your own idea with the open-source community.",
   abstract:
-    "Lumina Playground is a public GitHub repo space — not a frozen demo pack. Real-time examples are created here as the ecosystem grows. Five product heads are already on the stack: Aether Bank, Nuvexa Clinic, Civic Pulse, Harbor Field, and Lumina Market. Open-source contributors are invited to share ideas with the community in Discussions, Issues, Discord, and LinkedIn.",
+    "Lumina Playground is a public GitHub repo space — not a frozen demo pack. Real-time examples are created here as the ecosystem grows. Five product heads are already on the stack: Aether Bank, Nuvexa Clinic, Civic Pulse, Harbor Field, and Lumina Market. Anyone with a GitHub account can share an idea or open a pull request from a fork — you do not need to be a collaborator. Selected ideas are featured on this site, Discord, and the LinkedIn community channel.",
   github: "https://github.com/nuvyntralabs/NuvyntraLabs.LuminaPlayground",
   screenCount: 130,
   appCount: 5,
@@ -46,9 +46,65 @@ export const playgroundSpace = {
 } as const;
 
 export const playgroundContribute = {
-  title: "Share your idea with the community",
+  title: "How to contribute your idea",
   description:
-    "Open-source contributors are welcome. Bring a use case, a missing screen, or a new product head — the playground is the place to propose it in public.",
+    "Anyone with a GitHub account can take part. You do not need to be a collaborator on NuvyntraLabs.LuminaPlayground — it is a public repository. Share an idea first, or send a pull request when you have a screen to add.",
+  featured: {
+    title: "Your ideas will be featured",
+    body: "Selected ideas and the examples that follow them are featured on this site, in the Discord community, and in the LinkedIn group.",
+    channels: [
+      { title: "This site", body: "Walkthroughs and screens land on the Playground page.", href: "#prototypes", external: false, label: "See featured examples" },
+      { title: "Discord community", body: "Walk the idea with other .NET MAUI developers.", href: siteConfig.discord, external: true, label: "Join Discord" },
+      { title: "LinkedIn community channel", body: "Lab updates and featured examples in the LinkedIn group.", href: siteConfig.linkedin, external: true, label: "Join the group" },
+    ],
+  },
+  ideaSteps: [
+    {
+      title: "Open a Discussion",
+      body: "Start a thread on the Lumina Playground repo. You do not need write access — Discussions are open on the public repository.",
+    },
+    {
+      title: "Describe the use case",
+      body: "Name the product head or screen, the flow a user would walk, and which ecosystem pieces it would compose.",
+    },
+    {
+      title: "Shape it with the community",
+      body: "Other contributors comment, refine the flow, and point at an existing head you can start from.",
+    },
+    {
+      title: "It can be featured",
+      body: "When the idea lands as an example, it can appear on this site, Discord, and the LinkedIn group.",
+    },
+  ],
+  codeNote:
+    "To contribute code you fork the public repo into your own account, then open a pull request. You never need to be added as a collaborator first.",
+  codeSteps: [
+    { title: "Fork", body: "Fork NuvyntraLabs.LuminaPlayground into your GitHub account. That copy is yours." },
+    { title: "Clone", body: "Clone your fork locally so you can run a head and make changes." },
+    { title: "Branch", body: "Create a branch named for the idea or screen — not a commit on main." },
+    { title: "Commit", body: "Make the changes, then commit with a message that says why the example exists." },
+    { title: "Push", body: "Push the branch to your fork — not to the lab repository." },
+    { title: "Pull request", body: "Open a pull request against nuvyntralabs/NuvyntraLabs.LuminaPlayground. A maintainer reviews, then merges or asks for changes." },
+  ],
+  workflow: {
+    title: "Typical workflow",
+    stages: [
+      "Your GitHub account",
+      "Fork the public repository",
+      "Your own copy of the repository",
+      "Create a branch",
+      "Make changes + commit",
+      "Push to your fork",
+      "Create a pull request on the original repository",
+    ],
+    review: {
+      title: "Maintainer reviews",
+      outcomes: [
+        { title: "Merge", body: "The example lands in the playground." },
+        { title: "Changes", body: "Update your branch and the pull request follows." },
+      ],
+    },
+  },
   paths: [
     {
       title: "Propose an example",
@@ -58,9 +114,9 @@ export const playgroundContribute = {
     },
     {
       title: "Improve what exists",
-      body: "File an Issue for a gap, or open a pull request on NuvyntraLabs.LuminaPlayground when you have a screen or recipe to add.",
-      href: `${playground.github}/issues`,
-      label: "Open an issue",
+      body: "File an Issue for a gap, or open a pull request from your fork when you have a screen or recipe to add.",
+      href: `${playground.github}/compare`,
+      label: "Open a pull request",
     },
   ],
 } as const;

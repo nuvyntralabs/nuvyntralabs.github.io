@@ -65,6 +65,7 @@ Pillars: NuvyntraLabs.UIKit (rich UI), Plugin.Maui.MVVMExpress (application shel
 ${siteConfig.url}${playgroundHref}
 ${playground.title}. ${playground.abstract}
 GitHub: ${playground.github}
+Contribute: ${siteConfig.url}${playgroundHref}#contribute — ideas via Discussions; code via Fork → Clone → Branch → Commit → Push → Pull Request. No collaborator access required. Featured on the site, Discord, and the LinkedIn community channel.
 Prototypes:
 ${playgroundPrototypes.map((item) => `- ${item.name} — ${item.tagline} (${item.screens} screens)`).join("\n")}
 
@@ -236,6 +237,7 @@ ${playground.abstract}
 
 Page: ${siteConfig.url}${playgroundHref}
 GitHub: ${playground.github}
+Contribute: ${siteConfig.url}${playgroundHref}#contribute — Discussions for ideas; Fork → Clone → Branch → Commit → Push → Pull Request for code. No collaborator access. Featured on the site, Discord, and the LinkedIn community channel.
 
 ${playgroundPrototypes.map((item) => `- ${item.name} (${item.product}) — ${item.tagline}. ${item.body}`).join("\n")}
 

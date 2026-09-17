@@ -81,6 +81,9 @@ export default function PlaygroundPage() {
           >
             Share an idea
           </a>
+          <Link href="#contribute" className="focusable btn-secondary">
+            How to contribute
+          </Link>
         </div>
       </section>
 
@@ -105,7 +108,7 @@ export default function PlaygroundPage() {
         </div>
       </section>
 
-      <section className="container py-16 sm:py-20">
+      <section id="contribute" className="container scroll-mt-28 py-16 sm:py-20">
         <SectionIntro
           eyebrow="Open source"
           title={playgroundContribute.title}
@@ -133,6 +136,125 @@ export default function PlaygroundPage() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-14">
+          <p className="eyebrow">Share an idea</p>
+          <h3 className="mt-3 font-display text-2xl font-semibold text-foreground">Four steps to propose an example</h3>
+          <ol className="mt-8 grid gap-4 md:grid-cols-2">
+            {playgroundContribute.ideaSteps.map((step, index) => (
+              <li key={step.title} className="glass-card p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h4 className="mt-3 font-display text-lg font-semibold text-foreground">{step.title}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="glass-card mt-14 p-8">
+          <p className="eyebrow">{playgroundContribute.featured.title}</p>
+          <h3 className="mt-3 font-display text-2xl font-semibold text-foreground">
+            Site, Discord, and the LinkedIn group
+          </h3>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            {playgroundContribute.featured.body}
+          </p>
+          <ul className="mt-8 grid gap-4 md:grid-cols-3">
+            {playgroundContribute.featured.channels.map((channel) => (
+              <li key={channel.title}>
+                {channel.external ? (
+                  <a
+                    href={channel.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="focusable block rounded-2xl border border-lavender-100 bg-surface/80 p-5 transition hover:-translate-y-0.5 hover:shadow-card dark:border-white/10 dark:hover:bg-white/10"
+                  >
+                    <p className="font-display text-lg font-semibold text-foreground">{channel.title}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{channel.body}</p>
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-lavender-700 dark:text-lavender-300">
+                      {channel.label}
+                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                  </a>
+                ) : (
+                  <Link
+                    href={channel.href}
+                    className="focusable block rounded-2xl border border-lavender-100 bg-surface/80 p-5 transition hover:-translate-y-0.5 hover:shadow-card dark:border-white/10 dark:hover:bg-white/10"
+                  >
+                    <p className="font-display text-lg font-semibold text-foreground">{channel.title}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{channel.body}</p>
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-lavender-700 dark:text-lavender-300">
+                      {channel.label}
+                    </span>
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-14">
+          <p className="eyebrow">Contribute code</p>
+          <h3 className="mt-3 font-display text-2xl font-semibold text-foreground">
+            Fork, then open a pull request
+          </h3>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            {playgroundContribute.codeNote}
+          </p>
+          <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {playgroundContribute.codeSteps.map((step, index) => (
+              <li key={step.title} className="glass-card p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+                  {String(index + 1).padStart(2, "0")} · {step.title}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="glass-card mt-8 p-6 sm:p-8">
+            <p className="eyebrow">{playgroundContribute.workflow.title}</p>
+            <ol className="mt-6 space-y-0">
+              {playgroundContribute.workflow.stages.map((stage, index) => (
+                <li key={stage} className="relative pl-10">
+                  {index < playgroundContribute.workflow.stages.length - 1 ? (
+                    <span
+                      className="absolute left-[11px] top-7 h-[calc(100%-0.5rem)] w-px bg-lavender-200 dark:bg-lavender-800"
+                      aria-hidden="true"
+                    />
+                  ) : null}
+                  <span className="absolute left-0 top-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-lavender-100 text-[11px] font-semibold text-lavender-800 dark:bg-lavender-900/70 dark:text-lavender-200">
+                    {index + 1}
+                  </span>
+                  <p
+                    className={`text-sm font-semibold text-foreground ${
+                      index < playgroundContribute.workflow.stages.length - 1 ? "pb-6" : ""
+                    }`}
+                  >
+                    {stage}
+                  </p>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-2 border-t border-lavender-100 pt-6 dark:border-white/10">
+              <p className="text-sm font-semibold text-foreground">
+                {playgroundContribute.workflow.review.title}
+              </p>
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                {playgroundContribute.workflow.review.outcomes.map((outcome) => (
+                  <li
+                    key={outcome.title}
+                    className="rounded-2xl border border-lavender-100 bg-surface/80 p-4 dark:border-white/10"
+                  >
+                    <p className="font-display text-base font-semibold text-foreground">{outcome.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{outcome.body}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="section-muted">
