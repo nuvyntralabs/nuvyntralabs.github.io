@@ -1,21 +1,61 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import type { GuideNavGroup } from "@/content/mvvmexpress-guide";
 import { cn } from "@/lib/utils";
+
+function normalizePath(href: string): string {
+  const path = href.split("#")[0]?.split("?")[0] ?? href;
+  if (!path) return "/";
+  return path.endsWith("/") ? path : `${path}/`;
+}
+
+function sidebarScope(groups: GuideNavGroup[]): string {
+  const href = groups.flatMap((group) => group.items).find((item) => item.href)?.href ?? groups[0]?.id ?? "docs";
+  if (href.startsWith("/uikit/")) return "uikit";
+  if (href.startsWith("/nuvexadb/")) return "nuvexadb";
+  const pack = href.match(/^\/packages\/([^/]+)/);
+  return pack ? `pkg:${pack[1]}` : groups[0]?.id ?? "docs";
+}
+
+function scrollKey(scope: string): string {
+  return `docs-sidebar-scroll:${scope}`;
+}
+
+function readScroll(scope: string): number {
+  try {
+    const value = Number(sessionStorage.getItem(scrollKey(scope)));
+    return Number.isFinite(value) ? value : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function writeScroll(scope: string, top: number) {
+  try {
+    sessionStorage.setItem(scrollKey(scope), String(top));
+  } catch {
+    // Ignore quota / private-mode failures.
+  }
+}
 
 export function DocsSidebar({
   groups,
   currentHref,
 }: {
   groups: GuideNavGroup[];
-  currentHref: string;
+  currentHref?: string;
 }) {
+  const pathname = usePathname();
+  const activeHref = normalizePath(pathname || currentHref || "");
+  const scope = useMemo(() => sidebarScope(groups), [groups]);
+  const navRef = useRef<HTMLElement>(null);
   const currentGroupId = useMemo(
-    () => groups.find((group) => group.items.some((item) => item.href === currentHref))?.id ?? groups[0]?.id,
-    [groups, currentHref],
+    () => groups.find((group) => group.items.some((item) => normalizePath(item.href) === activeHref))?.id ?? groups[0]?.id,
+    [groups, activeHref],
   );
   const [openIds, setOpenIds] = useState<string[]>(() => groups.map((group) => group.id));
 
@@ -25,12 +65,31 @@ export function DocsSidebar({
     }
   }, [currentGroupId]);
 
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    nav.scrollTop = readScroll(scope);
+  }, [scope]);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const save = () => writeScroll(scope, nav.scrollTop);
+    nav.addEventListener("scroll", save, { passive: true });
+    return () => nav.removeEventListener("scroll", save);
+  }, [scope]);
+
   function toggle(id: string) {
     setOpenIds((current) => (current.includes(id) ? current.filter((item) => item !== id) : [...current, id]));
   }
 
+  function rememberScroll() {
+    if (navRef.current) writeScroll(scope, navRef.current.scrollTop);
+  }
+
   return (
     <nav
+      ref={navRef}
       aria-label="Documentation"
       className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:overflow-y-auto"
     >
@@ -61,11 +120,13 @@ export function DocsSidebar({
               {open ? (
                 <ul className="mt-1.5 border-l border-border">
                   {group.items.map((item) => {
-                    const selected = item.href === currentHref;
+                    const selected = normalizePath(item.href) === activeHref;
                     return (
                       <li key={item.href}>
                         <Link
                           href={item.href}
+                          scroll={false}
+                          onClick={rememberScroll}
                           aria-current={selected ? "page" : undefined}
                           className={cn(
                             "focusable -ml-px block border-l py-1.5 pl-3 text-sm",

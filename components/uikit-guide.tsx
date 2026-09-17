@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import { ComponentDiscussion } from "@/components/component-discussion";
 import { DocsArticle } from "@/components/docs-article";
+import { DocsArticleScroll } from "@/components/docs-article-scroll";
 import { DocsSidebar } from "@/components/docs-sidebar";
 import { JsonLd } from "@/components/json-ld";
 import { adjacentUiKitPages, uiKitDocsBase, uiKitGuideNav, uiKitPreviewGroups, type UiKitGuidePage } from "@/content/uikit-guide";
@@ -11,69 +12,78 @@ import { uiKitPreviewSrc } from "@/lib/uikit-previews";
 import { uiKitGuideJsonLd } from "@/lib/json-ld";
 import { cn } from "@/lib/utils";
 
+export function UiKitDocsFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <main className="bg-background">
+      <div className="container max-w-7xl py-8 sm:py-10">
+        <UiKitGuideTabs active="docs" />
+        <div className="mt-8 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_180px]">
+          <DocsSidebar groups={uiKitGuideNav} />
+          {children}
+        </div>
+      </div>
+    </main>
+  );
+}
+
 export function UiKitGuide({ page }: { page: UiKitGuidePage }) {
   const { previous, next } = adjacentUiKitPages(page.href);
 
   return (
-    <main className="bg-background">
-      <JsonLd data={uiKitGuideJsonLd(page.title, page.description, page.href)} />
-      <div className="container max-w-7xl py-8 sm:py-10">
-        <UiKitGuideTabs active="docs" />
-        <div className="mt-8 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_180px]">
-          <DocsSidebar groups={uiKitGuideNav} currentHref={page.href} />
-          <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
-              {page.layer}
-            </p>
-            <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">{page.title}</h1>
-            <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">{page.description}</p>
-            {page.kind === "index" ? <UiKitCatalogHighlight className="mt-6 max-w-2xl" /> : null}
-            <div className="mt-8">
-              {page.kind === "index" ? (
-                <UiKitPreviewGallery groups={uiKitPreviewGroups()} />
-              ) : (
-                <UiKitPreview name={page.title} src={uiKitPreviewSrc(page.title)} kind={page.kind} />
-              )}
-            </div>
-            <div className="mt-8">
-              <DocsArticle sections={page.sections} />
-            </div>
-            <nav aria-label="Adjacent topics" className="mt-12 grid gap-3 border-t border-border pt-8 sm:grid-cols-2">
-              {previous ? (
-                <Link href={previous.slug} className="focusable rounded-xl border border-border p-4 hover:bg-muted">
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
-                    Previous
-                  </p>
-                  <p className="mt-1 font-semibold text-foreground">{previous.title}</p>
-                </Link>
-              ) : (
-                <span />
-              )}
-              {next ? (
-                <Link
-                  href={next.slug}
-                  className="focusable rounded-xl border border-border p-4 text-right hover:bg-muted sm:justify-self-end"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
-                    Next
-                  </p>
-                  <p className="mt-1 font-semibold text-foreground">{next.title}</p>
-                </Link>
-              ) : null}
-            </nav>
-            <ComponentDiscussion target={{ title: uiKit.name, github: uiKit.github }} />
-          </div>
-          <div className="hidden xl:block">
-            <OnThisPage
-              sections={[
-                { id: "preview", title: page.kind === "index" ? "Sample gallery" : "Preview" },
-                ...page.sections,
-              ]}
-            />
-          </div>
+    <>
+      <div id="docs-article" className="min-w-0 scroll-mt-24">
+        <DocsArticleScroll pageKey={page.href} />
+        <JsonLd data={uiKitGuideJsonLd(page.title, page.description, page.href)} />
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
+          {page.layer}
+        </p>
+        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">{page.title}</h1>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">{page.description}</p>
+        {page.kind === "index" ? <UiKitCatalogHighlight className="mt-6 max-w-2xl" /> : null}
+        <div className="mt-8">
+          {page.kind === "index" ? (
+            <UiKitPreviewGallery groups={uiKitPreviewGroups()} />
+          ) : (
+            <UiKitPreview name={page.title} src={uiKitPreviewSrc(page.title)} kind={page.kind} />
+          )}
         </div>
+        <div className="mt-8">
+          <DocsArticle sections={page.sections} />
+        </div>
+        <nav aria-label="Adjacent topics" className="mt-12 grid gap-3 border-t border-border pt-8 sm:grid-cols-2">
+          {previous ? (
+            <Link href={previous.slug} className="focusable rounded-xl border border-border p-4 hover:bg-muted">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
+                Previous
+              </p>
+              <p className="mt-1 font-semibold text-foreground">{previous.title}</p>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <Link
+              href={next.slug}
+              className="focusable rounded-xl border border-border p-4 text-right hover:bg-muted sm:justify-self-end"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
+                Next
+              </p>
+              <p className="mt-1 font-semibold text-foreground">{next.title}</p>
+            </Link>
+          ) : null}
+        </nav>
+        <ComponentDiscussion target={{ title: uiKit.name, github: uiKit.github }} />
       </div>
-    </main>
+      <div className="hidden xl:block">
+        <OnThisPage
+          sections={[
+            { id: "preview", title: page.kind === "index" ? "Sample gallery" : "Preview" },
+            ...page.sections,
+          ]}
+        />
+      </div>
+    </>
   );
 }
 
