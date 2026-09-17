@@ -25,6 +25,14 @@ export type FeaturedNavItem = NavItem & {
 
 export const featuredProducts: FeaturedNavItem[] = [
   {
+    href: "/toolkits/nuvyn/",
+    label: "Nuvyn",
+    blurb: "Spec-driven CLI for MAUI on the Nuvyntra stack",
+    badge: "New",
+    pin: true,
+    prefixes: ["/toolkits/nuvyn/"],
+  },
+  {
     href: "/nuvexadb/",
     label: "NuvexaDB",
     blurb: "Embedded NoSQL — one .nvx file, many hosts",
@@ -44,7 +52,7 @@ export const featuredProducts: FeaturedNavItem[] = [
     href: mvvmExpressHref,
     label: "MVVMExpress",
     blurb: "MVVM for MAUI, WPF, Avalonia, Uno, and WinUI",
-    pin: true,
+    pin: false,
     prefixes: mvvmExpressHrefs,
   },
 ];
@@ -53,7 +61,7 @@ export const workCatalog: NavItem[] = [
   { href: "/whitepaper/", label: "White paper", blurb: "The MAUI development ecosystem" },
   { href: "/playground/", label: "Playground", blurb: "Real-time examples and community ideas" },
   { href: "/packages/", label: "All products", blurb: "Focused .NET MAUI NuGet catalog" },
-  { href: "/toolkits/", label: "Toolkits", blurb: "MauiDev CLI and IDE extensions" },
+  { href: "/toolkits/", label: "Toolkits", blurb: "Nuvyn spec CLI and MauiDev doctor" },
   { href: "/getting-started/", label: "Getting started", blurb: "Install a plugin and compose" },
 ];
 
@@ -68,6 +76,12 @@ export function itemIsActive(pathname: string, item: { href: string; prefixes?: 
     return item.prefixes.some((prefix) => pathname === prefix || pathname.startsWith(prefix));
   }
   if (item.href === "/") return pathname === "/";
+  if (item.href === "/toolkits/") {
+    return (
+      (pathname === "/toolkits/" || pathname.startsWith("/toolkits/")) &&
+      !pathname.startsWith("/toolkits/nuvyn/")
+    );
+  }
   if (item.href === "/packages/") {
     return (
       (pathname === "/packages/" || pathname.startsWith("/packages/")) &&

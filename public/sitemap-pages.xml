@@ -85,6 +85,9 @@
     <loc>https://nuvyntralabs.github.io/pocs/plugin-firebase-analytics/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/toolkits/maui-dev/</loc>
   </url>
   <url>
@@ -1553,5 +1556,29 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/uikit/docs/nvwraplayout/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/docs/agentic-coding/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/docs/implementation/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/create-app/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/workflow/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/ecosystem/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/troubleshooting/</loc>
   </url>
 </urlset>

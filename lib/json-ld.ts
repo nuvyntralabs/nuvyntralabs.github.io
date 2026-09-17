@@ -5,6 +5,7 @@ import { uiKit, uiKitHref } from "@/content/uikit";
 import { uiKitDocsBase } from "@/content/uikit-guide";
 import type { PackageDoc } from "@/content/packages";
 import { toolkitPath, type ToolkitDoc } from "@/content/toolkits";
+import { nuvyn, nuvynHref } from "@/content/nuvyn";
 import { workPath, type WorkItem } from "@/content/works";
 import { siteConfig } from "@/lib/site";
 import { packageGithubPackagesUrl } from "@/lib/github-packages";
@@ -343,6 +344,76 @@ export function uiKitGuideJsonLd(title: string, description: string, articlePath
       ...(articlePath === `${uiKitDocsBase}/`
         ? []
         : [{ name: title, path: articlePath }]),
+    ]),
+  ];
+}
+
+export function nuvynJsonLd() {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": ["SoftwareApplication", "SoftwareSourceCode"],
+      name: nuvyn.name,
+      alternateName: nuvyn.title,
+      description: nuvyn.description,
+      abstract: nuvyn.abstract,
+      url: `${siteConfig.url}${nuvynHref}`,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Windows, macOS, Linux",
+      programmingLanguage: nuvyn.language,
+      codeRepository: nuvyn.github,
+      downloadUrl: nuvyn.nuget,
+      softwareVersion: nuvyn.version,
+      license: "https://opensource.org/licenses/MIT",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      keywords: nuvyn.tags.join(", "),
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: "Toolkits", path: "/toolkits/" },
+      { name: nuvyn.name, path: nuvynHref },
+    ]),
+  ];
+}
+
+export function nuvynGuideJsonLd(
+  title: string,
+  description: string,
+  articlePath: string,
+  kind: "docs" | "guide",
+) {
+  const label = kind === "docs" ? "Technical documentation" : "User guide";
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: title,
+      description,
+      url: `${siteConfig.url}${articlePath}`,
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      about: {
+        "@type": "SoftwareApplication",
+        name: nuvyn.name,
+        url: `${siteConfig.url}${nuvynHref}`,
+      },
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: nuvyn.name, path: nuvynHref },
+      { name: label, path: articlePath },
     ]),
   ];
 }

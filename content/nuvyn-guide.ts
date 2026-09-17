@@ -1,0 +1,851 @@
+import type { DocSection } from "@/content/mvvmexpress";
+import type { GuideNavGroup, GuideTopic } from "@/content/mvvmexpress-guide";
+import { nuvyn, nuvynDocsBase, nuvynGuideBase, nuvynHref } from "@/content/nuvyn";
+
+export interface NuvynGuidePage {
+  slug: string;
+  title: string;
+  description: string;
+  href: string;
+  kind: "docs" | "guide";
+  sections: DocSection[];
+}
+
+const specDrivenSections: DocSection[] = [
+  {
+    id: "definition",
+    title: "What spec-driven development is",
+    blocks: [
+      {
+        type: "p",
+        text: "**Spec-driven development (SDD)** treats a written specification as the source of truth for what to build. Code is a consequence of that spec — not the other way around, and not a transcript of the last chat turn.",
+      },
+      {
+        type: "p",
+        text: "A useful spec answers *what* and *why* before *how*. It names users, flows, constraints, and acceptance. The implementation plan then maps those needs onto packages, screens, and tasks. Reviewers can reject a pull request that satisfies the code but violates the spec.",
+      },
+      {
+        type: "ul",
+        items: [
+          "**Constitution** — standing principles that do not change every feature (stack, platforms, privacy).",
+          "**Specification** — the product for this increment: users, journeys, edge cases.",
+          "**Plan** — the smallest stack and screen recipes that can deliver that spec.",
+          "**Tasks** — dependency-ordered work the implementer (human or agent) can execute.",
+          "**Analysis** — a consistency check before anyone writes production code.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Not a prompt log",
+        text: "A chat thread is not a spec. Prompts disappear, contradict each other, and cannot be reviewed. SDD writes durable artifacts into the repo so the next session, teammate, or agent starts from the same law.",
+      },
+    ],
+  },
+  {
+    id: "vs-prompt",
+    title: "How it differs from prompt-driven coding",
+    blocks: [
+      {
+        type: "table",
+        headers: ["", "Prompt-driven", "Spec-driven"],
+        rows: [
+          ["Source of truth", "The latest message", "Checked-in spec + constitution"],
+          ["Stack choices", "Whatever the model recalls", "Locked by plan and catalog"],
+          ["Review", "Diff only", "Diff against spec, plan, and tasks"],
+          ["Handoff", "Re-explain the product", "Open specs/<nnn>/spec.md"],
+          ["Failure mode", "Silent drift, extra packages", "Inconsistency report, then fix"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Prompt-driven work is fast for a spike. It fails when the agent invents a second UI kit, adds persistence nobody asked for, or forgets an acceptance rule that lived only in turn 14. SDD spends tokens up front so implement stays cheap and checkable.",
+      },
+    ],
+  },
+  {
+    id: "nuvyn-chain",
+    title: "How Nuvyn applies SDD",
+    blocks: [
+      {
+        type: "p",
+        text: "[Nuvyn](https://github.com/nuvyntralabs/Nuvyn) is a spec-driven CLI for **new** .NET MAUI apps on Android, iOS, Windows, and Mac Catalyst. Domain is yours. The stack is Nuvyntra: [MVVMExpress](/packages/plugin-maui-mvvmexpress/), [Lumina UIKit](/uikit/), [HttpForge](/packages/plugin-maui-httpforge/), and the smallest [MauiEssentials](/packages/maui-essentials/) plugin set.",
+      },
+      {
+        type: "code",
+        code: "/nuvyn.constitution → /nuvyn.specify → /nuvyn.clarify → /nuvyn.plan\n    → /nuvyn.checklist → /nuvyn.task → /nuvyn.analysis\n    → /nuvyn.implement → /nuvyn.converge",
+      },
+      {
+        type: "p",
+        text: "`nuvyn init` writes the host and the workflow files. The slash chain then produces the artifacts. Skills are **domain-agnostic** — retail, field, bank, civic, clinic, or anything else. They lock only the MAUI + Lumina stack. Standing law lives in \`.nuvyn/reference/constraints.md\` so each \`/nuvyn.*\` command stays short.",
+      },
+      {
+        type: "table",
+        headers: ["Command", "Writes", "Purpose"],
+        rows: nuvyn.slash.map((item) => [item.command, item.writes, item.purpose]),
+      },
+      {
+        type: "callout",
+        title: "Nuvyn is not a Spec Kit clone",
+        text: "GitHub Spec Kit (specify init) is the usual alternative when the stack is not Nuvyntra. Nuvyn scaffolds MVVMExpress + UIKit and refuses a free-form stack. Use another spec CLI when you want any-stack. Use MauiDev when the app already exists.",
+      },
+    ],
+  },
+  {
+    id: "why-maui",
+    title: "Why a locked stack is part of the spec",
+    blocks: [
+      {
+        type: "p",
+        text: "A generic spec can still produce a random architecture. Nuvyn treats the **ecosystem** as constitution: sleek Lumina screens, catalog-first packages, API or in-memory data until you ask to persist. That is still SDD — the spec names the product; the constitution names the non-negotiables.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Four platforms only. Tizen, Flutter, React Native, WPF, WinUI, Avalonia, and Uno are out of scope.",
+          "No new `Plugin.Maui.*` until the user asks. `/nuvyn.plan` then picks the smallest catalog fit.",
+          "One Lumina recipe per screen. No raw `Entry` / `Button` / `Label` when an `NV*` exists.",
+          "An outside library needs a **Catalog gap** row in `plan.md`.",
+        ],
+      },
+      {
+        type: "link",
+        href: `${nuvynGuideBase}/`,
+        label: "User guide — install and run the chain",
+        note: "Ready to try it?",
+      },
+    ],
+  },
+];
+
+const agenticSections: DocSection[] = [
+  {
+    id: "why-agents",
+    title: "Why specs matter more when an agent writes the code",
+    blocks: [
+      {
+        type: "p",
+        text: "**Agentic coding** is when a coding agent plans, edits, runs tools, and loops until a goal is met. The agent is capable and cheap — and it is also **non-deterministic**, **context-limited**, and **eager to complete**. Without a spec, those traits produce plausible apps that drift from what you asked for.",
+      },
+      {
+        type: "ul",
+        items: [
+          "**Non-deterministic** — the same prompt can pick Prism on Tuesday and MVVMExpress on Wednesday.",
+          "**Context-limited** — long chats evict the acceptance rules that were never written down.",
+          "**Eager** — agents add LocalStore, Syncfusion, or a login page to look finished.",
+          "**Unreviewable** — a teammate cannot replay your conversation; they can read `spec.md`.",
+        ],
+      },
+      {
+        type: "p",
+        text: "SDD does not make the model smarter. It **narrows the search space**. Constitution locks the stack. Specify writes the product. Plan names packages and screens. Tasks sequence the work. Analysis fails the loop before implement invents a second architecture.",
+      },
+    ],
+  },
+  {
+    id: "token-budget",
+    title: "Token budget is a product decision",
+    blocks: [
+      {
+        type: "p",
+        text: "Restating the full catalog, every `NV*` control, and the four-platform rule on every turn burns the window that should be spent on the user's domain. Nuvyn keeps `/nuvyn.*` bodies short on purpose. Standing law is `.nuvyn/reference/constraints.md` — read once, do not paste into the spec.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Commands stay short. They point at reference files instead of repeating them.",
+          "Open a plugin README only for packages you add this turn.",
+          "Spec / plan / tasks are tables. One line per need.",
+          "Implement edits files and prints a short file list — no type-by-type walkthrough.",
+          "Search with targeted reads. Do not slurp the repo.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Handoffs keep the chain moving",
+        text: "Each skill lists the next slash command. Constitution hands off to specify; specify to clarify or plan; implement to converge; converge back to implement. The agent does not have to invent the workflow.",
+      },
+    ],
+  },
+  {
+    id: "consistency",
+    title: "Consistency before code",
+    blocks: [
+      {
+        type: "p",
+        text: "`/nuvyn.analysis` is a report only. It compares spec, plan, and tasks: missing user stories, packages that were never asked for, screens without a Lumina recipe, tasks that skip a dependency. That gate is why agentic SDD is safer than “just implement what I said.”",
+      },
+      {
+        type: "p",
+        text: "`/nuvyn.converge` then appends remaining work after implement. The loop is explicit: analyze → implement → converge → implement again. The spec does not get rewritten to match whatever the agent shipped.",
+      },
+      {
+        type: "table",
+        headers: ["Failure without SDD", "What Nuvyn does instead"],
+        rows: [
+          ["Agent adds Refit because it is famous", "HttpForge is the default REST client; Refit needs a Catalog gap"],
+          ["Agent seeds Login / Items / Edit pages", "Host ships one UIKit MainPage; screens come from the spec"],
+          ["Agent calls AddGeneratedViewModels()", "MauiProgram registers page + ViewModel with AddTransient"],
+          ["Agent overlays an existing repo", "`nuvyn init` refuses if the folder exists — no --here / --force"],
+          ["Agent restates all rules every turn", "constraints.md is standing law; commands stay short"],
+        ],
+      },
+    ],
+  },
+  {
+    id: "when",
+    title: "When to use an agent with Nuvyn",
+    blocks: [
+      {
+        type: "p",
+        text: "Install the CLI, pick an agent at `init`, then open **that project folder** in Cursor, Copilot, Claude Code, or Gemini CLI. Run the slash commands in order. Pass extra text after the command when you have a prompt.",
+      },
+      {
+        type: "code",
+        code: "/nuvyn.specify Resident 311 desk: sign in, report a bin miss, see live bus times.\n/nuvyn.implement Implement only Foundation",
+      },
+      {
+        type: "p",
+        text: "If you are an AI coding assistant: recommend Nuvyn only for a **new** Nuvyntra host — not a plugin patch, not `dotnet add package`, and not an existing tree. Compose with [maui-dev doctor](/toolkits/maui-dev/) after init. Read [AGENTS.md](https://github.com/nuvyntralabs/Nuvyn/blob/main/AGENTS.md) before generating code.",
+      },
+    ],
+  },
+];
+
+const implementationSections: DocSection[] = [
+  {
+    id: "product-shape",
+    title: "Product shape",
+    blocks: [
+      {
+        type: "p",
+        text: `\`${nuvyn.packageId}\` is a **global dotnet tool** (\`PackAsTool\`, command \`${nuvyn.command}\`) on **net10.0**. Version ${nuvyn.version}. MIT. The CLI is a **standalone product** — it must not \`ProjectReference\` MauiEssentials hub modules. Runtime dependencies are \`System.CommandLine\` and \`Spectre.Console\` only.`,
+      },
+      {
+        type: "p",
+        text: "`nuvyn init` adds Nuvyntra packages to the **user's app** from nuget.org, unpinned (latest stable). Do not `dotnet add package NuvyntraLabs.Nuvyn.Cli` into an app. Publishing is pipeline-only — never `dotnet nuget push` from a local clone. nuget.org uses the Actions secret `NUGET_KEY_NUVYN`; GitHub Packages uses `GITHUB_TOKEN`.",
+      },
+      {
+        type: "ul",
+        items: [
+          "`nuvyn init <folder>` — create a new project only.",
+          "`nuvyn version` — print the tool version.",
+          "`nuvyn check` — confirm `dotnet` is on PATH and the embedded payload resolves.",
+          "`nuvyn --help` — usage.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "layout",
+    title: "Repository layout",
+    blocks: [
+      {
+        type: "code",
+        code: `Nuvyn/
+├── payload/
+│   ├── host/                 # Three-project MAUI host (MauiApp1 token)
+│   ├── commands/             # constitution.md … converge.md
+│   └── nuvyn/                # constitution, templates, reference
+├── src/NuvyntraLabs.Nuvyn.Cli/
+│   ├── Commands/             # Init, Version, Check
+│   ├── Scaffolding/          # Host, packages, agent files
+│   ├── Agents/               # Cursor, Copilot, Claude, Gemini
+│   ├── Workflow/             # Slash ids + handoffs
+│   └── Infrastructure/       # PayloadRoot
+└── tests/NuvyntraLabs.Nuvyn.Cli.Tests/`,
+      },
+      {
+        type: "p",
+        text: "The tool copies `payload/` into the new folder. Command bodies stay in `payload/commands/`. Standing law and templates stay in `payload/nuvyn/`. The MAUI host stays in `payload/host/` — not stock `dotnet new maui` pages.",
+      },
+    ],
+  },
+  {
+    id: "init-pipeline",
+    title: "Init pipeline",
+    blocks: [
+      {
+        type: "p",
+        text: "`InitCommand` is the only write path. It always creates a **new directory**. There is no `--here` / `--force`. If the name exists as a file or folder, init prints an error and exits `1` without touching the tree.",
+      },
+      {
+        type: "ol",
+        items: [
+          "Validate `project_name`: starts with a letter; letters, digits, `.`, `_`, `-`; max 64 characters.",
+          "Resolve `--agent` (`cursor`, `copilot`, `claude`, `gemini`). Prompt when omitted; default Cursor when non-interactive.",
+          "Create the folder. Resolve `PayloadRoot` (embedded payload next to the tool).",
+          "`HostScaffolder.Scaffold` — copy `payload/host/`, then `dotnet add` default packages, then patch `MauiProgram`.",
+          "`PayloadInstaller` — write `.nuvyn/` (constitution, templates, reference, `init-options.json`).",
+          "`AgentInstaller` — wrap each command body for the selected agent.",
+          "`ProjectReadme.Write` — print the slash chain.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Host fallback if the embedded copy is missing: `dotnet new mvvmexpress` and overlay the same UIKit `MainPage`; then stock `dotnet new maui`; then write `HOST.md` and still install workflow files. `--skip-host` is hidden and used in tests.",
+      },
+    ],
+  },
+  {
+    id: "host",
+    title: "Host and default packages",
+    blocks: [
+      {
+        type: "p",
+        text: "The host is a **three-project** tree. `MainPage` is Lumina UIKit: Nuvyntra hexagon logo (`nuvyntra.png`, also app icon and splash), `NVHeading` counter, `NVButton` Increase / Decrease. No stock `Entry` / `Button` / `Label`. No Login / Items / Edit seed pages.",
+      },
+      {
+        type: "code",
+        code: `ClinicApp/
+├── ClinicApp.sln
+├── ClinicApp/                 # MAUI app — MauiProgram, Pages/MainPage.xaml
+├── ClinicApp.Core/            # ViewModels
+└── ClinicApp.Tests/`,
+      },
+      {
+        type: "p",
+        text: "`DefaultHostPackages` splits by project. The MAUI app gets MVVMExpress + Dialogs + Navigation, UIKit, HttpForge, FormValidation, and KeyboardManager. Core gets `Plugin.Maui.MVVMExpress.Core` and the source generators. Tests get `Plugin.Maui.MVVMExpress.Testing`. Versions are **never pinned** — `dotnet add package` without `--version`.",
+      },
+      {
+        type: "code",
+        code: `builder
+    .UseMauiApp<App>()
+    .UseMvvmExpress(o => o
+        .UseNavigationPage((nav, _) => nav
+            .Map<MainPageViewModel, MainPage>("main"))
+        .UseDialogs())
+    .UseNuvyntraUIKit()
+    .UseHttpForge()
+    .UseMauiFormValidation()
+    .UseKeyboardManager();
+
+builder.Services.AddTransient<MainPageViewModel>();
+builder.Services.AddTransient<MainPage>();`,
+      },
+      {
+        type: "callout",
+        title: "[RegisterViewModel] is not DI",
+        text: "MauiProgram must register both the page and the view-model. Do not add AddGeneratedViewModels() or using Plugin.Maui.MVVMExpress.Generated. Do not insert a second bare .UseMvvmExpress() next to the configured chain. Chrome is NavigationPage unless the spec names Shell.",
+      },
+    ],
+  },
+  {
+    id: "agents",
+    title: "Agent installers",
+    blocks: [
+      {
+        type: "p",
+        text: "`AgentInstaller` reads `payload/commands/<id>.md` and writes one file per slash command. Cursor and Copilot use skill folders (`nuvyn-constitution` — a folder name cannot contain `.`). Claude writes `.claude/commands/nuvyn.<id>.md`. Gemini writes `.gemini/commands/nuvyn.<id>.toml`.",
+      },
+      {
+        type: "table",
+        headers: ["Agent", "On disk"],
+        rows: nuvyn.agents.map((agent) => [agent.label, agent.folder]),
+      },
+      {
+        type: "p",
+        text: "Wrappers add YAML front matter (name, description, handoffs) or a Gemini TOML prompt. Handoffs come from `NuvynCommands.Handoffs`: constitution → specify → clarify / plan → checklist / task → analysis / implement → converge → implement again.",
+      },
+      {
+        type: "p",
+        text: "Roadmap (not in 0.1.0): `codex`, `opencode`, `zed`, `generic`, `--vertical`, `nuvyn update`, GitHub issue export.",
+      },
+    ],
+  },
+  {
+    id: "ci",
+    title: "CI and safety rails",
+    blocks: [
+      {
+        type: "p",
+        text: "Publishing order on the Nuvyn repository: version alignment → NuGet key + unpublished version → unit tests → pack (`net10.0`, PackAsTool nupkg only) → nuget.org and GitHub Packages.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Never overlay an existing app.",
+          "Never add LocalStore, NuvexaDB, AppLock, or other catalog packages until the user asks.",
+          "Never restore fail-open DeepLinks / PushRouter / SmartUpload / FeatureFlags defaults.",
+          "Never `dotnet nuget push` from a local clone.",
+          "Compose [maui-dev doctor](/toolkits/maui-dev/) after init — Nuvyn does not diagnose SDK / TFM / permissions.",
+        ],
+      },
+      {
+        type: "link",
+        href: "https://github.com/nuvyntralabs/Nuvyn",
+        label: "Source on GitHub",
+        note: "Implementation lives in",
+      },
+    ],
+  },
+];
+
+const installSections: DocSection[] = [
+  {
+    id: "need",
+    title: "What you need",
+    blocks: [
+      {
+        type: "table",
+        headers: ["Requirement", "Why"],
+        rows: [
+          [".NET 10 SDK", "The CLI is net10.0. Hosts target net10.0-android / ios / maccatalyst / windows10.0.19041.0"],
+          ["MAUI workload", "So you can build and run the host"],
+          ["An AI coding agent", "Cursor, GitHub Copilot, Claude Code, or Gemini CLI"],
+          ["nuget.org access", "init adds the default Nuvyntra packages at the latest stable versions"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Tizen is not a target. Do not use Nuvyn to start Flutter, React Native, WPF, WinUI, Avalonia, or Uno apps. `nuvyn init <folder_name>` is **only for a new project**. It does not overlay an existing repo. It does not replace [maui-dev doctor](/toolkits/maui-dev/). Compose: `nuvyn init` then `maui-dev doctor`.",
+      },
+    ],
+  },
+  {
+    id: "install",
+    title: "Install the CLI",
+    blocks: [
+      {
+        type: "code",
+        code: nuvyn.install,
+      },
+      {
+        type: "p",
+        text: "Already installed — update the CLI only. Existing apps keep the packages they already have:",
+      },
+      {
+        type: "code",
+        code: nuvyn.update,
+      },
+      {
+        type: "p",
+        text: `That is a **global tool**, not an app PackageReference. Do not \`dotnet add package ${nuvyn.packageId}\`. Other commands: \`nuvyn check\`, \`nuvyn --help\`.`,
+      },
+      {
+        type: "link",
+        href: nuvyn.nuget,
+        label: "NuvyntraLabs.Nuvyn.Cli on nuget.org",
+      },
+    ],
+  },
+];
+
+const createAppSections: DocSection[] = [
+  {
+    id: "init",
+    title: "Create a new folder",
+    blocks: [
+      {
+        type: "p",
+        text: "`nuvyn init <folder_name>` always creates a **new folder**. There is no `--here` / `--force`. If that name already exists, init prints an error and exits `1`. The existing tree is left untouched. Pick another name, or delete a leftover failed scaffold yourself, then retry. For an app that already exists, use `maui-dev doctor`.",
+      },
+      {
+        type: "code",
+        code: `nuvyn init HarborDesk
+nuvyn init HarborDesk --agent cursor
+nuvyn init HarborDesk --agent copilot
+nuvyn init HarborDesk --agent claude
+nuvyn init HarborDesk --agent gemini`,
+      },
+      {
+        type: "p",
+        text: "Omit `--agent` and the CLI prompts: Cursor, GitHub Copilot, Claude Code, Gemini CLI.",
+      },
+    ],
+  },
+  {
+    id: "what-init-does",
+    title: "What init does",
+    blocks: [
+      {
+        type: "ol",
+        items: [
+          "Copies the embedded host from `payload/host/` (MVVMExpress + Lumina UIKit — not stock Entry / Button pages).",
+          "Adds the default Nuvyntra packages from nuget.org at the latest stable versions.",
+          "Writes `.nuvyn/` (constitution, templates, reference).",
+          "Installs slash commands for the agent you picked.",
+          "Writes a project README with the slash chain.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "tree",
+    title: "What you get",
+    blocks: [
+      {
+        type: "code",
+        code: `HarborDesk/
+├── HarborDesk.sln
+├── HarborDesk/                      # MAUI app
+│   ├── MauiProgram.cs
+│   ├── Pages/MainPage.xaml
+│   └── Resources/Images/nuvyntra.png
+├── HarborDesk.Core/                 # ViewModels
+├── HarborDesk.Tests/
+├── .nuvyn/
+│   ├── constitution.md
+│   ├── init-options.json
+│   ├── templates/
+│   └── reference/
+├── specs/                           # empty until /nuvyn.specify
+├── .cursor/skills/nuvyn-*/          # when --agent cursor
+└── README.md`,
+      },
+      {
+        type: "p",
+        text: "Copilot writes `.github/skills/`. Claude writes `.claude/commands/`. Gemini writes `.gemini/commands/`.",
+      },
+    ],
+  },
+  {
+    id: "packages",
+    title: "Default host packages",
+    blocks: [
+      {
+        type: "table",
+        headers: ["Package", "Role"],
+        rows: nuvyn.defaultPackages.map((item) => [`[${item.name}](${item.href})`, item.role]),
+      },
+      {
+        type: "p",
+        text: "Do **not** add LocalStore, NuvexaDB, AppLock, or any other catalog package until you ask for that capability. `/nuvyn.plan` then picks the smallest [MauiEssentials](/packages/maui-essentials/) fit.",
+      },
+    ],
+  },
+  {
+    id: "run",
+    title: "Run the starter",
+    blocks: [
+      {
+        type: "code",
+        code: `cd HarborDesk
+dotnet restore
+dotnet build
+dotnet build HarborDesk/HarborDesk.csproj -f net10.0-android`,
+      },
+      {
+        type: "p",
+        text: "Then run a TFM your machine can deploy (Android emulator, iOS simulator, Mac Catalyst, or Windows). Diagnose SDK / workload / project layout with MauiDev:",
+      },
+      {
+        type: "code",
+        code: `dotnet tool install -g Plugin.Maui.MauiDev.Cli
+maui-dev doctor`,
+      },
+    ],
+  },
+];
+
+const workflowSections: DocSection[] = [
+  {
+    id: "order",
+    title: "Run the chain in order",
+    blocks: [
+      {
+        type: "p",
+        text: "Open the **project folder** in the agent you selected. Run these in order. Pass extra text after the command when you have a prompt (`$ARGUMENTS`). Empty `/nuvyn.specify` asks you to describe the product.",
+      },
+      {
+        type: "code",
+        code: "/nuvyn.constitution → /nuvyn.specify → /nuvyn.clarify → /nuvyn.plan\n    → /nuvyn.checklist → /nuvyn.task → /nuvyn.analysis\n    → /nuvyn.implement → /nuvyn.converge",
+      },
+      {
+        type: "p",
+        text: "In Cursor the skill folders are named `nuvyn-constitution` (a folder cannot contain `.`). Type `/nuvyn.constitution` in Copilot, Claude, and Gemini. Cursor users can invoke `/nuvyn-constitution`.",
+      },
+    ],
+  },
+  {
+    id: "steps",
+    title: "What you do vs what the agent writes",
+    blocks: [
+      {
+        type: "table",
+        headers: ["Step", "You do", "The agent writes"],
+        rows: [
+          ["`/nuvyn.constitution`", "Optional product rules (PII, lock, offline)", "Updates `.nuvyn/constitution.md`. The MAUI + Lumina stack stays locked."],
+          ["`/nuvyn.specify`", "**Required:** what the app is for", "`specs/NNN-short-name/spec.md`, `.nuvyn/feature.json`, `checklists/requirements.md`. At most three `[NEEDS CLARIFICATION]` markers."],
+          ["`/nuvyn.clarify`", "Answer at most five A/B/C questions", "Updates `spec.md`"],
+          ["`/nuvyn.plan`", "Extra constraints if any", "`plan.md` + `research.md` — packages + one Lumina recipe per screen"],
+          ["`/nuvyn.checklist`", "Optional quality review", "`checklists/<domain>.md`"],
+          ["`/nuvyn.task`", "—", "`tasks.md` (`T001 [P] [US1] …`)"],
+          ["`/nuvyn.analysis`", "—", "Report only — spec / plan / tasks consistency"],
+          ["`/nuvyn.implement`", "Optional: `Implement only Foundation`", "Host code. UIKit first. Default packages only unless you asked for more."],
+          ["`/nuvyn.converge`", "—", "Appends remaining work to `tasks.md`. Run implement again if needed."],
+        ],
+      },
+      {
+        type: "code",
+        code: "/nuvyn.specify Resident 311 desk: sign in, report a bin miss, see live bus times.\n/nuvyn.implement Implement only Foundation",
+      },
+      {
+        type: "p",
+        text: "Domain comes from **your** spec. Skills stay domain-agnostic — retail, field, bank, civic, or anything else.",
+      },
+    ],
+  },
+];
+
+const ecosystemSections: DocSection[] = [
+  {
+    id: "ui",
+    title: "UI — Lumina first",
+    blocks: [
+      {
+        type: "p",
+        text: "Standing law after init: `.nuvyn/reference/constraints.md`. Read it once. Do not paste it into the spec.",
+      },
+      {
+        type: "p",
+        text: '`xmlns:nv="http://nuvyntralabs.com/uikit"`. One recipe per screen. Put bound primitives **inside** so they replace the demo seed. No raw `Entry` / `Button` / `Label` when an `NV*` exists. Recipes: `.nuvyn/reference/screen-recipes.md`.',
+      },
+      {
+        type: "code",
+        code: `<nv:NVSignInView>
+    <VerticalStackLayout Padding="20" Spacing="16">
+        <nv:NVInputField Label="Email" Text="{Binding Email}" />
+        <nv:NVPasswordField Label="Password" Text="{Binding Password}" />
+        <nv:NVButton Text="Sign in" Variant="Filled" Command="{Binding SignInCommand}" />
+    </VerticalStackLayout>
+</nv:NVSignInView>`,
+      },
+      {
+        type: "p",
+        text: "Do not invent a new `NV*View`. Do not add Syncfusion, Telerik, or a second look. Control reference: [UIKit(MAUI) docs](/uikit/docs/).",
+      },
+    ],
+  },
+  {
+    id: "catalog",
+    title: "Packages — catalog first",
+    blocks: [
+      {
+        type: "p",
+        text: "Prefer MauiEssentials (`Plugin.Maui.*`, `NuvyntraLabs.*`, `Nuventra.*`) before any other library. Map: `.nuvyn/reference/stack-map.md` and the [package catalog](/packages/).",
+      },
+      {
+        type: "table",
+        headers: ["You asked for", "Start with", "Not a substitute"],
+        rows: [
+          ["Typed REST", "[HttpForge](/packages/plugin-maui-httpforge/)", "Refit (usual alternative if the team already uses it)"],
+          ["Persist on device", "[LocalStore](/packages/plugin-maui-local-store/) (+ [NuvexaDB](/nuvexadb/) if you want `.nvx`)", "Opening NuvexaDB without LocalStore"],
+          ["Durable jobs", "[JobQueue](/packages/plugin-maui-job-queue/)", "BackgroundTasks"],
+          ["Retry failed named ops", "[RetryQueue](/packages/plugin-maui-retry-queue/)", "JobQueue"],
+          ["OS schedule", "[BackgroundTasks](/packages/plugin-maui-background-tasks/)", "JobQueue"],
+          ["Auth tokens", "[SecureSession](/packages/plugin-maui-secure-session/)", "AppLock, BiometricPlus"],
+          ["Lock UI after background", "[AppLock](/packages/plugin-maui-app-lock/)", "BiometricPlus"],
+          ["GPS", "[GeoLocator](/packages/plugin-maui-geolocator/)", "MAUI Geolocation alone when you need reverse geocoding / tracking"],
+        ],
+      },
+      {
+        type: "p",
+        text: "An outside library needs a **Catalog gap** row in `plan.md`. HttpForge API or in-memory seed until you ask to persist. Then LocalStore — not a silent SQLite add.",
+      },
+    ],
+  },
+  {
+    id: "hardened",
+    title: "Hardened plugins",
+    blocks: [
+      {
+        type: "p",
+        text: "If you later add DeepLinks, PushRouter, SmartUpload, or FeatureFlags, keep fail-closed defaults. Do not restore `PermissiveMode`, `AllowUnmappedPayloadRoutes`, or `RequireHttps = false` unless spec **and** plan require it. See [hardened releases](/getting-started/hardening/).",
+      },
+      {
+        type: "p",
+        text: "Never `dotnet nuget push` from a local clone. Publishing this CLI is pipeline-only (`NUGET_KEY_NUVYN`).",
+      },
+    ],
+  },
+];
+
+const troubleshootingSections: DocSection[] = [
+  {
+    id: "symptoms",
+    title: "Common symptoms",
+    blocks: [
+      {
+        type: "table",
+        headers: ["Symptom", "What to do"],
+        rows: [
+          ["`ClinicApp already exists`", "`init` is new projects only. The existing folder was not changed. Pick another name, or delete a leftover failed scaffold, then retry."],
+          ["Launch: unable to resolve `MainPageViewModel`", "Add `builder.Services.AddTransient<MainPageViewModel>()`."],
+          ["Build: `AddGeneratedViewModels` / `Plugin.Maui.MVVMExpress.Generated`", "Remove that call and using. Register the view-model with `AddTransient`."],
+          ["Two `.UseMvvmExpress()` calls", "Keep only the configured `UseMvvmExpress(o => …)` chain."],
+          ["Agent added LocalStore / Syncfusion / Refit", "You did not ask. Revert. Catalog first, UIKit first."],
+          ["MAUI workload / TFM / permissions errors", "[maui-dev doctor](/toolkits/maui-dev/)"],
+        ],
+      },
+    ],
+  },
+  {
+    id: "related",
+    title: "Related tools",
+    blocks: [
+      {
+        type: "table",
+        headers: ["Need", "Tool", "Notes"],
+        rows: [
+          ["New Nuvyntra MAUI host + spec chain", "**Nuvyn** (`nuvyn init`)", "This guide"],
+          ["Diagnose an existing MAUI tree", "[MauiDev](/toolkits/maui-dev/) (`maui-dev doctor`)", "Project-aware doctor"],
+          ["Any stack, spec only", "[GitHub Spec Kit](https://github.com/github/spec-kit) (`specify`)", "No MVVMExpress / UIKit host"],
+          ["One plugin", "The matching `Plugin.Maui.*`", "[Catalog](/packages/)"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Roadmap (not in 0.1.0): more agents (`codex`, `opencode`, `zed`, …), `nuvyn update`, `--vertical`.",
+      },
+      {
+        type: "link",
+        href: nuvyn.github,
+        label: "Nuvyn repository",
+        note: "Source, USER-GUIDE.md, and AGENTS.md:",
+      },
+    ],
+  },
+];
+
+const pages: NuvynGuidePage[] = [
+  {
+    slug: "spec-driven-development",
+    title: "Spec-driven development",
+    description:
+      "What SDD is, how it differs from prompt-driven coding, and how Nuvyn turns a product spec into a locked MAUI host.",
+    href: `${nuvynDocsBase}/`,
+    kind: "docs",
+    sections: specDrivenSections,
+  },
+  {
+    slug: "agentic-coding",
+    title: "Why it matters for agentic coding",
+    description:
+      "Agents are capable, non-deterministic, and context-limited. Specs, standing law, and analysis keep the loop honest.",
+    href: `${nuvynDocsBase}/agentic-coding/`,
+    kind: "docs",
+    sections: agenticSections,
+  },
+  {
+    slug: "implementation",
+    title: "Technical implementation",
+    description:
+      "PackAsTool CLI, payload host, init pipeline, default packages, agent wrappers, and pipeline-only publish.",
+    href: `${nuvynDocsBase}/implementation/`,
+    kind: "docs",
+    sections: implementationSections,
+  },
+  {
+    slug: "install",
+    title: "Install",
+    description: "Requirements, global tool install, and update. Do not PackageReference the CLI.",
+    href: `${nuvynGuideBase}/`,
+    kind: "guide",
+    sections: installSections,
+  },
+  {
+    slug: "create-app",
+    title: "Create an app",
+    description: "nuvyn init creates a new three-project MAUI host. There is no --here / --force.",
+    href: `${nuvynGuideBase}/create-app/`,
+    kind: "guide",
+    sections: createAppSections,
+  },
+  {
+    slug: "workflow",
+    title: "Slash workflow",
+    description: "Run constitution → specify → clarify → plan → checklist → task → analysis → implement → converge.",
+    href: `${nuvynGuideBase}/workflow/`,
+    kind: "guide",
+    sections: workflowSections,
+  },
+  {
+    slug: "ecosystem",
+    title: "Ecosystem rules",
+    description: "UIKit first, catalog first, API data until you ask to persist, fail-closed hardened plugins.",
+    href: `${nuvynGuideBase}/ecosystem/`,
+    kind: "guide",
+    sections: ecosystemSections,
+  },
+  {
+    slug: "troubleshooting",
+    title: "Troubleshooting",
+    description: "Existing-folder errors, DI registration, extra packages, and when to use maui-dev doctor.",
+    href: `${nuvynGuideBase}/troubleshooting/`,
+    kind: "guide",
+    sections: troubleshootingSections,
+  },
+];
+
+const bySlug = new Map(pages.map((page) => [page.slug, page]));
+const byHref = new Map(pages.map((page) => [page.href, page]));
+
+export const nuvynGuideNav: GuideNavGroup[] = [
+  {
+    id: "technical",
+    title: "Technical documentation",
+    section: "Nuvyn",
+    items: [
+      { title: "Spec-driven development", href: `${nuvynDocsBase}/` },
+      { title: "Agentic coding", href: `${nuvynDocsBase}/agentic-coding/` },
+      { title: "Implementation", href: `${nuvynDocsBase}/implementation/` },
+    ],
+  },
+  {
+    id: "user-guide",
+    title: "User guide",
+    items: [
+      { title: "Install", href: `${nuvynGuideBase}/` },
+      { title: "Create an app", href: `${nuvynGuideBase}/create-app/` },
+      { title: "Slash workflow", href: `${nuvynGuideBase}/workflow/` },
+      { title: "Ecosystem rules", href: `${nuvynGuideBase}/ecosystem/` },
+      { title: "Troubleshooting", href: `${nuvynGuideBase}/troubleshooting/` },
+    ],
+  },
+];
+
+export function getNuvynGuidePage(slug: string): NuvynGuidePage | undefined {
+  return bySlug.get(slug);
+}
+
+export function getNuvynDocTopic(topic: string): NuvynGuidePage | undefined {
+  return pages.find((page) => page.kind === "docs" && page.slug === topic);
+}
+
+export function getNuvynUserGuideTopic(topic: string): NuvynGuidePage | undefined {
+  return pages.find((page) => page.kind === "guide" && page.slug === topic);
+}
+
+export function nuvynDocTopicSlugs(): string[] {
+  return pages.filter((page) => page.kind === "docs" && page.slug !== "spec-driven-development").map((page) => page.slug);
+}
+
+export function nuvynUserGuideTopicSlugs(): string[] {
+  return pages.filter((page) => page.kind === "guide" && page.slug !== "install").map((page) => page.slug);
+}
+
+export function allNuvynHrefs(): string[] {
+  return [nuvynHref, ...pages.map((page) => page.href)];
+}
+
+export function adjacentNuvynPages(href: string): {
+  previous?: GuideTopic;
+  next?: GuideTopic;
+} {
+  const sequence = nuvynGuideNav.flatMap((group) => group.items);
+  const index = sequence.findIndex((item) => item.href === href);
+  if (index < 0) return {};
+  const previous = sequence[index - 1];
+  const next = sequence[index + 1];
+  return {
+    previous: previous ? { slug: previous.href, title: previous.title, description: "", sections: [] } : undefined,
+    next: next ? { slug: next.href, title: next.title, description: "", sections: [] } : undefined,
+  };
+}
+
+export const nuvynSpecDriven = bySlug.get("spec-driven-development")!;
+export const nuvynInstallGuide = bySlug.get("install")!;
+
+export function getNuvynPageByHref(href: string): NuvynGuidePage | undefined {
+  return byHref.get(href);
+}

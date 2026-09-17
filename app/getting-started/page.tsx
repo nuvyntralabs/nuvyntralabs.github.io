@@ -31,6 +31,28 @@ export default function GettingStartedPage() {
       />
       <div className="container max-w-3xl py-16 sm:py-20">
         <aside className="callout mb-6 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">Starting a new MAUI app?</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            Use{" "}
+            <Link href="/toolkits/nuvyn/" className="text-link">
+              Nuvyn
+            </Link>{" "}
+            (<code className="code-inline">nuvyn init</code>) for a spec-driven host on MVVMExpress + Lumina UIKit. Read the{" "}
+            <Link href="/toolkits/nuvyn/docs/" className="text-link">
+              technical docs
+            </Link>{" "}
+            and{" "}
+            <Link href="/toolkits/nuvyn/guide/" className="text-link">
+              user guide
+            </Link>
+            . Do not run init on an existing tree — use{" "}
+            <Link href="/toolkits/maui-dev/" className="text-link">
+              maui-dev doctor
+            </Link>{" "}
+            instead.
+          </p>
+        </aside>
+        <aside className="callout mb-6 px-4 py-3">
           <p className="text-sm font-semibold text-foreground">The ecosystem map</p>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             UIKit, MVVMExpress, HttpForge, and the gallery plugins that show up in a real MAUI app are mapped in
@@ -66,8 +88,13 @@ export default function GettingStartedPage() {
         <section>
           <h2 className="font-display text-2xl font-semibold">1. Create or open a MAUI app</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Use the stock MAUI template, or scaffold an MVVMExpress host with ViewModels, login
-            replace-root, a list, a form, and tests already wired. Same scaffold from the{" "}
+            Prefer{" "}
+            <Link href="/toolkits/nuvyn/" className="text-link">
+              <code className="code-inline">nuvyn init</code>
+            </Link>{" "}
+            for a new Nuvyntra host plus the spec slash chain. Or use the stock MAUI template, or
+            scaffold an MVVMExpress host with ViewModels, login replace-root, a list, a form, and
+            tests already wired. Same MVVMExpress scaffold from the{" "}
             <Link
               href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
               className="text-link"
@@ -77,7 +104,10 @@ export default function GettingStartedPage() {
             — install the <strong>MVVMExpress</strong> Marketplace listings.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
-            <code>{`dotnet new maui -n FieldApp
+            <code>{`dotnet tool install -g NuvyntraLabs.Nuvyn.Cli
+nuvyn init FieldApp --agent cursor
+
+dotnet new maui -n FieldApp
 
 dotnet new install Plugin.Maui.MVVMExpress.Templates
 dotnet new mvvmexpress -n MyApp`}</code>

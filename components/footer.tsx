@@ -13,6 +13,7 @@ const work = [
   { href: "/whitepaper/", label: "White paper" },
   { href: "/playground/", label: "Playground" },
   { href: "/packages/", label: "Products" },
+  { href: "/toolkits/nuvyn/", label: "Nuvyn" },
   { href: "/packages/plugin-maui-mvvmexpress/", label: "MVVMExpress" },
   { href: "/nuvexadb/", label: "NuvexaDB" },
   { href: "/uikit/", label: "UIKit(MAUI)" },
@@ -23,6 +24,8 @@ const work = [
 
 const resources = [
   { href: "/getting-started/", label: "Getting started" },
+  { href: "/toolkits/nuvyn/docs/", label: "Nuvyn technical docs" },
+  { href: "/toolkits/nuvyn/guide/", label: "Nuvyn user guide" },
   { href: "/playground/", label: "Lumina Playground" },
   { href: "/whitepaper/", label: "MAUI ecosystem white paper" },
   { href: "/uikit/docs/", label: "UIKit(MAUI) components" },

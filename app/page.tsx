@@ -5,6 +5,7 @@ import { whitepaperHref, whitepaperPillars } from "@/content/ecosystem-whitepape
 import { nuvexaDb } from "@/content/nuvexadb";
 import { uiKit } from "@/content/uikit";
 import { nugetPackages, packages } from "@/content/packages";
+import { nuvyn, nuvynDocsBase, nuvynGuideBase, nuvynHref } from "@/content/nuvyn";
 import { toolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects } from "@/content/works";
 import { PackageCard, PocCard, ResearchCard, ToolkitCard } from "@/components/work-card";
@@ -56,9 +57,12 @@ export default function HomePage() {
               {lab.mission}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={whitepaperHref} className="focusable btn-primary">
-                Read the white paper
+              <Link href={nuvynHref} className="focusable btn-primary">
+                Start with Nuvyn
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link href={whitepaperHref} className="focusable btn-secondary">
+                Read the white paper
               </Link>
               <Link href="/playground/" className="focusable btn-secondary">
                 Playground
@@ -107,6 +111,51 @@ export default function HomePage() {
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             Built for .NET MAUI teams on Android, iOS, Mac Catalyst, and Windows
           </p>
+        </div>
+      </section>
+
+      <section className="section-muted">
+        <div className="container py-16 sm:py-20">
+        <SectionIntro
+          eyebrow="Spec-driven CLI"
+          title={nuvyn.name}
+          description={nuvyn.subtitle}
+          href={nuvynHref}
+          cta="Nuvyn overview"
+        />
+        <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+          <Link href={nuvynHref} className="glass-card focusable group p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+              {nuvyn.packageId} · {nuvyn.version}
+              <span className="ml-2 rounded-full bg-lavender-200/80 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-lavender-900 dark:bg-lavender-500/30 dark:text-lavender-100">
+                New
+              </span>
+            </p>
+            <h2 className="mt-3 font-display text-2xl font-semibold text-foreground">
+              Spec-driven MAUI, locked to the Nuvyntra stack
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{nuvyn.abstract}</p>
+            <pre className="mt-5 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
+              <code>{nuvyn.install}</code>
+            </pre>
+          </Link>
+          <div className="grid gap-4">
+            <Link href={`${nuvynDocsBase}/`} className="glass-card focusable p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">Technical docs</p>
+              <h2 className="mt-3 font-display text-xl font-semibold text-foreground">What SDD is, and why agents need it</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Spec-driven development, agentic coding, and how the PackAsTool CLI, payload host, and slash chain are built.
+              </p>
+            </Link>
+            <Link href={`${nuvynGuideBase}/`} className="glass-card focusable p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">User guide</p>
+              <h2 className="mt-3 font-display text-xl font-semibold text-foreground">Install, init, grow the app</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                New folder only. Pick Cursor, Copilot, Claude, or Gemini. Then run constitution → specify → plan → implement.
+              </p>
+            </Link>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -294,8 +343,8 @@ export default function HomePage() {
         <div className="container py-16 sm:py-20">
           <SectionIntro
             eyebrow="Toolkits"
-            title="Diagnose before you ship"
-            description="MauiDev 1.2.1 is a maui-dev CLI plus a VS Code / Cursor extension. Doctor, permissions, publish, migrate, and benchmark — with JSON/SARIF for CI."
+            title="Start the host, then diagnose"
+            description="Nuvyn scaffolds a spec-driven MAUI app on the Nuvyntra stack. MauiDev 1.2.1 then doctors the machine and the project — with JSON/SARIF for CI."
             href="/toolkits/"
             cta="All toolkits"
           />

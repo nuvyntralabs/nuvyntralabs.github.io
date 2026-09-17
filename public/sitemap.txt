@@ -26,6 +26,7 @@ https://nuvyntralabs.github.io/pocs/file-processor-test/
 https://nuvyntralabs.github.io/pocs/callkit-sample/
 https://nuvyntralabs.github.io/pocs/html-label-plugin/
 https://nuvyntralabs.github.io/pocs/plugin-firebase-analytics/
+https://nuvyntralabs.github.io/toolkits/nuvyn/
 https://nuvyntralabs.github.io/toolkits/maui-dev/
 https://nuvyntralabs.github.io/packages/maui-essentials/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/
@@ -516,3 +517,11 @@ https://nuvyntralabs.github.io/uikit/docs/nvwhatsnewview/
 https://nuvyntralabs.github.io/uikit/docs/nvwishlistview/
 https://nuvyntralabs.github.io/uikit/docs/nvwizard/
 https://nuvyntralabs.github.io/uikit/docs/nvwraplayout/
+https://nuvyntralabs.github.io/toolkits/nuvyn/docs/
+https://nuvyntralabs.github.io/toolkits/nuvyn/docs/agentic-coding/
+https://nuvyntralabs.github.io/toolkits/nuvyn/docs/implementation/
+https://nuvyntralabs.github.io/toolkits/nuvyn/guide/
+https://nuvyntralabs.github.io/toolkits/nuvyn/guide/create-app/
+https://nuvyntralabs.github.io/toolkits/nuvyn/guide/workflow/
+https://nuvyntralabs.github.io/toolkits/nuvyn/guide/ecosystem/
+https://nuvyntralabs.github.io/toolkits/nuvyn/guide/troubleshooting/

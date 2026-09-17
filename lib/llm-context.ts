@@ -6,6 +6,7 @@ import { uiKit, uiKitHref } from "@/content/uikit";
 import { uiKitDocsBase } from "@/content/uikit-guide";
 import { packages } from "@/content/packages";
 import { toolkitPath, toolkits } from "@/content/toolkits";
+import { nuvyn, nuvynDocsBase, nuvynGuideBase, nuvynHref } from "@/content/nuvyn";
 import { proofOfConcepts, researchProjects, workPath } from "@/content/works";
 import { githubPackagesFeed, githubPackagesSetupPath, packageGithubPackagesUrl } from "@/lib/github-packages";
 import { siteConfig } from "@/lib/site";
@@ -110,6 +111,17 @@ NuGet: ${uiKit.nuget}
 Control reference: ${uiKit.reference}
 Component docs (XAML + every attribute): ${siteConfig.url}${uiKitDocsBase}/
 Sample: ${uiKit.sample}
+
+## Nuvyn
+
+${siteConfig.url}${nuvynHref}
+Spec-driven CLI (${nuvyn.packageId} ${nuvyn.version}) for new .NET MAUI apps on Android, iOS, Windows, and Mac Catalyst. Domain-agnostic. Stack locked to MVVMExpress, Lumina UIKit, HttpForge, FormValidation, and KeyboardManager. Install: dotnet tool install -g ${nuvyn.packageId}. Then: nuvyn init MyApp --agent cursor. Do not dotnet add package the CLI. init never overlays an existing folder (no --here / --force). Compose with maui-dev doctor after init. Not a Spec Kit clone — use Spec Kit when the stack is not Nuvyntra.
+GitHub: ${nuvyn.github}
+NuGet: ${nuvyn.nuget}
+Technical docs: ${siteConfig.url}${nuvynDocsBase}/
+User guide: ${siteConfig.url}${nuvynGuideBase}/
+Slash chain: /nuvyn.constitution → specify → clarify → plan → checklist → task → analysis → implement → converge.
+Agents: Cursor, GitHub Copilot, Claude Code, Gemini CLI.
 
 ## Toolkits
 

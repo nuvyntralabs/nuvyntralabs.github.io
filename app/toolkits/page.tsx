@@ -7,12 +7,12 @@ import { CtaBand } from "@/components/cta-band";
 export const metadata: Metadata = {
   title: "Toolkits",
   description:
-    "Nuvyntra Labs developer toolkits for .NET MAUI: maui-dev doctor CLI and the MauiDev VS Code / Cursor extension.",
+    "Nuvyntra Labs developer toolkits for .NET MAUI: Nuvyn spec-driven CLI and MauiDev doctor plus VS Code / Cursor extension.",
   alternates: { canonical: "/toolkits/" },
   openGraph: {
     title: "Nuvyntra Labs toolkits",
     description:
-      "Project-aware maui-dev doctor CLI and VS Code / Cursor extension for .NET MAUI teams.",
+      "Nuvyn scaffolds a spec-driven MAUI host. MauiDev diagnoses the machine and the project.",
     url: "/toolkits/",
   },
 };
@@ -22,8 +22,8 @@ export default function ToolkitsPage() {
     <main>
       <PageHero
         eyebrow="Toolkits"
-        title="Diagnose the machine and the project"
-        description="Developer productivity tools sit next to the NuGet catalog — not inside it. MauiDev is a maui-dev CLI plus a VS Code / Cursor extension. It does not replace runtime plugins."
+        title="Scaffold the host, then diagnose"
+        description="Developer productivity tools sit next to the NuGet catalog — not inside it. Nuvyn creates a spec-driven MAUI app on the Nuvyntra stack. MauiDev is a maui-dev CLI plus a VS Code / Cursor extension."
       />
       <div className="container py-16 sm:py-20">
         <p className="text-sm text-muted-foreground">
@@ -39,7 +39,7 @@ export default function ToolkitsPage() {
       </div>
       <CtaBand
         title="Need a runtime plugin instead?"
-        description="MauiDev diagnoses SDK, project, and resource issues. Leaks, traces, crashes, and device health live in the NuGet catalog."
+        description="Nuvyn starts a new host. MauiDev diagnoses SDK, project, and resource issues. Leaks, traces, crashes, and device health live in the NuGet catalog."
       />
     </main>
   );

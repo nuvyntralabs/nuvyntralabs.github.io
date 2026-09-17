@@ -20,7 +20,10 @@ Professional experience stays on
 | `/nuvexadb/docs/` | NuvexaDB white paper and engine docs |
 | `/nuvexadb/integration/` | NuvexaDB getting started for every supported host |
 | `/packages/` | .NET MAUI NuGet catalog |
-| `/toolkits/` | Developer toolkits (MauiDev CLI + VS Code / Cursor extension) |
+| `/toolkits/` | Developer toolkits (Nuvyn spec CLI + MauiDev doctor) |
+| `/toolkits/nuvyn/` | Nuvyn 0.1.0 overview — spec-driven MAUI host on the Nuvyntra stack |
+| `/toolkits/nuvyn/docs/` | Nuvyn technical docs (SDD, agentic coding, implementation) |
+| `/toolkits/nuvyn/guide/` | Nuvyn user guide (install, init, slash workflow) |
 | `/toolkits/maui-dev/` | MauiDev 1.2.1 overview, command usage, sample results, and CI |
 | `/packages/plugin-maui-mvvmexpress/docs/` | MAUI MVVMExpress documentation (expander topics + roadmap) |
 | `/packages/plugin-maui-mvvmexpress/docs/templates/` | MAUI MVVMExpress `dotnet new` project template |
@@ -100,6 +103,7 @@ have Discussions. A few older POCs still need Issues or Discussions enabled.
 - R&D and POCs: `content/works.ts`
 - NuGet catalog: `content/packages.ts`
 - Toolkits: `content/toolkits.ts`
+- Nuvyn docs: `content/nuvyn.ts`, `content/nuvyn-guide.ts`
 - MVVMExpress docs: `content/mvvmexpress.ts` (MAUI), `content/wpf-mvvmexpress.ts` (WPF), and `content/desktop-mvvmexpress.ts` (Avalonia, Uno, WinUI)
 - LeakAnalyser docs: `content/leak-analyser.ts`
 - Performance docs: `content/performance.ts`

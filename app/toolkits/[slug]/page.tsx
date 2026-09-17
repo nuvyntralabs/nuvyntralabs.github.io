@@ -11,7 +11,7 @@ interface PageProps {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return toolkits.map((item) => ({ slug: item.slug }));
+  return toolkits.filter((item) => item.slug !== "nuvyn").map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

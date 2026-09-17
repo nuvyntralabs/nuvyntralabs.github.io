@@ -46,6 +46,118 @@ export interface ToolkitDoc {
 
 export const toolkits: ToolkitDoc[] = [
   {
+    slug: "nuvyn",
+    name: "Nuvyn",
+    title: "Nuvyn",
+    subtitle: "Spec-driven CLI for .NET MAUI apps on the Nuvyntra stack",
+    description:
+      "Creates a new four-platform MAUI host and locks plan/implement to MVVMExpress, Lumina UIKit, and the smallest Plugin.Maui.* set. The product is whatever you specify — any domain.",
+    github: "https://github.com/nuvyntralabs/Nuvyn",
+    nuget: "https://www.nuget.org/packages/NuvyntraLabs.Nuvyn.Cli",
+    packageId: "NuvyntraLabs.Nuvyn.Cli",
+    vscodeMarketplace: null,
+    language: "C#",
+    version: "0.1.0",
+    notice: {
+      title: "0.1.0 — new projects only",
+      text: "nuvyn init always creates a new folder. There is no --here / --force. Diagnose an existing tree with maui-dev doctor. Technical docs and the user guide live on this toolkit’s pages.",
+    },
+    tags: [".NET MAUI", "CLI", "spec-driven", "agentic", "MVVMExpress", "UIKit"],
+    abstract:
+      "Nuvyn is a standalone PackAsTool CLI (System.CommandLine + Spectre.Console). It copies an embedded three-project host, adds default Nuvyntra packages from nuget.org, writes .nuvyn/ standing law, and installs slash commands for Cursor, GitHub Copilot, Claude Code, or Gemini CLI. It is not a Spec Kit clone. Use another spec CLI when the stack is not Nuvyntra.",
+    capabilities: [
+      "nuvyn init <folder> — new three-project MAUI host (no overlay).",
+      "Default packages: MVVMExpress, UIKit, HttpForge, FormValidation, KeyboardManager (latest nuget.org).",
+      "Slash chain: constitution → specify → clarify → plan → checklist → task → analysis → implement → converge.",
+      "Agents: Cursor, GitHub Copilot, Claude Code, Gemini CLI.",
+      "Standing law in .nuvyn/reference/constraints.md — sleek Lumina, catalog first, API data until asked to persist.",
+    ],
+    commands: [
+      {
+        name: "nuvyn init",
+        group: "Create",
+        purpose: "Create a new Nuvyntra MAUI app and install the spec-driven agent workflow",
+        usage: `nuvyn init ClinicApp
+nuvyn init ClinicApp --agent cursor
+nuvyn init ClinicApp --agent copilot`,
+        sample: `Nuvyn
+────────────────────────────────────
+
+[1] Project: ./ClinicApp
+[2] Agent: Cursor
+[3] Scaffolding MVVMExpress host with UIKit pages…
+✓ Host: uikit
+[4] Installing .nuvyn templates…
+✓ .nuvyn/constitution.md
+[5] Writing Cursor commands…
+✓ .cursor/skills/nuvyn-constitution/SKILL.md
+
+Next
+  cd ClinicApp
+  Open this folder in Cursor and run:
+  /nuvyn.constitution`,
+        notes: "Refuses if the folder already exists (exit 1). No --here / --force.",
+      },
+      {
+        name: "nuvyn version",
+        group: "Create",
+        purpose: "Print the installed CLI version",
+        usage: "nuvyn version",
+        sample: "NuvyntraLabs.Nuvyn.Cli 0.1.0",
+      },
+      {
+        name: "nuvyn check",
+        group: "Create",
+        purpose: "Confirm dotnet is on PATH and the embedded payload resolves",
+        usage: "nuvyn check",
+        sample: `✓ dotnet is on PATH
+✓ Payload: /…/payload`,
+      },
+    ],
+    globalOptions: ["--agent cursor|copilot|claude|gemini", "--help"],
+    install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli
+nuvyn init ClinicApp --agent cursor`,
+    installNote:
+      "NuvyntraLabs.Nuvyn.Cli is a global dotnet tool (net10.0). Do not run dotnet add package NuvyntraLabs.Nuvyn.Cli in an app. Publishing is pipeline-only on the Nuvyn repository.",
+    examples: `nuvyn init HarborDesk --agent cursor
+nuvyn version
+nuvyn check`,
+    fixAllowList: [
+      "init creates a new folder only. It never overlays, merges, or writes into an existing app.",
+    ],
+    neverDoes: [
+      "Never overlays an existing repo (no --here / --force).",
+      "Never adds LocalStore, NuvexaDB, or other catalog packages until the spec asks.",
+      "Never replaces maui-dev doctor.",
+      "Never publishes or pushes NuGet packages from a local clone.",
+    ],
+    ci: `# Publishing is pipeline-only on nuvyntralabs/Nuvyn
+# Order: version alignment → tests → pack (PackAsTool) → nuget.org + GitHub Packages`,
+    later: ["Additional agents (codex, opencode, zed)", "nuvyn update", "--vertical"],
+    alternatives:
+      "GitHub Spec Kit covers any stack. MauiDev diagnoses an existing MAUI tree. Stock dotnet new maui scaffolds pages without the Nuvyntra lock or slash chain.",
+    notFor: [
+      {
+        need: "Diagnose an existing MAUI tree",
+        use: "MauiDev (maui-dev doctor)",
+        href: "/toolkits/maui-dev/",
+      },
+      {
+        need: "Any-stack spec workflow",
+        use: "GitHub Spec Kit",
+        href: "https://github.com/github/spec-kit",
+      },
+      {
+        need: "One runtime plugin",
+        use: "The matching Plugin.Maui.*",
+        href: "/packages/",
+      },
+    ],
+    releaseNotes: [
+      "0.1.0. nuvyn init scaffolds the embedded UIKit host and installs Cursor, Copilot, Claude, and Gemini slash commands.",
+    ],
+  },
+  {
     slug: "maui-dev",
     name: "MauiDev",
     title: "MauiDev",
