@@ -60,6 +60,9 @@ export default function HomePage() {
                 Read the white paper
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
+              <Link href="/playground/" className="focusable btn-secondary">
+                Playground
+              </Link>
               <Link href="/packages/" className="focusable btn-secondary">
                 View products
               </Link>

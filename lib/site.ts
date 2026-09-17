@@ -7,6 +7,7 @@ export const siteConfig = {
   url: "https://nuvyntralabs.github.io",
   githubOrg: "https://github.com/nuvyntralabs",
   discord: "https://discord.gg/2rg8s7P8xE",
+  linkedin: "https://www.linkedin.com/groups/40625003/",
   githubPackagesFeed: "https://nuget.pkg.github.com/nuvyntralabs/index.json",
   author: "Niladri Prasad Padhy",
   authorUrl: "https://niladri-padhy-website.vercel.app",

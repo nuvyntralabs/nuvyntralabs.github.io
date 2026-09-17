@@ -14,6 +14,7 @@ export function sitemapUrls(): string[] {
   const paths = [
     "/",
     "/whitepaper/",
+    "/playground/",
     "/uikit/",
     "/packages/",
     "/toolkits/",

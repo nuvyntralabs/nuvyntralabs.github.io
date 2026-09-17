@@ -11,6 +11,7 @@ const company = [
 
 const work = [
   { href: "/whitepaper/", label: "White paper" },
+  { href: "/playground/", label: "Playground" },
   { href: "/packages/", label: "Products" },
   { href: "/packages/plugin-maui-mvvmexpress/", label: "MVVMExpress" },
   { href: "/nuvexadb/", label: "NuvexaDB" },
@@ -22,12 +23,14 @@ const work = [
 
 const resources = [
   { href: "/getting-started/", label: "Getting started" },
+  { href: "/playground/", label: "Lumina Playground" },
   { href: "/whitepaper/", label: "MAUI ecosystem white paper" },
   { href: "/uikit/docs/", label: "UIKit(MAUI) components" },
   { href: "/nuvexadb/docs/", label: "NuvexaDB white paper" },
   { href: "/nuvexadb/integration/", label: "NuvexaDB integration" },
   { href: "/releases/", label: ".NET MAUI releases" },
   { href: siteConfig.discord, label: "Discord community", external: true },
+  { href: siteConfig.linkedin, label: "LinkedIn group", external: true },
   { href: siteConfig.githubOrg, label: "GitHub organization", external: true },
   { href: siteConfig.githubSponsors, label: "GitHub Sponsors", external: true },
   { href: siteConfig.buyMeACoffee, label: "Buy Me a Coffee", external: true },

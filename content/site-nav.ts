@@ -51,6 +51,7 @@ export const featuredProducts: FeaturedNavItem[] = [
 
 export const workCatalog: NavItem[] = [
   { href: "/whitepaper/", label: "White paper", blurb: "The MAUI development ecosystem" },
+  { href: "/playground/", label: "Playground", blurb: "Real-time examples and community ideas" },
   { href: "/packages/", label: "All products", blurb: "Focused .NET MAUI NuGet catalog" },
   { href: "/toolkits/", label: "Toolkits", blurb: "MauiDev CLI and IDE extensions" },
   { href: "/getting-started/", label: "Getting started", blurb: "Install a plugin and compose" },

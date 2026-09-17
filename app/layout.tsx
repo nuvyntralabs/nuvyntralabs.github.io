@@ -48,6 +48,7 @@ export const metadata: Metadata = {
     "HttpForge",
     "Plugin.Maui.HttpForge",
     "MAUI development ecosystem",
+    "Lumina Playground",
     "embedded NoSQL",
     ".nvx",
     "MauiDev",

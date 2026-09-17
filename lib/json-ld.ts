@@ -1,4 +1,5 @@
 import { whitepaper, whitepaperHref } from "@/content/ecosystem-whitepaper";
+import { playground, playgroundHref } from "@/content/playground";
 import { nuvexaDb } from "@/content/nuvexadb";
 import { uiKit, uiKitHref } from "@/content/uikit";
 import { uiKitDocsBase } from "@/content/uikit-guide";
@@ -38,6 +39,7 @@ export function siteGraph() {
         sameAs: [
           siteConfig.githubOrg,
           siteConfig.discord,
+          siteConfig.linkedin,
           siteConfig.authorGithub,
           siteConfig.authorUrl,
           siteConfig.githubSponsors,
@@ -213,6 +215,32 @@ export function nuvexaGuideJsonLd(
       { name: "Home", path: "/" },
       { name: nuvexaDb.name, path: "/nuvexadb/" },
       { name: label, path: articlePath },
+    ]),
+  ];
+}
+
+export function playgroundJsonLd() {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      name: playground.title,
+      description: playground.description,
+      abstract: playground.abstract,
+      url: `${siteConfig.url}${playgroundHref}`,
+      codeRepository: playground.github,
+      programmingLanguage: "C#",
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      keywords:
+        "Nuvyntra Labs, Lumina Playground, .NET MAUI, UIKit, MVVMExpress, HttpForge, NuvexaDB",
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: "Playground", path: playgroundHref },
     ]),
   ];
 }
