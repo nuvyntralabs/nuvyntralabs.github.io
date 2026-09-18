@@ -14,7 +14,7 @@ export const nuvyn = {
   packageId: "NuvyntraLabs.Nuvyn.Cli",
   command: "nuvyn",
   language: "C#",
-  version: "0.2.0",
+  version: "1.0.0",
   license: "MIT",
   author: "Niladri Prasad Padhy",
   tags: [".NET MAUI", "CLI", "spec-driven", "agentic", "MVVMExpress", "UIKit"],
@@ -24,6 +24,9 @@ export const nuvyn = {
 nuvyn init ClinicApp --agent cursor`,
   update: `dotnet tool update -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
 nuvyn version`,
+  refresh: `cd ClinicApp
+nuvyn update
+nuvyn update --agent cursor`,
   platforms: ["Android", "iOS", "Mac Catalyst", "Windows"],
   defaultPackages: [
     { name: "Plugin.Maui.MVVMExpress", role: "App shell, ViewModels, navigation", href: "/packages/plugin-maui-mvvmexpress/" },

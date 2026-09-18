@@ -71,12 +71,40 @@ export default function NuvynPage() {
         </Link>
       </div>
 
+      <aside className="callout mt-6 px-4 py-3">
+        <p className="text-sm font-semibold text-foreground">1.0.0 — nuvyn update</p>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+          After you update the global CLI, run <code className="code-inline">nuvyn update</code> inside
+          an existing app to refresh templates and slash files. It does not overlay host code,{" "}
+          <code className="code-inline">specs/</code>, or <code className="code-inline">.nuvyn/constitution.md</code>.
+        </p>
+      </aside>
+
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold">Install</h2>
         <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
           <code>{nuvyn.install}</code>
         </pre>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{nuvyn.abstract}</p>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="font-display text-2xl font-semibold">Refresh skills</h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          After you update the global CLI, refresh templates and slash files in an existing app. Host code,{" "}
+          <code className="code-inline">specs/</code>, and <code className="code-inline">.nuvyn/constitution.md</code>{" "}
+          stay as they are. PackageReference versions are not changed.
+        </p>
+        <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
+          <code>{nuvyn.refresh}</code>
+        </pre>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          Step-by-step:{" "}
+          <Link href={`${nuvynGuideBase}/refresh/`} className="text-link">
+            Refresh skills
+          </Link>
+          .
+        </p>
       </section>
 
       <section className="mt-10">

@@ -43,6 +43,17 @@ export default function UiKitPage() {
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{uiKit.description}</p>
 
       <aside className="callout mt-6 px-4 py-3">
+        <p className="text-sm font-semibold text-foreground">1.5.1 — type scale, RTL, contrast</p>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+          Additive. Hosts that pin 1.5.0 keep compiling. Opt in with{" "}
+          <code className="code-inline">NVTheme.Current.SetTypeScale</code> and{" "}
+          <code className="code-inline">SetFlowDirection</code>. Overlay pages can call{" "}
+          <code className="code-inline">TryHandleKey(&quot;Escape&quot;)</code> /{" "}
+          <code className="code-inline">NVCommandPalette.TryHandleShortcut(&quot;Control+K&quot;)</code>.
+        </p>
+      </aside>
+
+      <aside className="callout mt-6 px-4 py-3">
         <p className="text-sm font-semibold text-foreground">UI library, not a runtime plugin</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           MauiEssentials plugins stay in the{" "}
@@ -109,9 +120,12 @@ builder
         <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-[13px] leading-relaxed text-lavender-50">
           <code>{`xmlns:nv="${uiKit.xmlns}"
 
+NVTheme.Current.SetTypeScale(1);
+NVTheme.Current.SetFlowDirection(FlowDirection.MatchParent);
+
 <nv:NVCheckBox Text="Accept terms" IsChecked="{Binding Accept}" />
 <nv:NVRadioButton GroupName="Plan" Text="Monthly" />
-<nv:NVTextField Label="Email" Text="{Binding Email}" />
+<nv:NVInputField Label="Email" Text="{Binding Email}" />
 <nv:NVButton Text="Continue" Variant="Filled" Command="{Binding Submit}" />
 <nv:NVCommandPalette Query="{Binding Query}" />
 <nv:NVSignInView />

@@ -7,7 +7,7 @@
 - Docs: https://nuvyntralabs.github.io/packages/nuvyntralabs-uikit/
 - Catalog: [MauiEssentials](https://github.com/nuvyntralabs/MauiEssentials)
 
-Package: `NuvyntraLabs.UIKit` · Prefix: `NV` · Version: `1.4.0`
+Package: `NuvyntraLabs.UIKit` · Prefix: `NV` · Version: `1.5.1`
 
 Human + agent overview: [README.md](README.md). IDs: [nuvyntralabs-uikit-components.md](https://github.com/nuvyntralabs/MauiEssentials/blob/main/docs/plans/nuvyntralabs-uikit-components.md).
 
@@ -17,6 +17,11 @@ xmlns:nv="http://nuvyntralabs.com/uikit"
 
 ```csharp
 builder.UseMauiApp<App>().UseNuvyntraUIKit();
+
+NVTheme.Current.SetTypeScale(1);                    // 0.8–2.0; default 1
+NVTheme.Current.SetFlowDirection(FlowDirection.MatchParent);
+overlay.TryHandleKey("Escape");
+palette.TryHandleShortcut("Control+K");
 ```
 
 Every `NV*` view also inherits MAUI `ContentView` / `VisualElement` members (`IsVisible`, `IsEnabled`, `Margin`, `HorizontalOptions`, `BindingContext`, …). Those are **framework** properties and are not repeated below.
@@ -286,7 +291,7 @@ Opens an action sheet of strings.
 | Property | Type | Default | |
 | --- | --- | --- | --- |
 | `Text` | `string` | `"Menu"` | |
-| `Items` | `IList<string>` | empty | |
+| `Items` | `IList ` | empty | |
 
 ### NVCheckBox
 
@@ -368,7 +373,7 @@ Equal segments.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Items` | `IList<string>` | `A`, `B` | |
+| `Items` | `IList ` | `A`, `B` | |
 | `SelectedIndex` | `int` | `0` | |
 
 ### NVSpeechToTextButton
@@ -486,7 +491,7 @@ One cell per digit.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Suggestions` | `IList<string>` | empty | **custom** |
+| `Suggestions` | `IList ` | empty | **custom** |
 
 ### NVComboBox / NVPicker / NVTemplatedPicker
 
@@ -499,7 +504,7 @@ Closed list. `NVPicker` and `NVTemplatedPicker` inherit `NVComboBox`.
 | Property | Type | Default | |
 | --- | --- | --- | --- |
 | `Label` | `string` | `"Choice"` | **custom** (CLR, not bindable) |
-| `Items` | `IList<string>` | empty | |
+| `Items` | `IList ` | empty | |
 | `SelectedItem` | `string` | `""` | |
 
 ### NVDatePicker / NVTimePicker / NVDateTimePicker / NVTimeSpanPicker / NVMonthYearPicker
@@ -601,7 +606,7 @@ Tap marks a stroke. `Export()` returns a token when `HasStroke`.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Steps` | `IList<string>` | One, Two, Three | **custom** |
+| `Steps` | `IList ` | One, Two, Three | **custom** |
 | `Index` | `int` | `0` | **custom** |
 
 ### NVBusyIndicator
@@ -633,7 +638,7 @@ Overlay hosts. Same `IsOpen`, `Placement`, `DismissOnScrim`, `PanelContent` as `
 | Extra | Type | | |
 | --- | --- | --- | --- |
 | `NVDialog.Title` / `Message` | `string` | **custom** | |
-| `NVActionSheet.Items` | `IList<string>` | | |
+| `NVActionSheet.Items` | `IList ` | | |
 
 ### NVToast
 
@@ -711,7 +716,7 @@ await NVToast.ShowAsync("Saved");
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Tabs` | `IList<string>` | One, Two | **custom** |
+| `Tabs` | `IList ` | One, Two | **custom** |
 | `SelectedIndex` | `int` | `0` | |
 
 ### NVNavigationDrawer / NVSideDrawer / NVNavigationView
@@ -722,7 +727,7 @@ await NVToast.ShowAsync("Saved");
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Items` | `IList<string>` | Home, Settings | |
+| `Items` | `IList ` | Home, Settings | |
 
 `NVNavigationView` composes toolbar + drawer (no extra bindables).
 
@@ -772,10 +777,10 @@ Chrome compositions. No extra bindables.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Items` | `IList<NVListItem>` | empty | |
+| `Items` | `IList ` | empty | |
 | `LayoutMode` | `NVLayoutMode` | `List` | **custom** |
 | `SelectionMode` | `NVSelectionKind` | `None` | **custom** |
-| `SelectedItems` | `IList<NVListItem>` | empty | |
+| `SelectedItems` | `IList ` | empty | |
 | `Grouped` | `bool` | `false` | first-letter groups |
 | `AllowSwipe` | `bool` | `false` | |
 
@@ -802,14 +807,14 @@ Chrome compositions. No extra bindables.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Columns` | `IList<NVGridColumn>` | | `Header`, `Binding`, `Key` **custom** alias, `Sortable`, `Frozen` |
+| `Columns` | `IList ` | | `Header`, `Binding`, `Key` **custom** alias, `Sortable`, `Frozen` |
 | `Rows` | `IList<IDictionary<string, object?>>` | | **custom** |
 | `Filter` | `string` | `""` | case-insensitive cell match |
 | `SortKey` / `SortDirection` | `string` / `NVSortDirection` | none | header tap cycles none → asc → desc |
 | `PageSize` / `PageIndex` | `int` | `0` / `0` | `0` page size shows all; pager when `> 0` |
 | `FrozenColumnCount` | `int` | `0` | plus per-column `Frozen` |
 | `VisibleRows` | computed | | filtered / sorted / paged |
-| `NVTreeDataGrid.Roots` | `IList<NVTreeNode>` | | flatten + `Expand` once |
+| `NVTreeDataGrid.Roots` | `IList ` | | flatten + `Expand` once |
 
 ### NVTreeView / NVOrgChart
 
@@ -819,7 +824,7 @@ Chrome compositions. No extra bindables.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Roots` | `IList<NVTreeNode>` | | **custom** — `Title`, `IsExpanded`, `IsChecked`, `Children` |
+| `Roots` | `IList ` | | **custom** — `Title`, `IsExpanded`, `IsChecked`, `Children` |
 
 ### NVDataForm
 
@@ -829,7 +834,7 @@ Chrome compositions. No extra bindables.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Fields` | `IList<NVFormField>` | | **custom** — `Name`, `Label`, `Kind`, `Value`, `Error`, `For(name, type)` |
+| `Fields` | `IList ` | | **custom** — `Name`, `Label`, `Kind`, `Value`, `Error`, `For(name, type)` |
 
 ### NVKanban
 
@@ -839,7 +844,7 @@ Chrome compositions. No extra bindables.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Columns` | `IList<NVKanbanColumn>` | | **custom** — `Title`, `Cards` |
+| `Columns` | `IList ` | | **custom** — `Title`, `Cards` |
 
 ---
 
@@ -853,7 +858,7 @@ Chrome compositions. No extra bindables.
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `Series` | `IList<NVChartSeries>` | | **custom** — one `GraphicsView`; empty series does not throw |
+| `Series` | `IList ` | | **custom** — one `GraphicsView`; empty series does not throw |
 
 ### NVGauge / NVRadialGauge / NVDigitalGauge
 
@@ -888,7 +893,7 @@ Generate only (not camera scan).
 
 | Property | Type | Default | |
 | --- | --- | --- | --- |
-| `NVTreeMap.Nodes` | `IList<NVTreeMapNode>` | | **custom** — `Title`, `Value` / `Weight` |
+| `NVTreeMap.Nodes` | `IList ` | | **custom** — `Title`, `Value` / `Weight` |
 | `NVMap.Place` | `string` | `"Aurora"` | **custom** |
 
 ### NVCalendar / NVScheduler
@@ -902,8 +907,8 @@ Generate only (not camera scan).
 | --- | --- | --- | --- |
 | `Month` | `DateTime` | today | **custom** — `NextMonth` / `PreviousMonth` |
 | `SelectedDate` | `DateTime?` | | last tap |
-| `SelectedDates` / `AllowMultiple` | `IList<DateTime>` / `bool` | empty / `false` | |
-| `Appointments` | `IList<NVAppointment>` | | **custom** — `Title`, `Start`, `End`, `Recurrence` |
+| `SelectedDates` / `AllowMultiple` | `IList ` / `bool` | empty / `false` | |
+| `Appointments` | `IList ` | | **custom** — `Title`, `Start`, `End`, `Recurrence` |
 | `AgendaDate` / `RecurrenceCap` | `DateTime?` / `int` | / `64` | `Agenda` expands then filters |
 
 ---
@@ -935,7 +940,7 @@ Generate only (not camera scan).
 
 | Property | Type | | |
 | --- | --- | --- | --- |
-| `Cells` | `IList<NVSpreadsheetCell>` | **custom** — `Row`, `Column`, `Text` / `Value` | |
+| `Cells` | `IList ` | **custom** — `Row`, `Column`, `Text` / `Value` | |
 
 ### NVChat / NVAIPrompt / NVAiAssistView / NVSmartPasteButton
 
@@ -947,8 +952,8 @@ Generate only (not camera scan).
 
 | Property | Type | | |
 | --- | --- | --- | --- |
-| `NVChat.Messages` | `IList<NVChatMessage>` | **custom** — `Author`, `Text`, `IsMine`, `At` | |
-| `NVChat.Attachments` / `IsStreaming` | `IList<NVFileChip>` / `bool` | `AppendStream` / `Attach` | |
+| `NVChat.Messages` | `IList ` | **custom** — `Author`, `Text`, `IsMine`, `At` | |
+| `NVChat.Attachments` / `IsStreaming` | `IList ` / `bool` | `AppendStream` / `Attach` | |
 | `NVAIPrompt.Text` | `string` | | |
 | `NVAiAssistView.Prompt` | `string` | **custom** | |
 
@@ -1045,7 +1050,7 @@ Inherits `NVDropDownButton` (`Text`, `Items`).
 
 | Property | Type | | |
 | --- | --- | --- | --- |
-| `Items` or `Groups` | `IList<string>` | `Groups` is **custom** | |
+| `Items` or `Groups` | `IList ` | `Groups` is **custom** | |
 
 ### NVIndexBar / NVSkeletonList / NVInfiniteFooter / NVReactionBar / NVTypingIndicator / NVStoryRing
 
@@ -1070,12 +1075,12 @@ Chrome with no extra bindables (fixed demo content).
 
 ## Forms plus
 
-### NVEmailField / NVPhoneField / NVPasswordField / NVCouponField / NVQuantityStepper
+### NVInputField / NVPhoneField / NVPasswordField / NVCouponField / NVQuantityStepper
 
-Specialized `NVTextField` / `NVMaskedEntry` / `NVNumericUpDown`. No new property names beyond inherited + `NVPhoneField.Mask`.
+Specialized `NVTextField` / `NVMaskedEntry` / `NVNumericUpDown`. No new property names beyond inherited + `NVPhoneField.Mask`. `NVInputField` is the generic labeled input (`NVEmailField` was renamed in 1.5.0).
 
 ```xml
-<nv:NVEmailField Text="{Binding Email}" />
+<nv:NVInputField Label="Email" Text="{Binding Email}" />
 <nv:NVPasswordField Text="{Binding Secret}" />
 <nv:NVQuantityStepper Value="1" />
 ```
@@ -1164,12 +1169,12 @@ Specialized `NVTextField` / `NVMaskedEntry` / `NVNumericUpDown`. No new property
 
 | Property | Type | | |
 | --- | --- | --- | --- |
-| `NVTimeline.Items` | `IList<NVTimelineItem>` | **custom** — `Title`, `Detail`, `At` | |
+| `NVTimeline.Items` | `IList ` | **custom** — `Title`, `Detail`, `At` | |
 | `NVWizard.Steps` / `Index` | | **custom** | |
 | `NVStickyBar.Text` | `string` | | |
 | `NVCartBar.Total` | `double` | **custom** | |
 | `NVTicket.Title` / `Code` | `string` | **custom** | |
-| `NVSeatPicker.Seats` | `IList<NVSeatCell>` | **custom** — `Label`, `Taken` | |
+| `NVSeatPicker.Seats` | `IList ` | **custom** — `Label`, `Taken` | |
 
 ---
 
@@ -1200,7 +1205,7 @@ Specialized `NVTextField` / `NVMaskedEntry` / `NVNumericUpDown`. No new property
 
 | Property | Type | | |
 | --- | --- | --- | --- |
-| `NVImageGallery.Items` | `IList<string>` | | |
+| `NVImageGallery.Items` | `IList ` | | |
 | `NVWebView.Url` | `string` | **custom** — http(s) only | |
 
 Video / audio / voice are chrome (host supplies decode / capture).
@@ -1236,23 +1241,23 @@ Compositions. `NVPermissionCard` has `Title`.
 | Type | Property | Type | Default | |
 | --- | --- | --- | --- | --- |
 | `NVCommandPalette` | `Query` | `string` | `""` | **custom** |
-| | `Commands` / `Recents` | `IList<NVCommandItem>` | empty | **custom** |
-| `NVCoachMark` | `Steps` | `IList<NVCoachStep>` | empty | **custom** |
+| | `Commands` / `Recents` | `IList ` | empty | **custom** |
+| `NVCoachMark` | `Steps` | `IList ` | empty | **custom** |
 | | `Index` | `int` | `0` | |
-| `NVContextMenu` | `Items` | `IList<NVMenuAction>` | empty | **custom** |
+| `NVContextMenu` | `Items` | `IList ` | empty | **custom** |
 | | `OpenCommand` | `ICommand` | open | **custom** |
-| `NVFileDrop` | `Files` | `IList<NVFileChip>` | empty | **custom** |
+| `NVFileDrop` | `Files` | `IList ` | empty | **custom** |
 | | `PickCommand` | `ICommand` | | **custom** |
 | `NVPaywall` | `Title` / `Message` | `string` | | |
 | | `IsBlocking` | `bool` | `false` | **custom** |
 | | `Plans` | `View` | | **custom** |
 | `NVWhatsNew` | `VersionTitle` | `string` | `"What's new"` | **custom** |
-| | `Items` | `IList<string>` | empty | |
+| | `Items` | `IList ` | empty | |
 | `NVConsentBanner` | `Text` | `string` | privacy copy | |
 | | `IsAccepted` | `bool` | `false` | **custom** |
 | | `AcceptCommand` / `ManageCommand` | `ICommand` | | **custom** |
 | `NVHeatCalendar` | `Month` | `DateTime` | today | **custom** |
-| | `Values` | `IList<NVHeatDay>` | empty | **custom** |
+| | `Values` | `IList ` | empty | **custom** |
 
 Empty palette query shows `Recents`. Filter is case-insensitive. Paywall `Dismiss` is a no-op when `IsBlocking`. File drop ignores chips with an empty `Name`. Heat calendar cells equal days in `Month`; missing values draw empty.
 
@@ -1260,11 +1265,11 @@ Empty palette query shows `Recents`. Filter is case-insensitive. Paywall `Dismis
 
 | Type | Property | Type | |
 | --- | --- | --- | --- |
-| `NVSpeedDial` | `Actions` / `IsOpen` | `IList<NVSpeedDialAction>` / `bool` | **custom** |
+| `NVSpeedDial` | `Actions` / `IsOpen` | `IList ` / `bool` | **custom** |
 | `NVSubscriptionCard` | `Name` / `Price` / `Features` / `CtaText` / `CtaCommand` | | **custom** |
 | `NVEmojiPicker` | `Query` / `Glyphs` / `Selected` | | **custom** |
-| `NVPivotGrid` | `Facts` | `IList<NVPivotFact>` | **custom** |
-| `NVPropertyGrid` | `Items` | `IList<NVPropertyItem>` | **custom** |
+| `NVPivotGrid` | `Facts` | `IList ` | **custom** |
+| `NVPropertyGrid` | `Items` | `IList ` | **custom** |
 | `NVJsonTree` | `Json` | `string` | **custom** |
 | `NVDiffView` | `Left` / `Right` / `Mode` | `string` / `NVDiffMode` | **custom** |
 | `NVCodeEditor` | `Text` | `string` | |

@@ -4,7 +4,7 @@ export const uiKit = {
   name: "UIKit(MAUI)",
   title: "NuvyntraLabs.UIKit",
   packageId: "NuvyntraLabs.UIKit",
-  version: "1.4.0",
+  version: "1.5.1",
   license: "MIT",
   github: "https://github.com/nuvyntralabs/NuvyntraLabs.UIKit",
   nuget: "https://www.nuget.org/packages/NuvyntraLabs.UIKit",
@@ -18,7 +18,7 @@ export const uiKit = {
   description:
     "Lumina-themed UI library for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. One package: NV* controls, design tokens, and page recipes. This is a UI library, not a MauiEssentials runtime plugin.",
   abstract:
-    "NuvyntraLabs.UIKit 1.4.0 is the Lumina catalog for a typical MAUI app: foundation tokens, 201 NV* controls from primitives through advanced and Next chrome, and 66 NV*View page recipes. Register with UseNuvyntraUIKit(), then use xmlns nv. 1.4 deepens lists, grids, charts, calendar, and media so catalog types look and behave like the control. Kit-level APIs stay a working Lumina surface — not Telerik or Syncfusion parity. PDF, Docx, and Spreadsheet are viewers. NVBarcode generates; it does not scan. Compose FormValidation, KeyboardManager, and MVVMExpress at the host. This library does not PackageReference Plugin.Maui.*.",
+    "NuvyntraLabs.UIKit 1.5.1 is the Lumina catalog for a typical MAUI app: foundation tokens, 201 NV* controls from primitives through advanced and Next chrome, and 66 NV*View page recipes. Register with UseNuvyntraUIKit(), then use xmlns nv. 1.5.0 renamed NVEmailField to NVInputField. 1.5.1 adds type scale, RTL flow, contrast-safe ink, and Escape / Ctrl+K overlay shortcuts — hosts that pin 1.5.0 keep compiling. Kit-level APIs stay a working Lumina surface — not Telerik or Syncfusion parity. PDF, Docx, and Spreadsheet are viewers. NVBarcode generates; it does not scan. Compose FormValidation, KeyboardManager, and MVVMExpress at the host. This library does not PackageReference Plugin.Maui.*.",
   tags: [
     ".NET MAUI",
     "UI kit",
@@ -35,6 +35,8 @@ export const uiKit = {
     "UseNuvyntraUIKit() registers fonts and the Lumina theme (NVTheme, NVTokens, Outfit).",
     "201 controls plus helpers NVRadioGroup and NVFormField — basics through advanced, plus 1.2 / 1.3 chrome.",
     "66 NV*View page recipes for auth, commerce, content, social, files, system, invoice, call, and address screens.",
+    "1.5.1 theming: NVTheme.Current.SetTypeScale(0.8–2) and SetFlowDirection. RTL flips start padding, carousel swipe, and chevrons. Contrast picks OnAccent / On(fill) when white fails 4.5:1.",
+    "OverlayHost.TryHandleKey(Escape) and NVCommandPalette.TryHandleShortcut(Ctrl/Cmd+K). Blocking paywall ignores Escape.",
     "1.4 deepens lists (selection, groups, swipe), grids (filter, sort, frozen columns, paging), charts, calendar, and media.",
     "Targets net10.0, Android API 21+, iOS 15+, Mac Catalyst 15+, and Windows 10.0.17763+ (packed on Windows).",
     "MIT. Font is Outfit (OFL). Look is original Lumina — not a Syncfusion or Telerik theme.",
@@ -61,7 +63,7 @@ export const uiKitLayers = [
   },
   {
     name: "Inputs",
-    types: "NVTextField, NVEmailField, NVPasswordStrength, NVPinPad, NVDateRangePicker, NVFormField",
+    types: "NVTextField, NVInputField, NVPasswordStrength, NVPinPad, NVDateRangePicker, NVFormField",
     role: "Labeled fields with helper / error chrome.",
   },
   {

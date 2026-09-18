@@ -57,10 +57,10 @@ export const toolkits: ToolkitDoc[] = [
     packageId: "NuvyntraLabs.Nuvyn.Cli",
     vscodeMarketplace: null,
     language: "C#",
-    version: "0.2.0",
+    version: "1.0.0",
     notice: {
-      title: "0.2.0 — Spec Kit agent set",
-      text: "nuvyn init still creates a new folder only (no --here / --force). The --agent picker now matches Spec Kit: Cursor, Copilot, Claude, Gemini, Codex, Windsurf, and 30+ more. Diagnose an existing tree with maui-dev doctor.",
+      title: "1.0.0 — nuvyn update",
+      text: "nuvyn init still creates a new folder only (no --here / --force). nuvyn update refreshes .nuvyn/templates, .nuvyn/reference, and slash files on an existing app without touching host code, specs, or constitution. nuvyn check now also proves the host still uses the smallest Nuvyntra package set.",
     },
     tags: [".NET MAUI", "CLI", "spec-driven", "agentic", "MVVMExpress", "UIKit"],
     abstract:
@@ -69,6 +69,8 @@ export const toolkits: ToolkitDoc[] = [
       "nuvyn init <folder> — new three-project MAUI host (no overlay).",
       "Default packages: MVVMExpress, UIKit, HttpForge, FormValidation, KeyboardManager (latest nuget.org).",
       "Slash chain: constitution → specify → clarify → plan → checklist → task → analysis → implement → converge.",
+      "nuvyn update — refresh templates, reference, and slash files on an existing Nuvyn app (no host overlay).",
+      "nuvyn check — dotnet + payload, and inside an app prove the smallest MVVMExpress + UIKit package set.",
       "Agents: Spec Kit set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, Goose, generic, and 30+ more.",
       "Standing law in .nuvyn/reference/constraints.md — sleek Lumina, catalog first, API data until asked to persist.",
     ],
@@ -103,15 +105,33 @@ Next
         group: "Create",
         purpose: "Print the installed CLI version",
         usage: "nuvyn version",
-        sample: "NuvyntraLabs.Nuvyn.Cli 0.2.0",
+        sample: "NuvyntraLabs.Nuvyn.Cli 1.0.0",
+      },
+      {
+        name: "nuvyn update",
+        group: "Create",
+        purpose: "Refresh .nuvyn templates, reference, and slash files on an existing Nuvyn app",
+        usage: `nuvyn update
+nuvyn update --agent cursor`,
+        sample: `Nuvyn
+────────────────────────────────────
+
+[1] App: ./ClinicApp
+[2] Agent: Cursor
+[3] Refreshing .nuvyn templates…
+✓ .nuvyn/reference/constraints.md
+[4] Writing Cursor commands…
+✓ .cursor/skills/nuvyn-constitution/SKILL.md`,
+        notes: "Leaves host code, specs/, and .nuvyn/constitution.md alone. Does not change PackageReference versions. Run from the app folder. --vertical is not in 1.0.",
       },
       {
         name: "nuvyn check",
         group: "Create",
-        purpose: "Confirm dotnet is on PATH and the embedded payload resolves",
+        purpose: "Confirm dotnet and the payload; inside a Nuvyn app also prove the host package set",
         usage: "nuvyn check",
         sample: `✓ dotnet is on PATH
-✓ Payload: /…/payload`,
+✓ Payload: /…/payload
+✓ Host: MVVMExpress + UIKit + HttpForge + FormValidation + KeyboardManager`,
       },
     ],
     globalOptions: ["--agent cursor|copilot|claude|gemini|codex|windsurf|… (Spec Kit set)", "--help"],
@@ -120,6 +140,7 @@ nuvyn init ClinicApp --agent cursor`,
     installNote:
       "NuvyntraLabs.Nuvyn.Cli is a global dotnet tool (net10.0). Do not run dotnet add package NuvyntraLabs.Nuvyn.Cli in an app. Publishing is pipeline-only on the Nuvyn repository.",
     examples: `nuvyn init HarborDesk --agent cursor
+nuvyn update
 nuvyn version
 nuvyn check`,
     fixAllowList: [
@@ -132,8 +153,8 @@ nuvyn check`,
       "Never publishes or pushes NuGet packages from a local clone.",
     ],
     ci: `# Publishing is pipeline-only on nuvyntralabs/Nuvyn
-# Order: version alignment → tests → pack (PackAsTool) → nuget.org + GitHub Packages`,
-    later: ["nuvyn update", "--vertical", "GitHub issue export"],
+# Order: version alignment → tests → prove nuvyn init host → pack (PackAsTool) → nuget.org + GitHub Packages`,
+    later: ["--vertical (1.1, after a Lumina Playground head regenerates without hand-edits)", "GitHub issue export"],
     alternatives:
       "GitHub Spec Kit covers any stack. MauiDev diagnoses an existing MAUI tree. Stock dotnet new maui scaffolds pages without the Nuvyntra lock or slash chain.",
     notFor: [
@@ -154,6 +175,9 @@ nuvyn check`,
       },
     ],
     releaseNotes: [
+      "1.0.0. nuvyn update refreshes templates, reference, and slash files without overlaying host code.",
+      "1.0.0. nuvyn check proves the initiated host still uses the smallest Nuvyntra package set.",
+      "1.0.0. CI proves nuvyn init (smallest packages + Core/Tests + Android TFM) before pack.",
       "0.2.0. --agent picker matches Spec Kit (Cursor, Copilot, Claude, Gemini, Codex, Windsurf, Goose, generic, and 30+ more).",
       "0.2.0. Slash commands install into each agent's usual project folder (skills, markdown, TOML, Goose YAML).",
       "0.1.0. nuvyn init scaffolds the embedded UIKit host and installs Cursor, Copilot, Claude, and Gemini slash commands.",

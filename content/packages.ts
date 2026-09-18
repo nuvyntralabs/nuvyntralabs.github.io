@@ -241,7 +241,7 @@ export const packages: PackageDoc[] = [
     "name": "Plugin.Maui.Geofence",
     "title": "Plugin.Maui.Geofence",
     "subtitle": "Circular geofence enter, exit, and dwell (max 20)",
-    "description": "Registers circular geofence regions and raises enter, exit, and dwell transitions for depot, site, and attendance apps on Android and iOS.",
+    "description": "Circular geofence enter / exit / dwell (max 20 regions) for depot, site, and attendance apps on Android and iOS. Not a GPS tracker — use GeoLocator for a current fix.",
     "github": "https://github.com/nuvyntralabs/Plugin.Maui.Geofence",
     "nuget": "https://www.nuget.org/packages/Plugin.Maui.Geofence",
     "language": "C#",
@@ -254,9 +254,11 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.Geofence is a circular-region monitor for MAUI on Android and iOS. It is not a GPS tracker. GeoLocator answers where the device is now. This plugin answers when the user enters, exits, or dwells in up to 20 named regions. 1.0 Android is an in-memory register plus Raise() for samples — it does not take a Play Services GeofencingClient dependency. iOS uses CLCircularRegion. Invalid radius or empty ids fail closed.",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "releaseNotes": [
-      "1.0.1. Current nuget.org pack.",
+      "1.0.3. NuGet description and README / CHANGELOG / AGENTS / llms.txt aligned with the current API.",
+      "1.0.2. nuget.org pack.",
+      "1.0.1. nuget.org pack.",
       "1.0.0. First stable release. Max 20 regions, enter / exit / dwell, Raise() for tests and samples."
     ],
     "capabilities": [
@@ -847,7 +849,7 @@ export const packages: PackageDoc[] = [
     "name": "Plugin.Maui.VideoPipeline",
     "title": "Plugin.Maui.VideoPipeline",
     "subtitle": "Camera/gallery video — limits, thumbnail, encrypt",
-    "description": "A video pipeline for .NET MAUI: camera or gallery → duration, resolution, and size limits, thumbnail, AES-256-GCM encrypt, then FileVault or SmartUpload. 1.0 does not bundle FFmpeg.",
+    "description": "Camera or gallery video → duration, resolution, and size limits, thumbnail, AES-256-GCM encrypt, then FileVault or SmartUpload. 1.0 does not bundle FFmpeg.",
     "github": "https://github.com/nuvyntralabs/Plugin.Maui.VideoPipeline",
     "nuget": "https://www.nuget.org/packages/Plugin.Maui.VideoPipeline",
     "language": "C#",
@@ -862,9 +864,11 @@ export const packages: PackageDoc[] = [
       "Windows"
     ],
     "abstract": "Plugin.Maui.VideoPipeline is the video counterpart to MediaPipeline. Pick from camera or gallery, then apply MaxDuration, MaxResolution, and MaxBytes. Over-size or over-duration files fail with TooLarge / TooLong / CannotTranscode — 1.0 does not transcode with FFmpeg. Encrypt(key) writes an AES-256-GCM .vault file. Handoff through UploadWith or StoreIn. Android, iOS, Mac Catalyst, and Windows.",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "releaseNotes": [
-      "1.0.1. Current nuget.org pack.",
+      "1.0.3. NuGet description and README / CHANGELOG / AGENTS / llms.txt aligned with the current API.",
+      "1.0.2. nuget.org pack.",
+      "1.0.1. nuget.org pack.",
       "1.0.0. First stable release. FromCamera / FromGallery, limits, thumbnail, Encrypt, no FFmpeg."
     ],
     "capabilities": [
@@ -1135,8 +1139,8 @@ export const packages: PackageDoc[] = [
     "slug": "plugin-maui-app-review",
     "name": "Plugin.Maui.AppReview",
     "title": "Plugin.Maui.AppReview",
-    "subtitle": "In-app store review eligibility and listing",
-    "description": "Prompts a Play / App Store review when launch, day, and cooldown rules allow, and opens the store listing as a fallback. Not an in-app binary update.",
+    "subtitle": "iOS in-app review plus store listing",
+    "description": "iOS in-app review (SKStoreReviewController) plus open the store listing. Android 1.0 opens the Play listing — Play Core ReviewManager is not bundled. Not an in-app binary update.",
     "github": "https://github.com/nuvyntralabs/Plugin.Maui.AppReview",
     "nuget": "https://www.nuget.org/packages/Plugin.Maui.AppReview",
     "language": "C#",
@@ -1149,9 +1153,11 @@ export const packages: PackageDoc[] = [
       "C#"
     ],
     "abstract": "Plugin.Maui.AppReview owns review eligibility and the store listing — not binary updates. AppUpdate ships Play In-App Updates and App Store version checks. This plugin counts launches and days, honors a cooldown, then calls RequestAsync. Android 1.0 opens the Play listing (market://details?id=); Play Core in-app review is not bundled. iOS uses SKStoreReviewController when eligible and iOSAppStoreId for the listing fallback. Shown means the OS was asked, not that the user rated.",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "releaseNotes": [
-      "1.0.1. Current nuget.org pack.",
+      "1.0.3. NuGet description and README / CHANGELOG / AGENTS / llms.txt aligned: iOS review UI, Android listing-only.",
+      "1.0.2. nuget.org pack.",
+      "1.0.1. nuget.org pack.",
       "1.0.0. First stable release. Eligibility counters, RequestAsync, OpenStoreListingAsync, ResetCounters."
     ],
     "capabilities": [

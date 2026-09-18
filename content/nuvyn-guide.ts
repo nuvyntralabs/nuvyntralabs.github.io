@@ -228,8 +228,9 @@ const implementationSections: DocSection[] = [
         type: "ul",
         items: [
           "`nuvyn init <folder>` — create a new project only.",
+          "`nuvyn update` — refresh templates, reference, and slash files on an existing Nuvyn app.",
           "`nuvyn version` — print the tool version.",
-          "`nuvyn check` — confirm `dotnet` is on PATH and the embedded payload resolves.",
+          "`nuvyn check` — confirm `dotnet` and the payload; inside an app also prove the host package set.",
           "`nuvyn --help` — usage.",
         ],
       },
@@ -352,7 +353,7 @@ builder.Services.AddTransient<MainPage>();`,
       },
       {
         type: "p",
-        text: "Roadmap (not in 0.2.0): `--vertical`, `nuvyn update`, GitHub issue export. Coding agents already match Spec Kit.",
+        text: "Roadmap (1.1): `--vertical` only after one Lumina Playground head regenerates without hand-edits; GitHub issue export. Coding agents already match Spec Kit.",
       },
     ],
   },
@@ -423,7 +424,7 @@ const installSections: DocSection[] = [
       },
       {
         type: "p",
-        text: `That is a **global tool**, not an app PackageReference. Do not \`dotnet add package ${nuvyn.packageId}\`. Other commands: \`nuvyn check\`, \`nuvyn --help\`.`,
+        text: `That is a **global tool**, not an app PackageReference. Do not \`dotnet add package ${nuvyn.packageId}\`. After the CLI updates, [refresh skills](${nuvynGuideBase}/refresh/) with \`nuvyn update\` inside the app. Other commands: \`nuvyn check\`, \`nuvyn --help\`.`,
       },
       {
         type: "link",
@@ -538,6 +539,31 @@ dotnet build HarborDesk/HarborDesk.csproj -f net10.0-android`,
         type: "code",
         code: `dotnet tool install -g Plugin.Maui.MauiDev.Cli --source https://api.nuget.org/v3/index.json
 maui-dev doctor`,
+      },
+    ],
+  },
+];
+
+const refreshSections: DocSection[] = [
+  {
+    id: "update",
+    title: "Refresh skills on an existing app",
+    blocks: [
+      {
+        type: "p",
+        text: "Do **not** re-run `nuvyn init` on a tree that already exists. After you update the global CLI (`dotnet tool update -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json`), refresh the app's slash files:",
+      },
+      {
+        type: "code",
+        code: nuvyn.refresh,
+      },
+      {
+        type: "p",
+        text: "`update` overwrites `.nuvyn/templates/`, `.nuvyn/reference/`, and the agent command files. It leaves host code, `specs/`, and `.nuvyn/constitution.md` alone. It does not change PackageReference versions. `--vertical` is not in 1.0.",
+      },
+      {
+        type: "p",
+        text: "`nuvyn check` inside the app also proves the host still uses MVVMExpress + UIKit + HttpForge + FormValidation + KeyboardManager — and nothing else from the catalog.",
       },
     ],
   },
@@ -675,7 +701,8 @@ const troubleshootingSections: DocSection[] = [
         type: "table",
         headers: ["Symptom", "What to do"],
         rows: [
-          ["`ClinicApp already exists`", "`init` is new projects only. The existing folder was not changed. Pick another name, or delete a leftover failed scaffold, then retry."],
+          ["`ClinicApp already exists`", "`init` is new projects only. The existing folder was not changed. Pick another name, or delete a leftover failed scaffold, then retry. To refresh skills, `cd` into the app and run `nuvyn update`."],
+          ["`Not a Nuvyn project`", "`update` / `check` host proof need a `.nuvyn/` folder from `nuvyn init`."],
           ["Launch: unable to resolve `MainPageViewModel`", "Add `builder.Services.AddTransient<MainPageViewModel>()`."],
           ["Build: `AddGeneratedViewModels` / `Plugin.Maui.MVVMExpress.Generated`", "Remove that call and using. Register the view-model with `AddTransient`."],
           ["Two `.UseMvvmExpress()` calls", "Keep only the configured `UseMvvmExpress(o => …)` chain."],
@@ -693,7 +720,7 @@ const troubleshootingSections: DocSection[] = [
         type: "table",
         headers: ["Need", "Tool", "Notes"],
         rows: [
-          ["New Nuvyntra MAUI host + spec chain", "**Nuvyn** (`nuvyn init`)", "This guide"],
+          ["New Nuvyntra MAUI host + spec chain", "**Nuvyn** (`nuvyn init`, then `nuvyn update`)", "This guide"],
           ["Diagnose an existing MAUI tree", "[MauiDev](/toolkits/maui-dev/) (`maui-dev doctor`)", "Project-aware doctor"],
           ["Any stack, spec only", "[GitHub Spec Kit](https://github.com/github/spec-kit) (`specify`)", "No MVVMExpress / UIKit host"],
           ["One plugin", "The matching `Plugin.Maui.*`", "[Catalog](/packages/)"],
@@ -701,7 +728,7 @@ const troubleshootingSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "Roadmap (not in 0.2.0): `nuvyn update`, `--vertical`. Coding agents already match Spec Kit.",
+        text: "Roadmap (1.1): `--vertical` only after one Lumina Playground head regenerates without hand-edits; GitHub issue export. Coding agents already match Spec Kit.",
       },
       {
         type: "link",
@@ -758,6 +785,14 @@ const pages: NuvynGuidePage[] = [
     sections: createAppSections,
   },
   {
+    slug: "refresh",
+    title: "Refresh skills",
+    description: "nuvyn update refreshes templates and slash files. It does not overlay host code or the constitution.",
+    href: `${nuvynGuideBase}/refresh/`,
+    kind: "guide",
+    sections: refreshSections,
+  },
+  {
     slug: "workflow",
     title: "Slash workflow",
     description: "Run constitution → specify → clarify → plan → checklist → task → analysis → implement → converge.",
@@ -803,6 +838,7 @@ export const nuvynGuideNav: GuideNavGroup[] = [
     items: [
       { title: "Install", href: `${nuvynGuideBase}/` },
       { title: "Create an app", href: `${nuvynGuideBase}/create-app/` },
+      { title: "Refresh skills", href: `${nuvynGuideBase}/refresh/` },
       { title: "Slash workflow", href: `${nuvynGuideBase}/workflow/` },
       { title: "Ecosystem rules", href: `${nuvynGuideBase}/ecosystem/` },
       { title: "Troubleshooting", href: `${nuvynGuideBase}/troubleshooting/` },
