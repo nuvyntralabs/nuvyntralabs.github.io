@@ -20,9 +20,9 @@ export const nuvyn = {
   tags: [".NET MAUI", "CLI", "spec-driven", "agentic", "MVVMExpress", "UIKit"],
   abstract:
     "Nuvyn is a standalone PackAsTool CLI. It depends only on System.CommandLine and Spectre.Console. nuvyn init copies an embedded three-project host, adds the default Nuvyntra packages from nuget.org, writes .nuvyn/ standing law, and installs slash commands for the Spec Kit coding-agent set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, and 30+ more. It does not overlay an existing app and it does not replace maui-dev doctor.",
-  install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli
+  install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
 nuvyn init ClinicApp --agent cursor`,
-  update: `dotnet tool update -g NuvyntraLabs.Nuvyn.Cli
+  update: `dotnet tool update -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
 nuvyn version`,
   platforms: ["Android", "iOS", "Mac Catalyst", "Windows"],
   defaultPackages: [

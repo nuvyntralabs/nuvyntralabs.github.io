@@ -104,7 +104,7 @@ export default function GettingStartedPage() {
             — install the <strong>MVVMExpress</strong> Marketplace listings.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
-            <code>{`dotnet tool install -g NuvyntraLabs.Nuvyn.Cli
+            <code>{`dotnet tool install -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
 nuvyn init FieldApp --agent cursor
 
 dotnet new maui -n FieldApp
@@ -292,7 +292,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             Do not add it as a PackageReference.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
-            <code>{`dotnet tool install -g Plugin.Maui.MauiDev.Cli
+            <code>{`dotnet tool install -g Plugin.Maui.MauiDev.Cli --source https://api.nuget.org/v3/index.json
 maui-dev doctor
 maui-dev permissions --fix --dry-run
 maui-dev publish --validate

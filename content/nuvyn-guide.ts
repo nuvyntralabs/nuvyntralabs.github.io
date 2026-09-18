@@ -536,7 +536,7 @@ dotnet build HarborDesk/HarborDesk.csproj -f net10.0-android`,
       },
       {
         type: "code",
-        code: `dotnet tool install -g Plugin.Maui.MauiDev.Cli
+        code: `dotnet tool install -g Plugin.Maui.MauiDev.Cli --source https://api.nuget.org/v3/index.json
 maui-dev doctor`,
       },
     ],

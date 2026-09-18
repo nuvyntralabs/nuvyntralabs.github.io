@@ -115,7 +115,7 @@ Sample: ${uiKit.sample}
 ## Nuvyn
 
 ${siteConfig.url}${nuvynHref}
-Spec-driven CLI (${nuvyn.packageId} ${nuvyn.version}) for new .NET MAUI apps on Android, iOS, Windows, and Mac Catalyst. Domain-agnostic. Stack locked to MVVMExpress, Lumina UIKit, HttpForge, FormValidation, and KeyboardManager. Install: dotnet tool install -g ${nuvyn.packageId}. Then: nuvyn init MyApp --agent cursor. Do not dotnet add package the CLI. init never overlays an existing folder (no --here / --force). Compose with maui-dev doctor after init. Not a Spec Kit clone — use Spec Kit when the stack is not Nuvyntra.
+Spec-driven CLI (${nuvyn.packageId} ${nuvyn.version}) for new .NET MAUI apps on Android, iOS, Windows, and Mac Catalyst. Domain-agnostic. Stack locked to MVVMExpress, Lumina UIKit, HttpForge, FormValidation, and KeyboardManager. Install: dotnet tool install -g ${nuvyn.packageId} --source https://api.nuget.org/v3/index.json. Then: nuvyn init MyApp --agent cursor. Do not dotnet add package the CLI. init never overlays an existing folder (no --here / --force). Compose with maui-dev doctor after init. Not a Spec Kit clone — use Spec Kit when the stack is not Nuvyntra.
 GitHub: ${nuvyn.github}
 NuGet: ${nuvyn.nuget}
 Technical docs: ${siteConfig.url}${nuvynDocsBase}/

@@ -115,7 +115,7 @@ Next
       },
     ],
     globalOptions: ["--agent cursor|copilot|claude|gemini|codex|windsurf|… (Spec Kit set)", "--help"],
-    install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli
+    install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
 nuvyn init ClinicApp --agent cursor`,
     installNote:
       "NuvyntraLabs.Nuvyn.Cli is a global dotnet tool (net10.0). Do not run dotnet add package NuvyntraLabs.Nuvyn.Cli in an app. Publishing is pipeline-only on the Nuvyn repository.",
@@ -511,7 +511,7 @@ Recommendations
 maui-dev benchmark startup`,
         sample: `maui-perf is not on PATH.
 
-Install:  dotnet tool install -g Plugin.Maui.Performance.Cli
+Install:  dotnet tool install -g Plugin.Maui.Performance.Cli --source https://api.nuget.org/v3/index.json
 Then:     maui-dev benchmark startup
 
 MD900  benchmark requires maui-perf (Plugin.Maui.Performance.Cli).`,
@@ -571,7 +571,7 @@ Recommendations
       "--warn-as-error",
       "--timeout",
     ],
-    install: `dotnet tool install -g Plugin.Maui.MauiDev.Cli
+    install: `dotnet tool install -g Plugin.Maui.MauiDev.Cli --source https://api.nuget.org/v3/index.json
 maui-dev doctor`,
     installNote:
       "Plugin.Maui.MauiDev.Cli is a global dotnet tool (net10.0). The command stays maui-dev. Do not run dotnet add package Plugin.Maui.MauiDev.Cli in an app. nuget.org reserved the ID MauiDev.Cli. Publishing is pipeline-only on the MauiDev repository.",

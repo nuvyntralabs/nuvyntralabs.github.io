@@ -218,7 +218,7 @@ export const performanceIntegrationSections: DocSection[] = [
       {
         type: "code",
         code: `dotnet add package Plugin.Maui.Performance
-dotnet tool install -g Plugin.Maui.Performance.Cli`,
+dotnet tool install -g Plugin.Maui.Performance.Cli --source https://api.nuget.org/v3/index.json`,
       },
       {
         type: "p",
@@ -332,7 +332,7 @@ MauiProfile.Mark("CartReady");
       },
       {
         type: "code",
-        code: `dotnet tool install -g Plugin.Maui.Performance.Cli
+        code: `dotnet tool install -g Plugin.Maui.Performance.Cli --source https://api.nuget.org/v3/index.json
 
 maui-perf startup -f android
 maui-perf screen -f ios --speedscope --duration 30s
