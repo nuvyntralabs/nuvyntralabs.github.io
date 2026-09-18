@@ -197,7 +197,7 @@ const agenticSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "Install the CLI, pick an agent at `init`, then open **that project folder** in Cursor, Copilot, Claude Code, or Gemini CLI. Run the slash commands in order. Pass extra text after the command when you have a prompt.",
+        text: "Install the CLI, pick an agent at `init`, then open **that project folder** in Cursor, Copilot, Claude Code, Gemini CLI, Codex, Windsurf, or any other Spec Kit agent. Run the slash commands in order. Pass extra text after the command when you have a prompt.",
       },
       {
         type: "code",
@@ -249,7 +249,7 @@ const implementationSections: DocSection[] = [
 ├── src/NuvyntraLabs.Nuvyn.Cli/
 │   ├── Commands/             # Init, Version, Check
 │   ├── Scaffolding/          # Host, packages, agent files
-│   ├── Agents/               # Cursor, Copilot, Claude, Gemini
+│   ├── Agents/               # Spec Kit coding-agent set
 │   ├── Workflow/             # Slash ids + handoffs
 │   └── Infrastructure/       # PayloadRoot
 └── tests/NuvyntraLabs.Nuvyn.Cli.Tests/`,
@@ -272,7 +272,7 @@ const implementationSections: DocSection[] = [
         type: "ol",
         items: [
           "Validate `project_name`: starts with a letter; letters, digits, `.`, `_`, `-`; max 64 characters.",
-          "Resolve `--agent` (`cursor`, `copilot`, `claude`, `gemini`). Prompt when omitted; default Cursor when non-interactive.",
+          "Resolve `--agent` from the Spec Kit set (`cursor`, `copilot`, `claude`, `gemini`, `codex`, `windsurf`, …). Searchable picker when omitted; default Cursor when non-interactive.",
           "Create the folder. Resolve `PayloadRoot` (embedded payload next to the tool).",
           "`HostScaffolder.Scaffold` — copy `payload/host/`, then `dotnet add` default packages, then patch `MauiProgram`.",
           "`PayloadInstaller` — write `.nuvyn/` (constitution, templates, reference, `init-options.json`).",
@@ -335,20 +335,24 @@ builder.Services.AddTransient<MainPage>();`,
     blocks: [
       {
         type: "p",
-        text: "`AgentInstaller` reads `payload/commands/<id>.md` and writes one file per slash command. Cursor and Copilot use skill folders (`nuvyn-constitution` — a folder name cannot contain `.`). Claude writes `.claude/commands/nuvyn.<id>.md`. Gemini writes `.gemini/commands/nuvyn.<id>.toml`.",
+        text: "`AgentInstaller` reads `payload/commands/<id>.md` and writes one file per slash command into the folder that agent already reads (same destinations Spec Kit uses). Cursor, Copilot, and Codex-style agents use skill folders (`nuvyn-constitution` — a folder name cannot contain `.`). Claude writes `.claude/commands/nuvyn.<id>.md`. Gemini writes `.gemini/commands/nuvyn.<id>.toml`. Goose writes `.goose/recipes/nuvyn.<id>.yaml`.",
       },
       {
         type: "table",
-        headers: ["Agent", "On disk"],
-        rows: nuvyn.agents.map((agent) => [agent.label, agent.folder]),
+        headers: ["Agent", "`--agent`", "On disk"],
+        rows: nuvyn.agents.map((agent) => [agent.label, `\`${agent.id}\``, agent.folder]),
       },
       {
         type: "p",
-        text: "Wrappers add YAML front matter (name, description, handoffs) or a Gemini TOML prompt. Handoffs come from `NuvynCommands.Handoffs`: constitution → specify → clarify / plan → checklist / task → analysis / implement → converge → implement again.",
+        text: `Also: ${nuvyn.moreAgents}. Pass \`--agent cursor-agent\` if you already use that Spec Kit key.`,
       },
       {
         type: "p",
-        text: "Roadmap (not in 0.1.0): `codex`, `opencode`, `zed`, `generic`, `--vertical`, `nuvyn update`, GitHub issue export.",
+        text: "Wrappers add YAML front matter (name, description, handoffs), a Gemini TOML prompt, or Goose YAML. Handoffs come from `NuvynCommands.Handoffs`: constitution → specify → clarify / plan → checklist / task → analysis / implement → converge → implement again.",
+      },
+      {
+        type: "p",
+        text: "Roadmap (not in 0.2.0): `--vertical`, `nuvyn update`, GitHub issue export. Coding agents already match Spec Kit.",
       },
     ],
   },
@@ -391,7 +395,7 @@ const installSections: DocSection[] = [
         rows: [
           [".NET 10 SDK", "The CLI is net10.0. Hosts target net10.0-android / ios / maccatalyst / windows10.0.19041.0"],
           ["MAUI workload", "So you can build and run the host"],
-          ["An AI coding agent", "Cursor, GitHub Copilot, Claude Code, or Gemini CLI"],
+          ["An AI coding agent", "Cursor, Copilot, Claude Code, Gemini CLI, Codex, Windsurf, or any other Spec Kit agent"],
           ["nuget.org access", "init adds the default Nuvyntra packages at the latest stable versions"],
         ],
       },
@@ -445,11 +449,13 @@ const createAppSections: DocSection[] = [
 nuvyn init HarborDesk --agent cursor
 nuvyn init HarborDesk --agent copilot
 nuvyn init HarborDesk --agent claude
-nuvyn init HarborDesk --agent gemini`,
+nuvyn init HarborDesk --agent gemini
+nuvyn init HarborDesk --agent codex
+nuvyn init HarborDesk --agent windsurf`,
       },
       {
         type: "p",
-        text: "Omit `--agent` and the CLI prompts: Cursor, GitHub Copilot, Claude Code, Gemini CLI.",
+        text: "Omit `--agent` and the CLI shows a searchable picker of Spec Kit coding agents (`cursor (Cursor)`, `agy (Antigravity)`, …). Pass `--agent cursor-agent` if you already use that Spec Kit key.",
       },
     ],
   },
@@ -494,7 +500,7 @@ nuvyn init HarborDesk --agent gemini`,
       },
       {
         type: "p",
-        text: "Copilot writes `.github/skills/`. Claude writes `.claude/commands/`. Gemini writes `.gemini/commands/`.",
+        text: "Copilot writes `.github/skills/`. Claude writes `.claude/commands/`. Gemini writes `.gemini/commands/`. Codex / Antigravity write `.agents/skills/`. Other agents use that tool's usual project folder (Goose recipes, Kiro prompts, Windsurf workflows, …).",
       },
     ],
   },
@@ -552,7 +558,7 @@ const workflowSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "In Cursor the skill folders are named `nuvyn-constitution` (a folder cannot contain `.`). Type `/nuvyn.constitution` in Copilot, Claude, and Gemini. Cursor users can invoke `/nuvyn-constitution`.",
+        text: "In Cursor, Copilot, and other skills-based agents the folders are named `nuvyn-constitution` (a folder cannot contain `.`). Type `/nuvyn.constitution` in Copilot, Claude, Gemini, and command-file agents. Cursor users can invoke `/nuvyn-constitution`.",
       },
     ],
   },
@@ -695,7 +701,7 @@ const troubleshootingSections: DocSection[] = [
       },
       {
         type: "p",
-        text: "Roadmap (not in 0.1.0): more agents (`codex`, `opencode`, `zed`, …), `nuvyn update`, `--vertical`.",
+        text: "Roadmap (not in 0.2.0): `nuvyn update`, `--vertical`. Coding agents already match Spec Kit.",
       },
       {
         type: "link",

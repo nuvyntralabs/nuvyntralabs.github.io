@@ -130,6 +130,39 @@ export default function NuvynPage() {
       </section>
 
       <section className="mt-10">
+        <h2 className="font-display text-2xl font-semibold">Coding agents</h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          Omit <code className="code-inline">--agent</code> for a searchable Spec Kit picker. Pass a
+          key to skip the prompt. Slash commands land in the folder that agent already reads.
+        </p>
+        <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
+          <table className="min-w-full text-left text-sm">
+            <thead className="bg-muted text-foreground">
+              <tr>
+                <th className="px-3 py-2.5 font-semibold">Agent</th>
+                <th className="px-3 py-2.5 font-semibold">--agent</th>
+                <th className="px-3 py-2.5 font-semibold">On disk</th>
+              </tr>
+            </thead>
+            <tbody>
+              {nuvyn.agents.map((item) => (
+                <tr key={item.id} className="border-t border-border align-top">
+                  <td className="px-3 py-2.5 font-medium text-foreground">{item.label}</td>
+                  <td className="px-3 py-2.5 text-muted-foreground">
+                    <code>{item.id}</code>
+                  </td>
+                  <td className="px-3 py-2.5 text-muted-foreground">
+                    <code>{item.folder}</code>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Also: {nuvyn.moreAgents}.</p>
+      </section>
+
+      <section className="mt-10">
         <h2 className="font-display text-2xl font-semibold">Read next</h2>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           <li>

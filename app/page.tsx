@@ -151,7 +151,7 @@ export default function HomePage() {
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">User guide</p>
               <h2 className="mt-3 font-display text-xl font-semibold text-foreground">Install, init, grow the app</h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                New folder only. Pick Cursor, Copilot, Claude, or Gemini. Then run constitution → specify → plan → implement.
+                New folder only. Pick a Spec Kit agent (Cursor, Copilot, Claude, Gemini, Codex, Windsurf, …). Then run constitution → specify → plan → implement.
               </p>
             </Link>
           </div>

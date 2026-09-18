@@ -121,7 +121,7 @@ NuGet: ${nuvyn.nuget}
 Technical docs: ${siteConfig.url}${nuvynDocsBase}/
 User guide: ${siteConfig.url}${nuvynGuideBase}/
 Slash chain: /nuvyn.constitution → specify → clarify → plan → checklist → task → analysis → implement → converge.
-Agents: Cursor, GitHub Copilot, Claude Code, Gemini CLI.
+Agents: Spec Kit set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, Goose, generic, and 30+ more.
 
 ## Toolkits
 

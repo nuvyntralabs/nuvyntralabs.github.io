@@ -21,7 +21,7 @@ Professional experience stays on
 | `/nuvexadb/integration/` | NuvexaDB getting started for every supported host |
 | `/packages/` | .NET MAUI NuGet catalog |
 | `/toolkits/` | Developer toolkits (Nuvyn spec CLI + MauiDev doctor) |
-| `/toolkits/nuvyn/` | Nuvyn 0.1.0 overview — spec-driven MAUI host on the Nuvyntra stack |
+| `/toolkits/nuvyn/` | Nuvyn 0.2.0 overview — spec-driven MAUI host on the Nuvyntra stack |
 | `/toolkits/nuvyn/docs/` | Nuvyn technical docs (SDD, agentic coding, implementation) |
 | `/toolkits/nuvyn/guide/` | Nuvyn user guide (install, init, slash workflow) |
 | `/toolkits/maui-dev/` | MauiDev 1.2.1 overview, command usage, sample results, and CI |

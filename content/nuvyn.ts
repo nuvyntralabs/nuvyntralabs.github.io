@@ -14,12 +14,12 @@ export const nuvyn = {
   packageId: "NuvyntraLabs.Nuvyn.Cli",
   command: "nuvyn",
   language: "C#",
-  version: "0.1.0",
+  version: "0.2.0",
   license: "MIT",
   author: "Niladri Prasad Padhy",
   tags: [".NET MAUI", "CLI", "spec-driven", "agentic", "MVVMExpress", "UIKit"],
   abstract:
-    "Nuvyn is a standalone PackAsTool CLI. It depends only on System.CommandLine and Spectre.Console. nuvyn init copies an embedded three-project host, adds the default Nuvyntra packages from nuget.org, writes .nuvyn/ standing law, and installs slash commands for Cursor, GitHub Copilot, Claude Code, or Gemini CLI. It does not overlay an existing app and it does not replace maui-dev doctor.",
+    "Nuvyn is a standalone PackAsTool CLI. It depends only on System.CommandLine and Spectre.Console. nuvyn init copies an embedded three-project host, adds the default Nuvyntra packages from nuget.org, writes .nuvyn/ standing law, and installs slash commands for the Spec Kit coding-agent set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, and 30+ more. It does not overlay an existing app and it does not replace maui-dev doctor.",
   install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli
 nuvyn init ClinicApp --agent cursor`,
   update: `dotnet tool update -g NuvyntraLabs.Nuvyn.Cli
@@ -48,5 +48,11 @@ nuvyn version`,
     { id: "copilot", label: "GitHub Copilot", folder: ".github/skills/" },
     { id: "claude", label: "Claude Code", folder: ".claude/commands/" },
     { id: "gemini", label: "Gemini CLI", folder: ".gemini/commands/" },
+    { id: "codex", label: "Codex CLI", folder: ".agents/skills/" },
+    { id: "goose", label: "Goose", folder: ".goose/recipes/" },
+    { id: "windsurf", label: "Windsurf", folder: ".windsurf/workflows/" },
+    { id: "generic", label: "Generic", folder: ".agents/commands/" },
   ],
+  moreAgents:
+    "agy, alquimia, amp, auggie, bob, cline, codebuddy, command-code, cursor-agent, devin, docker-agent, droid, dsh, firebender, forge, grok, hermes, iflow, junie, kilocode, kimi, kiro-cli (kiro), lingma, muse, omp, opencode, pi, qodercli, qwen, roo, rovodev, shai, tabnine, trae, vibe, zcode, zed",
 } as const;
