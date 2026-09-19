@@ -45,11 +45,12 @@ export default function GettingStartedPage() {
             <Link href="/toolkits/nuvyn/guide/" className="text-link">
               user guide
             </Link>
-            . Do not run init on an existing tree — use{" "}
+            . Do not run init on an existing tree. <code className="code-inline">nuvyn init</code> /{" "}
+            <code className="code-inline">nuvyn check</code> compose{" "}
             <Link href="/toolkits/maui-dev/" className="text-link">
               maui-dev doctor
             </Link>{" "}
-            instead.
+            when that tool is on PATH.
           </p>
         </aside>
         <aside className="callout mb-6 px-4 py-3">
@@ -289,7 +290,11 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
             <code className="code-inline">Plugin.Maui.MauiDev.Cli</code>
             {" "}
             — nuget.org reserved <code className="code-inline">MauiDev.Cli</code>.
-            Do not add it as a PackageReference.
+            Do not add it as a PackageReference. On an interactive terminal, 1.2.2 asks every 4 hours
+            whether to update from nuget.org — skip with{" "}
+            <code className="code-inline">--no-update-check</code>,{" "}
+            <code className="code-inline">NUVYNTRA_NO_UPDATE_CHECK=1</code>, or any{" "}
+            <code className="code-inline">--ci</code> / JSON / SARIF run.
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{`dotnet tool install -g Plugin.Maui.MauiDev.Cli --source https://api.nuget.org/v3/index.json

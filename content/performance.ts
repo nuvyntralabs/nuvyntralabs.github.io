@@ -12,11 +12,11 @@ export const performanceTechnicalDescription =
 
 export const performanceIntegrationTitle = "Get started with Performance";
 export const performanceIntegrationDescription =
-  "Install 1.0.7, register UseMauiPerformance, add named traces or PerformanceDelegatingHandler, then optionally install maui-perf to wrap maui profile startup.";
+  "Install 1.0.8, register UseMauiPerformance, add named traces or PerformanceDelegatingHandler, then optionally install maui-perf to wrap maui profile startup.";
 
 export const performanceComparisonTitle = "Performance vs APM, Diagnostics, and raw maui profile";
 export const performanceComparisonDescription =
-  "Compare Plugin.Maui.Performance 1.0.7 with Application Insights / Sentry, EventCounters, LeakAnalyser, Diagnostics, Observability, and the official maui profile CLI — and when to choose each.";
+  "Compare Plugin.Maui.Performance 1.0.8 with Application Insights / Sentry, EventCounters, LeakAnalyser, Diagnostics, Observability, and the official maui profile CLI — and when to choose each.";
 
 export const performanceTechnicalSections: DocSection[] = [
   {
@@ -174,7 +174,7 @@ report.Memory.Pressure;`,
     blocks: [
       {
         type: "p",
-        text: "Version 1.0.7. Target frameworks: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+). Mac Catalyst and Windows are not primary targets. net10.0 without an OS TFM is for shared code and tests — native APIs typically throw FeatureNotSupported.",
+        text: "Version 1.0.8. Target frameworks: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+). Mac Catalyst and Windows are not primary targets. net10.0 without an OS TFM is for shared code and tests — native APIs typically throw FeatureNotSupported.",
       },
       {
         type: "table",
@@ -193,13 +193,13 @@ report.Memory.Pressure;`,
         type: "link",
         href: "https://www.nuget.org/packages/Plugin.Maui.Performance",
         label: "Plugin.Maui.Performance on nuget.org",
-        note: "Library 1.0.7. Restore from nuget.org or the nuvyntralabs GitHub Packages feed.",
+        note: "Library 1.0.8. Restore from nuget.org or the nuvyntralabs GitHub Packages feed.",
       },
       {
         type: "link",
         href: "https://www.nuget.org/packages/Plugin.Maui.Performance.Cli",
         label: "Plugin.Maui.Performance.Cli on nuget.org",
-        note: "dotnet tool maui-perf, packed at the same 1.0.7 version (PackAsTool, no snupkg).",
+        note: "dotnet tool maui-perf, packed at the same 1.0.8 version (PackAsTool, no snupkg).",
       },
       {
         type: "link",
@@ -222,7 +222,7 @@ dotnet tool install -g Plugin.Maui.Performance.Cli --source https://api.nuget.or
       },
       {
         type: "p",
-        text: "Package ID: Plugin.Maui.Performance. Current NuGet is 1.0.7. The CLI tool is optional — install it only when you want maui-perf aliases over raw maui profile flags. Both PackageIds publish from the same repo CI.",
+        text: "Package ID: Plugin.Maui.Performance. Current NuGet is 1.0.8. The CLI tool is optional — install it only when you want maui-perf aliases over raw maui profile flags. Both PackageIds publish from the same repo CI.",
       },
       {
         type: "link",
@@ -328,7 +328,7 @@ MauiProfile.Mark("CartReady");
     blocks: [
       {
         type: "p",
-        text: "Install the companion tool, then use short aliases instead of the long official flags. startup always passes Microsoft.Maui.ProfilingHelper / StartupComplete so the trace ends when first frame (or your scenario) fires. screen wraps maui profile manual (press Enter to attach, Enter again to stop).",
+        text: "Install the companion tool, then use short aliases instead of the long official flags. startup always passes Microsoft.Maui.ProfilingHelper / StartupComplete so the trace ends when first frame (or your scenario) fires. screen wraps maui profile manual (press Enter to attach, Enter again to stop). On an interactive terminal maui-perf asks every 4 hours whether to update from nuget.org ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Cache: ~/.nuvyntra/cli-updates.json (shared with maui-dev and nuvyn). The CLI does not phone home.",
       },
       {
         type: "code",
@@ -336,7 +336,8 @@ MauiProfile.Mark("CartReady");
 
 maui-perf startup -f android
 maui-perf screen -f ios --speedscope --duration 30s
-maui-perf command startup -f android`,
+maui-perf command startup -f android
+maui-perf --no-update-check startup -f android`,
       },
       {
         type: "p",
@@ -355,6 +356,7 @@ maui-perf command startup -f android`,
           ["--speedscope", "Shortcut for --format speedscope (also nettrace, mibc)."],
           ["--no-stop-marker", "Do not pass StartupComplete stopping events."],
           ["--dry-run / command", "Print the maui profile command without running it."],
+          ["--no-update-check", "Skip the 4-hour nuget.org update prompt (or set NUVYNTRA_NO_UPDATE_CHECK=1)."],
         ],
       },
       {

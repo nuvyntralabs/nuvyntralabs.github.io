@@ -344,7 +344,7 @@ export default function HomePage() {
           <SectionIntro
             eyebrow="Toolkits"
             title="Start the host, then diagnose"
-            description="Nuvyn scaffolds a spec-driven MAUI app on the Nuvyntra stack. MauiDev 1.2.1 then doctors the machine and the project — with JSON/SARIF for CI."
+            description="Nuvyn scaffolds a spec-driven MAUI app on the Nuvyntra stack. MauiDev 1.2.2 then doctors the machine and the project — with JSON/SARIF for CI."
             href="/toolkits/"
             cta="All toolkits"
           />

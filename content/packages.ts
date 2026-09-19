@@ -83,7 +83,8 @@ export const packages: PackageDoc[] = [
       "Secure storage, sessions, app lock, one-shot biometric, screenshot guard, file vault, and media / video pipelines.",
       "Share, clipboard, keyboard, printing, form validation, orientation lock, and keep-awake.",
       "VoIP session model, app updates, store review, local notifications, diagnostics, performance, leak detection, and telemetry.",
-      "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue."
+      "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue.",
+      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.1.0, and maui-perf 1.0.8 share a 4-hour interactive nuget.org update check. Nuvyn init / check compose maui-dev doctor --path without --no-update-check."
     ]
   },
   {
@@ -984,17 +985,18 @@ export const packages: PackageDoc[] = [
       "maui profile",
       "C#"
     ],
-    "abstract": "Plugin.Maui.Performance is a lightweight on-device profiler for MAUI on Android and iOS. It measures app startup, page timing, API latency, image loading, database operations, UI rendering, and memory so teams can see a scoreboard like 'App Startup 1.82 sec' without attaching a full IDE profiler in the field. 1.0.7 adds MauiProfile — an in-app wrapper for maui profile / Microsoft.Maui.ProfilingHelper — and the maui-perf dotnet tool (Plugin.Maui.Performance.Cli) so a startup .nettrace can stop on first frame or a named scenario. It is not a leak detector — use LeakAnalyser for WeakReference liveness after a page is popped.",
-    "version": "1.0.7",
+    "abstract": "Plugin.Maui.Performance is a lightweight on-device profiler for MAUI on Android and iOS. It measures app startup, page timing, API latency, image loading, database operations, UI rendering, and memory so teams can see a scoreboard like 'App Startup 1.82 sec' without attaching a full IDE profiler in the field. 1.0.7 adds MauiProfile — an in-app wrapper for maui profile / Microsoft.Maui.ProfilingHelper — and the maui-perf dotnet tool (Plugin.Maui.Performance.Cli) so a startup .nettrace can stop on first frame or a named scenario. 1.0.8 adds the same 4-hour nuget.org update check as maui-dev and nuvyn. It is not a leak detector — use LeakAnalyser for WeakReference liveness after a page is popped.",
+    "version": "1.0.8",
     "releaseNotes": [
+      "1.0.8. maui-perf asks every 4 hours on an interactive terminal whether to update from nuget.org. Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Cache shared with maui-dev and nuvyn.",
       "1.0.7. MauiProfile wraps maui profile / MauiProfilingHelper with first-frame, first-page, or named-scenario stop, marks, and command helpers.",
-      "Plugin.Maui.Performance.Cli ships maui-perf at the same 1.0.7 version (android / ios aliases, 30s durations, official StartupComplete stopping events)."
+      "Plugin.Maui.Performance.Cli ships maui-perf at the same 1.0.8 version (android / ios aliases, 30s durations, official StartupComplete stopping events)."
     ],
     "capabilities": [
       "Startup, page, navigation, API, image, render, and memory scoreboard.",
       "Named traces: Trace, TraceApi, TraceDatabase, Measure, and FormatReport.",
       "MauiProfile stops maui profile startup on first frame or a named scenario.",
-      "maui-perf (Plugin.Maui.Performance.Cli) wraps maui profile with shorter commands.",
+      "maui-perf (Plugin.Maui.Performance.Cli) wraps maui profile with shorter commands and the same 4-hour nuget.org update check as maui-dev.",
       "Android and iOS. maui profile / maui-perf: Android device and iOS simulator only."
     ],
     "guides": {
@@ -1002,7 +1004,7 @@ export const packages: PackageDoc[] = [
       "integration": "/packages/plugin-maui-performance/integration/",
       "comparison": "/packages/plugin-maui-performance/comparison/",
       "technicalSummary": "Automatic hooks, named traces, MauiProfile stop modes, the report, and Android / iOS limits.",
-      "integrationSummary": "Install 1.0.7, UseMauiPerformance, HTTP handler, MauiProfile, and maui-perf startup / screen.",
+      "integrationSummary": "Install 1.0.8, UseMauiPerformance, HTTP handler, MauiProfile, and maui-perf startup / screen.",
       "comparisonSummary": "Versus APM, EventCounters, raw maui profile, Diagnostics, LeakAnalyser, and Observability."
     }
   },

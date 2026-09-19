@@ -43,7 +43,8 @@ export default function NuvynPage() {
           <Link href="/toolkits/maui-dev/" className="text-link">
             maui-dev doctor
           </Link>
-          . Compose them: init, then doctor.
+          . <code className="code-inline">nuvyn init</code> and{" "}
+          <code className="code-inline">nuvyn check</code> compose that doctor when the tool is on PATH.
         </p>
       </aside>
 
@@ -72,11 +73,14 @@ export default function NuvynPage() {
       </div>
 
       <aside className="callout mt-6 px-4 py-3">
-        <p className="text-sm font-semibold text-foreground">1.0.0 — nuvyn update</p>
+        <p className="text-sm font-semibold text-foreground">1.1.0 — maui-dev doctor compose + update check</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-          After you update the global CLI, run <code className="code-inline">nuvyn update</code> inside
-          an existing app to refresh templates and slash files. It does not overlay host code,{" "}
-          <code className="code-inline">specs/</code>, or <code className="code-inline">.nuvyn/constitution.md</code>.
+          <code className="code-inline">nuvyn init</code> and <code className="code-inline">nuvyn check</code> run{" "}
+          <code className="code-inline">maui-dev doctor --path</code> when MauiDev is installed. They do not
+          forward <code className="code-inline">--no-update-check</code>. On an interactive terminal the CLI asks
+          every 4 hours whether to update from nuget.org. Skip with{" "}
+          <code className="code-inline">--no-update-check</code> or{" "}
+          <code className="code-inline">NUVYNTRA_NO_UPDATE_CHECK=1</code>.
         </p>
       </aside>
 

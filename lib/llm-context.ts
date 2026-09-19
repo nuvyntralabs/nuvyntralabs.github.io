@@ -115,7 +115,7 @@ Sample: ${uiKit.sample}
 ## Nuvyn
 
 ${siteConfig.url}${nuvynHref}
-Spec-driven CLI (${nuvyn.packageId} ${nuvyn.version}) for new .NET MAUI apps on Android, iOS, Windows, and Mac Catalyst. Domain-agnostic. Stack locked to MVVMExpress, Lumina UIKit, HttpForge, FormValidation, and KeyboardManager. Install: dotnet tool install -g ${nuvyn.packageId} --source https://api.nuget.org/v3/index.json. Then: nuvyn init MyApp --agent cursor. After a CLI update, nuvyn update refreshes templates and slash files without overlaying host code, specs, or constitution. Do not dotnet add package the CLI. init never overlays an existing folder (no --here / --force). Compose with maui-dev doctor after init. Not a Spec Kit clone — use Spec Kit when the stack is not Nuvyntra.
+Spec-driven CLI (${nuvyn.packageId} ${nuvyn.version}) for new .NET MAUI apps on Android, iOS, Windows, and Mac Catalyst. Domain-agnostic. Stack locked to MVVMExpress, Lumina UIKit, HttpForge, FormValidation, and KeyboardManager. Install: dotnet tool install -g ${nuvyn.packageId} --source https://api.nuget.org/v3/index.json. Then: nuvyn init MyApp --agent cursor. After a CLI update, nuvyn update refreshes templates and slash files without overlaying host code, specs, or constitution. Do not dotnet add package the CLI. init never overlays an existing folder (no --here / --force). nuvyn init / nuvyn check compose maui-dev doctor --path when MauiDev is on PATH (they do not pass --no-update-check). Interactive 4-hour nuget.org update check ([y/N], default no); skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Not a Spec Kit clone — use Spec Kit when the stack is not Nuvyntra.
 GitHub: ${nuvyn.github}
 NuGet: ${nuvyn.nuget}
 Technical docs: ${siteConfig.url}${nuvynDocsBase}/
@@ -129,7 +129,7 @@ ${siteConfig.url}/toolkits/
 
 ${toolkitList}
 
-MauiDev 1.2.1 is a global dotnet tool (Plugin.Maui.MauiDev.Cli, command maui-dev) plus a VS Code / Cursor extension (nuvyntralabs.maui-dev). Commands: doctor, analyze, resources, permissions, platform, signing, workload, version, dependencies, icons, publish --validate, migrate, telemetry, benchmark, clean, package. nuget.org reserved MauiDev.Cli. Do not add Plugin.Maui.MauiDev.Cli as a PackageReference. It does not replace Plugin.Maui.Performance, Plugin.Maui.LeakAnalyser, Plugin.Maui.AppHealth, or Plugin.Maui.Diagnostics. Docs: ${siteConfig.url}/toolkits/maui-dev/
+MauiDev 1.2.2 is a global dotnet tool (Plugin.Maui.MauiDev.Cli, command maui-dev) plus a VS Code / Cursor extension (nuvyntralabs.maui-dev). Commands: doctor, analyze, resources, permissions, platform, signing, workload, version, dependencies, icons, publish --validate, migrate, telemetry, benchmark, clean, package. Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check, NUVYNTRA_NO_UPDATE_CHECK=1, or --ci / JSON / SARIF. --no-update-check shipped in 1.2.2; 1.2.1 treats it as unknown. nuget.org reserved MauiDev.Cli. Do not add Plugin.Maui.MauiDev.Cli as a PackageReference. It does not replace Plugin.Maui.Performance, Plugin.Maui.LeakAnalyser, Plugin.Maui.AppHealth, or Plugin.Maui.Diagnostics. Docs: ${siteConfig.url}/toolkits/maui-dev/
 
 ## NuGet packages
 
@@ -198,7 +198,7 @@ LeakAnalyser comparison: ${siteConfig.url}/packages/plugin-maui-leak-analyser/co
 Performance documentation: ${siteConfig.url}/packages/plugin-maui-performance/docs/
 Performance getting started: ${siteConfig.url}/packages/plugin-maui-performance/integration/
 Performance comparison: ${siteConfig.url}/packages/plugin-maui-performance/comparison/
-Performance current NuGet: 1.0.7 (MauiProfile + maui-perf)
+Performance current NuGet: 1.0.8 (MauiProfile + maui-perf; 4-hour nuget.org update check shared with maui-dev and nuvyn)
 Performance CLI nuget.org: https://www.nuget.org/packages/Plugin.Maui.Performance.Cli
 Performance CLI GitHub Packages: https://github.com/nuvyntralabs/Plugin.Maui.Performance/pkgs/nuget/Plugin.Maui.Performance.Cli
 HttpForge documentation: ${siteConfig.url}/packages/plugin-maui-httpforge/docs/

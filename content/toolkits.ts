@@ -57,10 +57,10 @@ export const toolkits: ToolkitDoc[] = [
     packageId: "NuvyntraLabs.Nuvyn.Cli",
     vscodeMarketplace: null,
     language: "C#",
-    version: "1.0.0",
+    version: "1.1.0",
     notice: {
-      title: "1.0.0 — nuvyn update",
-      text: "nuvyn init still creates a new folder only (no --here / --force). nuvyn update refreshes .nuvyn/templates, .nuvyn/reference, and slash files on an existing app without touching host code, specs, or constitution. nuvyn check now also proves the host still uses the smallest Nuvyntra package set.",
+      title: "1.1.0 — maui-dev doctor compose + update check",
+      text: "nuvyn init and nuvyn check run maui-dev doctor --path <app> when MauiDev is on PATH (1.2.0+). They do not pass --no-update-check. A missing tool is a warning; a doctor exit 1 still prints the report and Nuvyn exits 0. On an interactive terminal nuvyn asks every 4 hours whether to update from nuget.org ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Cache: ~/.nuvyntra/cli-updates.json, shared with maui-dev and maui-perf.",
     },
     tags: [".NET MAUI", "CLI", "spec-driven", "agentic", "MVVMExpress", "UIKit"],
     abstract:
@@ -71,6 +71,8 @@ export const toolkits: ToolkitDoc[] = [
       "Slash chain: constitution → specify → clarify → plan → checklist → task → analysis → implement → converge.",
       "nuvyn update — refresh templates, reference, and slash files on an existing Nuvyn app (no host overlay).",
       "nuvyn check — dotnet + payload, and inside an app prove the smallest MVVMExpress + UIKit package set.",
+      "init / check compose maui-dev doctor --path when MauiDev is on PATH (warning if missing; Nuvyn still exits 0).",
+      "Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1.",
       "Agents: Spec Kit set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, Goose, generic, and 30+ more.",
       "Standing law in .nuvyn/reference/constraints.md — sleek Lumina, catalog first, API data until asked to persist.",
     ],
@@ -105,7 +107,7 @@ Next
         group: "Create",
         purpose: "Print the installed CLI version",
         usage: "nuvyn version",
-        sample: "NuvyntraLabs.Nuvyn.Cli 1.0.0",
+        sample: "NuvyntraLabs.Nuvyn.Cli 1.1.0",
       },
       {
         name: "nuvyn update",
@@ -122,19 +124,25 @@ nuvyn update --agent cursor`,
 ✓ .nuvyn/reference/constraints.md
 [4] Writing Cursor commands…
 ✓ .cursor/skills/nuvyn-constitution/SKILL.md`,
-        notes: "Leaves host code, specs/, and .nuvyn/constitution.md alone. Does not change PackageReference versions. Run from the app folder. --vertical is not in 1.0.",
+        notes: "Leaves host code, specs/, and .nuvyn/constitution.md alone. Does not change PackageReference versions. Run from the app folder. --vertical is not in 1.1.",
       },
       {
         name: "nuvyn check",
         group: "Create",
-        purpose: "Confirm dotnet and the payload; inside a Nuvyn app also prove the host package set",
+        purpose: "Confirm dotnet and the payload; inside a Nuvyn app also prove the host package set, then compose maui-dev doctor",
         usage: "nuvyn check",
         sample: `✓ dotnet is on PATH
 ✓ Payload: /…/payload
-✓ Host: MVVMExpress + UIKit + HttpForge + FormValidation + KeyboardManager`,
+✓ Host: MVVMExpress + UIKit + HttpForge + FormValidation + KeyboardManager
+· maui-dev doctor     printed when Plugin.Maui.MauiDev.Cli is on PATH`,
+        notes: "Calls maui-dev doctor --path <app> without --no-update-check. Missing MauiDev is a warning. Doctor exit 1 still prints the report; Nuvyn exits 0.",
       },
     ],
-    globalOptions: ["--agent cursor|copilot|claude|gemini|codex|windsurf|… (Spec Kit set)", "--help"],
+    globalOptions: [
+      "--agent cursor|copilot|claude|gemini|codex|windsurf|… (Spec Kit set)",
+      "--no-update-check",
+      "--help",
+    ],
     install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
 nuvyn init ClinicApp --agent cursor`,
     installNote:
@@ -142,19 +150,20 @@ nuvyn init ClinicApp --agent cursor`,
     examples: `nuvyn init HarborDesk --agent cursor
 nuvyn update
 nuvyn version
-nuvyn check`,
+nuvyn check
+nuvyn --no-update-check version`,
     fixAllowList: [
       "init creates a new folder only. It never overlays, merges, or writes into an existing app.",
     ],
     neverDoes: [
       "Never overlays an existing repo (no --here / --force).",
       "Never adds LocalStore, NuvexaDB, or other catalog packages until the spec asks.",
-      "Never replaces maui-dev doctor.",
+      "Never replaces maui-dev doctor — init / check compose it when the tool is on PATH.",
       "Never publishes or pushes NuGet packages from a local clone.",
     ],
     ci: `# Publishing is pipeline-only on nuvyntralabs/Nuvyn
 # Order: version alignment → tests → prove nuvyn init host → pack (PackAsTool) → nuget.org + GitHub Packages`,
-    later: ["--vertical (1.1, after a Lumina Playground head regenerates without hand-edits)", "GitHub issue export"],
+    later: ["--vertical (after a Lumina Playground head regenerates without hand-edits)", "GitHub issue export"],
     alternatives:
       "GitHub Spec Kit covers any stack. MauiDev diagnoses an existing MAUI tree. Stock dotnet new maui scaffolds pages without the Nuvyntra lock or slash chain.",
     notFor: [
@@ -175,6 +184,8 @@ nuvyn check`,
       },
     ],
     releaseNotes: [
+      "1.1.0. nuvyn init / nuvyn check compose maui-dev doctor --path when MauiDev is on PATH (no --no-update-check forwarded).",
+      "1.1.0. Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1.",
       "1.0.0. nuvyn update refreshes templates, reference, and slash files without overlaying host code.",
       "1.0.0. nuvyn check proves the initiated host still uses the smallest Nuvyntra package set.",
       "1.0.0. CI proves nuvyn init (smallest packages + Core/Tests + Android TFM) before pack.",
@@ -195,10 +206,10 @@ nuvyn check`,
     packageId: "Plugin.Maui.MauiDev.Cli",
     vscodeMarketplace: "https://marketplace.visualstudio.com/items?itemName=nuvyntralabs.maui-dev",
     language: "C#",
-    version: "1.2.1",
+    version: "1.2.2",
     notice: {
-      title: "1.2.1 — docs URL on the NuGet package",
-      text: "PackageProjectUrl and repo docs links now point at this page. The command surface is still 1.2: permissions through benchmark. PackageId stays Plugin.Maui.MauiDev.Cli — nuget.org reserved MauiDev.Cli. The command stays maui-dev.",
+      title: "1.2.2 — 4-hour nuget.org update check",
+      text: "On an interactive terminal the CLI asks every 4 hours whether to update from nuget.org ([y/N], default no). Cache: ~/.nuvyntra/cli-updates.json. Skip with --no-update-check, NUVYNTRA_NO_UPDATE_CHECK=1, or any --ci / JSON / SARIF run. --no-update-check shipped in 1.2.2; 1.2.1 treats it as an unknown option. Nuvyn therefore calls maui-dev doctor --path without that flag. The CLI does not phone home.",
     },
     tags: [".NET MAUI", "CLI", "dotnet tool", "VS Code", "Cursor", "CI", "SARIF"],
     abstract:
@@ -221,6 +232,7 @@ nuvyn check`,
       "maui-dev clean — delete bin / obj; optional NuGet HTTP cache and workload temp behind flags.",
       "maui-dev package — validate pack metadata (--validate, default). --pack runs dotnet pack locally and never pushes.",
       "Human, JSON, and SARIF reporters for terminals, CI, and the IDE Problems panel.",
+      "Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check, NUVYNTRA_NO_UPDATE_CHECK=1, or --ci / JSON / SARIF.",
       "VS Code / Cursor extension nuvyntralabs.maui-dev (requires VS Code / Cursor 1.90+).",
     ],
     commands: [
@@ -594,6 +606,7 @@ Recommendations
       "--dry-run",
       "--warn-as-error",
       "--timeout",
+      "--no-update-check",
     ],
     install: `dotnet tool install -g Plugin.Maui.MauiDev.Cli --source https://api.nuget.org/v3/index.json
 maui-dev doctor`,
@@ -687,6 +700,7 @@ maui-dev package --validate`,
       },
     ],
     releaseNotes: [
+      "1.2.2. Interactive 4-hour nuget.org update check. --no-update-check skips it; 1.2.1 treated that flag as unknown.",
       "1.2.1. PackageProjectUrl and docs links point at https://nuvyntralabs.github.io/toolkits/maui-dev/.",
       "1.2.0. publish --validate (store ApplicationId / CFBundleIdentifier, iOS privacy manifest). --push is rejected.",
       "1.2.0. migrate flags net8/net9 TFMs and Xamarin leftovers without rewriting.",

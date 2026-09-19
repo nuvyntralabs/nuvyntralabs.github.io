@@ -511,7 +511,7 @@ var site = await api.GetSite(42);`,
             "[Observability](/packages/plugin-maui-observability/)",
           ],
           [
-            "MauiDev CLI 1.2.1",
+            "MauiDev CLI 1.2.2",
             "`maui-dev` doctor, permissions, publish validate, migrate, JSON/SARIF for CI. Not a PackageReference.",
             "[MauiDev](/toolkits/maui-dev/)",
           ],
