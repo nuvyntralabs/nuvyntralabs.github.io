@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 export function CtaBand({
   eyebrow = "Next step",
   title = "Build with Nuvyntra Labs",
-  description = "Browse production NuGet packages, or reach the lab if you want to evaluate research or compose a plugin set.",
+  description = "Use the component library in an existing app, or start a new host with Nuvyn. Same packages either way.",
 }: {
   eyebrow?: string;
   title?: string;
@@ -22,7 +22,11 @@ export function CtaBand({
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-lavender-100/80">{description}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/packages/" className="focusable btn-primary">
-              View products
+              Browse components
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <Link href="/toolkits/nuvyn/" className="focusable btn-primary">
+              Start with Nuvyn
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <Link href="/contact/" className="focusable btn-on-dark">

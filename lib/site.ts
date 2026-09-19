@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Nuvyntra Labs",
   shortName: "Nuvyntra Labs",
-  title: "Nuvyntra Labs — .NET MAUI development ecosystem",
+  title: "Nuvyntra Labs — component library and MAUI ecosystem",
   description:
-    "A composable development ecosystem for .NET MAUI: UIKit for rich UI, MVVMExpress for architecture, HttpForge for typed REST, and focused plugins for the rest of the app.",
+    "Nuvyntra Labs is a .NET MAUI component library and a whole ecosystem. Install one NuGet (UIKit, Plugin.Maui.*, MVVMExpress, or NuvexaDB), or start a new app with nuvyn init. Neither path is a fallback.",
   url: "https://nuvyntralabs.github.io",
   githubOrg: "https://github.com/nuvyntralabs",
   discord: "https://discord.gg/2rg8s7P8xE",

@@ -4,17 +4,18 @@ import { nugetPackages } from "@/content/packages";
 import { PageHero } from "@/components/page-hero";
 import { CtaBand } from "@/components/cta-band";
 import { GithubPackagesSetupLink } from "@/components/github-packages-setup";
+import { TwoStarts } from "@/components/two-starts";
 import { githubPackagesSetupPath } from "@/lib/github-packages";
 
 export const metadata: Metadata = {
   title: "Getting started",
   description:
-    "Add the nuvyntralabs GitHub Packages feed, then install focused .NET MAUI Plugin.Maui.* packages.",
+    "Start Nuvyntra Labs as a component library (one NuGet) or as a whole ecosystem (nuvyn init). Neither path is a fallback.",
   alternates: { canonical: "/getting-started/" },
   openGraph: {
-    title: "Getting started with Nuvyntra Labs packages",
+    title: "Getting started with Nuvyntra Labs",
     description:
-      "Configure the GitHub Packages feed, then install focused .NET MAUI Plugin.Maui.* packages.",
+      "Choose a start: one component in an existing app, or nuvyn init for a new MAUI host on the Nuvyntra stack.",
     url: "/getting-started/",
   },
 };
@@ -27,43 +28,22 @@ export default function GettingStartedPage() {
       <PageHero
         eyebrow="Documentation"
         title="Getting started"
-        description="Packages ship independently from GitHub Packages. Add only the plugins your app needs — there is no mega-package dependency. Most plugins target .NET MAUI on Android and iOS. MVVMExpress, HttpForge, LeakAnalyser, LocalStore, VideoPipeline, and TlsPin also target Mac Catalyst and Windows."
+        description="Nuvyntra Labs reaches you as a component library (one NuGet) or as a whole ecosystem (nuvyn init). You choose. Neither path is a fallback. Packages ship independently — there is no mega-package dependency."
       />
       <div className="container max-w-3xl py-16 sm:py-20">
-        <aside className="callout mb-6 px-4 py-3">
-          <p className="text-sm font-semibold text-foreground">Starting a new MAUI app?</p>
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-            Use{" "}
-            <Link href="/toolkits/nuvyn/" className="text-link">
-              Nuvyn
-            </Link>{" "}
-            (<code className="code-inline">nuvyn init</code>) for a spec-driven host on MVVMExpress + Lumina UIKit. Read the{" "}
-            <Link href="/toolkits/nuvyn/docs/" className="text-link">
-              technical docs
-            </Link>{" "}
-            and{" "}
-            <Link href="/toolkits/nuvyn/guide/" className="text-link">
-              user guide
-            </Link>
-            . Do not run init on an existing tree. <code className="code-inline">nuvyn init</code> /{" "}
-            <code className="code-inline">nuvyn check</code> compose{" "}
-            <Link href="/toolkits/maui-dev/" className="text-link">
-              maui-dev doctor
-            </Link>{" "}
-            when that tool is on PATH.
-          </p>
-        </aside>
-        <aside className="callout mb-6 px-4 py-3">
-          <p className="text-sm font-semibold text-foreground">The ecosystem map</p>
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-            UIKit, MVVMExpress, HttpForge, and the gallery plugins that show up in a real MAUI app are mapped in
-            the{" "}
+        <section className="mb-12">
+          <h2 className="font-display text-2xl font-semibold">1. Choose a start</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Existing apps stay on the component path.{" "}
+            <code className="code-inline">nuvyn update</code> refreshes skills only — do not re-run{" "}
+            <code className="code-inline">nuvyn init</code> on a tree that already exists. The{" "}
             <Link href="/whitepaper/" className="text-link">
-              development ecosystem white paper
-            </Link>
-            . This page is the install path.
+              ecosystem white paper
+            </Link>{" "}
+            maps how UIKit, MVVMExpress, HttpForge, and the gallery compose after you pick a door.
           </p>
-        </aside>
+          <TwoStarts className="mt-6 grid gap-4" />
+        </section>
         <aside className="callout mb-12 px-4 py-3">
           <p className="text-sm font-semibold text-foreground">Looking for the embedded database?</p>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
@@ -87,15 +67,15 @@ export default function GettingStartedPage() {
           </p>
         </aside>
         <section>
-          <h2 className="font-display text-2xl font-semibold">1. Create or open a MAUI app</h2>
+          <h2 className="font-display text-2xl font-semibold">2. Create or open a MAUI app</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Prefer{" "}
+            Whole ecosystem:{" "}
             <Link href="/toolkits/nuvyn/" className="text-link">
               <code className="code-inline">nuvyn init</code>
             </Link>{" "}
-            for a new Nuvyntra host plus the spec slash chain. Or use the stock MAUI template, or
-            scaffold an MVVMExpress host with ViewModels, login replace-root, a list, a form, and
-            tests already wired. Same MVVMExpress scaffold from the{" "}
+            for a new Nuvyntra host plus the spec slash chain. Component library: use the stock MAUI
+            template, or scaffold an MVVMExpress host with ViewModels, login replace-root, a list, a
+            form, and tests already wired. Same MVVMExpress scaffold from the{" "}
             <Link
               href="/packages/plugin-maui-mvvmexpress/docs/ide-extensions/"
               className="text-link"
@@ -133,7 +113,7 @@ dotnet new mvvmexpress -n MyApp`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">2. Add the GitHub Packages feed</h2>
+          <h2 className="font-display text-2xl font-semibold">3. Add the GitHub Packages feed</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             <code className="code-inline">Plugin.Maui.*</code>{" "}
             comes from GitHub Packages. Everything else (Microsoft.*, MAUI, and other public
@@ -158,7 +138,7 @@ dotnet new mvvmexpress -n MyApp`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">3. Add a package</h2>
+          <h2 className="font-display text-2xl font-semibold">4. Add a component</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             After the two feeds are configured, restore from GitHub Packages. Registration helpers
             live in each repository README.
@@ -173,7 +153,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">4. Start with a focused plugin</h2>
+          <h2 className="font-display text-2xl font-semibold">5. Start with a focused plugin</h2>
           <ul className="mt-4 grid gap-3">
             {featured.map((item) => (
               <li key={item.slug}>
@@ -193,7 +173,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">5. Application shell</h2>
+          <h2 className="font-display text-2xl font-semibold">6. Application shell</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             For ViewModels, async state, Shell or page navigation, dialogs, and toast, start with{" "}
             <Link
@@ -260,7 +240,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">6. Upgrade hardened 1.x plugins</h2>
+          <h2 className="font-display text-2xl font-semibold">7. Upgrade hardened 1.x plugins</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Fourteen plugins shipped fail-closed and correctness fixes on 3 September 2026.
             DeepLinks, PushRouter, SmartUpload, and FeatureFlags changed defaults. Read the{" "}
@@ -275,7 +255,7 @@ dotnet add package Plugin.Maui.MVVMExpress.Core`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">7. Diagnose the machine and project</h2>
+          <h2 className="font-display text-2xl font-semibold">8. Diagnose the machine and project</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Install the{" "}
             <Link href="/toolkits/maui-dev/" className="text-link">
@@ -306,7 +286,7 @@ maui-dev analyze --ci`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">8. Browse the full catalog</h2>
+          <h2 className="font-display text-2xl font-semibold">9. Browse the full catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The suite map is{" "}
             <Link href="/packages/maui-essentials/" className="text-link">

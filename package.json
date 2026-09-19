@@ -2,7 +2,7 @@
   "name": "nuvyntralabs-docs",
   "version": "1.0.0",
   "private": true,
-  "description": "Nuvyntra Labs — open-source R&D, POCs, and NuGet packages",
+  "description": "Nuvyntra Labs — component library and whole ecosystem for .NET MAUI",
   "scripts": {
     "dev": "next dev",
     "generate:sitemap": "tsx ./scripts/generate-sitemap.ts",

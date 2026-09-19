@@ -6,9 +6,9 @@ export const nuvyn = {
   slug: "nuvyn",
   name: "Nuvyn",
   title: "Nuvyn",
-  subtitle: "Spec-driven CLI for .NET MAUI apps on the Nuvyntra stack",
+  subtitle: "The whole-ecosystem door: spec-driven CLI for .NET MAUI apps on the Nuvyntra stack",
   description:
-    "Nuvyn creates a new four-platform MAUI host and locks plan/implement to MVVMExpress, Lumina UIKit, and the smallest Plugin.Maui.* set. The product is whatever you specify — any domain.",
+    "Nuvyn is the whole-ecosystem door. It creates a new four-platform MAUI host and locks plan/implement to MVVMExpress, Lumina UIKit, and the smallest Plugin.Maui.* set. Individual plugins and NuvyntraLabs.UIKit stay installable without Nuvyn. The product is whatever you specify — any domain.",
   github: "https://github.com/nuvyntralabs/Nuvyn",
   nuget: "https://www.nuget.org/packages/NuvyntraLabs.Nuvyn.Cli",
   packageId: "NuvyntraLabs.Nuvyn.Cli",

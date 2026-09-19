@@ -1,15 +1,39 @@
 export const lab = {
   name: "Nuvyntra Labs",
   legalName: "Nuvyntra Labs",
-  tagline: "A composable development ecosystem for .NET MAUI",
+  tagline: "A component library, and a whole ecosystem, for .NET MAUI",
   mission:
-    "We research hard mobile problems, prove them in public, and ship the reusable pieces as independently versioned .NET MAUI products — a UI kit, an MVVM application shell, a typed REST client, and a catalog of focused plugins.",
+    "We research hard mobile problems, prove them in public, and ship the reusable pieces as independently versioned .NET MAUI products. Use one NuGet in an existing host, or start a new app on the full Nuvyntra stack. Neither path is a fallback.",
+  starts: [
+    {
+      id: "components",
+      title: "Component library",
+      when: "You already have a host and need one control, one capability, or one shell.",
+      detail:
+        "Install one NuGet: NuvyntraLabs.UIKit (NV* controls), any Plugin.Maui.*, Plugin.Maui.MVVMExpress, or Nuventra.NuvexaDB. Your host stays yours.",
+      href: "/packages/",
+      cta: "Browse components",
+      install: `dotnet add package Plugin.Maui.GeoLocator
+dotnet add package NuvyntraLabs.UIKit`,
+    },
+    {
+      id: "ecosystem",
+      title: "Whole ecosystem",
+      when: "You want a new MAUI app on this stack.",
+      detail:
+        "nuvyn init assembles MVVMExpress + UIKit + the smallest plugin set and composes maui-dev doctor. Existing apps stay on the component path.",
+      href: "/toolkits/nuvyn/",
+      cta: "Start with Nuvyn",
+      install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
+nuvyn init ClinicApp`,
+    },
+  ],
   about: [
-    "Nuvyntra Labs is an independent applied R&D company and a composable development ecosystem for .NET MAUI. Teams paint screens with UIKit, host the app with MVVMExpress, talk to APIs with HttpForge, then add only the gallery plugins the product needs — location, connectivity, offline sync, voice, and device security.",
-    "Research, public proofs of concept, production NuGet packages, and developer toolkits each have their own home here so the catalog can grow without burying the rest. There is no mega-SDK. Client delivery and professional experience stay on the founder's site.",
+    "Nuvyntra Labs is an independent applied R&D company. It reaches .NET MAUI teams two ways: as a component library (one control or plugin in any host) and as a whole ecosystem (nuvyn init for a new app on MVVMExpress + UIKit + the smallest plugin set). Neither path is a fallback.",
+    "Teams paint screens with UIKit, host the app with MVVMExpress, talk to APIs with HttpForge, then add only the gallery plugins the product needs — location, connectivity, offline sync, voice, and device security. Research, public proofs of concept, production NuGet packages, and developer toolkits each have their own home here. There is no mega-SDK. Client delivery and professional experience stay on the founder's site.",
   ],
   audience:
-    "Product teams building .NET MAUI apps for Android, iOS, Mac Catalyst, and Windows who need a UI, an application shell, a typed REST client, and focused plugins — not a mega-SDK — and teams evaluating longer research in inspection, VoIP, and field accuracy.",
+    "Product teams who want one focused NuGet in an existing MAUI app, and teams who want a new host on the Nuvyntra stack — plus people evaluating longer research in inspection, VoIP, and field accuracy.",
   sponsorshipNote:
     "Nuvyntra Labs is independently maintained. Sponsorship helps keep the organization, packages, and research in good order — thank you for considering it.",
   principles: [

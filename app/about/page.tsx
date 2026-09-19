@@ -23,7 +23,7 @@ export default function AboutPage() {
     <main>
       <PageHero
         eyebrow="Company"
-        title="An independent lab that ships a MAUI ecosystem"
+        title="An independent lab that ships a component library and a MAUI ecosystem"
         description={lab.tagline}
       />
 

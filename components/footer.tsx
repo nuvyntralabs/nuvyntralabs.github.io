@@ -56,8 +56,8 @@ export function Footer() {
         <div className="space-y-4 lg:col-span-1">
           <Logo onDark />
           <p className="max-w-xs text-sm leading-relaxed text-lavender-100/70">
-            A composable .NET MAUI development ecosystem. Research, public proofs, and independently
-            versioned packages.
+            A .NET MAUI component library and a whole ecosystem. Research, public proofs, and
+            independently versioned packages. You choose the door.
           </p>
         </div>
         <FooterColumn title="Company" links={company} />

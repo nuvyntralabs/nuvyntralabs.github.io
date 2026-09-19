@@ -12,6 +12,7 @@ import { PackageCard, PocCard, ResearchCard, ToolkitCard } from "@/components/wo
 import { SectionIntro } from "@/components/section-intro";
 import { CommunityBand } from "@/components/community-band";
 import { CtaBand } from "@/components/cta-band";
+import { TwoStarts } from "@/components/two-starts";
 
 const pillars = [
   {
@@ -51,24 +52,29 @@ export default function HomePage() {
           <div className="animate-fade-up">
             <p className="eyebrow">{lab.tagline}</p>
             <h1 className="mt-6 max-w-3xl font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-[4.1rem] lg:leading-[1.05]">
-              The .NET MAUI <span className="heading-gradient">development ecosystem</span>
+              A <span className="heading-gradient">component library</span>. A whole{" "}
+              <span className="heading-gradient">ecosystem</span>.
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               {lab.mission}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/packages/" className="focusable btn-primary">
+                Browse components
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
               <Link href={nuvynHref} className="focusable btn-primary">
                 Start with Nuvyn
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link href="/getting-started/" className="focusable btn-secondary">
+                Getting started
               </Link>
               <Link href={whitepaperHref} className="focusable btn-secondary">
                 Read the white paper
               </Link>
               <Link href="/playground/" className="focusable btn-secondary">
                 Playground
-              </Link>
-              <Link href="/packages/" className="focusable btn-secondary">
-                View products
               </Link>
               <Link href="#community" className="focusable btn-secondary">
                 Join the community
@@ -112,6 +118,17 @@ export default function HomePage() {
             Built for .NET MAUI teams on Android, iOS, Mac Catalyst, and Windows
           </p>
         </div>
+      </section>
+
+      <section className="container py-16 sm:py-20">
+        <SectionIntro
+          eyebrow="Two ways to start"
+          title="You choose. Neither path is a fallback."
+          description="Use Nuvyntra Labs as a component library in the app you already have, or as a whole ecosystem for a new MAUI host. The packages are the same either way."
+          href="/getting-started/"
+          cta="Getting started"
+        />
+        <TwoStarts className="mt-10 grid gap-4 md:grid-cols-2" />
       </section>
 
       <section className="section-muted">
@@ -302,7 +319,7 @@ export default function HomePage() {
       <section className="section-muted">
         <div className="container py-16 sm:py-20">
           <SectionIntro
-            eyebrow="Capabilities"
+            eyebrow="Component library"
             title="Infrastructure mobile apps actually need"
             description={lab.audience}
           />
@@ -324,9 +341,9 @@ export default function HomePage() {
 
       <section id="packages" className="container py-16 sm:py-20">
         <SectionIntro
-          eyebrow="Products"
+          eyebrow="Component library"
           title="Focused MAUI plugins"
-          description={`${packages.length} catalog entries, ${nugetPackages.length} published on GitHub Packages. Compose only what the app needs.`}
+          description={`${packages.length} catalog entries, ${nugetPackages.length} published on GitHub Packages. Install one package. Compose only what the app needs.`}
           href="/packages/"
           cta="Full catalog"
         />
@@ -342,9 +359,9 @@ export default function HomePage() {
       <section id="toolkits" className="section-muted">
         <div className="container py-16 sm:py-20">
           <SectionIntro
-            eyebrow="Toolkits"
+            eyebrow="Whole ecosystem"
             title="Start the host, then diagnose"
-            description="Nuvyn scaffolds a spec-driven MAUI app on the Nuvyntra stack. MauiDev 1.2.2 then doctors the machine and the project — with JSON/SARIF for CI."
+            description="Nuvyn scaffolds a spec-driven MAUI app on the Nuvyntra stack. MauiDev 1.2.2 then doctors the machine and the project — with JSON/SARIF for CI. Plugins and UIKit stay installable without these tools."
             href="/toolkits/"
             cta="All toolkits"
           />

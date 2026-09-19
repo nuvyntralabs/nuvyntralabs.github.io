@@ -35,6 +35,18 @@ export default function NuvynPage() {
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{nuvyn.description}</p>
 
       <aside className="callout mt-6 px-4 py-3">
+        <p className="text-sm font-semibold text-foreground">Whole ecosystem, not the only door</p>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+          Use Nuvyn for a <strong>new</strong> host on this stack. UIKit, MVVMExpress, NuvexaDB, and any{" "}
+          <code className="code-inline">Plugin.Maui.*</code> stay installable in an existing app — that is the{" "}
+          <Link href="/packages/" className="text-link">
+            component library
+          </Link>
+          . Neither path is a fallback.
+        </p>
+      </aside>
+
+      <aside className="callout mt-6 px-4 py-3">
         <p className="text-sm font-semibold text-foreground">New projects only</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           <code className="code-inline">nuvyn init</code> always creates a new folder. There is no{" "}

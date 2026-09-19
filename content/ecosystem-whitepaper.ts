@@ -9,7 +9,7 @@ export const whitepaper = {
   description:
     "White paper: how Nuvyntra Labs covers a .NET MAUI development stack — UIKit for rich UI, MVVMExpress for application architecture, HttpForge for typed REST, and a focused gallery for the rest of the app.",
   abstract:
-    "Nuvyntra Labs is a composable development ecosystem for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. Teams paint screens with NuvyntraLabs.UIKit, host the app with Plugin.Maui.MVVMExpress, talk to APIs with Plugin.Maui.HttpForge, then add only the gallery plugins the product needs — local store, offline sync, connectivity, security, media, and observability. There is no mega-SDK. Each product versions independently and fails closed when a sibling is missing.",
+    "Nuvyntra Labs is a .NET MAUI component library and a whole ecosystem on Android, iOS, Mac Catalyst, and Windows. Install one NuGet in any host, or start a new app with nuvyn init. Teams paint screens with NuvyntraLabs.UIKit, host the app with Plugin.Maui.MVVMExpress, talk to APIs with Plugin.Maui.HttpForge, then add only the gallery plugins the product needs — local store, offline sync, connectivity, security, media, and observability. There is no mega-SDK. Each product versions independently and fails closed when a sibling is missing. Neither start is a fallback.",
   version: "1.0",
   date: "15 September 2026",
   author: "Niladri Prasad Padhy / Nuvyntra Labs",
@@ -58,6 +58,11 @@ export const whitepaperSections: DocSection[] = [
       {
         type: "p",
         text: "Nuvyntra Labs ships the stack as independently versioned products. [NuvyntraLabs.UIKit](/uikit/) is the Lumina presentation catalog. [Plugin.Maui.MVVMExpress](/packages/plugin-maui-mvvmexpress/) is the application shell. [Plugin.Maui.HttpForge](/packages/plugin-maui-httpforge/) is the typed REST contract. The [MauiEssentials gallery](/packages/) fills location, connectivity, persistence, security, media, and observability. Compose only what the app needs. There is no mega-package dependency.",
+      },
+      {
+        type: "callout",
+        title: "Two ways to start",
+        text: "Nuvyntra Labs reaches teams as a component library and as a whole ecosystem. The component library is one NuGet in any host. The whole ecosystem is [nuvyn init](/toolkits/nuvyn/) assembling a new host from the same packages. Neither path is a fallback.",
       },
       {
         type: "callout",

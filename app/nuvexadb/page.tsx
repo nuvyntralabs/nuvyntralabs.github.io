@@ -33,6 +33,17 @@ export default function NuvexaDbPage() {
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{nuvexaDb.description}</p>
 
       <aside className="callout mt-6 px-4 py-3">
+        <p className="text-sm font-semibold text-foreground">Component library door</p>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+          Add NuvexaDB to any host. You do not need{" "}
+          <Link href="/toolkits/nuvyn/" className="text-link">
+            Nuvyn
+          </Link>
+          . Nuvyn is the optional whole-ecosystem start for a <strong>new</strong> MAUI app.
+        </p>
+      </aside>
+
+      <aside className="callout mt-6 px-4 py-3">
         <p className="text-sm font-semibold text-foreground">MAUI host layer</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           For Room-style insert / find / replace / delete that can host this engine or SQLite, use{" "}

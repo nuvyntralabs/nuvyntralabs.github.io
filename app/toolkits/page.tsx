@@ -23,7 +23,7 @@ export default function ToolkitsPage() {
       <PageHero
         eyebrow="Toolkits"
         title="Scaffold the host, then diagnose"
-        description="Developer productivity tools sit next to the NuGet catalog — not inside it. Nuvyn creates a spec-driven MAUI app on the Nuvyntra stack. MauiDev is a maui-dev CLI plus a VS Code / Cursor extension."
+        description="This is the whole-ecosystem door. Nuvyn creates a spec-driven MAUI app on the Nuvyntra stack. MauiDev doctors the machine and the project. Individual plugins and UIKit stay installable without these tools."
       />
       <div className="container py-16 sm:py-20">
         <p className="text-sm text-muted-foreground">
@@ -39,7 +39,7 @@ export default function ToolkitsPage() {
       </div>
       <CtaBand
         title="Need a runtime plugin instead?"
-        description="Nuvyn starts a new host. MauiDev diagnoses SDK, project, and resource issues. Leaks, traces, crashes, and device health live in the NuGet catalog."
+        description="That is the component-library door. Browse the NuGet catalog. Nuvyn starts a new host. MauiDev diagnoses SDK, project, and resource issues."
       />
     </main>
   );

@@ -54,6 +54,17 @@ export default function UiKitPage() {
       </aside>
 
       <aside className="callout mt-6 px-4 py-3">
+        <p className="text-sm font-semibold text-foreground">Component library door</p>
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+          Add this kit to any MAUI host. You do not need{" "}
+          <Link href="/toolkits/nuvyn/" className="text-link">
+            Nuvyn
+          </Link>
+          . Nuvyn is the optional whole-ecosystem start for a <strong>new</strong> app that already includes UIKit.
+        </p>
+      </aside>
+
+      <aside className="callout mt-6 px-4 py-3">
         <p className="text-sm font-semibold text-foreground">UI library, not a runtime plugin</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           MauiEssentials plugins stay in the{" "}

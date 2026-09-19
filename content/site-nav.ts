@@ -27,7 +27,7 @@ export const featuredProducts: FeaturedNavItem[] = [
   {
     href: "/toolkits/nuvyn/",
     label: "Nuvyn",
-    blurb: "Spec-driven CLI for MAUI on the Nuvyntra stack",
+    blurb: "Whole ecosystem: spec-driven CLI for a new MAUI host",
     badge: "New",
     pin: true,
     prefixes: ["/toolkits/nuvyn/"],
@@ -43,7 +43,7 @@ export const featuredProducts: FeaturedNavItem[] = [
   {
     href: "/uikit/",
     label: "UIKit(MAUI)",
-    blurb: "Lumina NV* controls and page recipes",
+    blurb: "Component library: Lumina NV* controls and page recipes",
     badge: "New",
     pin: true,
     prefixes: ["/uikit/"],
@@ -60,9 +60,9 @@ export const featuredProducts: FeaturedNavItem[] = [
 export const workCatalog: NavItem[] = [
   { href: "/whitepaper/", label: "White paper", blurb: "The MAUI development ecosystem" },
   { href: "/playground/", label: "Playground", blurb: "Real-time examples and community ideas" },
-  { href: "/packages/", label: "All products", blurb: "Focused .NET MAUI NuGet catalog" },
-  { href: "/toolkits/", label: "Toolkits", blurb: "Nuvyn spec CLI and MauiDev doctor" },
-  { href: "/getting-started/", label: "Getting started", blurb: "Install a plugin and compose" },
+  { href: "/packages/", label: "All products", blurb: "Component library — focused NuGet catalog" },
+  { href: "/toolkits/", label: "Toolkits", blurb: "Whole ecosystem — Nuvyn and MauiDev" },
+  { href: "/getting-started/", label: "Getting started", blurb: "Component library or whole ecosystem" },
 ];
 
 export const labLinks: NavItem[] = [

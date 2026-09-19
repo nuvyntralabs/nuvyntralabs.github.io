@@ -7,12 +7,12 @@ import { nugetPackages, packages } from "@/content/packages";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Nuvyntra Labs product catalog: location, connectivity, offline sync, security, TLS pin, video, VoIP, and observability plugins for .NET MAUI on GitHub Packages.",
+    "Nuvyntra Labs component library: location, connectivity, offline sync, security, TLS pin, video, VoIP, and observability plugins for .NET MAUI. Install one package — Nuvyn is optional.",
   alternates: { canonical: "/packages/" },
   openGraph: {
-    title: "Nuvyntra Labs NuGet catalog",
+    title: "Nuvyntra Labs component library",
     description:
-      "Focused .NET MAUI plugins on GitHub Packages for location, connectivity, offline sync, security, TLS pin, video, VoIP, and observability.",
+      "Focused .NET MAUI plugins. Use one NuGet in any host, or start a new app with Nuvyn.",
     url: "/packages/",
   },
 };
@@ -22,15 +22,15 @@ export default function PackagesPage() {
     <main>
       <PageHero
         eyebrow="Products"
-        title="NuGet catalog"
-        description={`${nugetPackages.length} packages on GitHub Packages, ${packages.length} entries in the catalog including MauiEssentials. Each plugin versions independently — there is no mega-package dependency.`}
+        title="Component library"
+        description={`${nugetPackages.length} packages on GitHub Packages, ${packages.length} entries in the catalog including MauiEssentials. Install one NuGet in any host. The whole ecosystem (nuvyn init) is optional and uses these same packages.`}
       />
       <div className="container py-16 sm:py-20">
         <Catalog />
       </div>
       <CtaBand
         title="Need help choosing a plugin?"
-        description="Start with the getting-started guide, or contact the lab if you want a recommended set for a field or enterprise app."
+        description="This catalog is the component-library door. For a new host on the full stack, use Nuvyn. Or contact the lab for a recommended set."
       />
     </main>
   );

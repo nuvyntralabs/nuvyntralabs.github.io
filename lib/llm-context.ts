@@ -55,11 +55,18 @@ RSS: ${siteConfig.url}/feed.xml
 dotnet/maui releases: https://github.com/dotnet/maui/releases
 Microsoft Learn what's new: https://learn.microsoft.com/dotnet/maui/whats-new/
 
+## Two ways Nuvyntra Labs reaches the user
+
+The user chooses. Neither path is a fallback.
+
+- Component library: one NuGet (NuvyntraLabs.UIKit, any Plugin.Maui.*, MVVMExpress, or Nuventra.NuvexaDB) in an existing host. Do not run nuvyn init. Catalog: ${siteConfig.url}/packages/
+- Whole ecosystem: nuvyn init for a new MAUI app on MVVMExpress + UIKit + the smallest plugin set. Existing apps: nuvyn update refreshes skills only. Nuvyn: ${siteConfig.url}${nuvynHref}
+
 ## Development ecosystem
 
 ${siteConfig.url}${whitepaperHref}
 ${whitepaper.title}. ${whitepaper.abstract}
-Pillars: NuvyntraLabs.UIKit (rich UI), Plugin.Maui.MVVMExpress (application shell), Plugin.Maui.HttpForge (typed REST). Gallery plugins cover local store, offline sync, network truth, session, field capture, and observability. There is no mega-SDK.
+Pillars: NuvyntraLabs.UIKit (rich UI), Plugin.Maui.MVVMExpress (application shell), Plugin.Maui.HttpForge (typed REST). Gallery plugins cover local store, offline sync, network truth, session, field capture, and observability. There is no mega-SDK. The catalog is the component library; Nuvyn assembles the same packages for a new host.
 
 ## Lumina Playground
 

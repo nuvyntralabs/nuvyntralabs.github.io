@@ -1,7 +1,9 @@
 # Nuvyntra Labs
 
 Company site for **open-source work**: R&D projects, proofs of concept, and NuGet
-packages. Live at **[https://nuvyntralabs.github.io](https://nuvyntralabs.github.io)**.
+packages. Nuvyntra Labs reaches developers as a **component library** (one NuGet)
+and as a **whole ecosystem** (`nuvyn init`). Live at
+**[https://nuvyntralabs.github.io](https://nuvyntralabs.github.io)**.
 
 Professional experience stays on
 [niladri-padhy-website.vercel.app](https://niladri-padhy-website.vercel.app/).
