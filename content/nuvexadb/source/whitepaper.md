@@ -5,12 +5,12 @@
 | | |
 | --- | --- |
 | **Product** | NuvexaDB (`Nuventra.NuvexaDB`) |
-| **Version** | 1.0.6 |
+| **Version** | 1.0.7 |
 | **Author** | Niladri Prasad Padhy / Nuventra |
 | **License** | MIT |
 | **Repository** | https://github.com/nuvyntralabs/NuvexaDB |
 | **Release downloads** | https://github.com/nuvyntralabs/NuvexaDB/releases |
-| **Date** | 15 September 2026 |
+| **Date** | 20 September 2026 |
 
 This paper describes the **core engine**, on-disk architecture, security model, performance contract, how platform libraries are produced, the desktop and editor tools, and the 1.x roadmap. Companion pages hold the byte-level and API inventories: [format.md](format.md), [architecture.md](architecture.md), [bindings.md](bindings.md), [Integration/README.md](Integration/README.md), [query.md](query.md), [benchmarks.md](benchmarks.md), [explorer.md](explorer.md).
 
@@ -34,7 +34,7 @@ NuvexaDB is a **standalone product**. It ships its own engine, C ABI, language S
 | **Access library** | `Nuventra.NuvexaDB` | `NuvexaDatabase` / `NuvexaCollection` / `AddNuvexaDB` |
 | **Nuvexa Data Studio** | `Nuventra.NuvexaDB.Explorer` | Avalonia desktop workbench (Windows x64 / ARM, macOS Apple Silicon / Intel, Linux x64 / ARM64) |
 | **Editor extensions** | `Nuventra.NuvexaDB.VSCode`, `Nuventra.NuvexaDB.VisualStudio` | Custom editor / tool window over the same `ExplorerSession` |
-| **CLI** | `Nuventra.NuvexaDB.Cli` (`nuvexa`) | `browse` / `samples` / `explain` / `backup` / `restore` (VS Code uses these) |
+| **CLI** | `Nuventra.NuvexaDB.Cli` (`nuvexa`) | Standalone PackAsTool (`dotnet tool install -g Nuventra.NuvexaDB.Cli`). Also bundled into the VS Code and Visual Studio VSIX (`cli/nuvexa`). |
 | **C ABI** | `Nuventra.NuvexaDB.Native` | Native AOT shared library. JSON in, JSON out |
 | **Language SDKs** | `bindings/*` | Thin overlays over `nuvexa.h`. They must not parse pages |
 
@@ -457,13 +457,13 @@ Every shippable surface shares `<Version>` / `<PackageVersion>` in `Directory.Bu
 python3 .github/scripts/check-versions.py --repo-root . --write
 ```
 
-That copies the same number onto NuGet metadata, Java, Android (`versionName` + `versionCode` = major×10000 + minor×100 + patch; **1.0.6 → 10006**), Python, Node, React Native, Flutter, Go, C++, Swift, Data Studio installers, VS Code, and Visual Studio. CI **fails** if any of those drift. Sample apps are not bumped.
+That copies the same number onto NuGet metadata, Java, Android (`versionName` + `versionCode` = major×10000 + minor×100 + patch; **1.0.7 → 10007**), Python, Node, React Native, Flutter, Go, C++, Swift, Data Studio installers, VS Code, Visual Studio, and the CLI PackAsTool. CI **fails** if any of those drift. Sample apps are not bumped.
 
 ### 7.5 Two download channels (intentional)
 
 | Channel | When | What the user gets |
 | --- | --- | --- |
-| **GitHub Actions Artifacts** | Every green `main` / PR | Temporary zips: nupkg, natives, Data Studio installers, VSIX, SDK packs. Expire. **Do not** update [Releases](https://github.com/nuvyntralabs/NuvexaDB/releases). |
+| **GitHub Actions Artifacts** | Every green `main` / PR | Temporary zips: engine nupkg, CLI PackAsTool nupkg, natives, Data Studio installers, VSIX, SDK packs. Expire. **Do not** update [Releases](https://github.com/nuvyntralabs/NuvexaDB/releases). |
 | **GitHub Release `v*`** | Tag `v<Version>` **and** every job on that run is green (`if: github.ref_type == 'tag' && success()`) | Permanent zips. Users download only the zip they need. |
 
 Logic:
@@ -515,7 +515,7 @@ dotnet run --project src/Nuventra.NuvexaDB.Explorer/Nuventra.NuvexaDB.Explorer.c
 
 ### 8.3 VS Code and Cursor (Windows, macOS, Linux)
 
-`Nuventra.NuvexaDB.VSCode` VSIX. Custom editor talks to the engine through the **`nuvexa` CLI** (`browse`, `replace`, `samples`, `explain`, `query`, `tree`, `open` / `close`). Works on the same desktop OSes as the editor host (Windows x64 / ARM, macOS Apple Silicon / Intel, Linux x64 / ARM64). The CLI and native bits must match the machine RID. Browse cells are editable.
+`Nuventra.NuvexaDB.VSCode` VSIX. Custom editor talks to the engine through the **`nuvexa` CLI** (`browse`, `replace`, `samples`, `explain`, `query`, `tree`, `open` / `close`). The VSIX bundles `cli/nuvexa` and falls back to `Nuventra.NuvexaDB.Cli` on PATH. Works on the same desktop OSes as the editor host (Windows x64 / ARM, macOS Apple Silicon / Intel, Linux x64 / ARM64). The CLI and native bits must match the machine RID. Browse cells are editable.
 
 | Feature | Data Studio | Visual Studio | VS Code / Cursor |
 | --- | --- | --- | --- |
@@ -527,13 +527,13 @@ dotnet run --project src/Nuventra.NuvexaDB.Explorer/Nuventra.NuvexaDB.Explorer.c
 
 ### 8.4 CLI
 
-`nuvexa` is the headless tool: query, browse pages, explain, backup, restore, samples. VS Code is a client of this tool, not a fork of the query planner.
+`nuvexa` is a standalone PackAsTool (`Nuventra.NuvexaDB.Cli`): query, browse pages, explain, backup, restore, samples. Install with `dotnet tool install -g Nuventra.NuvexaDB.Cli` (until nuget.org push is enabled, use `--add-source` on the `NuvexaDB-Cli` zip). The same self-contained binary is bundled into each OS VS Code VSIX (`cli/nuvexa`) and the Visual Studio VSIX (`cli/nuvexa.exe`). VS Code prefers the bundled copy, then PATH. Visual Studio stays in-process for the tool window. VS Code is a client of this tool, not a fork of the query planner.
 
 ---
 
 ## 9. Future roadmap
 
-Items below are **intentional 1.x follow-ons** or documented gaps. Do not treat them as shipped in 1.0.6.
+Items below are **intentional 1.x follow-ons** or documented gaps. Do not treat them as shipped in 1.0.7.
 
 ### 9.1 Future (not planned yet)
 

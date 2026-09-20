@@ -1,6 +1,6 @@
 # Nuvexa Data Studio
 
-Desktop database workbench (**Nuvexa Data Studio**, project `Nuventra.NuvexaDB.Explorer`) for a single encrypted or plaintext `.nvx` file. Windows, macOS, and Linux. Built with Avalonia 11 and [Plugin.Avalonia.MVVMExpress](https://www.nuget.org/packages/Plugin.Avalonia.MVVMExpress). The same `ExplorerSession` (`Nuventra.NuvexaDB.Tools`) backs the Visual Studio tool window and the VS Code / Cursor custom editor. Browse paging (`BrowsePageAsync`), query examples (`ExplorerQuerySample`), explain text, and collection captions (`customers  (6)`) are shared. VS Code reaches those APIs through `nuvexa browse`, `nuvexa samples`, and `nuvexa explain`.
+Desktop database workbench (**Nuvexa Data Studio**, project `Nuventra.NuvexaDB.Explorer`) for a single encrypted or plaintext `.nvx` file. Windows, macOS, and Linux. Built with Avalonia 11 and [Plugin.Avalonia.MVVMExpress](https://www.nuget.org/packages/Plugin.Avalonia.MVVMExpress). The same `ExplorerSession` (`Nuventra.NuvexaDB.Tools`) backs the Visual Studio tool window and the VS Code / Cursor custom editor. Browse paging (`BrowsePageAsync`), query examples (`ExplorerQuerySample`), explain text, and collection captions (`customers  (6)`) are shared. VS Code reaches those APIs through the `nuvexa` binary CI publishes into the VSIX (`cli/nuvexa`), falling back to the `Nuventra.NuvexaDB.Cli` tool on PATH. The Visual Studio VSIX bundles the same binary under `cli/`.
 
 Mental model: **collection = table**, **document = JSON row**, **field = column**. `_id` is always the primary key. Declared types live in the hidden collection `__nuvexa_schema` (hidden from the tree and from user-facing stats).
 
@@ -18,11 +18,11 @@ File menu: New / Open / **Open Recent** / Close, Import/Export JSON or CSV, Expo
 
 ## File and session
 
-- Create or open a `.nvx`. Encrypted files prompt for the key; a wrong key does not open the file (`NuvexaEncryptionException`).
+- Create or open a `.nvx`. **New files and writes are format 2.** Format 1 is deprecated and still opens (read, then a write promotes the file to format 2). Encrypted files prompt for the key; a wrong key does not open the file (`NuvexaEncryptionException`).
 - Optional encryption on create (empty key = plaintext).
 - **Open Recent** remembers the last 12 full paths only. The passphrase is never written to that list (`~/Library/Application Support/NuvexaDB/explorer-recent-files.json` on macOS; equivalent Application Data folder on Windows / Linux).
 - Missing recent paths are dropped when the user picks them.
-- Status bar shows path, user-visible document count (schema collection excluded), encrypted flag, and file size.
+- Status bar shows path, user-visible document count (schema collection excluded), encrypted flag, format version, and file size.
 - Compact rewrites the file in batches (encryption is preserved) and keeps the session open. Change key re-wraps the DEK; pages are not rewritten. A second process cannot open the same `.nvx` while Explorer holds it.
 
 ## Database Structure
@@ -79,7 +79,7 @@ Aggregate stages: `$match $project $sort $skip $limit $count $lookup`.
 
 ## Distribution
 
-CI builds native installers for x64 and ARM64 (Windows `.msi`, Linux `.deb` / `.rpm`, unsigned macOS `.pkg` to `/Applications` for now), plus VS Code and Visual Studio VSIX, and uploads them as GitHub artifacts next to the packed `Nuventra.NuvexaDB` nupkg. nuget.org push is commented out. Packaging scripts: `src/Nuventra.NuvexaDB.Explorer/packaging/`.
+CI builds native installers for x64 and ARM64 (Windows `.msi`, Linux `.deb` / `.rpm`, unsigned macOS `.pkg` to `/Applications` for now), a VS Code VSIX per RID (with bundled `nuvexa`), a Visual Studio VSIX (with bundled `cli/nuvexa`), the PackAsTool `Nuventra.NuvexaDB.Cli` nupkg (`NuvexaDB-Cli`), and uploads them as GitHub artifacts next to the packed `Nuventra.NuvexaDB` nupkg. nuget.org push is commented out. Packaging scripts: `src/Nuventra.NuvexaDB.Explorer/packaging/`, `.github/scripts/pack-cli.sh`, `.github/scripts/pack-vscode.sh`, and `.github/scripts/pack-vsix.sh`.
 
 ## Visual Studio and VS Code
 
@@ -87,12 +87,11 @@ These hosts use the same session APIs as the desktop IDE. They do not duplicate 
 
 | Feature | Visual Studio | VS Code / Cursor |
 | --- | --- | --- |
-| Open Database / Close Database | In-process `NuvexaToolWindow` | `nuvexa.open` / `nuvexa.close` |
-| Encrypted open | Prompt + 3 retries | Prompt when `nuvexa info` reports a locked file; pretty-printed `"encrypted": true` no longer skips the box; 3 retries. Exit code 2 on `tree` / `query` is an error |
+| Open Database / Close Database | In-process `NuvexaToolWindow` (VSIX also bundles `cli/nuvexa`) | `nuvexa.open` / `nuvexa.close` |
 | **About** (author, license, links) | About tab (`NuvexaAbout`) | About tab + `nuvexa.about` |
 | Collapsible collection tree (Columns / Indexes, row counts) | Same session tree | `nuvexa tree` |
-| **Browse Data** (filter, **Build filter**, find-in-page, JSON/Tree, 200-row pager, editable cells) | `BrowsePageAsync` + `ReplaceDocumentAsync` | `nuvexa browse` / `nuvexa replace` |
-| **Execute Query** (NQL find / aggregate / update / delete, explain) | `ExecuteAsync` + `ExplainQueryAsync` | `nuvexa query` + `nuvexa explain` / `nuvexa samples` |
+| **Browse Data** (filter, **Build filter**, find-in-page, JSON/Tree, 200-row pager, editable cells) | `BrowsePageAsync` + `ReplaceDocumentAsync` | Bundled `nuvexa browse` / `nuvexa replace` |
+| **Execute Query** (NQL find / aggregate / update / delete, explain) | `ExecuteAsync` + `ExplainQueryAsync` | Bundled `nuvexa query` + `nuvexa explain` / `nuvexa samples` |
 
 Avalonia Data Studio still has the typed browse grid (BOOLEAN checkbox, DATETIME picker), **Edit table definition**, aggregation builder, visual explain, and Ctrl+Space NQL completions. Visual Studio and VS Code browse cells are editable.
 

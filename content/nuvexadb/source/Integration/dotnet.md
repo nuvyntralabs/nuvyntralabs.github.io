@@ -6,13 +6,14 @@ For a Room-style MAUI facade that can host this engine or SQLite behind the same
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6):
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7):
 
 | Release asset | Open the zip and use |
 | --- | --- |
-| **`NuvexaDB-NuGet.zip`** | `Nuventra.NuvexaDB.1.0.6.nupkg` (optional: `Nuventra.NuvexaDB.1.0.6.snupkg` for symbols) |
+| **`NuvexaDB-NuGet.zip`** | `Nuventra.NuvexaDB.1.0.7.nupkg` (optional: `Nuventra.NuvexaDB.1.0.7.snupkg` for symbols) |
+| **`NuvexaDB-Cli.zip`** | `Nuventra.NuvexaDB.Cli.1.0.7.nupkg` (optional; the `nuvexa` PackAsTool) |
 
-Later tags use the same zip name; the nupkg version matches the tag (`Nuventra.NuvexaDB.1.0.6.nupkg` on v1.0.6).
+Later tags use the same zip name; the nupkg version matches the tag (`Nuventra.NuvexaDB.1.0.7.nupkg` on v1.0.7).
 
 Ignore `NuvexaDB-Native-*.zip` for a C# app. Those are for Java, Python, Node, Go, C++, Swift, Flutter, and React Native.
 
@@ -38,9 +39,17 @@ WPF, WinUI, Avalonia, and Uno samples in this repo use the same package.
 dotnet add package Nuventra.NuvexaDB --source /path/to/unzipped-nuget
 ```
 
-`/path/to/unzipped-nuget` is the folder that contains `Nuventra.NuvexaDB.1.0.6.nupkg` (the zip root after you extract `NuvexaDB-NuGet.zip`).
+`/path/to/unzipped-nuget` is the folder that contains `Nuventra.NuvexaDB.1.0.7.nupkg` (the zip root after you extract `NuvexaDB-NuGet.zip`).
 
-Or add a local feed in `NuGet.config` and then `dotnet add package Nuventra.NuvexaDB --version 1.0.6`.
+Or add a local feed in `NuGet.config` and then `dotnet add package Nuventra.NuvexaDB --version 1.0.7`.
+
+The `nuvexa` CLI is a separate PackAsTool. Do not `dotnet add package` it into an app:
+
+```bash
+dotnet tool install -g Nuventra.NuvexaDB.Cli --add-source /path/to/NuvexaDB-Cli
+```
+
+`/path/to/NuvexaDB-Cli` is the folder that contains `Nuventra.NuvexaDB.Cli.1.0.7.nupkg` after you extract `NuvexaDB-Cli.zip`. The VS Code and Visual Studio VSIX also bundle the same binary under `cli/`.
 
 ## 4. Create, open, close
 
@@ -49,12 +58,13 @@ using Nuventra.NuvexaDB;
 
 var path = Path.Combine(AppContext.BaseDirectory, "app.nvx");
 
+// Create writes on-disk format 2. Format 1 files still open.
 await using (var db = NuvexaDatabase.Create(path, new NuvexaCreateOptions
 {
     EncryptionKey = key // omit or null for a plaintext file
 }))
 {
-    // work
+    // db.FormatVersion == 2
 }
 
 if (NuvexaDatabase.IsEncrypted(path) && string.IsNullOrEmpty(key))

@@ -4,7 +4,7 @@ JNA wrapper over the C ABI. You need **two** zips: the JVM jar and the native li
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6), pick **one** pair that matches the machine that will run the JVM:
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7), pick **one** pair that matches the machine that will run the JVM:
 
 | Your machine | JVM zip | Native zip | Library file inside the native zip |
 | --- | --- | --- | --- |
@@ -27,11 +27,11 @@ Or a Kotlin JVM app with the same Gradle layout.
 
 ## 3. Add the downloaded package
 
-Copy the jar next to the project (example `libs/jvm-1.0.6.jar`). In `build.gradle.kts`:
+Copy the jar next to the project (example `libs/jvm-1.0.7.jar`). In `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation(files("libs/jvm-1.0.6.jar"))
+    implementation(files("libs/jvm-1.0.7.jar"))
     implementation("net.java.dev.jna:jna:5.17.0")
     implementation("org.json:json:20250107")
 }
@@ -51,6 +51,7 @@ Kotlin:
 import nuventra.nuvexadb.NuvexaDatabase
 
 val path = "app.nvx"
+// create writes format 2. Format 1 files still open.
 NuvexaDatabase.create(path, key).use { db ->
     // work
 }
@@ -64,7 +65,7 @@ NuvexaDatabase.open(path, key).use { db ->
 }
 ```
 
-Java: `NuvexaDatabase.create(path, key)` and try-with-resources (`AutoCloseable`). Pass `null` for a plaintext file.
+Java: `NuvexaDatabase.create(path, key)` writes format 2 (try-with-resources, `AutoCloseable`). Pass `null` for a plaintext file. Format 1 files still open.
 
 ## 5. Delete the database
 

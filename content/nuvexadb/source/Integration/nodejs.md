@@ -4,7 +4,7 @@
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6):
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7):
 
 | Your machine | Node zip | Native zip | Library file |
 | --- | --- | --- | --- |
@@ -12,7 +12,7 @@ From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.
 | Linux x64 | `NuvexaDB-Node-linux-x64.zip` | `NuvexaDB-Native-linux-x64.zip` | `libnuvexa.so` |
 | Windows x64 | `NuvexaDB-Node-win-x64.zip` | `NuvexaDB-Native-win-x64.zip` | `nuvexa.dll` |
 
-Inside the Node zip: `nuventra-nuvexadb-node-1.0.6.tgz` (npm pack of `@nuventra/nuvexadb-node`).
+Inside the Node zip: `nuventra-nuvexadb-node-1.0.7.tgz` (npm pack of `@nuventra/nuvexadb-node`).
 
 This is the **desktop Node** SDK. For React Native apps see [react-native.md](react-native.md).
 
@@ -28,7 +28,7 @@ Use `"type": "module"` in `package.json` (the SDK is ESM).
 ## 3. Add the downloaded package
 
 ```bash
-npm install /path/to/nuventra-nuvexadb-node-1.0.6.tgz
+npm install /path/to/nuventra-nuvexadb-node-1.0.7.tgz
 export NUVEXA_NATIVE_LIB="/absolute/path/to/libnuvexa.dylib"
 ```
 
@@ -44,6 +44,7 @@ $env:NUVEXA_NATIVE_LIB = "C:\path\to\nuvexa.dll"
 import { NuvexaDatabase } from "@nuventra/nuvexadb-node";
 
 const path = "app.nvx";
+// create writes format 2. Format 1 files still open.
 const db = await NuvexaDatabase.create(path, key); // omit key / pass null for plaintext
 await db.close();
 

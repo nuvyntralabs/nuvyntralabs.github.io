@@ -4,11 +4,11 @@ JavaScript API is async (`NativeModules` on device). Node tests load the C ABI w
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6):
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7):
 
 | What you are building | Zip | Inner file |
 | --- | --- | --- |
-| JS package (all hosts) | `NuvexaDB-React-Native-osx-arm64.zip` or `NuvexaDB-React-Native-linux-x64.zip` | `@nuventra/nuvexadb` tarball (`nuventra-nuvexadb-1.0.6.tgz`) |
+| JS package (all hosts) | `NuvexaDB-React-Native-osx-arm64.zip` or `NuvexaDB-React-Native-linux-x64.zip` | `@nuventra/nuvexadb` tarball (`nuventra-nuvexadb-1.0.7.tgz`) |
 | Android app | **`NuvexaDB-React-Native-Android.zip`** | Android AAR with `jni/arm64-v8a/libnuvexa.so` |
 | iOS app | **`NuvexaDB-React-Native-iOS.zip`** plus **`NuvexaDB-Native-iOS.zip`** | compiled `NuvexaDB.mm` / link **`Nuvexa.xcframework`** |
 | Node / Jest on a desktop | same JS tarball + `NuvexaDB-Native-<rid>.zip` | `libnuvexa.dylib` / `.so` / `nuvexa.dll` |
@@ -25,7 +25,7 @@ cd AcmeStore
 ## 3. Add the downloaded package
 
 ```bash
-npm install /path/to/nuventra-nuvexadb-1.0.6.tgz
+npm install /path/to/nuventra-nuvexadb-1.0.7.tgz
 ```
 
 Wire the native module:
@@ -45,6 +45,7 @@ export NUVEXA_NATIVE_LIB="/absolute/path/to/libnuvexa.dylib"
 import { NuvexaDatabase } from "@nuventra/nuvexadb";
 
 const path = "app.nvx";
+// create writes format 2. Format 1 files still open.
 const db = await NuvexaDatabase.create(path, key);
 await db.close();
 

@@ -4,13 +4,13 @@ Swift package over the C ABI.
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6):
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7):
 
 ### macOS
 
 | Zip | Inner file you need |
 | --- | --- |
-| **`NuvexaDB-Swift-osx-arm64.zip`** | `nuvexadb-swift-1.0.6.tgz` (Package.swift + Sources) |
+| **`NuvexaDB-Swift-osx-arm64.zip`** | `nuvexadb-swift-1.0.7.tgz` (Package.swift + Sources) |
 | **`NuvexaDB-Native-osx-arm64.zip`** | `libnuvexa.dylib` |
 
 Intel Mac: use `NuvexaDB-Native-osx-x64.zip` (`libnuvexa.dylib`). The Swift sources are the same.
@@ -20,7 +20,7 @@ Intel Mac: use `NuvexaDB-Native-osx-x64.zip` (`libnuvexa.dylib`). The Swift sour
 | Zip | Inner file you need |
 | --- | --- |
 | **`NuvexaDB-Native-iOS.zip`** | `Nuvexa.xcframework` and `nuvexa.h` |
-| **`NuvexaDB-Swift-osx-arm64.zip`** | Same Swift sources (`nuvexadb-swift-1.0.6.tgz`) |
+| **`NuvexaDB-Swift-osx-arm64.zip`** | Same Swift sources (`nuvexadb-swift-1.0.7.tgz`) |
 
 On iOS the process links the xcframework; you do not set `NUVEXA_NATIVE_LIB` at runtime.
 
@@ -35,7 +35,7 @@ Xcode: **File → New → Project → App** (macOS or iOS), then add a local pac
 
 ## 3. Add the downloaded package
 
-Unpack `nuvexadb-swift-1.0.6.tgz`. In `Package.swift`:
+Unpack `nuvexadb-swift-1.0.7.tgz`. In `Package.swift`:
 
 ```swift
 dependencies: [
@@ -65,6 +65,7 @@ iOS — add `Nuvexa.xcframework` to the app target (**Frameworks, Libraries, and
 import NuvexaDB
 
 let path = "app.nvx"
+// create writes format 2. Format 1 files still open.
 let db = try NuvexaDatabase.create(path, key: key) // key: nil for plaintext
 // ...
 try db.close()

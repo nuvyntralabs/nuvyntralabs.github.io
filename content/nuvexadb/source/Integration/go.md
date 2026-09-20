@@ -6,14 +6,14 @@ Runtime interop tests run on **Linux**. On macOS, Native AOT GC uses SIGUSR1; cr
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6):
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7):
 
 | Your machine | Go zip | Native zip | Library file |
 | --- | --- | --- | --- |
 | Linux x64 | `NuvexaDB-Go-linux-x64.zip` | `NuvexaDB-Native-linux-x64.zip` | `libnuvexa.so` |
 | macOS Apple Silicon (sources only) | `NuvexaDB-Go-osx-arm64.zip` | `NuvexaDB-Native-osx-arm64.zip` | `libnuvexa.dylib` |
 
-Inside the Go zip: `nuvexadb-go-1.0.6.tgz` (`go.mod`, `nuvexa.go`, `include/nuvexa.h`, examples).
+Inside the Go zip: `nuvexadb-go-1.0.7.tgz` (`go.mod`, `nuvexa.go`, `include/nuvexa.h`, examples).
 
 ## 2. Empty project
 
@@ -24,7 +24,7 @@ go mod init acme.example/store
 
 ## 3. Add the downloaded package
 
-Unpack `nuvexadb-go-1.0.6.tgz` and add a replace, or copy the module next to your app:
+Unpack `nuvexadb-go-1.0.7.tgz` and add a replace, or copy the module next to your app:
 
 ```go
 // go.mod
@@ -48,6 +48,7 @@ import nuvexa "github.com/nuvyntralabs/NuvexaDB/bindings/go"
 
 ```go
 path := "app.nvx"
+// Create writes format 2. Format 1 files still open.
 db, err := nuvexa.Create(path, key) // empty key → plaintext
 if err != nil {
     log.Fatal(err)
@@ -76,7 +77,7 @@ _, err = db.Insert("users", `{"name":"Ada","age":36}`)
 names, err := db.ListCollections()
 ```
 
-The Go wrapper on 1.0.6 does not expose `drop_collection` / `rename_collection`. To discard a collection, close the handle and delete the `.nvx`, or call `nuvexa_drop_collection` from `nuvexa.h` yourself.
+The Go wrapper on 1.0.7 does not expose `drop_collection` / `rename_collection`. To discard a collection, close the handle and delete the `.nvx`, or call `nuvexa_drop_collection` from `nuvexa.h` yourself.
 
 ## 7. Documents
 

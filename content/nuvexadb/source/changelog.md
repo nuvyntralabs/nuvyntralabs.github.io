@@ -2,6 +2,12 @@
 
 Working-tree notes for unreleased work. Publishing still happens only through CI.
 
+## 1.0.7 — 20 September 2026
+
+Published as [v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7).
+
+`nuvexa` is a standalone PackAsTool (`Nuventra.NuvexaDB.Cli`, command `nuvexa`, nupkg only). CI uploads `NuvexaDB-Cli` next to the engine `NuvexaDB-NuGet` artifact. The same self-contained binary is still bundled into each OS VS Code VSIX (`cli/nuvexa`) and into the Visual Studio VSIX (`cli/nuvexa.exe`). VS Code prefers the bundled copy, then PATH. Visual Studio stays in-process for the tool window and exposes `NuvexaCli.Resolve()` for the bundled / PATH tool. `NuvexaCli` imports `System.IO` so the `net8.0-windows` VSIX pack compiles (`Path` / `File`).
+
 ## 1.0.6 — 15 September 2026
 
 Published as [v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6).
@@ -10,29 +16,21 @@ VS Code: prompt for the encryption key when `nuvexa info` reports a locked file.
 
 ## 1.0.5 — 14 September 2026
 
-Published as [v1.0.5](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.5).
-
 **Creates and writes always use format 2** (order-preserving numeric `d:` keys, WAL v2 header). **Format 1 is deprecated**, not removed: open / find still read format-1 superblocks, `n:` index keys, and WAL v1 headers. `NuvexaCreateOptions.FormatVersion` is obsolete and ignored. A write on a format-1 file promotes the superblock to 2; new index entries are `d:`. `CompactAsync` rewrites as format 2.
 
 Samples, language binding examples, and [platform integration](Integration/README.md) guides show format-2 `Create`. Data Studio / VS Code / Visual Studio About copy names format 2 and that format 1 stays readable. `nuvexa --complex` writes format 2; `--complex-v1` is an internal fixture for older Data Studio.
 
 ## 1.0.4 — 14 September 2026
 
-Published as [v1.0.4](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.4).
-
 `NuvexaDB-NuGet` is the engine package only. Tools stays an in-repo library (`IsPackable=false`). The `nuvexa` CLI is not a NuGet tool; CI publishes it into each OS VSIX (`pack-vscode.sh` → `cli/nuvexa`). Install `NuvexaDB-VS-Code-<rid>` — no `dotnet tool install`.
 
-win-arm64 ABI host tests link `nuvexa.dll` with **MSYS2 CLANGARM64** (`C:\msys64\clangarm64`, `aarch64-w64-windows-gnu`), the same GNU-ld path win-x64 uses with MinGW.
+win-arm64 ABI host tests link `nuvexa.dll` with **MSYS2 CLANGARM64** (`C:\msys64\clangarm64`, `aarch64-w64-windows-gnu`), the same GNU-ld path win-x64 uses with MinGW. Git’s `clangarm64` folder is only Git’s ARM64 runtime — it has no `clang.exe`. MSVC `link.exe` cannot take a Native AOT DLL (LNK1107). A `lib /def` import library lists the names but does not resolve `nuvexa_*` (LNK2019). If MSYS2 has no compiler, CI installs the CLANGARM64 packages or falls back to llvm-mingw.
 
 `--gate` 100k point-get uses a warmed median of 3 and the same +50ms floor as encrypted get, so macos-latest jitter (62ms vs 19ms SQLite) does not fail the tag.
 
-[Platform integration](Integration/README.md) guides for .NET, Java/Kotlin, Android, Swift, Flutter, React Native, Python, Node.js, Go, and C++. Each names the exact [v1.0.4](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.4) zip and library file, then create/open/close, delete, collection and document CRUD, and encryption password practice.
+[Platform integration](Integration/README.md) guides for .NET, Java/Kotlin, Android, Swift, Flutter, React Native, Python, Node.js, Go, and C++. Each names the exact [v1.0.1](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.1) zip and library file, then create/open/close, delete, collection and document CRUD, and encryption password practice.
 
-## 1.0.3 — 14 September 2026
-
-Published as [v1.0.3](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.3).
-
-New files write **format v2**: order-preserving numeric index keys (`d:`) so `$gte` / `$lte` can IXSCAN, and a 32-byte WAL header that records page size. Format v1 files stay readable. Data Studio can edit an existing table definition, run NQL `update` / `delete`, complete NQL with Ctrl+Space, and open an aggregation builder plus visual explain. Visual Studio and VS Code browse grids are editable (`nuvexa replace`).
+New files write **format v2**: order-preserving numeric `d:` keys and a WAL header that names the format. Format v1 files stay readable. Data Studio can edit an existing table definition, run NQL `update` / `delete`, complete NQL with Ctrl+Space, and open an aggregation builder plus visual explain. Visual Studio and VS Code browse grids are editable (`nuvexa replace`).
 
 CI publishes iOS Native AOT shared libraries (`ios-arm64` + `iossimulator-arm64`, `PublishAotUsingRuntimePack`) and packs `Nuvexa.xcframework` as `NuvexaDB-Native-iOS`. Simulator ABI cases and React Native iOS link that framework. Linux ARM64 (`ubuntu-24.04-arm`) and Windows ARM64 (`windows-11-arm`) publish the C ABI and Data Studio installers and run host ABI tests on that CPU.
 

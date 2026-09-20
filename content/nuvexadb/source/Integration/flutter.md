@@ -4,16 +4,16 @@
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6):
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7):
 
 | Host you are running | Flutter zip | Native zip | Library file |
 | --- | --- | --- | --- |
 | macOS Apple Silicon | `NuvexaDB-Flutter-osx-arm64.zip` | `NuvexaDB-Native-osx-arm64.zip` | `libnuvexa.dylib` |
 | Linux x64 | `NuvexaDB-Flutter-linux-x64.zip` | `NuvexaDB-Native-linux-x64.zip` | `libnuvexa.so` |
-| Android | same Dart package (`nuvexadb-flutter-1.0.6.tgz` inside any Flutter zip) | use `NuvexaDB-Android.zip` / `NuvexaDB-Native-android-arm64.zip` for `libnuvexa.so` | `libnuvexa.so` in `jniLibs/arm64-v8a/` |
+| Android | same Dart package (`nuvexadb-flutter-1.0.7.tgz` inside any Flutter zip) | use `NuvexaDB-Android.zip` / `NuvexaDB-Native-android-arm64.zip` for `libnuvexa.so` | `libnuvexa.so` in `jniLibs/arm64-v8a/` |
 | iOS | same Dart package | **`NuvexaDB-Native-iOS.zip`** | `Nuvexa.xcframework` |
 
-The Flutter zip contains `nuvexadb-flutter-1.0.6.tgz` (`pubspec.yaml` + `lib/`). The Dart sources do not change by RID; the native zip must match the device.
+The Flutter zip contains `nuvexadb-flutter-1.0.7.tgz` (`pubspec.yaml` + `lib/`). The Dart sources do not change by RID; the native zip must match the device.
 
 ## 2. Empty project
 
@@ -24,7 +24,7 @@ cd acme_store
 
 ## 3. Add the downloaded package
 
-Unpack `nuvexadb-flutter-1.0.6.tgz` to a sibling folder. In `pubspec.yaml`:
+Unpack `nuvexadb-flutter-1.0.7.tgz` to a sibling folder. In `pubspec.yaml`:
 
 ```yaml
 dependencies:
@@ -52,6 +52,7 @@ flutter pub get
 import 'package:nuvexadb/nuvexadb.dart';
 
 final path = 'app.nvx';
+// create writes format 2. Format 1 files still open.
 final db = NuvexaDatabase.create(path, key: key);
 // ...
 db.close();

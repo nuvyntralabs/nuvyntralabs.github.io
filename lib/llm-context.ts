@@ -96,7 +96,7 @@ ${pocs}
 ## NuvexaDB
 
 ${siteConfig.url}/nuvexadb/
-Embedded NoSQL database (${nuvexaDb.packageId} ${nuvexaDb.version}). One .nvx file, NQL, optional AES-256-GCM. .NET / MAUI plus Native AOT bindings for Java, Kotlin, Swift, Flutter, React Native, Python, Node.js, Go, and C++. MIT. Install from GitHub Releases (${nuvexaDb.publishedTag}), not nuget.org yet.
+Embedded NoSQL database (${nuvexaDb.packageId} ${nuvexaDb.version}). One .nvx file, NQL, optional AES-256-GCM. .NET / MAUI plus Native AOT bindings for Java, Kotlin, Swift, Flutter, React Native, Python, Node.js, Go, and C++. MIT. Standalone CLI: Nuventra.NuvexaDB.Cli (command nuvexa; also bundled in the VS Code and Visual Studio VSIX). Install from GitHub Releases (${nuvexaDb.publishedTag}), not nuget.org yet.
 GitHub: ${nuvexaDb.github}
 Releases: ${nuvexaDb.releases}
 White paper: ${siteConfig.url}${nuvexaDocsBase}/

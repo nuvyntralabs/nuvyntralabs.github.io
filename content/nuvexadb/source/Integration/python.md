@@ -4,7 +4,7 @@ ctypes wrapper. `NUVEXA_NATIVE_LIB` is **required**.
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6), take **both** zips for your machine:
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7), take **both** zips for your machine:
 
 | Your machine | Python zip | Native zip | Library file |
 | --- | --- | --- | --- |
@@ -12,7 +12,7 @@ From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.
 | Linux x64 | `NuvexaDB-Python-linux-x64.zip` | `NuvexaDB-Native-linux-x64.zip` | `libnuvexa.so` |
 | Windows x64 | `NuvexaDB-Python-win-x64.zip` | `NuvexaDB-Native-win-x64.zip` | `nuvexa.dll` |
 
-Inside the Python zip: `nuvexadb-1.0.6-py3-none-any.whl` (the wheel is tagged `py3-none-any`; the RID on the zip only tells you which CI job built it).
+Inside the Python zip: `nuvexadb-1.0.7-py3-none-any.whl` (the wheel is tagged `py3-none-any`; the RID on the zip only tells you which CI job built it).
 
 ## 2. Empty project
 
@@ -25,7 +25,7 @@ mkdir acme_store && cd acme_store
 ## 3. Add the downloaded package
 
 ```bash
-python3 -m pip install /path/to/nuvexadb-1.0.6-py3-none-any.whl
+python3 -m pip install /path/to/nuvexadb-1.0.7-py3-none-any.whl
 export NUVEXA_NATIVE_LIB="/absolute/path/to/libnuvexa.dylib"
 ```
 
@@ -43,6 +43,7 @@ Without that variable, `create` / `open` raise `NuvexaException`.
 from nuvexadb import NuvexaDatabase, NuvexaEncryptionException
 
 path = "app.nvx"
+# create writes format 2. Format 1 files still open.
 with NuvexaDatabase.create(path, key) as db:  # key=None for plaintext
     pass
 

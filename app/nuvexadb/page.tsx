@@ -92,12 +92,17 @@ export default function NuvexaDbPage() {
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold">Install (.NET)</h2>
         <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
-          <code>{`dotnet add package ${nuvexaDb.packageId} --source /path/to/unzipped-nuget`}</code>
+          <code>{`dotnet add package ${nuvexaDb.packageId} --source /path/to/unzipped-nuget
+dotnet tool install -g Nuventra.NuvexaDB.Cli --add-source /path/to/NuvexaDB-Cli`}</code>
         </pre>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Extract <code className="code-inline">NuvexaDB-NuGet.zip</code> from the release, then point{" "}
-          <code className="code-inline">--source</code> at that folder. Other languages download a language zip
-          plus the matching <code className="code-inline">NuvexaDB-Native-&lt;rid&gt;.zip</code>.
+          Extract <code className="code-inline">NuvexaDB-NuGet.zip</code> for the engine and{" "}
+          <code className="code-inline">NuvexaDB-Cli.zip</code> for the standalone{" "}
+          <code className="code-inline">nuvexa</code> tool, then point{" "}
+          <code className="code-inline">--source</code> / <code className="code-inline">--add-source</code> at
+          those folders. Do not <code className="code-inline">dotnet add package</code> the CLI into an app.
+          Other languages download a language zip plus the matching{" "}
+          <code className="code-inline">NuvexaDB-Native-&lt;rid&gt;.zip</code>.
         </p>
       </section>
 

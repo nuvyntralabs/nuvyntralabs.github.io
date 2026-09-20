@@ -300,7 +300,7 @@ var site = await api.GetSite(42);`,
             "[OfflineSync](/packages/plugin-maui-offline-sync/)",
           ],
           [
-            "NuvexaDB 1.0.6",
+            "NuvexaDB 1.0.7",
             "Embedded NoSQL: one `.nvx` file, NQL, optional AES-256-GCM. Standalone engine; LocalStore can host it.",
             "[NuvexaDB](/nuvexadb/)",
           ],

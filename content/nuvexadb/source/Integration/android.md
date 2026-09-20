@@ -4,7 +4,7 @@ Same Kotlin API as the desktop JVM SDK, packaged as an AAR with `libnuvexa.so` f
 
 ## 1. Download
 
-From [NuvexaDB v1.0.6](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.6):
+From [NuvexaDB v1.0.7](https://github.com/nuvyntralabs/NuvexaDB/releases/tag/v1.0.7):
 
 | Release asset | What you use |
 | --- | --- |
@@ -48,6 +48,7 @@ Enable `flatDir` only if your AGP version requires it for `files(...)`.
 import nuventra.nuvexadb.NuvexaDatabase
 
 val path = File(filesDir, "app.nvx").absolutePath
+// create writes format 2. Format 1 files still open.
 NuvexaDatabase.create(path, key).use { db ->
     // work
 }
