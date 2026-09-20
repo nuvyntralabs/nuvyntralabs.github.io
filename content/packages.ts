@@ -84,7 +84,7 @@ export const packages: PackageDoc[] = [
       "Share, clipboard, keyboard, printing, form validation, orientation lock, and keep-awake.",
       "VoIP session model, app updates, store review, local notifications, diagnostics, performance, leak detection, and telemetry.",
       "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue.",
-      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.1.0, and maui-perf 1.0.8 share a 4-hour interactive nuget.org update check. Nuvyn init / check compose maui-dev doctor --path without --no-update-check."
+      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.1.0, maui-perf 1.0.8, and maui-pulse 1.0.1 share a 4-hour interactive nuget.org update check. Nuvyn init / check compose maui-dev doctor --path without --no-update-check."
     ]
   },
   {

@@ -6,7 +6,7 @@ import { nuvexaDb } from "@/content/nuvexadb";
 import { uiKit } from "@/content/uikit";
 import { nugetPackages, packages } from "@/content/packages";
 import { nuvyn, nuvynDocsBase, nuvynGuideBase, nuvynHref } from "@/content/nuvyn";
-import { toolkits } from "@/content/toolkits";
+import { homeToolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects } from "@/content/works";
 import { PackageCard, PocCard, ResearchCard, ToolkitCard } from "@/components/work-card";
 import { SectionIntro } from "@/components/section-intro";
@@ -366,7 +366,7 @@ export default function HomePage() {
             cta="All toolkits"
           />
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {toolkits.map((item) => (
+            {homeToolkits().map((item) => (
               <li key={item.slug}>
                 <ToolkitCard item={item} />
               </li>

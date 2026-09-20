@@ -74,6 +74,15 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUU3G8s4DFTO2",
     },
   },
+  "nuvyntralabs/MauiPulse": {
+    repo: "nuvyntralabs/MauiPulse",
+    repoId: "R_kgDOUiOqtQ",
+    hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUiOqtc4DGAJK",
+    },
+  },
   "nuvyntralabs/Nuvyn": {
     repo: "nuvyntralabs/Nuvyn",
     repoId: "R_kgDOUfYkyw",

@@ -286,7 +286,28 @@ maui-dev analyze --ci`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">9. Browse the full catalog</h2>
+          <h2 className="font-display text-2xl font-semibold">9. Watch a live plugin session</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Install{" "}
+            <Link href="/toolkits/maui-pulse/" className="text-link">
+              Pulse
+            </Link>{" "}
+            when you want a nine-lane view of allow-listed Plugin.Maui.* events. Add{" "}
+            <code className="code-inline">Plugin.Maui.Pulse</code> and{" "}
+            <code className="code-inline">builder.UseMauiPulse()</code> in the app, then run{" "}
+            <code className="code-inline">maui-pulse attach</code> on the development machine. Do not add the
+            CLI as a PackageReference. Pulse does not scrape logcat, Firebase, or Sentry.
+          </p>
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
+            <code>{`dotnet tool install -g Plugin.Maui.Pulse.Cli --source https://api.nuget.org/v3/index.json
+dotnet add package Plugin.Maui.Pulse
+adb reverse tcp:7878 tcp:7878
+maui-pulse attach --package com.myapp.android --android --port 7878`}</code>
+          </pre>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">10. Browse the full catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The suite map is{" "}
             <Link href="/packages/maui-essentials/" className="text-link">

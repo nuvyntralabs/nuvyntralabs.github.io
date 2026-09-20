@@ -42,6 +42,13 @@ export interface ToolkitDoc {
   alternatives: string;
   notFor: ToolkitSubstitute[];
   releaseNotes?: string[];
+  /** When false, listed on /toolkits/ only — not the home toolkit grid. */
+  home?: boolean;
+  aside?: { title: string; text: string };
+  usageNote?: string;
+  exitNote?: string;
+  hostPackageId?: string;
+  hostNuget?: string;
 }
 
 export const toolkits: ToolkitDoc[] = [
@@ -181,6 +188,11 @@ nuvyn --no-update-check version`,
         need: "One runtime plugin",
         use: "The matching Plugin.Maui.*",
         href: "/packages/",
+      },
+      {
+        need: "Live Plugin.Maui.* session view",
+        use: "Pulse (maui-pulse attach)",
+        href: "/toolkits/maui-pulse/",
       },
     ],
     releaseNotes: [
@@ -675,6 +687,10 @@ maui-dev package --validate`,
 - script: maui-dev migrate --ci
 - script: maui-dev package --validate --ci`,
     later: ["MauiDev.Analyzers", "MauiDev.Templates"],
+    aside: {
+      title: "Not a runtime plugin",
+      text: "MauiDev diagnoses the machine and the project. Use the focused Plugin.Maui.* packages for leaks, traces, crashes, and device health.",
+    },
     alternatives:
       "maui-check covers the environment only. dotnet workload, Visual Studio’s MAUI installer, and the Microsoft maui CLI install or list SDKs. MauiDev reads the project and can apply a small allow-list of fixes.",
     notFor: [
@@ -698,6 +714,11 @@ maui-dev package --validate`,
         use: "Plugin.Maui.AppHealth",
         href: "/packages/plugin-maui-app-health/",
       },
+      {
+        need: "Live Plugin.Maui.* session view",
+        use: "Pulse (maui-pulse attach)",
+        href: "/toolkits/maui-pulse/",
+      },
     ],
     releaseNotes: [
       "1.2.2. Interactive 4-hour nuget.org update check. --no-update-check skips it; 1.2.1 treated that flag as unknown.",
@@ -714,10 +735,242 @@ maui-dev package --validate`,
       "1.0.0. maui-dev doctor with machine and project checks, --ci, allow-listed --fix / --dry-run.",
     ],
   },
+  {
+    slug: "maui-pulse",
+    name: "Pulse",
+    title: "Pulse",
+    subtitle: "Live Plugin.Maui.* session viewer — UseMauiPulse() plus maui-pulse CLI",
+    description:
+      "During-the-session viewer for allow-listed Nuvyntra plugins only. The host package forwards events the app already raises; maui-pulse attach draws a nine-lane table. It does not scrape logcat, Charles, Firebase, Sentry, or MAUI Connectivity.",
+    github: "https://github.com/nuvyntralabs/MauiPulse",
+    nuget: "https://www.nuget.org/packages/Plugin.Maui.Pulse.Cli",
+    packageId: "Plugin.Maui.Pulse.Cli",
+    hostPackageId: "Plugin.Maui.Pulse",
+    hostNuget: "https://www.nuget.org/packages/Plugin.Maui.Pulse",
+    vscodeMarketplace: null,
+    language: "C#",
+    version: "1.0.1",
+    home: false,
+    notice: {
+      title: "1.0.1 — host symbols + version align",
+      text: "Host and CLI ship at the same 1.0.1. The host now packs snupkg. The CLI still omits it. On an interactive terminal maui-pulse asks every 4 hours whether to update from nuget.org ([y/N], default no). Cache: ~/.nuvyntra/cli-updates.json, shared with maui-dev, nuvyn, and maui-perf. Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. CI, --format json, and piped output skip the prompt. The CLI does not phone home.",
+    },
+    aside: {
+      title: "CLI is the tool; the host is a Debug sink",
+      text: "Install Plugin.Maui.Pulse.Cli as a global tool. Do not add it as a PackageReference. The app adds Plugin.Maui.Pulse and builder.UseMauiPulse(), then still registers the plugins it already uses. Pulse only listens.",
+    },
+    tags: [".NET MAUI", "CLI", "dotnet tool", "observability", "Debug sink"],
+    abstract:
+      "Two packages, one job: show what allow-listed Plugin.Maui.* plugins are doing right now. Plugin.Maui.Pulse is a Debug sink — UseMauiPulse() scans DI and loaded assemblies, stays subscribed, and POSTs JSON to http://127.0.0.1:7878/ (10.0.2.2 on an emulator). Plugin.Maui.Pulse.Cli is the maui-pulse tool that listens and draws NETWORK, API, QUEUE, SYNC, PERMS, HEALTH, LEAK, CRASH, and SESSION. A missing plugin skips that lane (not_installed). Release is off unless Enabled = true. Pulse does not replace MauiDev, maui-perf, or Observability.",
+    capabilities: [
+      "UseMauiPulse() — one host line. No per-event HttpClient.PostAsync in app code.",
+      "maui-pulse attach — live nine-lane table on port 7878 (default).",
+      "maui-pulse listen — HTTP sink or --stdin JSON for agents and tests. No table.",
+      "maui-pulse pull / queues / sync / incident — copy and inspect JobQueue, RetryQueue, OfflineSync, and Diagnostics files.",
+      "Closed allow-list: NetworkMonitor, NetworkDiagnostics, JobQueue, RetryQueue, OfflineSync, PermissionFlow, AppHealth, LeakAnalyser, Diagnostics, DeviceSession.",
+      "Unknown sources (logcat, Firebase, Sentry, MAUI Connectivity) are dropped.",
+      "Every session command requires --package. listen / attach also require --android or --ios.",
+      "Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1.",
+    ],
+    commands: [
+      {
+        name: "maui-pulse attach",
+        group: "Live",
+        purpose: "HTTP sink plus the nine-lane table. This is the live command",
+        usage: `maui-pulse attach --package com.test.androidapp --android --port 7878
+maui-pulse attach --package com.test.ios --ios --port 7878 --no-update-check
+adb reverse tcp:7878 tcp:7878   # USB Android, then attach`,
+        sample: `maui-pulse 1.0.1  attach  com.test.androidapp  android  :7878
+session 8f2a
+
+NETWORK   Plugin.Maui.NetworkMonitor      captive portal
+API       Plugin.Maui.NetworkDiagnostics  —
+QUEUE     Plugin.Maui.JobQueue            visits#184
+          Plugin.Maui.RetryQueue          — not installed
+SYNC      Plugin.Maui.OfflineSync         conflict on Visit
+PERMS     Plugin.Maui.PermissionFlow      —
+HEALTH    Plugin.Maui.AppHealth           battery 18%
+LEAK      Plugin.Maui.LeakAnalyser        —
+CRASH     Plugin.Maui.Diagnostics         —
+SESSION   Plugin.Maui.DeviceSession       session 8f2a`,
+        notes:
+          "A quiet row (—) means Pulse is subscribed and waiting. — not installed means the assembly is missing. — not registered means the package is referenced but UseX() / AddX() is missing. Two apps need two Pulse windows.",
+      },
+      {
+        name: "maui-pulse listen",
+        group: "Live",
+        purpose: "HTTP sink on --port or --stdin JSON. No table. Agents, tests, Observability",
+        usage: `maui-pulse listen --package com.test.androidapp --android --port 7878
+maui-pulse listen --package com.test.androidapp --android --stdin --once --format json`,
+        sample: `{
+  "ok": true,
+  "tool": "maui-pulse"
+}
+
+{
+  "package": "com.test.androidapp",
+  "source": "Plugin.Maui.NetworkMonitor",
+  "lane": "network",
+  "signal": "StatusChanged",
+  "summary": "captive portal",
+  "state": "running",
+  "at": "2026-09-19T16:00:00Z"
+}`,
+        notes: "GET / returns health. POST / ingests presence, signal, or batch JSON. Unknown source / id values are dropped.",
+      },
+      {
+        name: "maui-pulse pull",
+        group: "Files",
+        purpose: "Copy known plugin files from --from. --adb only prints how to copy",
+        usage: `maui-pulse pull --package com.test.androidapp --from ./device-files --out ./pulled
+maui-pulse pull --package com.test.androidapp --from ./device-files --adb`,
+        sample: `maui-pulse 1.0.1  pull  com.test.androidapp
+
+Copied
+  plugin.maui.jobqueue.db3
+  offlinesync.db3
+  maui-diagnostics/
+
+Skipped
+  plugin.maui.retryqueue.db3  (missing)`,
+        notes: "Known names: plugin.maui.jobqueue.db3, plugin.maui.retryqueue.db3, offlinesync.db3, maui-diagnostics/. logcat.txt in the same folder is ignored.",
+      },
+      {
+        name: "maui-pulse queues",
+        group: "Files",
+        purpose: "Read-only JobQueue / RetryQueue *.db3 inspector. Does not drain",
+        usage: "maui-pulse queues --package com.test.androidapp --from ./pulled",
+        sample: `maui-pulse 1.0.1  queues  com.test.androidapp
+
+JobQueue  plugin.maui.jobqueue.db3
+  pending  2
+  failed   visits#184  last error: timeout
+RetryQueue  — file missing`,
+        notes: "Read-only. It never dequeues or retries work.",
+      },
+      {
+        name: "maui-pulse sync",
+        group: "Files",
+        purpose: "Read-only OfflineSync offlinesync.db3 inspector",
+        usage: "maui-pulse sync --package com.test.androidapp --from ./pulled",
+        sample: `maui-pulse 1.0.1  sync  com.test.androidapp
+
+OfflineSync  offlinesync.db3
+  pending   3
+  conflict  Visit/184  two devices edited the same row`,
+      },
+      {
+        name: "maui-pulse incident",
+        group: "Files",
+        purpose: "Zip allow-listed files plus manifest.json",
+        usage: "maui-pulse incident --package com.test.androidapp --from ./pulled --out incident.zip",
+        sample: `maui-pulse 1.0.1  incident  com.test.androidapp
+
+Wrote incident.zip
+  plugin.maui.jobqueue.db3
+  offlinesync.db3
+  maui-diagnostics/
+  manifest.json`,
+      },
+      {
+        name: "maui-pulse version",
+        group: "Files",
+        purpose: "Print the installed CLI version",
+        usage: "maui-pulse version",
+        sample: "Plugin.Maui.Pulse.Cli 1.0.1",
+        notes: "No --package required.",
+      },
+    ],
+    globalOptions: [
+      "--package (required on session commands)",
+      "--android | --ios (required on listen / attach)",
+      "--port (default 7878)",
+      "--format human|json",
+      "--lanes network,sync,queue (hides rows; does not widen the allow-list)",
+      "--stdin",
+      "--once",
+      "--from",
+      "--out",
+      "--adb",
+      "--no-update-check",
+    ],
+    install: `dotnet tool install -g Plugin.Maui.Pulse.Cli --source https://api.nuget.org/v3/index.json
+dotnet add package Plugin.Maui.Pulse
+adb reverse tcp:7878 tcp:7878   # USB Android
+maui-pulse attach --package com.myapp.android --android --port 7878`,
+    installNote:
+      "Plugin.Maui.Pulse.Cli is a global dotnet tool (net10.0). The command stays maui-pulse. Do not run dotnet add package Plugin.Maui.Pulse.Cli in an app. The host package is Plugin.Maui.Pulse — call builder.UseMauiPulse() and still register the plugins the product already uses. Publishing is pipeline-only on the MauiPulse repository.",
+    examples: `maui-pulse attach --package com.test.androidapp --android --port 7878 --no-update-check
+maui-pulse attach --package com.test.ios --ios --port 7878
+maui-pulse listen --package com.test.androidapp --android --stdin --once --format json
+maui-pulse pull --package com.test.androidapp --from ./device-files --out ./pulled
+maui-pulse queues --package com.test.androidapp --from ./pulled
+maui-pulse sync --package com.test.androidapp --from ./pulled
+maui-pulse incident --package com.test.androidapp --from ./pulled --out incident.zip
+maui-pulse version`,
+    ciJsonSample: `{
+  "package": "com.test.androidapp",
+  "source": "Plugin.Maui.NetworkMonitor",
+  "lane": "network",
+  "signal": "StatusChanged",
+  "summary": "captive portal",
+  "state": "running",
+  "at": "2026-09-19T16:00:00Z"
+}`,
+    fixAllowList: [],
+    neverDoes: [
+      "Never scrapes logcat, Charles, Firebase, Sentry, or MAUI Connectivity.",
+      "Never starts or registers plugins for you.",
+      "Never invents a substitute from the OS when a plugin is missing.",
+      "Never phones home.",
+      "Never installs workloads.",
+      "Never drains JobQueue or RetryQueue.",
+      "Never adds Plugin.Maui.Pulse.Cli as a PackageReference.",
+    ],
+    ci: `maui-pulse listen --package com.test.androidapp --android --stdin --once --format json`,
+    later: [],
+    usageNote:
+      "Each sample is a typical attach or inspector view. A quiet row (—) is waiting, not a failure. USB Android needs adb reverse tcp:7878 tcp:7878 after unplug. Release is off unless options.Enabled = true.",
+    exitNote:
+      "Exit codes: 0 success (including skipped lanes / missing queue files), 1 no allow-listed evidence or bind failed, 2 usage (missing --package, missing platform, unknown command).",
+    alternatives:
+      "adb logcat, Charles / Proxyman, Firebase Performance, and Sentry are raw logs, HTTP only, or cloud-after-the-fact. Observability can push; Pulse listens. MauiDev doctors the project. maui-perf wraps maui profile.",
+    notFor: [
+      {
+        need: "Diagnose an existing MAUI tree",
+        use: "MauiDev (maui-dev doctor)",
+        href: "/toolkits/maui-dev/",
+      },
+      {
+        need: "New spec-driven MAUI host",
+        use: "Nuvyn",
+        href: "/toolkits/nuvyn/",
+      },
+      {
+        need: "Startup and page traces",
+        use: "Plugin.Maui.Performance / maui-perf",
+        href: "/packages/plugin-maui-performance/",
+      },
+      {
+        need: "In-app telemetry exporter",
+        use: "Plugin.Maui.Observability",
+        href: "/packages/plugin-maui-observability/",
+      },
+    ],
+    releaseNotes: [
+      "1.0.1. Host and CLI aligned. Host packs snupkg so nuget.org matches other Plugin.Maui.* libraries. CLI still omits snupkg.",
+      "1.0.0. UseMauiPulse() Debug sink plus maui-pulse attach, listen, pull, queues, sync, incident, and version.",
+      "1.0.0. Nine closed lanes. Unknown sources dropped. Interactive 4-hour nuget.org update check shared with maui-dev, nuvyn, and maui-perf.",
+    ],
+  },
 ];
 
 export function toolkitPath(item: ToolkitDoc): string {
   return `/toolkits/${item.slug}/`;
+}
+
+export function homeToolkits(): ToolkitDoc[] {
+  return toolkits.filter((item) => item.home !== false);
 }
 
 export function getToolkitBySlug(slug: string): ToolkitDoc | undefined {

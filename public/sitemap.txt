@@ -28,6 +28,7 @@ https://nuvyntralabs.github.io/pocs/html-label-plugin/
 https://nuvyntralabs.github.io/pocs/plugin-firebase-analytics/
 https://nuvyntralabs.github.io/toolkits/nuvyn/
 https://nuvyntralabs.github.io/toolkits/maui-dev/
+https://nuvyntralabs.github.io/toolkits/maui-pulse/
 https://nuvyntralabs.github.io/packages/maui-essentials/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/
 https://nuvyntralabs.github.io/packages/plugin-wpf-mvvmexpress/
@@ -326,7 +327,6 @@ https://nuvyntralabs.github.io/uikit/docs/nvdropdownbutton/
 https://nuvyntralabs.github.io/uikit/docs/nveditor/
 https://nuvyntralabs.github.io/uikit/docs/nveffects/
 https://nuvyntralabs.github.io/uikit/docs/nvelevation/
-https://nuvyntralabs.github.io/uikit/docs/nvemailfield/
 https://nuvyntralabs.github.io/uikit/docs/nvemojipicker/
 https://nuvyntralabs.github.io/uikit/docs/nvemptyview/
 https://nuvyntralabs.github.io/uikit/docs/nvexpander/
@@ -361,6 +361,7 @@ https://nuvyntralabs.github.io/uikit/docs/nvinboxview/
 https://nuvyntralabs.github.io/uikit/docs/nvincallview/
 https://nuvyntralabs.github.io/uikit/docs/nvindexbar/
 https://nuvyntralabs.github.io/uikit/docs/nvinfinitefooter/
+https://nuvyntralabs.github.io/uikit/docs/nvinputfield/
 https://nuvyntralabs.github.io/uikit/docs/nvinteractiveviewer/
 https://nuvyntralabs.github.io/uikit/docs/nvinvoiceview/
 https://nuvyntralabs.github.io/uikit/docs/nvjsontree/
@@ -522,6 +523,7 @@ https://nuvyntralabs.github.io/toolkits/nuvyn/docs/agentic-coding/
 https://nuvyntralabs.github.io/toolkits/nuvyn/docs/implementation/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/create-app/
+https://nuvyntralabs.github.io/toolkits/nuvyn/guide/refresh/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/workflow/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/ecosystem/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/troubleshooting/

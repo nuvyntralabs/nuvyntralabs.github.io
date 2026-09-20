@@ -34,16 +34,12 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
         </aside>
       ) : null}
 
-      <aside className="callout mt-6 px-4 py-3">
-        <p className="text-sm font-semibold text-foreground">Not a runtime plugin</p>
-        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-          MauiDev diagnoses the machine and the project. Use the focused{" "}
-          <Link href="/packages/" className="font-medium underline decoration-lavender-300 underline-offset-2">
-            Plugin.Maui.*
-          </Link>{" "}
-          packages for leaks, traces, crashes, and device health.
-        </p>
-      </aside>
+      {toolkit.aside ? (
+        <aside className="callout mt-6 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">{toolkit.aside.title}</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{toolkit.aside.text}</p>
+        </aside>
+      ) : null}
 
       <div className="mt-6 flex flex-wrap gap-3">
         <a
@@ -64,7 +60,19 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
             className="focusable btn-secondary"
           >
             <Package className="h-4 w-4" aria-hidden="true" />
-            nuget.org
+            {toolkit.hostNuget ? "CLI nuget.org" : "nuget.org"}
+            <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+        ) : null}
+        {toolkit.hostNuget ? (
+          <a
+            href={toolkit.hostNuget}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focusable btn-secondary"
+          >
+            <Package className="h-4 w-4" aria-hidden="true" />
+            Host nuget.org
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
           </a>
         ) : null}
@@ -93,8 +101,29 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
         </pre>
         {toolkit.packageId ? (
           <p className="mt-3 text-sm text-muted-foreground">
-            Package ID:{" "}
+            {toolkit.hostPackageId ? "CLI package ID" : "Package ID"}:{" "}
             <code className="code-inline">{toolkit.packageId}</code>
+          </p>
+        ) : null}
+        {toolkit.hostPackageId ? (
+          <p className="mt-1 text-sm text-muted-foreground">
+            Host package ID:{" "}
+            <code className="code-inline">{toolkit.hostPackageId}</code>
+            {toolkit.hostNuget ? (
+              <>
+                {" "}
+                (
+                <a
+                  href={toolkit.hostNuget}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-link"
+                >
+                  nuget.org
+                </a>
+                )
+              </>
+            ) : null}
           </p>
         ) : null}
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{toolkit.installNote}</p>
@@ -157,24 +186,39 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
           <code>{toolkit.examples}</code>
         </pre>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Exit codes: <code className="code-inline">0</code> pass/skip,{" "}
-          <code className="code-inline">1</code> fail (or warning with{" "}
-          <code className="code-inline">--warn-as-error</code> /{" "}
-          <code className="code-inline">--ci</code>),{" "}
-          <code className="code-inline">2</code> usage error.
+          {toolkit.exitNote ?? (
+            <>
+              Exit codes: <code className="code-inline">0</code> pass/skip,{" "}
+              <code className="code-inline">1</code> fail (or warning with{" "}
+              <code className="code-inline">--warn-as-error</code> /{" "}
+              <code className="code-inline">--ci</code>),{" "}
+              <code className="code-inline">2</code> usage error.
+            </>
+          )}
         </p>
       </section>
 
       {toolkit.ciJsonSample ? (
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">CI JSON</h2>
+          <h2 className="font-display text-2xl font-semibold">JSON</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            <code className="code-inline">--ci</code> (or{" "}
-            <code className="code-inline">--format json</code>) prints this
-            schema. The VS Code / Cursor extension maps{" "}
-            <code className="code-inline">diagnostics</code> into the Problems
-            panel. <code className="code-inline">--format sarif</code> is the
-            same findings for GitHub code scanning.
+            {toolkit.slug === "maui-pulse" ? (
+              <>
+                <code className="code-inline">listen --format json</code> and{" "}
+                <code className="code-inline">--stdin</code> accept this signal
+                schema. Unknown <code className="code-inline">source</code> values
+                are dropped.
+              </>
+            ) : (
+              <>
+                <code className="code-inline">--ci</code> (or{" "}
+                <code className="code-inline">--format json</code>) prints this
+                schema. The VS Code / Cursor extension maps{" "}
+                <code className="code-inline">diagnostics</code> into the Problems
+                panel. <code className="code-inline">--format sarif</code> is the
+                same findings for GitHub code scanning.
+              </>
+            )}
           </p>
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{toolkit.ciJsonSample}</code>
@@ -185,9 +229,13 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
       <section className="mt-10">
         <h2 className="font-display text-2xl font-semibold">Usage and sample results</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Each sample is a typical human report from a project with problems. A healthy tree prints green checks and
-          exits 0. Run with <code className="code-inline">--dry-run</code>{" "}
-          before <code className="code-inline">--fix</code>.
+          {toolkit.usageNote ?? (
+            <>
+              Each sample is a typical human report from a project with problems. A healthy tree prints green checks and
+              exits 0. Run with <code className="code-inline">--dry-run</code>{" "}
+              before <code className="code-inline">--fix</code>.
+            </>
+          )}
         </p>
         {toolkitCommandGroups(toolkit).map((group) => (
           <div key={group.name} className="mt-8">
@@ -223,18 +271,20 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
         ))}
       </section>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2">
-        <section className="glass-card p-6">
-          <h2 className="font-display text-lg font-semibold">--fix allow-list</h2>
-          <ul className="mt-3 space-y-2">
-            {toolkit.fixAllowList.map((item) => (
-              <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
-                <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lavender-500" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
+      <div className={`mt-10 grid gap-6 ${toolkit.fixAllowList.length > 0 ? "sm:grid-cols-2" : ""}`}>
+        {toolkit.fixAllowList.length > 0 ? (
+          <section className="glass-card p-6">
+            <h2 className="font-display text-lg font-semibold">--fix allow-list</h2>
+            <ul className="mt-3 space-y-2">
+              {toolkit.fixAllowList.map((item) => (
+                <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lavender-500" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
         <section className="glass-card p-6">
           <h2 className="font-display text-lg font-semibold">It never</h2>
           <ul className="mt-3 space-y-2">

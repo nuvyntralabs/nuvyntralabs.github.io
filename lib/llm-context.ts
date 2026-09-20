@@ -138,6 +138,8 @@ ${toolkitList}
 
 MauiDev 1.2.2 is a global dotnet tool (Plugin.Maui.MauiDev.Cli, command maui-dev) plus a VS Code / Cursor extension (nuvyntralabs.maui-dev). Commands: doctor, analyze, resources, permissions, platform, signing, workload, version, dependencies, icons, publish --validate, migrate, telemetry, benchmark, clean, package. Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check, NUVYNTRA_NO_UPDATE_CHECK=1, or --ci / JSON / SARIF. --no-update-check shipped in 1.2.2; 1.2.1 treats it as unknown. nuget.org reserved MauiDev.Cli. Do not add Plugin.Maui.MauiDev.Cli as a PackageReference. It does not replace Plugin.Maui.Performance, Plugin.Maui.LeakAnalyser, Plugin.Maui.AppHealth, or Plugin.Maui.Diagnostics. Docs: ${siteConfig.url}/toolkits/maui-dev/
 
+Pulse 1.0.1 is a live Plugin.Maui.* session viewer: Plugin.Maui.Pulse (UseMauiPulse() Debug sink) plus Plugin.Maui.Pulse.Cli (command maui-pulse). Commands: attach, listen, pull, queues, sync, incident, version. Every session command requires --package. listen / attach also require --android or --ios. Closed allow-list only — unknown sources (logcat, Firebase, Sentry, MAUI Connectivity) are dropped. Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Do not add Plugin.Maui.Pulse.Cli as a PackageReference. It does not replace MauiDev, maui-perf, or Observability. Docs: ${siteConfig.url}/toolkits/maui-pulse/
+
 ## NuGet packages
 
 Catalog: ${siteConfig.url}/packages/
@@ -426,7 +428,7 @@ ${item.description}
 
 Page: ${siteConfig.url}${toolkitPath(item)}
 GitHub: ${item.github}
-${item.packageId ? `PackageId: ${item.packageId}\n` : ""}${item.nuget ? `nuget.org: ${item.nuget}\n` : ""}${item.vscodeMarketplace ? `VS Code / Cursor: ${item.vscodeMarketplace}\n` : ""}Tags: ${item.tags.join(", ")}
+${item.packageId ? `PackageId: ${item.packageId}\n` : ""}${item.hostPackageId ? `Host PackageId: ${item.hostPackageId}\n` : ""}${item.nuget ? `nuget.org: ${item.nuget}\n` : ""}${item.hostNuget ? `Host nuget.org: ${item.hostNuget}\n` : ""}${item.vscodeMarketplace ? `VS Code / Cursor: ${item.vscodeMarketplace}\n` : ""}Tags: ${item.tags.join(", ")}
 
 ${item.abstract}
 ${item.version ? `Version: ${item.version}\n` : ""}${item.install ? `Install:\n${item.install}\n` : ""}Capabilities:

@@ -91,6 +91,9 @@
     <loc>https://nuvyntralabs.github.io/toolkits/maui-dev/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/maui-pulse/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/maui-essentials/</loc>
   </url>
   <url>
@@ -985,9 +988,6 @@
     <loc>https://nuvyntralabs.github.io/uikit/docs/nvelevation/</loc>
   </url>
   <url>
-    <loc>https://nuvyntralabs.github.io/uikit/docs/nvemailfield/</loc>
-  </url>
-  <url>
     <loc>https://nuvyntralabs.github.io/uikit/docs/nvemojipicker/</loc>
   </url>
   <url>
@@ -1088,6 +1088,9 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/uikit/docs/nvinfinitefooter/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/uikit/docs/nvinputfield/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/uikit/docs/nvinteractiveviewer/</loc>
@@ -1571,6 +1574,9 @@
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/create-app/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/refresh/</loc>
   </url>
   <url>
     <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/workflow/</loc>
