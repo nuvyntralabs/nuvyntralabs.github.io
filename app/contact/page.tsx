@@ -20,6 +20,18 @@ export const metadata: Metadata = {
 
 const channels = [
   {
+    title: "Discord community",
+    body: "Walkthroughs, questions, and community help with other .NET MAUI developers.",
+    href: siteConfig.discord,
+    label: "discord.gg/2rg8s7P8xE",
+  },
+  {
+    title: "LinkedIn group",
+    body: "Lab updates, featured examples, and community posts in the LinkedIn group.",
+    href: siteConfig.linkedin,
+    label: "linkedin.com/groups/40625003",
+  },
+  {
     title: "GitHub organization",
     body: "Issues, repositories, and public workstreams for research, POCs, and packages.",
     href: siteConfig.githubOrg,
