@@ -7,6 +7,7 @@ import type { PackageDoc } from "@/content/packages";
 import { toolkitPath, type ToolkitDoc } from "@/content/toolkits";
 import { nuvyn, nuvynHref } from "@/content/nuvyn";
 import { workPath, type WorkItem } from "@/content/works";
+import { nugetStatsPath } from "@/lib/nuget-stats";
 import { siteConfig } from "@/lib/site";
 import { packageGithubPackagesUrl } from "@/lib/github-packages";
 
@@ -414,6 +415,30 @@ export function nuvynGuideJsonLd(
       { name: "Home", path: "/" },
       { name: nuvyn.name, path: nuvynHref },
       { name: label, path: articlePath },
+    ]),
+  ];
+}
+
+export function nugetStatsJsonLd() {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      name: "Nuvyntra Labs NuGet download statistics",
+      description:
+        "Live nuget.org download counts for released Nuvyntra Labs packages, including each listed version.",
+      url: `${siteConfig.url}${nugetStatsPath}`,
+      creator: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      isBasedOn: "https://azuresearch-usnc.nuget.org/query",
+      measurementTechnique: "nuget.org Search Query Service version download counts",
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: "NuGet stats", path: nugetStatsPath },
     ]),
   ];
 }

@@ -32,6 +32,7 @@ const resources = [
   { href: "/nuvexadb/docs/", label: "NuvexaDB white paper" },
   { href: "/nuvexadb/integration/", label: "NuvexaDB integration" },
   { href: "/releases/", label: ".NET MAUI releases" },
+  { href: "/stats/", label: "NuGet download stats" },
   { href: siteConfig.discord, label: "Discord community", external: true },
   { href: siteConfig.linkedin, label: "LinkedIn group", external: true },
   { href: siteConfig.githubOrg, label: "GitHub organization", external: true },

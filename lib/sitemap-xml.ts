@@ -23,6 +23,7 @@ export function sitemapUrls(): string[] {
     "/getting-started/github-packages/",
     "/getting-started/hardening/",
     "/releases/",
+    "/stats/",
     "/research/",
     "/pocs/",
     "/about/",

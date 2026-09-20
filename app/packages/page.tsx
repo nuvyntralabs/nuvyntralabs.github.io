@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Catalog } from "@/components/catalog";
 import { CtaBand } from "@/components/cta-band";
 import { PageHero } from "@/components/page-hero";
 import { nugetPackages, packages } from "@/content/packages";
+import { nugetStatsPath } from "@/lib/nuget-stats";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -26,6 +28,13 @@ export default function PackagesPage() {
         description={`${nugetPackages.length} packages on GitHub Packages, ${packages.length} entries in the catalog including MauiEssentials. Install one NuGet in any host. The whole ecosystem (nuvyn init) is optional and uses these same packages.`}
       />
       <div className="container py-16 sm:py-20">
+        <p className="mb-8 text-center text-sm text-muted-foreground">
+          Version-wise nuget.org downloads live on the{" "}
+          <Link href={nugetStatsPath} className="text-link">
+            NuGet stats
+          </Link>{" "}
+          page.
+        </p>
         <Catalog />
       </div>
       <CtaBand
