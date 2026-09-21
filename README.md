@@ -70,6 +70,7 @@ Professional experience stays on
 | `/packages/plugin-maui-screen-guard/` | ScreenGuard overview |
 | `/packages/plugin-maui-keep-awake/` | KeepAwake overview |
 | `/releases/` | Live .NET MAUI release feed from official GitHub + Learn links |
+| `/repos/` | All public GitHub repos with live open issues and discussions |
 | `/getting-started/` | Install + compose plugins |
 | `/getting-started/github-packages/` | Two-feed setup: GitHub Packages for Plugin.Maui.*, nuget.org for everything else |
 

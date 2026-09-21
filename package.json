@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "generate:sitemap": "tsx ./scripts/generate-sitemap.ts",
-    "prebuild": "npm run generate:sitemap",
+    "generate:open-repos": "tsx ./scripts/generate-open-repos.ts",
+    "prebuild": "npm run generate:sitemap && npm run generate:open-repos",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

@@ -20,6 +20,7 @@ const work = [
   { href: "/toolkits/", label: "Toolkits" },
   { href: "/research/", label: "Research" },
   { href: "/pocs/", label: "Proofs of concept" },
+  { href: "/repos/", label: "Repos" },
 ];
 
 const resources = [

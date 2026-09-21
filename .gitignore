@@ -6,3 +6,4 @@ out
 .env
 .env.local
 *.tsbuildinfo
+public/data/open-repos.json

@@ -53,6 +53,7 @@ Full context: ${siteConfig.url}/llms-full.txt
 RSS: ${siteConfig.url}/feed.xml
 .NET MAUI official release feed (live from GitHub): ${siteConfig.url}/releases/
 NuGet download statistics (live from nuget.org, version-wise): ${siteConfig.url}/stats/
+Open issues and discussions (live from the nuvyntralabs GitHub org): ${siteConfig.url}/repos/
 dotnet/maui releases: https://github.com/dotnet/maui/releases
 Microsoft Learn what's new: https://learn.microsoft.com/dotnet/maui/whats-new/
 
@@ -150,6 +151,7 @@ GitHub Packages feed: ${githubPackagesFeed}
 Hardened releases (3 September 2026): ${siteConfig.url}/getting-started/hardening/
 Official .NET MAUI releases (live GitHub feed): ${siteConfig.url}/releases/
 NuGet download statistics (live nuget.org, version-wise): ${siteConfig.url}/stats/
+Open issues and discussions (live nuvyntralabs GitHub org): ${siteConfig.url}/repos/
 
 ${catalog}
 
@@ -249,6 +251,7 @@ About: ${siteConfig.url}/about/
 Contact: ${siteConfig.url}/contact/
 .NET MAUI official release feed: ${siteConfig.url}/releases/
 NuGet download statistics: ${siteConfig.url}/stats/
+Open issues and discussions: ${siteConfig.url}/repos/
 Founder: ${siteConfig.author} — ${siteConfig.authorUrl}
 Organization: ${siteConfig.githubOrg}
 Discord: ${siteConfig.discord}

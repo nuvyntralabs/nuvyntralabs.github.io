@@ -24,6 +24,7 @@ export function sitemapUrls(): string[] {
     "/getting-started/hardening/",
     "/releases/",
     "/stats/",
+    "/repos/",
     "/research/",
     "/pocs/",
     "/about/",

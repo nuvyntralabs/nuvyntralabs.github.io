@@ -8,6 +8,7 @@ import { toolkitPath, type ToolkitDoc } from "@/content/toolkits";
 import { nuvyn, nuvynHref } from "@/content/nuvyn";
 import { workPath, type WorkItem } from "@/content/works";
 import { nugetStatsPath } from "@/lib/nuget-stats";
+import { openReposPath } from "@/lib/open-repos";
 import { siteConfig } from "@/lib/site";
 import { packageGithubPackagesUrl } from "@/lib/github-packages";
 
@@ -415,6 +416,29 @@ export function nuvynGuideJsonLd(
       { name: "Home", path: "/" },
       { name: nuvyn.name, path: nuvynHref },
       { name: label, path: articlePath },
+    ]),
+  ];
+}
+
+export function openReposJsonLd() {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Nuvyntra Labs open issues and discussions",
+      description:
+        "Every public nuvyntralabs GitHub repository, with live open issues and open discussions.",
+      url: `${siteConfig.url}${openReposPath}`,
+      isPartOf: `${siteConfig.url}/`,
+      about: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.githubOrg,
+      },
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: "Open issues and discussions", path: openReposPath },
     ]),
   ];
 }
