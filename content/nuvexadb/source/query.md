@@ -2,6 +2,8 @@
 
 NuvexaDB’s query language. Write it in Nuvexa Data Studio’s **NQL** tab, `NuvexaDatabase.ExecuteAsync`, or `nuvexa query`.
 
+![Nuvexa Data Studio NQL tab running a find with a results grid](/nuvexadb/data-studio/nql.png)
+
 Shell:
 
 ```

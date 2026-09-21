@@ -18,7 +18,8 @@ export type DocBlock =
   | { type: "code"; code: string }
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "callout"; title: string; text: string }
-  | { type: "link"; href: string; label: string; note?: string };
+  | { type: "link"; href: string; label: string; note?: string }
+  | { type: "img"; src: string; alt: string };
 
 export interface DocSection {
   id: string;

@@ -18,6 +18,8 @@ File menu: New / Open / **Open Recent** / Close, Import/Export JSON or CSV, Expo
 
 ## File and session
 
+![Unlock Database dialog asking for the encryption key of a protected .nvx file](/nuvexadb/data-studio/unlock.png)
+
 - Create or open a `.nvx`. **New files and writes are format 2.** Format 1 is deprecated and still opens (read, then a write promotes the file to format 2). Encrypted files prompt for the key; a wrong key does not open the file (`NuvexaEncryptionException`).
 - Optional encryption on create (empty key = plaintext).
 - **Open Recent** remembers the last 12 full paths only. The passphrase is never written to that list (`~/Library/Application Support/NuvexaDB/explorer-recent-files.json` on macOS; equivalent Application Data folder on Windows / Linux).
@@ -26,6 +28,8 @@ File menu: New / Open / **Open Recent** / Close, Import/Export JSON or CSV, Expo
 - Compact rewrites the file in batches (encryption is preserved) and keeps the session open. Change key re-wraps the DEK; pages are not rewritten. A second process cannot open the same `.nvx` while Explorer holds it.
 
 ## Database Structure
+
+![Database Structure tab: collections tree, typed columns for organizations, and observed fields](/nuvexadb/data-studio/structure.png)
 
 - Selecting a collection loads its columns in the right pane (name, type, default, unique). **Add Column**, **Edit Column**, and **Delete Column** work from that grid; double-click a row to edit. Inferred columns from existing documents appear even when `__nuvexa_schema` is empty.
 - **Observed fields** samples up to 200 documents (name, JSON types, present/missing, coverage, example values). This is a read-only shape report, not `__nuvexa_schema`.
@@ -40,6 +44,8 @@ File menu: New / Open / **Open Recent** / Close, Import/Export JSON or CSV, Expo
 
 ## Browse Data
 
+![Browse Data tab with the organizations grid, filter builder, and selected-record JSON pane](/nuvexadb/data-studio/browse.png)
+
 - Collection combo, New Column / New Record / Delete Record.
 - **Filter**: NQL JSON (`{ status: "paid" }`) or shorthand (`status: paid`, `age = 21`). Enter or Apply. Invalid filter keeps the current grid and shows the error above it. **Build** writes that same filter text from field / operator / value.
 - **Find in page** searches `_id`, cells, and JSON on the current 200-row page only. It does not change the server filter.
@@ -50,6 +56,8 @@ File menu: New / Open / **Open Recent** / Close, Import/Export JSON or CSV, Expo
 - **Clone Record** inserts a copy without `_id`. Shift/Ctrl click selects several rows for delete. Click a column header to sort the current page.
 
 ## NQL
+
+![NQL tab executing db.users.find({}).limit(50) with the results grid](/nuvexadb/data-studio/nql.png)
 
 Supported **NQL** (Nuvexa Query Language) — same engine as the library:
 

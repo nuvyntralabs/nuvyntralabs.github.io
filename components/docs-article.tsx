@@ -112,6 +112,17 @@ function DocBlockView({ block }: { block: DocBlock }) {
           )}
         </p>
       );
+    case "img":
+      return (
+        <figure className="overflow-hidden rounded-2xl border border-border bg-muted">
+          <img src={block.src} alt={block.alt} className="h-auto w-full" />
+          {block.alt ? (
+            <figcaption className="border-t border-border px-3 py-2 text-xs leading-relaxed text-muted-foreground">
+              {block.alt}
+            </figcaption>
+          ) : null}
+        </figure>
+      );
     default:
       return null;
   }

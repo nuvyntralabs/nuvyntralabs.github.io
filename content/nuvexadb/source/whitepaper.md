@@ -488,6 +488,8 @@ All tools open **one** `.nvx`. They share `ExplorerSession` (browse filter, 200-
 
 Avalonia 11 desktop workbench. Self-contained publish per RID.
 
+![Nuvexa Data Studio Browse Data tab on an organizations collection](/nuvexadb/data-studio/browse.png)
+
 | Platform | Installer | CPU |
 | --- | --- | --- |
 | **Windows x64** | `NuvexaDB-Explorer-*-win-x64.msi` (WiX 5) | x64 |

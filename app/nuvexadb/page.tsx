@@ -188,6 +188,30 @@ var rows = await db.ExecuteAsync("""db.users.find({ age: { $gte: 21 } }).sort({ 
       </section>
 
       <section className="mt-10">
+        <h2 className="font-display text-2xl font-semibold">Nuvexa Data Studio</h2>
+        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+          Desktop workbench for one <code className="code-inline">.nvx</code> file: collection tree, typed
+          browse grid, and NQL. Encrypted files prompt for the key and never store it.
+        </p>
+        <figure className="mt-4 overflow-hidden rounded-2xl border border-border bg-muted">
+          <img
+            src="/nuvexadb/data-studio/structure.png"
+            alt="Nuvexa Data Studio Database Structure tab with collections, columns, and observed fields"
+            className="h-auto w-full"
+          />
+          <figcaption className="border-t border-border px-3 py-2 text-xs leading-relaxed text-muted-foreground">
+            Database Structure: collections, typed columns, and a shape report from existing documents.
+          </figcaption>
+        </figure>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          <Link href={`${nuvexaDocsBase}/explorer/`} className="text-link">
+            Data Studio documentation
+          </Link>{" "}
+          covers Structure, Browse Data, NQL, and the Visual Studio / VS Code editors.
+        </p>
+      </section>
+
+      <section className="mt-10">
         <h2 className="font-display text-2xl font-semibold">Documentation</h2>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           <li>

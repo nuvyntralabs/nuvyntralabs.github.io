@@ -164,6 +164,13 @@ export function markdownToSections(markdown: string): DocSection[] {
       continue;
     }
 
+    const image = parseStandaloneImage(line);
+    if (image) {
+      push({ type: "img", src: image.src, alt: image.alt });
+      i += 1;
+      continue;
+    }
+
     if (/^\s*[-*]\s+/.test(line)) {
       const items: string[] = [];
       while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
@@ -194,6 +201,7 @@ export function markdownToSections(markdown: string): DocSection[] {
       !/^---+$/.test(lines[i].trim()) &&
       !/^\s*[-*]\s+/.test(lines[i]) &&
       !/^\s*\d+\.\s+/.test(lines[i]) &&
+      !parseStandaloneImage(lines[i]) &&
       !isTableStart(lines, i)
     ) {
       paragraph.push(lines[i]);
@@ -203,6 +211,12 @@ export function markdownToSections(markdown: string): DocSection[] {
   }
 
   return sections.filter((section) => section.blocks.length > 0);
+}
+
+function parseStandaloneImage(line: string): { alt: string; src: string } | null {
+  const match = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+  if (!match) return null;
+  return { alt: match[1].trim(), src: match[2].trim() };
 }
 
 function isTableStart(lines: string[], index: number): boolean {
