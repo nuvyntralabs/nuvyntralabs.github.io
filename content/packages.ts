@@ -84,7 +84,7 @@ export const packages: PackageDoc[] = [
       "Share, clipboard, keyboard, printing, form validation, orientation lock, and keep-awake.",
       "VoIP session model, app updates, store review, local notifications, diagnostics, performance, leak detection, and telemetry.",
       "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue.",
-      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.1.0, maui-perf 1.0.8, and maui-pulse 1.0.1 share a 4-hour interactive nuget.org update check. Nuvyn init / check compose maui-dev doctor --path without --no-update-check."
+      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.2.0, maui-perf 1.0.8, and maui-pulse 1.0.1 share a 4-hour interactive nuget.org update check. Nuvyn init / adopt / check compose maui-dev doctor --path without --no-update-check. nuvyn adopt attaches the slash chain to an existing MAUI app without rewriting the host."
     ]
   },
   {
@@ -254,9 +254,10 @@ export const packages: PackageDoc[] = [
       "Location",
       "C#"
     ],
-    "abstract": "Plugin.Maui.Geofence is a circular-region monitor for MAUI on Android and iOS. It is not a GPS tracker. GeoLocator answers where the device is now. This plugin answers when the user enters, exits, or dwells in up to 20 named regions. 1.0 Android is an in-memory register plus Raise() for samples — it does not take a Play Services GeofencingClient dependency. iOS uses CLCircularRegion. Invalid radius or empty ids fail closed.",
-    "version": "1.0.3",
+    "abstract": "Plugin.Maui.Geofence is a circular-region monitor for MAUI on Android and iOS. It is not a GPS tracker. GeoLocator answers where the device is now. This plugin answers when the user enters, exits, or dwells in up to 20 named regions. Android uses Play Services GeofencingClient. Regions persist across process death. iOS uses CLCircularRegion plus a location delegate. Invalid radius or empty ids fail closed.",
+    "version": "1.1.0",
     "releaseNotes": [
+      "1.1.0. Android GeofencingClient + persist across process death. iOS enter/exit delegate. Raise() remains for samples.",
       "1.0.3. NuGet description and README / CHANGELOG / AGENTS / llms.txt aligned with the current API.",
       "1.0.2. nuget.org pack.",
       "1.0.1. nuget.org pack.",
@@ -265,8 +266,10 @@ export const packages: PackageDoc[] = [
     "capabilities": [
       "Add, list, and remove circular regions (max 20).",
       "Enter, exit, and optional dwell transitions.",
+      "OS transitions queue until a Transition subscriber is attached.",
+      "Denied / NotSupported when location permission or Play services are missing.",
       "Raise() so samples and tests can simulate a transition.",
-      "Android in-memory 1.0; iOS CLCircularRegion. Not a Maps SDK."
+      "Android GeofencingClient; iOS CLCircularRegion. Persists across process death. Not a Maps SDK."
     ]
   },
   {
@@ -850,7 +853,7 @@ export const packages: PackageDoc[] = [
     "name": "Plugin.Maui.VideoPipeline",
     "title": "Plugin.Maui.VideoPipeline",
     "subtitle": "Camera/gallery video — limits, thumbnail, encrypt",
-    "description": "Camera or gallery video → duration, resolution, and size limits, thumbnail, AES-256-GCM encrypt, then FileVault or SmartUpload. 1.0 does not bundle FFmpeg.",
+    "description": "Camera or gallery video → duration, resolution, and size limits, thumbnail, OS transcode when over budget, AES-256-GCM encrypt. No FFmpeg.",
     "github": "https://github.com/nuvyntralabs/Plugin.Maui.VideoPipeline",
     "nuget": "https://www.nuget.org/packages/Plugin.Maui.VideoPipeline",
     "language": "C#",
@@ -864,9 +867,10 @@ export const packages: PackageDoc[] = [
       "Mac Catalyst",
       "Windows"
     ],
-    "abstract": "Plugin.Maui.VideoPipeline is the video counterpart to MediaPipeline. Pick from camera or gallery, then apply MaxDuration, MaxResolution, and MaxBytes. Over-size or over-duration files fail with TooLarge / TooLong / CannotTranscode — 1.0 does not transcode with FFmpeg. Encrypt(key) writes an AES-256-GCM .vault file. Handoff through UploadWith or StoreIn. Android, iOS, Mac Catalyst, and Windows.",
-    "version": "1.0.3",
+    "abstract": "Plugin.Maui.VideoPipeline is the video counterpart to MediaPipeline. Pick from camera or gallery, then apply MaxDuration, MaxResolution, and MaxBytes. Over-budget clips try an OS transcode (Android MediaCodec, iOS AVAssetExportSession). If the device cannot encode, the result is CannotTranscode. No FFmpeg. Encrypt(key) writes an AES-256-GCM .vault file. Handoff through UploadWith or StoreIn. Android, iOS, Mac Catalyst, and Windows.",
+    "version": "1.1.0",
     "releaseNotes": [
+      "1.1.0. Thumbnail + OS transcode when over budget. Android transcode honors cancel and times out. No FFmpeg; CannotTranscode if the device cannot encode.",
       "1.0.3. NuGet description and README / CHANGELOG / AGENTS / llms.txt aligned with the current API.",
       "1.0.2. nuget.org pack.",
       "1.0.1. nuget.org pack.",
@@ -874,7 +878,8 @@ export const packages: PackageDoc[] = [
     ],
     "capabilities": [
       "FromCamera, FromGallery, and FileVideoSource.",
-      "MaxDuration, MaxResolution, and MaxBytes gates.",
+      "MaxDuration, MaxResolution, and MaxBytes gates with OS transcode.",
+      "JPEG thumbnail when the platform can decode a frame.",
       "AES-256-GCM Encrypt(key) to a .vault file.",
       "UploadWith / StoreIn handoff. Images stay on MediaPipeline."
     ]
@@ -1141,8 +1146,8 @@ export const packages: PackageDoc[] = [
     "slug": "plugin-maui-app-review",
     "name": "Plugin.Maui.AppReview",
     "title": "Plugin.Maui.AppReview",
-    "subtitle": "iOS in-app review plus store listing",
-    "description": "iOS in-app review (SKStoreReviewController) plus open the store listing. Android 1.0 opens the Play listing — Play Core ReviewManager is not bundled. Not an in-app binary update.",
+    "subtitle": "iOS SKStoreReviewController; Android Play Core ReviewManager",
+    "description": "iOS in-app review (SKStoreReviewController) plus open the store listing. Android Play Core ReviewManager on Play-installed builds. Not an in-app binary update.",
     "github": "https://github.com/nuvyntralabs/Plugin.Maui.AppReview",
     "nuget": "https://www.nuget.org/packages/Plugin.Maui.AppReview",
     "language": "C#",
@@ -1154,9 +1159,10 @@ export const packages: PackageDoc[] = [
       "Play Store",
       "C#"
     ],
-    "abstract": "Plugin.Maui.AppReview owns review eligibility and the store listing — not binary updates. AppUpdate ships Play In-App Updates and App Store version checks. This plugin counts launches and days, honors a cooldown, then calls RequestAsync. Android 1.0 opens the Play listing (market://details?id=); Play Core in-app review is not bundled. iOS uses SKStoreReviewController when eligible and iOSAppStoreId for the listing fallback. Shown means the OS was asked, not that the user rated.",
-    "version": "1.0.3",
+    "abstract": "Plugin.Maui.AppReview owns review eligibility and the store listing — not binary updates. AppUpdate ships Play In-App Updates and App Store version checks. This plugin counts launches and days, honors a cooldown, then calls RequestAsync. Android uses Play Core ReviewManager on Play-installed builds; sideload / emulator returns Unavailable and the host can OpenStoreListingAsync. iOS uses SKStoreReviewController when eligible and iOSAppStoreId for the listing fallback. Shown means the OS was asked, not that the user rated.",
+    "version": "1.1.0",
     "releaseNotes": [
+      "1.1.0. Android RequestAsync uses Play Core ReviewManager. Unavailable on sideload / missing Play.",
       "1.0.3. NuGet description and README / CHANGELOG / AGENTS / llms.txt aligned: iOS review UI, Android listing-only.",
       "1.0.2. nuget.org pack.",
       "1.0.1. nuget.org pack.",
@@ -1164,7 +1170,7 @@ export const packages: PackageDoc[] = [
     ],
     "capabilities": [
       "Launch, day, and cooldown eligibility in Preferences.",
-      "RequestAsync — OS review UI or listing fallback.",
+      "RequestAsync — iOS SKStoreReviewController; Android ReviewManager on Play-installed builds.",
       "OpenStoreListingAsync and ResetCounters.",
       "Not a binary update path — use AppUpdate for that."
     ]

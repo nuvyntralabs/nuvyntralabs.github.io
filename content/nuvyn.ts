@@ -8,18 +8,18 @@ export const nuvyn = {
   title: "Nuvyn",
   subtitle: "The whole-ecosystem door: spec-driven CLI for .NET MAUI apps on the Nuvyntra stack",
   description:
-    "Nuvyn is the whole-ecosystem door. It creates a new four-platform MAUI host and locks plan/implement to MVVMExpress, Lumina UIKit, and the smallest Plugin.Maui.* set. Individual plugins and NuvyntraLabs.UIKit stay installable without Nuvyn. The product is whatever you specify — any domain.",
+    "Nuvyn is the whole-ecosystem door. It creates a new four-platform MAUI host and locks plan/implement to MVVMExpress, Lumina UIKit, and the smallest Plugin.Maui.* set. nuvyn adopt attaches the same slash chain to an existing MAUI app without rewriting its host. Individual plugins and NuvyntraLabs.UIKit stay installable without Nuvyn. The product is whatever you specify — any domain.",
   github: "https://github.com/nuvyntralabs/Nuvyn",
   nuget: "https://www.nuget.org/packages/NuvyntraLabs.Nuvyn.Cli",
   packageId: "NuvyntraLabs.Nuvyn.Cli",
   command: "nuvyn",
   language: "C#",
-  version: "1.1.0",
+  version: "1.2.0",
   license: "MIT",
   author: "Niladri Prasad Padhy",
   tags: [".NET MAUI", "CLI", "spec-driven", "agentic", "MVVMExpress", "UIKit"],
   abstract:
-    "Nuvyn is a standalone PackAsTool CLI. It depends only on System.CommandLine and Spectre.Console. nuvyn init copies an embedded three-project host, adds the default Nuvyntra packages from nuget.org, writes .nuvyn/ standing law, and installs slash commands for the Spec Kit coding-agent set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, and 30+ more. It does not overlay an existing app. init / check compose maui-dev doctor --path when MauiDev is on PATH. On an interactive terminal it asks every 4 hours whether to update from nuget.org.",
+    "Nuvyn is a standalone PackAsTool CLI. It depends only on System.CommandLine and Spectre.Console. nuvyn init copies an embedded three-project host, adds the default Nuvyntra packages from nuget.org, writes .nuvyn/ standing law, and installs slash commands for the Spec Kit coding-agent set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, and 30+ more. nuvyn adopt attaches that slash chain to an existing MAUI app and writes .nuvyn/, skills, and adopt-report.md only — it does not change host architecture, UI kit, or HTTP. init never overlays an existing folder. init / adopt / check compose maui-dev doctor --path when MauiDev is on PATH. On an interactive terminal it asks every 4 hours whether to update from nuget.org.",
   install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
 nuvyn init ClinicApp --agent cursor`,
   update: `dotnet tool update -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
@@ -27,6 +27,10 @@ nuvyn version`,
   refresh: `cd ClinicApp
 nuvyn update
 nuvyn update --agent cursor`,
+  adopt: `cd FieldApp
+nuvyn adopt
+nuvyn adopt --agent cursor
+nuvyn adopt --path ../FieldApp --agent copilot`,
   platforms: ["Android", "iOS", "Mac Catalyst", "Windows"],
   defaultPackages: [
     { name: "Plugin.Maui.MVVMExpress", role: "App shell, ViewModels, navigation", href: "/packages/plugin-maui-mvvmexpress/" },

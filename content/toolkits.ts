@@ -58,27 +58,28 @@ export const toolkits: ToolkitDoc[] = [
     title: "Nuvyn",
     subtitle: "Spec-driven CLI for .NET MAUI apps on the Nuvyntra stack",
     description:
-      "Creates a new four-platform MAUI host and locks plan/implement to MVVMExpress, Lumina UIKit, and the smallest Plugin.Maui.* set. The product is whatever you specify — any domain.",
+      "Creates a new four-platform MAUI host locked to MVVMExpress, Lumina UIKit, and the smallest Plugin.Maui.* set. nuvyn adopt attaches the same slash chain to an existing MAUI app without rewriting its host. The product is whatever you specify — any domain.",
     github: "https://github.com/nuvyntralabs/Nuvyn",
     nuget: "https://www.nuget.org/packages/NuvyntraLabs.Nuvyn.Cli",
     packageId: "NuvyntraLabs.Nuvyn.Cli",
     vscodeMarketplace: null,
     language: "C#",
-    version: "1.1.0",
+    version: "1.2.0",
     notice: {
-      title: "1.1.0 — maui-dev doctor compose + update check",
-      text: "nuvyn init and nuvyn check run maui-dev doctor --path <app> when MauiDev is on PATH (1.2.0+). They do not pass --no-update-check. A missing tool is a warning; a doctor exit 1 still prints the report and Nuvyn exits 0. On an interactive terminal nuvyn asks every 4 hours whether to update from nuget.org ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Cache: ~/.nuvyntra/cli-updates.json, shared with maui-dev and maui-perf.",
+      title: "1.2.0 — nuvyn adopt",
+      text: "nuvyn adopt attaches the slash chain to an existing MAUI app. It writes .nuvyn/, skills, and adopt-report.md only. It does not change host architecture, UI kit, or HTTP. nuvyn check skips greenfield HostProof when mode is adopt. init / adopt / check still compose maui-dev doctor --path when MauiDev is on PATH (1.2.0+). They do not pass --no-update-check. On an interactive terminal nuvyn asks every 4 hours whether to update from nuget.org ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Cache: ~/.nuvyntra/cli-updates.json, shared with maui-dev and maui-perf.",
     },
     tags: [".NET MAUI", "CLI", "spec-driven", "agentic", "MVVMExpress", "UIKit"],
     abstract:
       "Nuvyn is a standalone PackAsTool CLI (System.CommandLine + Spectre.Console). It copies an embedded three-project host, adds default Nuvyntra packages from nuget.org, writes .nuvyn/ standing law, and installs slash commands for the Spec Kit coding-agent set (Cursor, Copilot, Claude, Gemini, Codex, Windsurf, and 30+ more). It is not a Spec Kit clone. Use another spec CLI when the stack is not Nuvyntra.",
     capabilities: [
       "nuvyn init <folder> — new three-project MAUI host (no overlay).",
-      "Default packages: MVVMExpress, UIKit, HttpForge, FormValidation, KeyboardManager (latest nuget.org).",
+      "nuvyn adopt — attach the slash chain to an existing MAUI app (workflow files only; no host rewrite).",
+      "Default packages on init: MVVMExpress, UIKit, HttpForge, FormValidation, KeyboardManager (latest nuget.org).",
       "Slash chain: constitution → specify → clarify → plan → checklist → task → analysis → implement → converge.",
       "nuvyn update — refresh templates, reference, and slash files on an existing Nuvyn app (no host overlay).",
-      "nuvyn check — dotnet + payload, and inside an app prove the smallest MVVMExpress + UIKit package set.",
-      "init / check compose maui-dev doctor --path when MauiDev is on PATH (warning if missing; Nuvyn still exits 0).",
+      "nuvyn check — dotnet + payload; greenfield HostProof; adopt prints inventory and skips HostProof.",
+      "init / adopt / check compose maui-dev doctor --path when MauiDev is on PATH (warning if missing; Nuvyn still exits 0).",
       "Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1.",
       "Agents: Spec Kit set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, Goose, generic, and 30+ more.",
       "Standing law in .nuvyn/reference/constraints.md — sleek Lumina, catalog first, API data until asked to persist.",
@@ -107,14 +108,37 @@ Next
   cd ClinicApp
   Open this folder in Cursor and run:
   /nuvyn.constitution`,
-        notes: "Refuses if the folder already exists (exit 1). No --here / --force. Omit --agent for a searchable Spec Kit picker.",
+        notes: "Refuses if the folder already exists (exit 1). No --here / --force. Omit --agent for a searchable Spec Kit picker. For an existing MAUI app use nuvyn adopt.",
+      },
+      {
+        name: "nuvyn adopt",
+        group: "Create",
+        purpose: "Attach the slash chain to an existing MAUI app without rewriting the host",
+        usage: `nuvyn adopt
+nuvyn adopt --agent cursor
+nuvyn adopt --path ../FieldApp --agent copilot`,
+        sample: `Nuvyn
+────────────────────────────────────
+
+[1] App: ./FieldApp
+[2] Agent: Cursor
+[3] Inventory written to .nuvyn/adopt-report.md
+✓ .nuvyn/constitution.md
+[4] Writing Cursor commands…
+✓ .cursor/skills/nuvyn-constitution/SKILL.md
+
+Next
+  Open this folder in Cursor and run:
+  /nuvyn.constitution
+  Read .nuvyn/adopt-report.md before /nuvyn.plan`,
+        notes: "Refuses if the folder is not MAUI (UseMaui csproj) or already has .nuvyn/. Does not add MVVMExpress, UIKit, or HttpForge. Does not edit MauiProgram, pages, or HttpClient.",
       },
       {
         name: "nuvyn version",
         group: "Create",
         purpose: "Print the installed CLI version",
         usage: "nuvyn version",
-        sample: "NuvyntraLabs.Nuvyn.Cli 1.1.0",
+        sample: "NuvyntraLabs.Nuvyn.Cli 1.2.0",
       },
       {
         name: "nuvyn update",
@@ -131,18 +155,18 @@ nuvyn update --agent cursor`,
 ✓ .nuvyn/reference/constraints.md
 [4] Writing Cursor commands…
 ✓ .cursor/skills/nuvyn-constitution/SKILL.md`,
-        notes: "Leaves host code, specs/, and .nuvyn/constitution.md alone. Does not change PackageReference versions. Run from the app folder. --vertical is not in 1.1.",
+        notes: "Leaves host code, specs/, .nuvyn/constitution.md, and .nuvyn/adopt-report.md alone. Does not change PackageReference versions. Run from the app folder. --vertical is not in 1.2.",
       },
       {
         name: "nuvyn check",
         group: "Create",
-        purpose: "Confirm dotnet and the payload; inside a Nuvyn app also prove the host package set, then compose maui-dev doctor",
+        purpose: "Confirm dotnet and the payload; inside a greenfield app prove the host package set; inside an adopted app print inventory and skip HostProof; then compose maui-dev doctor",
         usage: "nuvyn check",
         sample: `✓ dotnet is on PATH
 ✓ Payload: /…/payload
 ✓ Host: MVVMExpress + UIKit + HttpForge + FormValidation + KeyboardManager
 · maui-dev doctor     printed when Plugin.Maui.MauiDev.Cli is on PATH`,
-        notes: "Calls maui-dev doctor --path <app> without --no-update-check. Missing MauiDev is a warning. Doctor exit 1 still prints the report; Nuvyn exits 0.",
+        notes: "Calls maui-dev doctor --path <app> without --no-update-check. Missing MauiDev is a warning. Doctor exit 1 still prints the report; Nuvyn exits 0. Adopted apps (mode: adopt) skip greenfield HostProof.",
       },
     ],
     globalOptions: [
@@ -155,17 +179,20 @@ nuvyn init ClinicApp --agent cursor`,
     installNote:
       "NuvyntraLabs.Nuvyn.Cli is a global dotnet tool (net10.0). Do not run dotnet add package NuvyntraLabs.Nuvyn.Cli in an app. Publishing is pipeline-only on the Nuvyn repository.",
     examples: `nuvyn init HarborDesk --agent cursor
+nuvyn adopt --agent cursor
 nuvyn update
 nuvyn version
 nuvyn check
 nuvyn --no-update-check version`,
     fixAllowList: [
       "init creates a new folder only. It never overlays, merges, or writes into an existing app.",
+      "adopt writes .nuvyn/, skills, and adopt-report.md only. It never rewrites the host.",
     ],
     neverDoes: [
-      "Never overlays an existing repo (no --here / --force).",
+      "Never overlays an existing repo with init (no --here / --force).",
+      "Never rewrites host architecture, UI kit, or HTTP on adopt.",
       "Never adds LocalStore, NuvexaDB, or other catalog packages until the spec asks.",
-      "Never replaces maui-dev doctor — init / check compose it when the tool is on PATH.",
+      "Never replaces maui-dev doctor — init / adopt / check compose it when the tool is on PATH.",
       "Never publishes or pushes NuGet packages from a local clone.",
     ],
     ci: `# Publishing is pipeline-only on nuvyntralabs/Nuvyn
@@ -196,6 +223,8 @@ nuvyn --no-update-check version`,
       },
     ],
     releaseNotes: [
+      "1.2.0. nuvyn adopt attaches the slash chain to an existing MAUI app. Writes .nuvyn/, skills, and adopt-report.md only. check skips HostProof when mode is adopt.",
+      "1.1.1. When maui-dev doctor returns findings (exit 1), say it found issues. Do not phrase a successful run as exited 1.",
       "1.1.0. nuvyn init / nuvyn check compose maui-dev doctor --path when MauiDev is on PATH (no --no-update-check forwarded).",
       "1.1.0. Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1.",
       "1.0.0. nuvyn update refreshes templates, reference, and slash files without overlaying host code.",

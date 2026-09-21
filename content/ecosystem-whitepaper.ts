@@ -62,7 +62,7 @@ export const whitepaperSections: DocSection[] = [
       {
         type: "callout",
         title: "Two ways to start",
-        text: "Nuvyntra Labs reaches teams as a component library and as a whole ecosystem. The component library is one NuGet in any host. The whole ecosystem is [nuvyn init](/toolkits/nuvyn/) assembling a new host from the same packages. Neither path is a fallback.",
+        text: "Nuvyntra Labs reaches teams as a component library and as a whole ecosystem. The component library is one NuGet in any host. The whole ecosystem is [nuvyn init](/toolkits/nuvyn/) assembling a new host from the same packages, or [nuvyn adopt](/toolkits/nuvyn/guide/adopt/) attaching the slash chain to an existing MAUI app without rewriting it. Neither path is a fallback.",
       },
       {
         type: "callout",
@@ -425,7 +425,7 @@ var site = await api.GetSite(42);`,
           ],
           [
             "Plugin.Maui.Geofence",
-            "Circular enter / exit / dwell (max 20). Not a GPS tracker.",
+            "Circular enter / exit / dwell (max 20). Android GeofencingClient; persists across process death. Not a GPS tracker.",
             "[Geofence](/packages/plugin-maui-geofence/)",
           ],
           [
@@ -435,7 +435,7 @@ var site = await api.GetSite(42);`,
           ],
           [
             "Plugin.Maui.VideoPipeline",
-            "Camera or gallery video with duration / size gates, thumbnail, AES-256-GCM. No FFmpeg in 1.0.",
+            "Camera or gallery video with duration / size gates, JPEG thumbnail, OS transcode when over budget, AES-256-GCM. No FFmpeg.",
             "[VideoPipeline](/packages/plugin-maui-video-pipeline/)",
           ],
           [
@@ -481,6 +481,11 @@ var site = await api.GetSite(42);`,
         headers: ["Library", "Use in development", "Page"],
         rows: [
           [
+            "Plugin.Maui.AppReview",
+            "iOS SKStoreReviewController; Android Play Core ReviewManager on Play-installed builds. Not a binary update.",
+            "[AppReview](/packages/plugin-maui-app-review/)",
+          ],
+          [
             "Plugin.Maui.DeepLinks",
             "App Links, Universal Links, custom schemes, auth-restore. Fail-closed host allowlists.",
             "[DeepLinks](/packages/plugin-maui-deep-links/)",
@@ -516,6 +521,11 @@ var site = await api.GetSite(42);`,
             "[Observability](/packages/plugin-maui-observability/)",
           ],
           [
+            "Nuvyn CLI 1.2.0",
+            "`nuvyn init` for a new host; `nuvyn adopt` attaches the slash chain to an existing MAUI app. Not a PackageReference.",
+            "[Nuvyn](/toolkits/nuvyn/)",
+          ],
+          [
             "MauiDev CLI 1.2.2",
             "`maui-dev` doctor, permissions, publish validate, migrate, JSON/SARIF for CI. Not a PackageReference.",
             "[MauiDev](/toolkits/maui-dev/)",
@@ -545,7 +555,7 @@ var site = await api.GetSite(42);`,
           ["Shell", "MVVMExpress: `UseMvvmExpress`, `UseShell` or `UseNavigationPage`, `UseAuth`, modules per feature team."],
           ["API", "HttpForge interface + `AddHttpForgeClient`. Chain ApiResilience, ApiCache, TlsPin, SecureSession."],
           ["Local + sync", "LocalStore (SQLite or NuvexaDB) for CRUD. OfflineSync for the queue. JobQueue / SmartUpload for durable work."],
-          ["Field", "GeoLocator or Geofence. MediaPipeline → FileVault or SmartUpload. PermissionFlow before the first prompt."],
+          ["Field", "GeoLocator or Geofence 1.1. MediaPipeline or VideoPipeline 1.1 → FileVault or SmartUpload. PermissionFlow before the first prompt."],
           ["Session", "SecureSession + SecureStoragePlus. AppLock after background. ScreenGuard on payment or PII screens."],
           ["Ship", "Diagnostics + LeakAnalyser in Debug. Performance scoreboard. MauiDev `doctor` and `publish --validate` in CI."],
         ],

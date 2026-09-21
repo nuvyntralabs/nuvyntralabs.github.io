@@ -61,8 +61,8 @@ Microsoft Learn what's new: https://learn.microsoft.com/dotnet/maui/whats-new/
 
 The user chooses. Neither path is a fallback.
 
-- Component library: one NuGet (NuvyntraLabs.UIKit, any Plugin.Maui.*, MVVMExpress, or Nuventra.NuvexaDB) in an existing host. Do not run nuvyn init. Catalog: ${siteConfig.url}/packages/
-- Whole ecosystem: nuvyn init for a new MAUI app on MVVMExpress + UIKit + the smallest plugin set. Existing apps: nuvyn update refreshes skills only. Nuvyn: ${siteConfig.url}${nuvynHref}
+- Component library: one NuGet (NuvyntraLabs.UIKit, any Plugin.Maui.*, MVVMExpress, or Nuventra.NuvexaDB) in an existing host. Catalog: ${siteConfig.url}/packages/
+- Whole ecosystem: nuvyn init for a new MAUI app on MVVMExpress + UIKit + the smallest plugin set. Existing MAUI apps: nuvyn adopt attaches the slash chain without rewriting the host. nuvyn update refreshes skills only. Nuvyn: ${siteConfig.url}${nuvynHref}
 
 ## Development ecosystem
 
@@ -124,7 +124,7 @@ Sample: ${uiKit.sample}
 ## Nuvyn
 
 ${siteConfig.url}${nuvynHref}
-Spec-driven CLI (${nuvyn.packageId} ${nuvyn.version}) for new .NET MAUI apps on Android, iOS, Windows, and Mac Catalyst. Domain-agnostic. Stack locked to MVVMExpress, Lumina UIKit, HttpForge, FormValidation, and KeyboardManager. Install: dotnet tool install -g ${nuvyn.packageId} --source https://api.nuget.org/v3/index.json. Then: nuvyn init MyApp --agent cursor. After a CLI update, nuvyn update refreshes templates and slash files without overlaying host code, specs, or constitution. Do not dotnet add package the CLI. init never overlays an existing folder (no --here / --force). nuvyn init / nuvyn check compose maui-dev doctor --path when MauiDev is on PATH (they do not pass --no-update-check). Interactive 4-hour nuget.org update check ([y/N], default no); skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Not a Spec Kit clone — use Spec Kit when the stack is not Nuvyntra.
+Spec-driven CLI (${nuvyn.packageId} ${nuvyn.version}) for .NET MAUI apps on Android, iOS, Windows, and Mac Catalyst. Domain-agnostic. Greenfield stack locked to MVVMExpress, Lumina UIKit, HttpForge, FormValidation, and KeyboardManager. Install: dotnet tool install -g ${nuvyn.packageId} --source https://api.nuget.org/v3/index.json. Then: nuvyn init MyApp --agent cursor. Existing MAUI app: nuvyn adopt --agent cursor (writes .nuvyn/, skills, and adopt-report.md only; does not rewrite the host). After a CLI update, nuvyn update refreshes templates and slash files without overlaying host code, specs, constitution, or adopt-report. Do not dotnet add package the CLI. init never overlays an existing folder (no --here / --force). nuvyn init / nuvyn adopt / nuvyn check compose maui-dev doctor --path when MauiDev is on PATH (they do not pass --no-update-check). Interactive 4-hour nuget.org update check ([y/N], default no); skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. Not a Spec Kit clone — use Spec Kit when the stack is not Nuvyntra.
 GitHub: ${nuvyn.github}
 NuGet: ${nuvyn.nuget}
 Technical docs: ${siteConfig.url}${nuvynDocsBase}/

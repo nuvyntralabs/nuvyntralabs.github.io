@@ -34,7 +34,8 @@ export default function GettingStartedPage() {
         <section className="mb-12">
           <h2 className="font-display text-2xl font-semibold">1. Choose a start</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Existing apps stay on the component path.{" "}
+            Existing apps can stay on the component path, or attach the slash chain with{" "}
+            <code className="code-inline">nuvyn adopt</code> (workflow files only — no host rewrite).{" "}
             <code className="code-inline">nuvyn update</code> refreshes skills only — do not re-run{" "}
             <code className="code-inline">nuvyn init</code> on a tree that already exists. The{" "}
             <Link href="/whitepaper/" className="text-link">
@@ -73,7 +74,9 @@ export default function GettingStartedPage() {
             <Link href="/toolkits/nuvyn/" className="text-link">
               <code className="code-inline">nuvyn init</code>
             </Link>{" "}
-            for a new Nuvyntra host plus the spec slash chain. Component library: use the stock MAUI
+            for a new Nuvyntra host plus the spec slash chain, or{" "}
+            <code className="code-inline">nuvyn adopt</code> to attach that chain to an existing MAUI
+            app. Component library: use the stock MAUI
             template, or scaffold an MVVMExpress host with ViewModels, login replace-root, a list, a
             form, and tests already wired. Same MVVMExpress scaffold from the{" "}
             <Link
@@ -87,6 +90,7 @@ export default function GettingStartedPage() {
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{`dotnet tool install -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
 nuvyn init FieldApp --agent cursor
+nuvyn adopt --agent cursor
 
 dotnet new maui -n FieldApp
 

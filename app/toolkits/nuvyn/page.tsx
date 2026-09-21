@@ -47,15 +47,20 @@ export default function NuvynPage() {
       </aside>
 
       <aside className="callout mt-6 px-4 py-3">
-        <p className="text-sm font-semibold text-foreground">New projects only</p>
+        <p className="text-sm font-semibold text-foreground">New host or adopt an existing one</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           <code className="code-inline">nuvyn init</code> always creates a new folder. There is no{" "}
-          <code className="code-inline">--here</code> / <code className="code-inline">--force</code>. Diagnose an
-          existing tree with{" "}
+          <code className="code-inline">--here</code> / <code className="code-inline">--force</code>. Attach the
+          slash chain to an existing MAUI app with{" "}
+          <Link href={`${nuvynGuideBase}/adopt/`} className="text-link">
+            nuvyn adopt
+          </Link>{" "}
+          — workflow files only, no host rewrite. Diagnose an existing tree with{" "}
           <Link href="/toolkits/maui-dev/" className="text-link">
             maui-dev doctor
           </Link>
-          . <code className="code-inline">nuvyn init</code> and{" "}
+          . <code className="code-inline">nuvyn init</code>,{" "}
+          <code className="code-inline">nuvyn adopt</code>, and{" "}
           <code className="code-inline">nuvyn check</code> compose that doctor when the tool is on PATH.
         </p>
       </aside>
@@ -85,14 +90,16 @@ export default function NuvynPage() {
       </div>
 
       <aside className="callout mt-6 px-4 py-3">
-        <p className="text-sm font-semibold text-foreground">1.1.0 — maui-dev doctor compose + update check</p>
+        <p className="text-sm font-semibold text-foreground">1.2.0 — nuvyn adopt</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-          <code className="code-inline">nuvyn init</code> and <code className="code-inline">nuvyn check</code> run{" "}
-          <code className="code-inline">maui-dev doctor --path</code> when MauiDev is installed. They do not
-          forward <code className="code-inline">--no-update-check</code>. On an interactive terminal the CLI asks
-          every 4 hours whether to update from nuget.org. Skip with{" "}
-          <code className="code-inline">--no-update-check</code> or{" "}
-          <code className="code-inline">NUVYNTRA_NO_UPDATE_CHECK=1</code>.
+          <code className="code-inline">nuvyn adopt</code> attaches the slash chain to an existing MAUI app. It
+          writes <code className="code-inline">.nuvyn/</code>, skills, and{" "}
+          <code className="code-inline">adopt-report.md</code> only — it does not change host architecture, UI
+          kit, or HTTP. <code className="code-inline">nuvyn check</code> skips greenfield HostProof when{" "}
+          <code className="code-inline">mode</code> is <code className="code-inline">adopt</code>.{" "}
+          <code className="code-inline">init</code> / <code className="code-inline">adopt</code> /{" "}
+          <code className="code-inline">check</code> still compose{" "}
+          <code className="code-inline">maui-dev doctor --path</code> when MauiDev is installed.
         </p>
       </aside>
 
@@ -105,11 +112,32 @@ export default function NuvynPage() {
       </section>
 
       <section className="mt-10">
+        <h2 className="font-display text-2xl font-semibold">Adopt an existing app</h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          Attach the slash chain without rewriting MVVM, UI kit, or HTTP. Refuses a non-MAUI folder or a tree
+          that already has <code className="code-inline">.nuvyn/</code>. Then run the same slash chain; read{" "}
+          <code className="code-inline">adopt-report.md</code> before <code className="code-inline">/nuvyn.plan</code>.
+        </p>
+        <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
+          <code>{nuvyn.adopt}</code>
+        </pre>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          Step-by-step:{" "}
+          <Link href={`${nuvynGuideBase}/adopt/`} className="text-link">
+            Adopt an existing app
+          </Link>
+          .
+        </p>
+      </section>
+
+      <section className="mt-10">
         <h2 className="font-display text-2xl font-semibold">Refresh skills</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          After you update the global CLI, refresh templates and slash files in an existing app. Host code,{" "}
-          <code className="code-inline">specs/</code>, and <code className="code-inline">.nuvyn/constitution.md</code>{" "}
-          stay as they are. PackageReference versions are not changed.
+          After you update the global CLI, refresh templates and slash files in an existing Nuvyn app (from{" "}
+          <code className="code-inline">init</code> or <code className="code-inline">adopt</code>). Host code,{" "}
+          <code className="code-inline">specs/</code>, <code className="code-inline">.nuvyn/constitution.md</code>,
+          and <code className="code-inline">.nuvyn/adopt-report.md</code> stay as they are. PackageReference
+          versions are not changed.
         </p>
         <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
           <code>{nuvyn.refresh}</code>
@@ -147,7 +175,7 @@ export default function NuvynPage() {
       <section className="mt-10">
         <h2 className="font-display text-2xl font-semibold">Slash chain</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Open the project in the agent you selected at init. Run these in order. Domain comes from your spec.
+          Open the project in the agent you selected at init or adopt. Run these in order. Domain comes from your spec.
         </p>
         <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
           <table className="min-w-full text-left text-sm">
@@ -221,9 +249,9 @@ export default function NuvynPage() {
           <li>
             <Link href={`${nuvynGuideBase}/`} className="glass-card focusable block p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-500">User guide</p>
-              <p className="mt-2 font-display text-lg font-semibold">Install, init, and grow the app</p>
+              <p className="mt-2 font-display text-lg font-semibold">Install, init, adopt, and grow the app</p>
               <p className="mt-2 text-sm text-muted-foreground">
-                Requirements, host tree, slash workflow, catalog rules, and troubleshooting.
+                Requirements, host tree, adopt an existing app, slash workflow, catalog rules, and troubleshooting.
               </p>
             </Link>
           </li>

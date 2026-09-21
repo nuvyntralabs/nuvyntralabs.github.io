@@ -21,7 +21,7 @@ dotnet add package NuvyntraLabs.UIKit`,
       title: "Whole ecosystem",
       when: "You want a new MAUI app on this stack.",
       detail:
-        "nuvyn init assembles MVVMExpress + UIKit + the smallest plugin set and composes maui-dev doctor. Existing apps stay on the component path.",
+        "nuvyn init assembles MVVMExpress + UIKit + the smallest plugin set and composes maui-dev doctor. Existing MAUI apps can attach the slash chain with nuvyn adopt without rewriting the host.",
       href: "/toolkits/nuvyn/",
       cta: "Start with Nuvyn",
       install: `dotnet tool install -g NuvyntraLabs.Nuvyn.Cli --source https://api.nuget.org/v3/index.json
@@ -29,7 +29,7 @@ nuvyn init ClinicApp`,
     },
   ],
   about: [
-    "Nuvyntra Labs is an independent applied R&D company. It reaches .NET MAUI teams two ways: as a component library (one control or plugin in any host) and as a whole ecosystem (nuvyn init for a new app on MVVMExpress + UIKit + the smallest plugin set). Neither path is a fallback.",
+    "Nuvyntra Labs is an independent applied R&D company. It reaches .NET MAUI teams two ways: as a component library (one control or plugin in any host) and as a whole ecosystem (nuvyn init for a new app on MVVMExpress + UIKit + the smallest plugin set, or nuvyn adopt to attach the slash chain to an existing MAUI app). Neither path is a fallback.",
     "Teams paint screens with UIKit, host the app with MVVMExpress, talk to APIs with HttpForge, then add only the gallery plugins the product needs — location, connectivity, offline sync, voice, and device security. Research, public proofs of concept, production NuGet packages, and developer toolkits each have their own home here. There is no mega-SDK. Client delivery and professional experience stay on the founder's site.",
   ],
   audience:
