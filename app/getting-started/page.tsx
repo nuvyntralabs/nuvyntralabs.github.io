@@ -320,8 +320,17 @@ maui-pulse attach --package com.myapp.android --android --port 7878`}</code>
             when the host already has an English sibling <code className="code-inline">.resx</code>{" "}
             (MAUI, WPF, WinUI, Avalonia, or Uno) and a language list. Put{" "}
             <code className="code-inline">i18n.json</code> at the project root, then{" "}
-            <code className="code-inline">nuvloc init --configfile i18n.json --agent cursor</code>.
-            The coding agent translates via <code className="code-inline">/nuvloc.translate</code>.
+            <code className="code-inline">nuvloc init --configfile i18n.json --agent cursor</code>.{" "}
+            <code className="code-inline">languages</code> must be BCP-47 codes.
+            The CLI is tested with popular codes such as{" "}
+            <code className="code-inline">es</code>,{" "}
+            <code className="code-inline">fr</code>,{" "}
+            <code className="code-inline">de</code>,{" "}
+            <code className="code-inline">ja</code>,{" "}
+            <code className="code-inline">zh-Hans</code>, and{" "}
+            <code className="code-inline">pt-BR</code> — the full list is on the
+            toolkit page. The coding agent translates via{" "}
+            <code className="code-inline">/nuvloc.translate</code>.
             There is no <code className="code-inline">nuvloc translate</code> CLI command and no
             vendor API key. CI is <code className="code-inline">nuvloc check --ci</code>. WinUI /
             Uno PRI <code className="code-inline">.resw</code> folders are out of scope. Coverage

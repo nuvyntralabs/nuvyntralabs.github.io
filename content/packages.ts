@@ -84,7 +84,7 @@ export const packages: PackageDoc[] = [
       "Share, clipboard, keyboard, printing, form validation, orientation lock, and keep-awake.",
       "VoIP session model, app updates, store review, local notifications, diagnostics, performance, leak detection, and telemetry.",
       "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue.",
-      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.2.0, NuvLoc 1.1.1, maui-perf 1.0.8, and maui-pulse 1.0.1 share a 4-hour interactive nuget.org update check. Nuvyn init / adopt / check compose maui-dev doctor --path without --no-update-check. nuvyn adopt attaches the slash chain to an existing MAUI app without rewriting the host. NuvLoc diffs sibling .resx files from i18n.json; the coding agent translates — no vendor API key."
+      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.2.0, NuvLoc 1.1.2, maui-perf 1.0.8, and maui-pulse 1.0.1 share a 4-hour interactive nuget.org update check. Nuvyn init / adopt / check compose maui-dev doctor --path without --no-update-check. nuvyn adopt attaches the slash chain to an existing MAUI app without rewriting the host. NuvLoc diffs sibling .resx files from i18n.json (BCP-47 languages); the coding agent translates — no vendor API key."
     ]
   },
   {

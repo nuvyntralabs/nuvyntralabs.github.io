@@ -218,7 +218,10 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
                 <code className="code-inline">wpf</code>,{" "}
                 <code className="code-inline">winui</code>,{" "}
                 <code className="code-inline">avalonia</code>, or{" "}
-                <code className="code-inline">uno</code>.
+                <code className="code-inline">uno</code>.{" "}
+                <code className="code-inline">languages</code> must be BCP-47
+                culture codes. The CLI has been tested with the popular codes
+                in the table below.
               </>
             ) : (
               <>
@@ -234,6 +237,69 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
           <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
             <code>{toolkit.ciJsonSample}</code>
           </pre>
+        </section>
+      ) : null}
+
+      {toolkit.testedLanguages?.length ? (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">Tested BCP-47 cultures</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Language tags follow{" "}
+            <a
+              href="https://www.rfc-editor.org/rfc/rfc5646.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+            >
+              BCP-47
+            </a>{" "}
+            (<code className="code-inline">es</code>,{" "}
+            <code className="code-inline">pt-BR</code>,{" "}
+            <code className="code-inline">zh-Hans</code>). Other BCP-47 codes
+            also work. Casing does not matter; the CLI stores the canonical name
+            (<code className="code-inline">PT-br</code> →{" "}
+            <code className="code-inline">pt-BR</code>). The CLI has been tested
+            with these popular codes:
+          </p>
+          <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
+            <table className="min-w-full text-left text-sm">
+              <thead className="bg-muted text-foreground">
+                <tr>
+                  <th className="px-3 py-2.5 font-semibold">Code</th>
+                  <th className="px-3 py-2.5 font-semibold">Language</th>
+                </tr>
+              </thead>
+              <tbody>
+                {toolkit.testedLanguages.map((item) => (
+                  <tr key={item.code} className="border-t border-border">
+                    <td className="px-3 py-2.5 font-medium text-foreground">
+                      <code>{item.code}</code>
+                    </td>
+                    <td className="px-3 py-2.5 text-muted-foreground">{item.name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            A code that is not BCP-47 (
+            <code className="code-inline">foo</code>,{" "}
+            <code className="code-inline">english</code>,{" "}
+            <code className="code-inline">123</code>,{" "}
+            <code className="code-inline">es_MX</code>) does not create a
+            localized <code className="code-inline">.resx</code>. The CLI exits
+            2 and prints the error and the reason. If a BCP-47 code fails to
+            translate or is rejected,{" "}
+            <a
+              href={`${toolkit.github}/issues`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+            >
+              open an issue
+            </a>
+            .
+          </p>
         </section>
       ) : null}
 

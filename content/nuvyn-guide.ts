@@ -768,7 +768,7 @@ const troubleshootingSections: DocSection[] = [
           ["New Nuvyntra MAUI host + spec chain", "**Nuvyn** (`nuvyn init`, then `nuvyn update`)", "This guide"],
           ["Existing MAUI app + spec chain (keep its stack)", "**Nuvyn** (`nuvyn adopt`)", "This guide"],
           ["Diagnose an existing MAUI tree", "[MauiDev](/toolkits/maui-dev/) (`maui-dev doctor`)", "Same 4-hour update prompt as `nuvyn`"],
-          ["Sibling .resx localization (agent translates)", "[NuvLoc](/toolkits/nuvloc/) (`nuvloc init` + `/nuvloc.translate`)", "No vendor API key. Completeness is not correctness."],
+          ["Sibling .resx localization (agent translates)", "[NuvLoc](/toolkits/nuvloc/) (`nuvloc init` + `/nuvloc.translate`)", "BCP-47 languages. No vendor API key. Completeness is not correctness."],
           ["Any stack, spec only", "[GitHub Spec Kit](https://github.com/github/spec-kit) (`specify`)", "No MVVMExpress / UIKit host"],
           ["One plugin", "The matching `Plugin.Maui.*`", "[Catalog](/packages/)"],
         ],

@@ -49,6 +49,7 @@ export interface ToolkitDoc {
   exitNote?: string;
   hostPackageId?: string;
   hostNuget?: string;
+  testedLanguages?: { code: string; name: string }[];
 }
 
 export const toolkits: ToolkitDoc[] = [
@@ -786,10 +787,10 @@ maui-dev package --validate`,
     packageId: "NuvyntraLabs.NuvLoc.Cli",
     vscodeMarketplace: null,
     language: "C#",
-    version: "1.1.1",
+    version: "1.1.2",
     notice: {
-      title: "1.1.1 — sibling .resx hosts, no vendor API key",
-      text: "platform accepts maui, wpf, winui, avalonia, and uno. Culture files are {stem}.{lang}.resx next to the English source. WinUI / Uno PRI .resw folders under Strings/{lang}/ are out of scope. On an interactive terminal nuvloc asks every 4 hours whether to update from nuget.org ([y/N], default no). Cache: ~/.nuvyntra/cli-updates.json, shared with maui-dev, nuvyn, maui-perf, and maui-pulse. Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. The CLI does not phone home. NuvLoc does not give a 100% guarantee on translated text — review every culture file with a native speaker before you ship.",
+      title: "1.1.2 — BCP-47 language codes",
+      text: "languages and --lang must be BCP-47 cultures (es, pt-BR, zh-Hans). Casing does not matter — PT-br becomes pt-BR. Underscores (es_MX) and English source tags (en, en-US, en-GB) are rejected. A non-BCP-47 code does not create a localized .resx; the CLI exits 2 and prints the error and the reason. --lang that is not in i18n.json also exits 2. platform still accepts maui, wpf, winui, avalonia, and uno. Culture files are {stem}.{lang}.resx next to the English source. WinUI / Uno PRI .resw folders under Strings/{lang}/ stay out of scope. On an interactive terminal nuvloc asks every 4 hours whether to update from nuget.org ([y/N], default no). Cache: ~/.nuvyntra/cli-updates.json, shared with maui-dev, nuvyn, maui-perf, and maui-pulse. Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. The CLI does not phone home. NuvLoc does not give a 100% guarantee on translated text — review every culture file with a native speaker before you ship.",
     },
     aside: {
       title: "The agent translates. There is no nuvloc translate command.",
@@ -800,7 +801,9 @@ maui-dev package --validate`,
       "Usual alternatives — Visual Studio Multilingual App Toolkit, ResXResourceManager, Crowdin / Phrase — either bind a vendor API, manage a TMS, or stay in the IDE. NuvLoc is a PackAsTool CLI (command nuvloc). It diffs an English sibling .resx against culture files from i18n.json and hands the missing / stale worklist to the same Spec Kit agent set as Nuvyn. The coding agent writes the culture files. Coverage and placeholder checks prove completeness, not correctness. XAML, a markup extension, or code is the host’s choice.",
     capabilities: [
       "nuvloc init --configfile i18n.json --agent cursor — check the config and install /nuvloc.status + /nuvloc.translate.",
-      "i18n.json: platform (maui | wpf | winui | avalonia | uno), source (English .resx), languages.",
+      "i18n.json: platform (maui | wpf | winui | avalonia | uno), source (English .resx), languages (BCP-47: es, pt-BR, zh-Hans).",
+      "languages and --lang must be BCP-47 (hyphens, not underscores). Casing is canonicalized (PT-br → pt-BR). Invalid codes and --lang not in i18n.json exit 2.",
+      "Tested popular codes: es, fr, de, it, nl, ja, ko, zh-Hans, pt-BR, ar, hi, ru. Other BCP-47 codes also work.",
       "Sibling culture files only: {stem}.{lang}.resx next to the English source.",
       "nuvloc plan — missing / stale / extra / placeholder worklist (human or JSON).",
       "nuvloc status — coverage table per language.",
@@ -828,7 +831,7 @@ Agent cursor (Cursor)
 
 Next: /nuvloc.status then /nuvloc.translate
 NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
-        notes: "Does not translate. --force overwrites skill files, never culture .resx. Omit --agent on an interactive terminal for the Spec Kit picker. --ci requires --agent.",
+        notes: "Does not translate. --force overwrites skill files, never culture .resx. Omit --agent on an interactive terminal for the Spec Kit picker. --ci requires --agent. languages must be BCP-47; invalid codes exit 2.",
       },
       {
         name: "nuvloc update",
@@ -859,7 +862,7 @@ NuvLoc does not give a 100% guarantee on translated text. Agent wording can be i
         group: "Setup",
         purpose: "Print the installed CLI version",
         usage: "nuvloc version",
-        sample: "1.1.1",
+        sample: "1.1.2",
       },
       {
         name: "nuvloc plan",
@@ -879,7 +882,7 @@ fr: 0 current, 3 missing, 0 stale, 0 placeholder, 0 extra
  missing ItemsLeft
 
 NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
-        notes: "/nuvloc.translate runs this (JSON), writes sibling culture files, then nuvloc check --write-cache. There is no nuvloc translate CLI command.",
+        notes: "/nuvloc.translate runs this (JSON), writes sibling culture files, then nuvloc check --write-cache. There is no nuvloc translate CLI command. --lang must be one of the configured BCP-47 codes; a code missing from i18n.json exits 2.",
       },
       {
         name: "nuvloc status",
@@ -896,7 +899,7 @@ es: 2 current, 1 missing, 0 stale, 0 placeholder, 0 extra
 fr: 3 current, 0 missing, 0 stale, 0 placeholder, 0 extra
 
 NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
-        notes: "/nuvloc.status runs this and explains the counts. Complete files are complete — not correct. Human and JSON share the same reporter as plan.",
+        notes: "/nuvloc.status runs this and explains the counts. Complete files are complete — not correct. Human and JSON share the same reporter as plan. --lang must be one of the configured BCP-47 codes.",
       },
       {
         name: "nuvloc check",
@@ -911,7 +914,7 @@ es: 2 current, 1 missing, 0 stale, 0 placeholder, 0 extra
  missing ItemsLeft
 
 NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
-        notes: "--ci forces JSON. --write-cache records source hashes for present keys after a pass. Completeness is not correctness.",
+        notes: "--ci forces JSON. --write-cache records source hashes for present keys after a pass. Completeness is not correctness. --lang must be one of the configured BCP-47 codes.",
       },
     ],
     globalOptions: [
@@ -943,12 +946,27 @@ nuvloc --no-update-check version`,
   "source": "Resources/Strings/AppResources.resx",
   "languages": ["es", "fr"]
 }`,
+    testedLanguages: [
+      { code: "es", name: "Spanish" },
+      { code: "fr", name: "French" },
+      { code: "de", name: "German" },
+      { code: "it", name: "Italian" },
+      { code: "nl", name: "Dutch" },
+      { code: "ja", name: "Japanese" },
+      { code: "ko", name: "Korean" },
+      { code: "zh-Hans", name: "Chinese (Simplified)" },
+      { code: "pt-BR", name: "Portuguese (Brazil)" },
+      { code: "ar", name: "Arabic" },
+      { code: "hi", name: "Hindi" },
+      { code: "ru", name: "Russian" },
+    ],
     fixAllowList: [],
     neverDoes: [
       "Never calls OpenAI, Azure, or any vendor translation API. No API key.",
       "Never binds strings to the UI — no UseI18n, markup extension, or XAML rewrite.",
       "Never ships a nuvloc translate CLI command — translation is /nuvloc.translate.",
       "Never writes WinUI / Uno PRI .resw folders under Strings/{lang}/.",
+      "Never writes a localized .resx for a non-BCP-47 language code.",
       "Never guarantees wording or cultural correctness.",
       "Never phones home.",
       "Never publishes or pushes NuGet packages from a local clone.",
@@ -959,7 +977,7 @@ nuvloc --no-update-check version`,
     usageNote:
       "Each sample is a typical report from a host with gaps. A complete culture set prints 0 missing / 0 stale / 0 placeholder and exits 0. Completeness is not correctness — review with a native speaker before you ship. There is no --fix; the agent writes the .resx files.",
     exitNote:
-      "Exit codes: 0 success (including a complete status / plan), 1 check found missing, stale, or broken placeholders, 2 usage (missing i18n.json, unknown agent, unknown command).",
+      "Exit codes: 0 success (including a complete status / plan), 1 check found missing, stale, or broken placeholders, 2 usage (missing i18n.json, unknown agent, unknown command, invalid BCP-47 language, or --lang not in i18n.json).",
     alternatives:
       "Visual Studio Multilingual App Toolkit, ResXResourceManager, and Crowdin / Phrase are the usual alternatives. They either stay in the IDE, manage a TMS, or take a vendor API key. NuvLoc diffs sibling .resx files and lets the coding agent write the cultures.",
     notFor: [
@@ -985,6 +1003,7 @@ nuvloc --no-update-check version`,
       },
     ],
     releaseNotes: [
+      "1.1.2. Reject invalid language codes in i18n.json and --lang (BCP-47 only, such as es or pt-BR). Canonicalize culture names (PT-br → pt-BR). Underscores fail with a hyphen hint. --lang not in i18n.json exits 2.",
       "1.1.1. CI matches other Labs CLIs: version alignment → NuGet check → tests → pack → publish (NUGET_KEY_NUVLOC only). PackageProjectUrl is this toolkit page.",
       "1.1.0. platform accepts maui, wpf, winui, avalonia, and uno. Shared .nuvloc/reference/dotnet-resx.md. WinUI / Uno PRI .resw remains out of scope.",
       "1.0.0. nuvloc init checks i18n.json and installs /nuvloc.status and /nuvloc.translate for the Nuvyn Spec Kit agent set.",

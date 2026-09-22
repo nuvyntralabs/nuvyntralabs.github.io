@@ -27,7 +27,7 @@ Professional experience stays on
 | `/toolkits/nuvyn/docs/` | Nuvyn technical docs (SDD, agentic coding, implementation) |
 | `/toolkits/nuvyn/guide/` | Nuvyn user guide (install, init, adopt, update, slash workflow) |
 | `/toolkits/maui-dev/` | MauiDev 1.2.2 overview, command usage, sample results, and CI |
-| `/toolkits/nuvloc/` | NuvLoc 1.1.1 — agent-driven sibling .resx localization (no vendor API key) |
+| `/toolkits/nuvloc/` | NuvLoc 1.1.2 — agent-driven sibling .resx localization (BCP-47 languages, no vendor API key) |
 | `/toolkits/maui-pulse/` | Pulse 1.0.1 — UseMauiPulse() host sink and maui-pulse CLI |
 | `/packages/plugin-maui-mvvmexpress/docs/` | MAUI MVVMExpress documentation (expander topics + roadmap) |
 | `/packages/plugin-maui-mvvmexpress/docs/templates/` | MAUI MVVMExpress `dotnet new` project template |
