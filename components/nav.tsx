@@ -108,6 +108,13 @@ export function Nav() {
           </Link>
         </nav>
         <div className="hidden items-center gap-1.5 lg:flex">
+          <Link
+            href="/vlogs/"
+            aria-current={pathname.startsWith("/vlogs/") ? "page" : undefined}
+            className="focusable btn-secondary !px-3.5 !py-1.5"
+          >
+            Vlogs
+          </Link>
           <Link href="/contact/" className="focusable btn-primary !px-3.5 !py-1.5">
             Contact
           </Link>
@@ -167,6 +174,9 @@ export function Nav() {
                 />
               ))}
             </MobileGroup>
+            <Link href="/vlogs/" onClick={() => setMobileOpen(false)} className="focusable btn-secondary">
+              Vlogs
+            </Link>
             <Link href="/contact/" onClick={() => setMobileOpen(false)} className="focusable btn-primary">
               Contact
             </Link>

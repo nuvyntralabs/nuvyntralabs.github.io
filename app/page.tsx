@@ -81,12 +81,6 @@ export default function HomePage() {
               <Link href="#community" className="focusable btn-secondary">
                 Join the community
               </Link>
-              <Link href="/vlogs/" className="focusable btn-secondary">
-                Vlogs
-              </Link>
-              <Link href="/vlogs/write/" className="focusable btn-secondary">
-                Write a vlog
-              </Link>
             </div>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {lab.sponsorshipNote}

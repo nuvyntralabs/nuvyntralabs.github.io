@@ -2,10 +2,12 @@ export function PageHero({
   eyebrow,
   title,
   description,
+  action,
 }: {
   eyebrow: string;
   title: string;
   description: string;
+  action?: React.ReactNode;
 }) {
   return (
     <section className="relative overflow-hidden border-b border-lavender-100/70 bg-gradient-hero dark:border-white/10">
@@ -20,6 +22,7 @@ export function PageHero({
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           {description}
         </p>
+        {action ? <div className="mt-8">{action}</div> : null}
       </div>
     </section>
   );

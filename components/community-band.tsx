@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Clapperboard, Github } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
 import { DiscordIcon, LinkedInIcon } from "@/components/brand-icons";
 import { siteConfig } from "@/lib/site";
 
@@ -9,7 +8,6 @@ const channels = [
     title: "Discord Community",
     body: "Join the conversation, ask questions, share knowledge, and connect with other developers.",
     cta: "Join Discord",
-    external: true,
     iconWrap: "bg-[#5865F2]/10 text-[#5865F2]",
     Icon: DiscordIcon,
   },
@@ -18,7 +16,6 @@ const channels = [
     title: "LinkedIn Group",
     body: "Follow lab updates, featured examples, and community posts in the LinkedIn group.",
     cta: "Join LinkedIn",
-    external: true,
     iconWrap: "bg-[#0A66C2]/10 text-[#0A66C2]",
     Icon: LinkedInIcon,
   },
@@ -27,18 +24,8 @@ const channels = [
     title: "GitHub",
     body: "Explore our open-source projects, contribute, report issues, and follow our development journey.",
     cta: "Visit GitHub",
-    external: true,
     iconWrap: "bg-lavender-100 text-lavender-800 dark:bg-lavender-900/70 dark:text-lavender-200",
     Icon: Github,
-  },
-  {
-    href: "/vlogs/",
-    title: "Vlogs",
-    body: "Walkthroughs, lab notes, and product updates that are published on DEV.",
-    cta: "Read vlogs",
-    external: false,
-    iconWrap: "bg-neutral-950/10 text-neutral-950 dark:bg-white/10 dark:text-white",
-    Icon: Clapperboard,
   },
 ] as const;
 
@@ -76,57 +63,39 @@ export function CommunityBand() {
             <ul className="mt-8 grid gap-4 sm:grid-cols-2">
               {channels.map((channel) => {
                 const Icon = channel.Icon;
-                const className =
-                  "focusable group flex h-full flex-col rounded-2xl border border-lavender-100 bg-surface/80 p-5 text-left transition hover:-translate-y-0.5 hover:border-lavender-200 hover:bg-white hover:shadow-card dark:border-white/10 dark:hover:border-white/20 dark:hover:bg-white/10 dark:hover:shadow-none";
-                const body = (
-                  <>
-                    <span
-                      className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${channel.iconWrap}`}
+                return (
+                  <li key={channel.href}>
+                    <a
+                      href={channel.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="focusable group flex h-full flex-col rounded-2xl border border-lavender-100 bg-surface/80 p-5 text-left transition hover:-translate-y-0.5 hover:border-lavender-200 hover:bg-white hover:shadow-card dark:border-white/10 dark:hover:border-white/20 dark:hover:bg-white/10 dark:hover:shadow-none"
                     >
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <h3 className="mt-4 font-display text-lg font-semibold text-foreground">
-                      {channel.title}
-                    </h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                      {channel.body}
-                    </p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-lavender-700 dark:text-lavender-300">
-                      {channel.cta}
-                      {channel.external ? (
+                      <span
+                        className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${channel.iconWrap}`}
+                      >
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <h3 className="mt-4 font-display text-lg font-semibold text-foreground">
+                        {channel.title}
+                      </h3>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                        {channel.body}
+                      </p>
+                      <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-lavender-700 dark:text-lavender-300">
+                        {channel.cta}
                         <ArrowUpRight
                           className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                           aria-hidden="true"
                         />
-                      ) : (
-                        <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
-                      )}
-                    </span>
-                  </>
-                );
-                return (
-                  <li key={channel.href}>
-                    {channel.external ? (
-                      <a href={channel.href} target="_blank" rel="noopener noreferrer" className={className}>
-                        {body}
-                      </a>
-                    ) : (
-                      <Link href={channel.href} className={className}>
-                        {body}
-                      </Link>
-                    )}
+                      </span>
+                    </a>
                   </li>
                 );
               })}
             </ul>
 
-            <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
-              <Link href="/vlogs/write/" className="text-link">
-                Write a vlog
-              </Link>{" "}
-              with the same fields as DEV. It is saved as a draft until it is reviewed and published.
-            </p>
-            <p className="mt-4 text-sm font-semibold tracking-wide text-lavender-700 dark:text-lavender-300">
+            <p className="mt-8 text-sm font-semibold tracking-wide text-lavender-700 dark:text-lavender-300">
               Build. Share. Learn. Collaborate.
             </p>
           </div>
