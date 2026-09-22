@@ -29,6 +29,8 @@ export function sitemapUrls(): string[] {
     "/pocs/",
     "/about/",
     "/contact/",
+    "/vlogs/",
+    "/vlogs/write/",
     ...researchProjects.map((item) => `/research/${item.slug}/`),
     ...proofOfConcepts.map((item) => `/pocs/${item.slug}/`),
     ...toolkits.map((item) => `/toolkits/${item.slug}/`),

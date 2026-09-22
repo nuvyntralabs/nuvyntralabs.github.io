@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Beaker, FlaskConical, Package } from "lucide-react";
+import { ArrowRight, Beaker, FlaskConical, Package } from "lucide-react";
 import { lab } from "@/content/lab";
 import { whitepaperHref, whitepaperPillars } from "@/content/ecosystem-whitepaper";
 import { nuvexaDb } from "@/content/nuvexadb";
@@ -11,9 +11,9 @@ import { proofOfConcepts, researchProjects } from "@/content/works";
 import { PackageCard, PocCard, ResearchCard, ToolkitCard } from "@/components/work-card";
 import { SectionIntro } from "@/components/section-intro";
 import { CommunityBand } from "@/components/community-band";
+import { VlogSavedNotice } from "@/components/vlog-saved-notice";
 import { CtaBand } from "@/components/cta-band";
 import { TwoStarts } from "@/components/two-starts";
-import { siteConfig } from "@/lib/site";
 
 const pillars = [
   {
@@ -45,6 +45,7 @@ const pillars = [
 export default function HomePage() {
   return (
     <main>
+      <VlogSavedNotice />
       <section className="relative overflow-hidden bg-gradient-hero">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
         <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 animate-pulse-soft rounded-full bg-lavender-400/25 blur-3xl" />
@@ -80,15 +81,12 @@ export default function HomePage() {
               <Link href="#community" className="focusable btn-secondary">
                 Join the community
               </Link>
-              <a
-                href={siteConfig.vlogs}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="focusable btn-secondary"
-              >
+              <Link href="/vlogs/" className="focusable btn-secondary">
                 Vlogs
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+              </Link>
+              <Link href="/vlogs/write/" className="focusable btn-secondary">
+                Write a vlog
+              </Link>
             </div>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {lab.sponsorshipNote}
