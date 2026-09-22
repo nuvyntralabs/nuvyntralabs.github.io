@@ -22,11 +22,12 @@ Professional experience stays on
 | `/nuvexadb/docs/` | NuvexaDB white paper and engine docs |
 | `/nuvexadb/integration/` | NuvexaDB getting started for every supported host |
 | `/packages/` | .NET MAUI NuGet catalog |
-| `/toolkits/` | Developer toolkits (Nuvyn spec CLI, MauiDev doctor, Pulse session viewer) |
+| `/toolkits/` | Developer toolkits (Nuvyn spec CLI, MauiDev doctor, NuvLoc localization, Pulse session viewer) |
 | `/toolkits/nuvyn/` | Nuvyn 1.2.0 overview — spec-driven MAUI host; nuvyn adopt for existing apps |
 | `/toolkits/nuvyn/docs/` | Nuvyn technical docs (SDD, agentic coding, implementation) |
 | `/toolkits/nuvyn/guide/` | Nuvyn user guide (install, init, adopt, update, slash workflow) |
 | `/toolkits/maui-dev/` | MauiDev 1.2.2 overview, command usage, sample results, and CI |
+| `/toolkits/nuvloc/` | NuvLoc 1.1.1 — agent-driven sibling .resx localization (no vendor API key) |
 | `/toolkits/maui-pulse/` | Pulse 1.0.1 — UseMauiPulse() host sink and maui-pulse CLI |
 | `/packages/plugin-maui-mvvmexpress/docs/` | MAUI MVVMExpress documentation (expander topics + roadmap) |
 | `/packages/plugin-maui-mvvmexpress/docs/templates/` | MAUI MVVMExpress `dotnet new` project template |

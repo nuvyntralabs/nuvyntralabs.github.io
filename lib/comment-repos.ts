@@ -92,6 +92,15 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUfYky84DF1iw",
     },
   },
+  "nuvyntralabs/NuvLoc": {
+    repo: "nuvyntralabs/NuvLoc",
+    repoId: "R_kgDOUlLjtw",
+    hasIssues: true,
+    giscus: {
+      category: "Announcements",
+      categoryId: "DIC_kwDOUlLjt84DGJ4T",
+    },
+  },
   "nuvyntralabs/NuvyntraLabs.UIKit": {
     repo: "nuvyntralabs/NuvyntraLabs.UIKit",
     repoId: "R_kgDOUbr2Qw",

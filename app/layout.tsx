@@ -58,6 +58,11 @@ export const metadata: Metadata = {
     "Plugin.Maui.MauiDev.Cli",
     "MauiDev.Cli",
     "maui-dev",
+    "NuvLoc",
+    "NuvyntraLabs.NuvLoc.Cli",
+    "nuvloc",
+    "localization",
+    ".resx",
   ],
   alternates: {
     canonical: "/",

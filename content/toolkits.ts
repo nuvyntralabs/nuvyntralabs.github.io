@@ -221,6 +221,11 @@ nuvyn --no-update-check version`,
         use: "Pulse (maui-pulse attach)",
         href: "/toolkits/maui-pulse/",
       },
+      {
+        need: "Agent-driven sibling .resx localization",
+        use: "NuvLoc (nuvloc init + /nuvloc.translate)",
+        href: "/toolkits/nuvloc/",
+      },
     ],
     releaseNotes: [
       "1.2.0. nuvyn adopt attaches the slash chain to an existing MAUI app. Writes .nuvyn/, skills, and adopt-report.md only. check skips HostProof when mode is adopt.",
@@ -748,6 +753,11 @@ maui-dev package --validate`,
         use: "Pulse (maui-pulse attach)",
         href: "/toolkits/maui-pulse/",
       },
+      {
+        need: "Agent-driven sibling .resx localization",
+        use: "NuvLoc (nuvloc init + /nuvloc.translate)",
+        href: "/toolkits/nuvloc/",
+      },
     ],
     releaseNotes: [
       "1.2.2. Interactive 4-hour nuget.org update check. --no-update-check skips it; 1.2.1 treated that flag as unknown.",
@@ -762,6 +772,223 @@ maui-dev package --validate`,
       "1.1.0. .maui-dev.json ignore accepts diagnostic ids (MD020) as well as check ids.",
       "1.0.1. PackageId is Plugin.Maui.MauiDev.Cli. nuget.org reserved MauiDev.Cli. Command stays maui-dev.",
       "1.0.0. maui-dev doctor with machine and project checks, --ci, allow-listed --fix / --dry-run.",
+    ],
+  },
+  {
+    slug: "nuvloc",
+    name: "NuvLoc",
+    title: "NuvLoc",
+    subtitle: "Agent-driven localization CLI for sibling .resx hosts — the agent translates",
+    description:
+      "Checks i18n.json, diffs culture .resx files, and installs /nuvloc.status and /nuvloc.translate for your coding agent. The agent translates. NuvLoc does not call OpenAI, Azure, or any vendor API and does not take an API key. It does not bind strings to the UI.",
+    github: "https://github.com/nuvyntralabs/NuvLoc",
+    nuget: "https://www.nuget.org/packages/NuvyntraLabs.NuvLoc.Cli",
+    packageId: "NuvyntraLabs.NuvLoc.Cli",
+    vscodeMarketplace: null,
+    language: "C#",
+    version: "1.1.1",
+    notice: {
+      title: "1.1.1 — sibling .resx hosts, no vendor API key",
+      text: "platform accepts maui, wpf, winui, avalonia, and uno. Culture files are {stem}.{lang}.resx next to the English source. WinUI / Uno PRI .resw folders under Strings/{lang}/ are out of scope. On an interactive terminal nuvloc asks every 4 hours whether to update from nuget.org ([y/N], default no). Cache: ~/.nuvyntra/cli-updates.json, shared with maui-dev, nuvyn, maui-perf, and maui-pulse. Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1. The CLI does not phone home. NuvLoc does not give a 100% guarantee on translated text — review every culture file with a native speaker before you ship.",
+    },
+    aside: {
+      title: "The agent translates. There is no nuvloc translate command.",
+      text: "init checks i18n.json and writes .nuvloc/ plus slash skills. /nuvloc.status runs nuvloc status. /nuvloc.translate runs nuvloc plan, writes culture .resx files, then nuvloc check --write-cache. CI is nuvloc check --ci with no agent.",
+    },
+    tags: ["CLI", "dotnet tool", "localization", "i18n", ".resx", "agentic", "MAUI", "WPF", "WinUI", "Avalonia", "Uno"],
+    abstract:
+      "Usual alternatives — Visual Studio Multilingual App Toolkit, ResXResourceManager, Crowdin / Phrase — either bind a vendor API, manage a TMS, or stay in the IDE. NuvLoc is a PackAsTool CLI (command nuvloc). It diffs an English sibling .resx against culture files from i18n.json and hands the missing / stale worklist to the same Spec Kit agent set as Nuvyn. The coding agent writes the culture files. Coverage and placeholder checks prove completeness, not correctness. XAML, a markup extension, or code is the host’s choice.",
+    capabilities: [
+      "nuvloc init --configfile i18n.json --agent cursor — check the config and install /nuvloc.status + /nuvloc.translate.",
+      "i18n.json: platform (maui | wpf | winui | avalonia | uno), source (English .resx), languages.",
+      "Sibling culture files only: {stem}.{lang}.resx next to the English source.",
+      "nuvloc plan — missing / stale / extra / placeholder worklist (human or JSON).",
+      "nuvloc status — coverage table per language.",
+      "nuvloc check — exit 1 on missing, stale, or broken placeholders. --ci emits JSON. --write-cache records source hashes.",
+      "nuvloc update — refresh skills and .nuvloc/reference (shared dotnet-resx.md).",
+      "nuvloc agent add <id> — install a second coding agent.",
+      "Agents: Spec Kit set — Cursor, GitHub Copilot, Claude Code, Gemini CLI, Codex, Windsurf, and 30+ more.",
+      "Interactive 4-hour nuget.org update check ([y/N], default no). Skip with --no-update-check or NUVYNTRA_NO_UPDATE_CHECK=1.",
+    ],
+    commands: [
+      {
+        name: "nuvloc init",
+        group: "Setup",
+        purpose: "Check i18n.json and install /nuvloc.status and /nuvloc.translate",
+        usage: `nuvloc init --configfile i18n.json --agent cursor
+nuvloc init --configfile i18n.json --agent copilot
+nuvloc init --configfile i18n.json --ci --force`,
+        sample: `Checked /…/i18n.json
+Platform maui; source Resources/Strings/AppResources.resx; languages es, fr
+Agent cursor (Cursor)
+ wrote .nuvloc/rules.md
+ wrote .nuvloc/reference/dotnet-resx.md
+ wrote .cursor/skills/nuvloc-status/SKILL.md
+ wrote .cursor/skills/nuvloc-translate/SKILL.md
+
+Next: /nuvloc.status then /nuvloc.translate
+NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
+        notes: "Does not translate. --force overwrites skill files, never culture .resx. Omit --agent on an interactive terminal for the Spec Kit picker. --ci requires --agent.",
+      },
+      {
+        name: "nuvloc update",
+        group: "Setup",
+        purpose: "Refresh skills and .nuvloc/reference on an existing NuvLoc app",
+        usage: `nuvloc update
+nuvloc update --configfile i18n.json --force`,
+        sample: ` wrote .nuvloc/rules.md
+ wrote .nuvloc/reference/dotnet-resx.md
+ wrote .cursor/skills/nuvloc-status/SKILL.md
+ wrote .cursor/skills/nuvloc-translate/SKILL.md
+NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
+        notes: "Leaves culture .resx files and i18n.json alone. Reinstalls skills for the agent already detected in the tree.",
+      },
+      {
+        name: "nuvloc agent add",
+        group: "Setup",
+        purpose: "Install slash commands for a second coding agent",
+        usage: `nuvloc agent add copilot
+nuvloc agent add claude --path ./FieldApp`,
+        sample: ` wrote .github/skills/nuvloc-status/SKILL.md
+ wrote .github/skills/nuvloc-translate/SKILL.md
+NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
+        notes: "Same Spec Kit ids as Nuvyn (cursor, copilot, claude, gemini, codex, windsurf, …). Unknown ids exit 2.",
+      },
+      {
+        name: "nuvloc version",
+        group: "Setup",
+        purpose: "Print the installed CLI version",
+        usage: "nuvloc version",
+        sample: "1.1.1",
+      },
+      {
+        name: "nuvloc plan",
+        group: "Coverage",
+        purpose: "Missing / stale / extra / placeholder worklist for the agent",
+        usage: `nuvloc plan --configfile i18n.json
+nuvloc plan --configfile i18n.json --format json
+nuvloc plan --configfile i18n.json --lang es --lang fr`,
+        sample: `Source: Resources/Strings/AppResources.resx
+
+es: 2 current, 1 missing, 0 stale, 0 placeholder, 0 extra
+ missing ItemsLeft
+
+fr: 0 current, 3 missing, 0 stale, 0 placeholder, 0 extra
+ missing Save
+ missing Cancel
+ missing ItemsLeft
+
+NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
+        notes: "/nuvloc.translate runs this (JSON), writes sibling culture files, then nuvloc check --write-cache. There is no nuvloc translate CLI command.",
+      },
+      {
+        name: "nuvloc status",
+        group: "Coverage",
+        purpose: "Coverage table per language. Does not translate",
+        usage: `nuvloc status --configfile i18n.json
+nuvloc status --configfile i18n.json --format json
+nuvloc status --configfile i18n.json --lang es`,
+        sample: `Source: Resources/Strings/AppResources.resx
+
+es: 2 current, 1 missing, 0 stale, 0 placeholder, 0 extra
+ missing ItemsLeft
+
+fr: 3 current, 0 missing, 0 stale, 0 placeholder, 0 extra
+
+NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
+        notes: "/nuvloc.status runs this and explains the counts. Complete files are complete — not correct. Human and JSON share the same reporter as plan.",
+      },
+      {
+        name: "nuvloc check",
+        group: "Coverage",
+        purpose: "CI gate: exit 1 on missing, stale, or broken placeholders",
+        usage: `nuvloc check --configfile i18n.json --ci
+nuvloc check --configfile i18n.json --write-cache
+nuvloc check --configfile i18n.json --format human`,
+        sample: `Source: Resources/Strings/AppResources.resx
+
+es: 2 current, 1 missing, 0 stale, 0 placeholder, 0 extra
+ missing ItemsLeft
+
+NuvLoc does not give a 100% guarantee on translated text. Agent wording can be inaccurate or culturally off. Review every culture file with a native speaker of that language before you ship. Coverage and placeholder checks only prove completeness, not correctness.`,
+        notes: "--ci forces JSON. --write-cache records source hashes for present keys after a pass. Completeness is not correctness.",
+      },
+    ],
+    globalOptions: [
+      "--configfile (default i18n.json)",
+      "--path",
+      "--agent cursor|copilot|claude|gemini|codex|windsurf|… (Spec Kit set)",
+      "--format human|json",
+      "--lang (repeatable)",
+      "--ci",
+      "--force (skills only)",
+      "--write-cache",
+      "--no-update-check",
+    ],
+    install: `dotnet tool install -g NuvyntraLabs.NuvLoc.Cli --source https://api.nuget.org/v3/index.json
+nuvloc version
+nuvloc init --configfile i18n.json --agent cursor`,
+    installNote:
+      "NuvyntraLabs.NuvLoc.Cli is a global dotnet tool (net10.0, command nuvloc). Do not run dotnet add package NuvyntraLabs.NuvLoc.Cli in an app. Put i18n.json at the project root first — init does not create a host. Publishing is pipeline-only on the NuvLoc repository.",
+    examples: `nuvloc init --configfile i18n.json --agent cursor
+nuvloc update
+nuvloc agent add copilot
+nuvloc plan --configfile i18n.json --format json
+nuvloc status --configfile i18n.json
+nuvloc check --configfile i18n.json --ci
+nuvloc version
+nuvloc --no-update-check version`,
+    ciJsonSample: `{
+  "platform": "maui",
+  "source": "Resources/Strings/AppResources.resx",
+  "languages": ["es", "fr"]
+}`,
+    fixAllowList: [],
+    neverDoes: [
+      "Never calls OpenAI, Azure, or any vendor translation API. No API key.",
+      "Never binds strings to the UI — no UseI18n, markup extension, or XAML rewrite.",
+      "Never ships a nuvloc translate CLI command — translation is /nuvloc.translate.",
+      "Never writes WinUI / Uno PRI .resw folders under Strings/{lang}/.",
+      "Never guarantees wording or cultural correctness.",
+      "Never phones home.",
+      "Never publishes or pushes NuGet packages from a local clone.",
+      "Never adds NuvyntraLabs.NuvLoc.Cli as a PackageReference.",
+    ],
+    ci: `nuvloc check --configfile i18n.json --ci`,
+    later: [],
+    usageNote:
+      "Each sample is a typical report from a host with gaps. A complete culture set prints 0 missing / 0 stale / 0 placeholder and exits 0. Completeness is not correctness — review with a native speaker before you ship. There is no --fix; the agent writes the .resx files.",
+    exitNote:
+      "Exit codes: 0 success (including a complete status / plan), 1 check found missing, stale, or broken placeholders, 2 usage (missing i18n.json, unknown agent, unknown command).",
+    alternatives:
+      "Visual Studio Multilingual App Toolkit, ResXResourceManager, and Crowdin / Phrase are the usual alternatives. They either stay in the IDE, manage a TMS, or take a vendor API key. NuvLoc diffs sibling .resx files and lets the coding agent write the cultures.",
+    notFor: [
+      {
+        need: "Diagnose an existing MAUI tree",
+        use: "MauiDev (maui-dev doctor)",
+        href: "/toolkits/maui-dev/",
+      },
+      {
+        need: "New spec-driven MAUI host",
+        use: "Nuvyn",
+        href: "/toolkits/nuvyn/",
+      },
+      {
+        need: "Live Plugin.Maui.* session view",
+        use: "Pulse (maui-pulse attach)",
+        href: "/toolkits/maui-pulse/",
+      },
+      {
+        need: "IDE resource manager / TMS",
+        use: "ResXResourceManager or Crowdin / Phrase",
+        href: "https://github.com/dotnet/ResXResourceManager",
+      },
+    ],
+    releaseNotes: [
+      "1.1.1. CI matches other Labs CLIs: version alignment → NuGet check → tests → pack → publish (NUGET_KEY_NUVLOC only). PackageProjectUrl is this toolkit page.",
+      "1.1.0. platform accepts maui, wpf, winui, avalonia, and uno. Shared .nuvloc/reference/dotnet-resx.md. WinUI / Uno PRI .resw remains out of scope.",
+      "1.0.0. nuvloc init checks i18n.json and installs /nuvloc.status and /nuvloc.translate for the Nuvyn Spec Kit agent set.",
+      "1.0.0. plan / status / check diff sibling .resx culture files. No vendor API key. Native-speaker review required.",
     ],
   },
   {
@@ -984,6 +1211,11 @@ maui-pulse version`,
         need: "In-app telemetry exporter",
         use: "Plugin.Maui.Observability",
         href: "/packages/plugin-maui-observability/",
+      },
+      {
+        need: "Agent-driven sibling .resx localization",
+        use: "NuvLoc (nuvloc init + /nuvloc.translate)",
+        href: "/toolkits/nuvloc/",
       },
     ],
     releaseNotes: [

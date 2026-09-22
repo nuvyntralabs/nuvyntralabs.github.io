@@ -27,12 +27,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: toolkit.description,
     keywords: [
       toolkit.name,
-      toolkit.packageId ?? "Plugin.Maui.MauiDev.Cli",
-      "MauiDev.Cli",
-      "maui-dev",
+      toolkit.packageId,
+      toolkit.slug,
       ...toolkit.tags,
       "Nuvyntra Labs",
-    ],
+    ].filter((value): value is string => Boolean(value)),
     alternates: { canonical: `/toolkits/${toolkit.slug}/` },
     openGraph: {
       title,

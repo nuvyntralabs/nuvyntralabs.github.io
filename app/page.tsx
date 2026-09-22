@@ -361,7 +361,7 @@ export default function HomePage() {
           <SectionIntro
             eyebrow="Whole ecosystem"
             title="Start the host, then diagnose"
-            description="Nuvyn scaffolds a spec-driven MAUI app on the Nuvyntra stack. MauiDev 1.2.2 then doctors the machine and the project — with JSON/SARIF for CI. Plugins and UIKit stay installable without these tools."
+            description="Nuvyn scaffolds a spec-driven MAUI app on the Nuvyntra stack. MauiDev 1.2.2 then doctors the machine and the project. NuvLoc 1.1.1 diffs sibling .resx files and lets your coding agent write the cultures. Plugins and UIKit stay installable without these tools."
             href="/toolkits/"
             cta="All toolkits"
           />

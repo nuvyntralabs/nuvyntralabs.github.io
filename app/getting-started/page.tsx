@@ -311,7 +311,32 @@ maui-pulse attach --package com.myapp.android --android --port 7878`}</code>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-semibold">10. Browse the full catalog</h2>
+          <h2 className="font-display text-2xl font-semibold">10. Localize sibling .resx files</h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Install{" "}
+            <Link href="/toolkits/nuvloc/" className="text-link">
+              NuvLoc
+            </Link>{" "}
+            when the host already has an English sibling <code className="code-inline">.resx</code>{" "}
+            (MAUI, WPF, WinUI, Avalonia, or Uno) and a language list. Put{" "}
+            <code className="code-inline">i18n.json</code> at the project root, then{" "}
+            <code className="code-inline">nuvloc init --configfile i18n.json --agent cursor</code>.
+            The coding agent translates via <code className="code-inline">/nuvloc.translate</code>.
+            There is no <code className="code-inline">nuvloc translate</code> CLI command and no
+            vendor API key. CI is <code className="code-inline">nuvloc check --ci</code>. WinUI /
+            Uno PRI <code className="code-inline">.resw</code> folders are out of scope. Coverage
+            proves completeness, not correctness — review with a native speaker before you ship.
+          </p>
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
+            <code>{`dotnet tool install -g NuvyntraLabs.NuvLoc.Cli --source https://api.nuget.org/v3/index.json
+nuvloc init --configfile i18n.json --agent cursor
+nuvloc status --configfile i18n.json
+nuvloc check --configfile i18n.json --ci`}</code>
+          </pre>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">11. Browse the full catalog</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             The suite map is{" "}
             <Link href="/packages/maui-essentials/" className="text-link">

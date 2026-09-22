@@ -209,6 +209,17 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
                 schema. Unknown <code className="code-inline">source</code> values
                 are dropped.
               </>
+            ) : toolkit.slug === "nuvloc" ? (
+              <>
+                Put this <code className="code-inline">i18n.json</code> at the
+                project root before <code className="code-inline">nuvloc init</code>.{" "}
+                <code className="code-inline">platform</code> is{" "}
+                <code className="code-inline">maui</code>,{" "}
+                <code className="code-inline">wpf</code>,{" "}
+                <code className="code-inline">winui</code>,{" "}
+                <code className="code-inline">avalonia</code>, or{" "}
+                <code className="code-inline">uno</code>.
+              </>
             ) : (
               <>
                 <code className="code-inline">--ci</code> (or{" "}

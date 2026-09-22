@@ -61,7 +61,7 @@ export const workCatalog: NavItem[] = [
   { href: "/whitepaper/", label: "White paper", blurb: "The MAUI development ecosystem" },
   { href: "/playground/", label: "Playground", blurb: "Real-time examples and community ideas" },
   { href: "/packages/", label: "All products", blurb: "Component library — focused NuGet catalog" },
-  { href: "/toolkits/", label: "Toolkits", blurb: "Whole ecosystem — Nuvyn, MauiDev, and Pulse" },
+  { href: "/toolkits/", label: "Toolkits", blurb: "Whole ecosystem — Nuvyn, MauiDev, NuvLoc, and Pulse" },
   { href: "/getting-started/", label: "Getting started", blurb: "Component library or whole ecosystem" },
 ];
 

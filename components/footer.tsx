@@ -14,6 +14,7 @@ const work = [
   { href: "/playground/", label: "Playground" },
   { href: "/packages/", label: "Products" },
   { href: "/toolkits/nuvyn/", label: "Nuvyn" },
+  { href: "/toolkits/nuvloc/", label: "NuvLoc" },
   { href: "/packages/plugin-maui-mvvmexpress/", label: "MVVMExpress" },
   { href: "/nuvexadb/", label: "NuvexaDB" },
   { href: "/uikit/", label: "UIKit(MAUI)" },

@@ -28,6 +28,7 @@ https://nuvyntralabs.github.io/pocs/html-label-plugin/
 https://nuvyntralabs.github.io/pocs/plugin-firebase-analytics/
 https://nuvyntralabs.github.io/toolkits/nuvyn/
 https://nuvyntralabs.github.io/toolkits/maui-dev/
+https://nuvyntralabs.github.io/toolkits/nuvloc/
 https://nuvyntralabs.github.io/toolkits/maui-pulse/
 https://nuvyntralabs.github.io/packages/maui-essentials/
 https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/
