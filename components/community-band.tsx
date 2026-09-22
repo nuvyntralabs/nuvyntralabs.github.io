@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, Clapperboard, Github } from "lucide-react";
 import { DiscordIcon, LinkedInIcon } from "@/components/brand-icons";
 import { siteConfig } from "@/lib/site";
 
@@ -26,6 +26,14 @@ const channels = [
     cta: "Visit GitHub",
     iconWrap: "bg-lavender-100 text-lavender-800 dark:bg-lavender-900/70 dark:text-lavender-200",
     Icon: Github,
+  },
+  {
+    href: siteConfig.vlogs,
+    title: "Vlogs",
+    body: "Walkthroughs, lab notes, and product updates on the Nuvyntra Labs Hashnode blog.",
+    cta: "Read vlogs",
+    iconWrap: "bg-[#2962FF]/10 text-[#2962FF]",
+    Icon: Clapperboard,
   },
 ] as const;
 
@@ -60,7 +68,7 @@ export function CommunityBand() {
               technical help, and collaborate with the community.
             </p>
 
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2">
               {channels.map((channel) => {
                 const Icon = channel.Icon;
                 return (

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Beaker, FlaskConical, Package } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Beaker, FlaskConical, Package } from "lucide-react";
 import { lab } from "@/content/lab";
 import { whitepaperHref, whitepaperPillars } from "@/content/ecosystem-whitepaper";
 import { nuvexaDb } from "@/content/nuvexadb";
@@ -13,6 +13,7 @@ import { SectionIntro } from "@/components/section-intro";
 import { CommunityBand } from "@/components/community-band";
 import { CtaBand } from "@/components/cta-band";
 import { TwoStarts } from "@/components/two-starts";
+import { siteConfig } from "@/lib/site";
 
 const pillars = [
   {
@@ -79,6 +80,15 @@ export default function HomePage() {
               <Link href="#community" className="focusable btn-secondary">
                 Join the community
               </Link>
+              <a
+                href={siteConfig.vlogs}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="focusable btn-secondary"
+              >
+                Vlogs
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </a>
             </div>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {lab.sponsorshipNote}
