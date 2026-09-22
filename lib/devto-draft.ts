@@ -142,13 +142,10 @@ export function buildArticleBody(fields: VlogDraftFields): { article: Record<str
   return { article };
 }
 
-export function vlogIssueToken() {
-  return process.env.NEXT_PUBLIC_VLOG_ISSUE_TOKEN?.trim() ?? "";
-}
-
-function buildVlogIssueBody(fields: VlogDraftFields) {
-  return [
-    "Submitted from the write-vlog form.",
+/** GitHub new-issue link. The Actions workflow reads the payload with DEVTO_API_KEY and saves the draft. */
+export function buildVlogIssueUrl(fields: VlogDraftFields): string {
+  const body = [
+    "Submit this issue to save the vlog as an unpublished draft in the NuvyntraLabs series.",
     "",
     `Contributor: ${fields.developerName.trim()}`,
     "",
@@ -156,26 +153,10 @@ function buildVlogIssueBody(fields: VlogDraftFields) {
     JSON.stringify(buildArticleBody(fields)),
     `<!-- ${VLOG_ISSUE_MARKER}:end -->`,
   ].join("\n");
-}
-
-/** Creates the issue the Actions workflow turns into an unpublished DEV draft. */
-export async function createVlogIssue(fields: VlogDraftFields): Promise<void> {
-  const token = vlogIssueToken();
-  if (!token) throw new Error("The vlog draft service is not configured.");
-  const response = await fetch(`https://api.github.com/repos/${VLOG_ISSUE_REPO}/issues`, {
-    method: "POST",
-    headers: {
-      Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      "X-GitHub-Api-Version": "2022-11-28",
-    },
-    body: JSON.stringify({
-      title: fields.title.trim(),
-      body: buildVlogIssueBody(fields),
-    }),
-  });
-  if (!response.ok) throw new Error("The vlog was not saved.");
+  const url = new URL(`https://github.com/${VLOG_ISSUE_REPO}/issues/new`);
+  url.searchParams.set("title", fields.title.trim());
+  url.searchParams.set("body", body);
+  return url.toString();
 }
 
 type DevtoErrorBody = {

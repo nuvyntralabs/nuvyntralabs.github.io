@@ -8,7 +8,7 @@ import {
   LOCAL_DRAFT_URL,
   VLOG_SAVED_NOTICE_KEY,
   VLOG_SERIES,
-  createVlogIssue,
+  buildVlogIssueUrl,
   devTag,
   emptyVlogDraft,
   submitVlogDraft,
@@ -118,9 +118,18 @@ export function WriteVlogForm() {
 
     setStatus("submitting");
     setMessage(null);
+    if (!serverConnected) {
+      const issueUrl = buildVlogIssueUrl(draft);
+      if (issueUrl.length > 7500) {
+        setStatus("idle");
+        setMessage("This vlog is too long to submit in one step. Shorten the story and try again.");
+        return;
+      }
+      window.location.assign(issueUrl);
+      return;
+    }
     try {
-      if (serverConnected) await submitVlogDraft(draft, { useLocalProxy: true });
-      else await createVlogIssue(draft);
+      await submitVlogDraft(draft, { useLocalProxy: true });
       sessionStorage.setItem(VLOG_SAVED_NOTICE_KEY, "1");
       router.push("/");
     } catch (submitError) {
@@ -289,11 +298,11 @@ export function WriteVlogForm() {
             </p>
           ) : (
             <p className="text-sm leading-relaxed text-muted-foreground">
-              No DEV API key is required. Save stores an unpublished draft for review.
+              No DEV API key is required. Continue opens a GitHub issue for you to submit. The draft stays unpublished until it is reviewed.
             </p>
           )}
           <button type="submit" className="focusable btn-primary w-full" disabled={status === "submitting"}>
-            {status === "submitting" ? "Saving draft…" : "Save draft"}
+            {status === "submitting" ? "Saving draft…" : serverConnected ? "Save draft on DEV" : "Continue on GitHub"}
           </button>
           <p className="text-xs leading-relaxed text-muted-foreground">
             This saves an unpublished draft. Publishing still happens in the DEV dashboard after review.
