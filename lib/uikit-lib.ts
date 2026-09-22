@@ -443,7 +443,10 @@ function parseFoundation(body: string): UiKitComponent[] {
         type: member.method ? "method" : "member",
         defaultValue: "",
         custom: member.custom,
-        note: member.note,
+        note:
+          name === "NVChrome"
+            ? "Shared Lumina paint recipe. Controls call this instead of inventing fills."
+            : member.note,
       })),
       related: [],
     };
@@ -827,14 +830,42 @@ function toAttribute(name: string, type: string, defaultValue: string, note: str
 function splitMemberList(cell: string): { name: string; method: boolean; custom: boolean; note: string }[] {
   return cell
     .split(",")
-    .map((item) => item.trim())
-    .filter(Boolean)
-    .map((item) => ({
-      name: unwrap(item).replace(/\(\)$/, "").replace(/\(key\)$/, "(key)"),
-      method: item.includes("("),
-      custom: isCustom(item),
-      note: isCustom(item) ? "Lumina-specific foundation member." : "Foundation member. Register fonts and theme with UseNuvyntraUIKit().",
-    }));
+    .flatMap((item) => expandSlashMembers(item.trim()))
+    .filter((item) => item.name);
+}
+
+function expandSlashMembers(item: string): { name: string; method: boolean; custom: boolean; note: string }[] {
+  if (!item) return [];
+  const custom = isCustom(item);
+  const note = custom
+    ? "Lumina-specific foundation member."
+    : "Foundation member. Register fonts and theme with UseNuvyntraUIKit().";
+  const parts = item.split("/").map((part) => part.trim()).filter(Boolean);
+  const cleaned = parts.map((part) => ({
+    name: unwrap(part)
+      .replace(/\(\)$/, "")
+      .replace(/\(key\)$/, "(key)")
+      .replace(/\s+custom$/i, "")
+      .trim(),
+    method: part.includes("("),
+  }));
+  if (cleaned.length <= 1) {
+    return cleaned.map((part) => ({ ...part, custom, note }));
+  }
+
+  const first = cleaned[0].name.replace(/\(.*\)$/, "");
+  const prefixMatch = first.match(/^([A-Z][a-z]+(?:[A-Z][a-z]+)*)(?=[A-Z][a-z]+$)/);
+  const prefix = prefixMatch?.[1] ?? "";
+
+  return cleaned.map((part, index) => {
+    let name = part.name;
+    if (index > 0 && prefix && !name.startsWith(prefix)) {
+      const suffix = name.replace(/\(.*\)$/, "");
+      const methodSuffix = name.includes("(") ? name.slice(name.indexOf("(")) : "";
+      name = `${prefix}${suffix}${methodSuffix}`;
+    }
+    return { name, method: part.method, custom, note };
+  });
 }
 
 function layerLabel(title: string): string {

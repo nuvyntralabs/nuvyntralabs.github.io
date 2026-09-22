@@ -86,7 +86,7 @@ export const whitepaperSections: DocSection[] = [
       {
         type: "ul",
         items: [
-          "**Independently versioned.** UIKit 1.5, MVVMExpress 1.3, HttpForge 1.1, and each gallery plugin ship on their own SemVer lock.",
+          "**Independently versioned.** UIKit 1.6, MVVMExpress 1.3, HttpForge 1.1, and each gallery plugin ship on their own SemVer lock.",
           "**Compose at the host.** The UI kit does not PackageReference Plugin.Maui.*. HttpForge does not retry, cache, or refresh tokens. Missing siblings fail closed instead of silently degrading.",
           "**Adopt only what the app needs.** A catalog app can take UIKit + MVVMExpress + HttpForge. A depot inspection app adds GeoLocator, OfflineSync, MediaPipeline, and FileVault.",
           "**Honest boundaries.** PDF viewers are viewers. NVBarcode generates; it does not scan. LocalStore is not OfflineSync. HttpForge is a MauiEssentials-shaped subset of Refit, not a drop-in replacement.",
@@ -168,13 +168,13 @@ builder.Services.AddHttpForgeClient<IFieldApi>(client =>
     blocks: [
       {
         type: "p",
-        text: `[NuvyntraLabs.UIKit](/uikit/) (${uiKit.version}) is the Lumina catalog for a typical MAUI app: foundation tokens, ${uiKit.controlCount} NV* controls from primitives through advanced and Next chrome, and ${uiKit.recipeCount} NV*View page recipes. Register with \`UseNuvyntraUIKit()\`, then use \`xmlns:nv=\"${uiKit.xmlns}\"\`. 1.5.1 adds type scale, RTL, and contrast-safe ink. Kit-level APIs stay a working Lumina surface — not Telerik or Syncfusion parity.`,
+        text: `[NuvyntraLabs.UIKit](/uikit/) (${uiKit.version}) is the Lumina catalog for a typical MAUI app: foundation tokens, ${uiKit.controlCount} NV* controls from primitives through advanced and Next chrome, and ${uiKit.recipeCount} NV*View page recipes. Register with \`UseNuvyntraUIKit()\`, then use \`xmlns:nv=\"${uiKit.xmlns}\"\`. 1.6.0 refreshes the Lumina look (lifted fills, hairline, glow, recessed fields) and adds NVChrome paint recipes. Kit-level APIs stay a working Lumina surface — not Telerik or Syncfusion parity.`,
       },
       {
         type: "table",
         headers: ["Layer", "Examples", "Role"],
         rows: [
-          ["Foundation", "NVTheme, NVTokens, NVTypography, NVIcons, NVMotion", "Static helpers. Not XAML views."],
+          ["Foundation", "NVTheme, NVTokens, NVChrome, NVTypography, NVIcons, NVMotion", "Static helpers. Not XAML views."],
           ["Primitives", "NVSurface, NVAvatar, NVBadge, NVSkeleton, NVOverlay", "Themed paper, glyphs, overlays."],
           ["Actions & inputs", "NVButton, NVTextField, NVPinPad, NVFormField", "Filled / tonal / outline / ghost; labeled fields."],
           ["Feedback & nav", "NVBanner, NVTabView, NVBottomSheet, NVAppScaffold", "Status, sheets, tabs, app chrome."],

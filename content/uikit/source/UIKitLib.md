@@ -7,7 +7,7 @@
 - Docs: https://nuvyntralabs.github.io/packages/nuvyntralabs-uikit/
 - Catalog: [MauiEssentials](https://github.com/nuvyntralabs/MauiEssentials)
 
-Package: `NuvyntraLabs.UIKit` · Prefix: `NV` · Version: `1.5.1`
+Package: `NuvyntraLabs.UIKit` · Prefix: `NV` · Version: `1.6.0`
 
 Human + agent overview: [README.md](README.md). IDs: [nuvyntralabs-uikit-components.md](https://github.com/nuvyntralabs/MauiEssentials/blob/main/docs/plans/nuvyntralabs-uikit-components.md).
 
@@ -70,8 +70,9 @@ These are static / singleton helpers. Register fonts and Lumina with `UseNuvyntr
 
 | Type | Note | Members |
 | --- | --- | --- |
-| `NVTheme` | Runtime light / dark + accent. | `Current`, `Mode` **custom**, `Accent`, `Density` **custom**, `IsDark`, `Paper`, `Surface`, `Ink`, `Mist`, `Fog`, `Muted`, `Danger`, `Warn`, `Ok`, `OnAccent`, `UseLumina()`, `SetMode()`, `SetAccent()`, `Token(key)` |
-| `NVTokens` | Space, radius, type size, motion ms, Outfit font names. | `Space1`…`Space6`, `RadiusSmall` / `Medium` / `Large`, `DisplaySize`…`CaptionSize`, `MotionFast` / `Normal` / `Slow`, `FontRegular`, `FontSemiBold`, `Space()`, `Motion()` |
+| `NVTheme` | Runtime light / dark + accent. | `Current`, `Mode` **custom**, `Accent`, `Density` **custom**, `IsDark`, `Paper`, `Surface`, `SurfaceRaised`, `SurfaceSunken`, `Ink`, `Mist`, `Fog`, `Muted`, `AccentSoft` / `AccentDeep` / `AccentLift`, `Hairline`, `Highlight`, `Scrim`, `Danger`, `Warn`, `Ok`, `OnAccent`, `Mix()`, `UseLumina()`, `SetMode()`, `SetAccent()`, `Token(key)` |
+| `NVTokens` | Space, radius, type size, motion ms, Outfit font names. | `Space1`…`Space6`, `RadiusSmall` / `Medium` / `Large` / `Pill`, `StrokeHairline` / `StrokeEmphasis`, `DisplaySize`…`CaptionSize`, `MotionFast` / `Normal` / `Slow`, `FontRegular`, `FontSemiBold`, `Space()`, `Motion()` |
+| `NVChrome` | Shared paint recipes. Controls call these instead of inventing fills. | `Lift()`, `Soft()`, `Shadow()`, `Glow()`, `PaintCard()`, `PaintField()`, `PaintPill()`, `PaintTrack()`, `ToneWash()`, `ToneStroke()` |
 | `NVTypography` | Factories for themed `Label`s. | `Display`, `Title`, `Body`, `Label`, `Caption`, `Mono` |
 | `NVIcons` | Glyph map for `NVIconKind`. | `Glyph(kind)`, `All` |
 | `NVMotion` | Durations that honor reduce-motion. | `ReduceMotion` **custom**, `Fast`, `Normal`, `Slow` |

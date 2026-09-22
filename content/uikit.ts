@@ -4,7 +4,7 @@ export const uiKit = {
   name: "UIKit(MAUI)",
   title: "NuvyntraLabs.UIKit",
   packageId: "NuvyntraLabs.UIKit",
-  version: "1.5.1",
+  version: "1.6.0",
   license: "MIT",
   github: "https://github.com/nuvyntralabs/NuvyntraLabs.UIKit",
   nuget: "https://www.nuget.org/packages/NuvyntraLabs.UIKit",
@@ -18,7 +18,7 @@ export const uiKit = {
   description:
     "Lumina-themed UI library for .NET MAUI on Android, iOS, Mac Catalyst, and Windows. One package: NV* controls, design tokens, and page recipes. This is a UI library, not a MauiEssentials runtime plugin.",
   abstract:
-    "NuvyntraLabs.UIKit 1.5.1 is the Lumina catalog for a typical MAUI app: foundation tokens, 201 NV* controls from primitives through advanced and Next chrome, and 66 NV*View page recipes. Register with UseNuvyntraUIKit(), then use xmlns nv. 1.5.0 renamed NVEmailField to NVInputField. 1.5.1 adds type scale, RTL flow, contrast-safe ink, and Escape / Ctrl+K overlay shortcuts — hosts that pin 1.5.0 keep compiling. Kit-level APIs stay a working Lumina surface — not Telerik or Syncfusion parity. PDF, Docx, and Spreadsheet are viewers. NVBarcode generates; it does not scan. Compose FormValidation, KeyboardManager, and MVVMExpress at the host. This library does not PackageReference Plugin.Maui.*.",
+    "NuvyntraLabs.UIKit 1.6.0 is the Lumina catalog for a typical MAUI app: foundation tokens, 201 NV* controls from primitives through advanced and Next chrome, and 66 NV*View page recipes. Register with UseNuvyntraUIKit(), then use xmlns nv. 1.6.0 is a Lumina look refresh — lifted fills, hairline, glow, recessed fields — plus NVChrome paint recipes and derived tokens. Hosts that pin 1.5.x keep compiling. 1.5.0 renamed NVEmailField to NVInputField. 1.5.1 added type scale, RTL flow, contrast-safe ink, and Escape / Ctrl+K overlay shortcuts. Kit-level APIs stay a working Lumina surface — not Telerik or Syncfusion parity. PDF, Docx, and Spreadsheet are viewers. NVBarcode generates; it does not scan. Compose FormValidation, KeyboardManager, and MVVMExpress at the host. This library does not PackageReference Plugin.Maui.*.",
   tags: [
     ".NET MAUI",
     "UI kit",
@@ -32,9 +32,10 @@ export const uiKit = {
   ],
   capabilities: [
     "One library: NV* controls, Lumina tokens, and page recipes. Prefix NV, xmlns http://nuvyntralabs.com/uikit.",
-    "UseNuvyntraUIKit() registers fonts and the Lumina theme (NVTheme, NVTokens, Outfit).",
+    "UseNuvyntraUIKit() registers fonts and the Lumina theme (NVTheme, NVTokens, NVChrome, Outfit).",
     "201 controls plus helpers NVRadioGroup and NVFormField — basics through advanced, plus 1.2 / 1.3 chrome.",
     "66 NV*View page recipes for auth, commerce, content, social, files, system, invoice, call, and address screens.",
+    "1.6.0 look: lifted fills, hairline strokes, accent glow, recessed fields, and richer chips / cards / overlays. NVChrome recipes (Lift, Soft, Shadow, Glow, PaintCard, PaintField) plus NVTheme tokens SurfaceRaised, SurfaceSunken, AccentSoft / AccentDeep / AccentLift, Hairline, Highlight, Scrim, and Mix().",
     "1.5.1 theming: NVTheme.Current.SetTypeScale(0.8–2) and SetFlowDirection. RTL flips start padding, carousel swipe, and chevrons. Contrast picks OnAccent / On(fill) when white fails 4.5:1.",
     "OverlayHost.TryHandleKey(Escape) and NVCommandPalette.TryHandleShortcut(Ctrl/Cmd+K). Blocking paywall ignores Escape.",
     "1.4 deepens lists (selection, groups, swipe), grids (filter, sort, frozen columns, paging), charts, calendar, and media.",
@@ -48,7 +49,7 @@ export const uiKitCatalogHighlight = `${uiKit.packageId} ships ${uiKit.controlCo
 export const uiKitLayers = [
   {
     name: "Foundation",
-    types: "NVTheme, NVTokens, NVTypography, NVIcons, NVMotion, NVDensity, NVVisualState, NVAccessibility",
+    types: "NVTheme, NVTokens, NVChrome, NVTypography, NVIcons, NVMotion, NVDensity, NVVisualState, NVAccessibility",
     role: "Static / singleton helpers. Not XAML views.",
   },
   {

@@ -43,13 +43,14 @@ export default function UiKitPage() {
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{uiKit.description}</p>
 
       <aside className="callout mt-6 px-4 py-3">
-        <p className="text-sm font-semibold text-foreground">1.5.1 — type scale, RTL, contrast</p>
+        <p className="text-sm font-semibold text-foreground">1.6.0 — Lumina look refresh</p>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-          Additive. Hosts that pin 1.5.0 keep compiling. Opt in with{" "}
-          <code className="code-inline">NVTheme.Current.SetTypeScale</code> and{" "}
-          <code className="code-inline">SetFlowDirection</code>. Overlay pages can call{" "}
+          Lifted fills, hairline strokes, accent glow, recessed fields, and richer chips / cards /
+          overlays. Same 201 controls. New{" "}
+          <code className="code-inline">NVChrome</code> recipes and derived tokens. Hosts that pin 1.5.x
+          keep compiling; they pick up the richer chrome on 1.6.0. Type scale, RTL, and{" "}
           <code className="code-inline">TryHandleKey(&quot;Escape&quot;)</code> /{" "}
-          <code className="code-inline">NVCommandPalette.TryHandleShortcut(&quot;Control+K&quot;)</code>.
+          <code className="code-inline">NVCommandPalette.TryHandleShortcut(&quot;Control+K&quot;)</code> stay.
         </p>
       </aside>
 
