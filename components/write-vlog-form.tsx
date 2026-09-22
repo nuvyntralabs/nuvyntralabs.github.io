@@ -61,6 +61,8 @@ export function WriteVlogForm() {
   const serverConnected = Boolean(process.env.NEXT_PUBLIC_VLOG_DRAFT_URL?.trim()) || localProxy;
 
   useEffect(() => {
+    const host = window.location.hostname;
+    if (host !== "localhost" && host !== "127.0.0.1") return;
     const healthUrl = LOCAL_DRAFT_URL.replace(/\/draft$/, "/health");
     fetch(healthUrl)
       .then((response) => (response.ok ? response.json() : null))
