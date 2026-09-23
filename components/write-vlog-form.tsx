@@ -110,8 +110,8 @@ export function WriteVlogForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)]">
-      <div className="glass-card space-y-6 p-6 sm:p-8">
+    <form onSubmit={onSubmit} className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,0.7fr)]">
+      <div className="glass-card space-y-4 p-4 sm:p-5">
         <Field label="Title" required>
           <input
             required
@@ -175,15 +175,15 @@ export function WriteVlogForm() {
             name="contentMarkdown"
             value={fields.contentMarkdown}
             onChange={(event) => patch({ contentMarkdown: event.target.value })}
-            rows={16}
+            rows={10}
             placeholder="Write the vlog in Markdown."
-            className={`${controlClass} min-h-72 resize-y font-mono text-[13px] leading-relaxed`}
+            className={`${controlClass} min-h-48 resize-y font-mono text-[13px] leading-relaxed`}
           />
         </Field>
       </div>
 
-      <div className="space-y-6">
-        <div className="glass-card space-y-5 p-6">
+      <div className="space-y-4">
+        <div className="glass-card space-y-4 p-4 sm:p-5">
           <Field
             label="Tags"
             hint={`Up to ${DEVTO_MAX_TAGS}. Letters and numbers only. Press Enter to add a tag.`}
@@ -225,7 +225,7 @@ export function WriteVlogForm() {
           ) : null}
         </div>
 
-        <div className="glass-card space-y-5 p-6">
+        <div className="glass-card space-y-4 p-4 sm:p-5">
           <p className="text-sm font-semibold text-foreground">Post options</p>
           <Field label="Series" hint="Every vlog is saved in this DEV series.">
             <input
@@ -251,11 +251,11 @@ export function WriteVlogForm() {
           </Field>
         </div>
 
-        <section className="glass-card p-6" aria-labelledby="publishing-tips">
-          <h2 id="publishing-tips" className="text-base font-semibold text-foreground">
+        <section className="glass-card p-4 sm:p-5" aria-labelledby="publishing-tips">
+          <h2 id="publishing-tips" className="text-sm font-semibold text-foreground">
             Publishing Tips
           </h2>
-          <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-relaxed text-muted-foreground">
+          <ul className="mt-2 list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-muted-foreground">
             <li>
               Ensure your post has a cover image set to make the most of the home feed and social media platforms.
             </li>
@@ -267,7 +267,7 @@ export function WriteVlogForm() {
           </ul>
         </section>
 
-        <div className="glass-card space-y-4 p-6">
+        <div className="glass-card space-y-3 p-4 sm:p-5">
           <label className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
             Website
             <input

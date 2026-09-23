@@ -241,20 +241,20 @@ export function VlogList() {
       <p className="text-sm text-muted-foreground">
         {state.vlogs.length} published {state.vlogs.length === 1 ? "vlog" : "vlogs"} in {VLOG_SERIES}, newest first
       </p>
-      <ul ref={listRef} className="mt-8 grid scroll-mt-24 gap-4">
+      <ul ref={listRef} className="mt-4 grid scroll-mt-24 gap-3">
         {visible.map((vlog) => (
           <li key={vlog.id}>
             <a
               href={vlog.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable glass-card group block p-6 transition hover:-translate-y-0.5"
+              className="focusable glass-card group block p-4 transition hover:-translate-y-0.5 sm:p-5"
             >
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
                 {formatPublishedAt(vlog.publishedAt)}
                 {vlog.readingTimeMinutes ? ` · ${vlog.readingTimeMinutes} min read` : ""}
               </p>
-              <h2 className="mt-3 flex items-start justify-between gap-3 font-display text-2xl font-bold tracking-tight text-foreground">
+              <h2 className="mt-2 flex items-start justify-between gap-3 font-display text-xl font-bold tracking-tight text-foreground">
                 {vlog.title}
                 <ArrowUpRight
                   className="mt-1 h-5 w-5 shrink-0 text-lavender-600 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -262,10 +262,10 @@ export function VlogList() {
                 />
               </h2>
               {vlog.description ? (
-                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">{vlog.description}</p>
+                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">{vlog.description}</p>
               ) : null}
               {vlog.tags.length > 0 ? (
-                <ul className="mt-4 flex flex-wrap gap-2">
+                <ul className="mt-3 flex flex-wrap gap-2">
                   {vlog.tags.map((tag) => (
                     <li
                       key={tag}
@@ -281,7 +281,7 @@ export function VlogList() {
         ))}
       </ul>
       {pageCount > 1 ? (
-        <nav aria-label="Vlog pages" className="mt-8 flex flex-wrap items-center gap-2">
+        <nav aria-label="Vlog pages" className="mt-5 flex flex-wrap items-center gap-2">
           <button
             type="button"
             className="focusable btn-secondary px-4 py-2 disabled:pointer-events-none disabled:opacity-40"

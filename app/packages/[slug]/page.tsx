@@ -92,7 +92,7 @@ export default async function PackagePage({ params }: PageProps) {
   const isDesktopHost = isWpfMvvm || Boolean(desktop);
 
   return (
-    <main className="container max-w-3xl py-12 sm:py-16">
+    <main className="container max-w-3xl py-8 sm:py-10">
       <JsonLd data={packageJsonLd(pkg)} />
       {isMvvm ? <MvvmExpressPlatformTabs slug={pkg.slug} /> : null}
       {!isMvvm ? (
@@ -105,7 +105,7 @@ export default async function PackagePage({ params }: PageProps) {
         </Link>
       ) : null}
 
-      <p className={isMvvm ? "eyebrow mt-8" : "eyebrow mt-8"}>{pkg.group}</p>
+      <p className="eyebrow mt-5">{pkg.group}</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{pkg.title}</h1>
       <p className="mt-3 text-lg text-lavender-700 dark:text-lavender-300">{pkg.subtitle}</p>
       {pkg.prerelease ? (

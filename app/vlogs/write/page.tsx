@@ -22,7 +22,7 @@ export default function WriteVlogPage() {
         title="Write a vlog"
         description="The same article fields as DEV: title, description, cover, story, tags, series, and canonical URL. Submit saves an unpublished draft for review. You do not need a DEV API key."
       />
-      <section className="container py-16 sm:py-20">
+      <section className="container py-8 sm:py-10">
         <WriteVlogForm />
       </section>
     </main>

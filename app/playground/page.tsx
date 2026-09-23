@@ -49,7 +49,7 @@ export default function PlaygroundPage() {
       <JsonLd data={playgroundJsonLd()} />
       <PageHero eyebrow="Playground" title={playground.title} description={playground.subtitle} />
 
-      <section className="container py-16 sm:py-20">
+      <section className="container py-8 sm:py-10">
         <SectionIntro
           eyebrow="The stack"
           title={playgroundWhat.title}

@@ -52,7 +52,7 @@ export default function MauiReleasesPage() {
       />
 
       <section className="border-b border-border bg-card">
-        <div className="container py-16 sm:py-20">
+        <div className="container py-8 sm:py-10">
           <h2 className="font-display text-2xl font-semibold text-foreground">Where Microsoft publishes notes</h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
             Use Learn for the story of a major version. Use GitHub for the exact tag, workload

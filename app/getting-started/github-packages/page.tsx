@@ -26,7 +26,7 @@ export default function GithubPackagesPage() {
         title="Use nuvyntralabs GitHub Packages from a C# project"
         description="Plugin.Maui.* is published on the nuvyntralabs GitHub Packages feed. nuget.org stays the source for Microsoft.*, MAUI, and other public packages."
       />
-      <div className="container max-w-3xl py-16 sm:py-20">
+      <div className="container max-w-3xl py-8 sm:py-10">
         <GithubPackagesSetup />
         <p className="mt-10 text-sm leading-relaxed text-muted-foreground">
           Org feed:{" "}

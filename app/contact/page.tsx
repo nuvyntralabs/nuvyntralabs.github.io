@@ -66,7 +66,7 @@ export default function ContactPage() {
         description="Open a conversation about products, research, or collaboration. We are independent and respond through the public channels below."
       />
 
-      <section className="container py-16 sm:py-20">
+      <section className="container py-8 sm:py-10">
         <p className="mb-10 max-w-2xl text-base leading-relaxed text-muted-foreground">
           {lab.sponsorshipNote}
         </p>

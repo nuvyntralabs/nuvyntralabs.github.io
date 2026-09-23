@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function UiKitPage() {
   return (
-    <main className="container max-w-3xl py-12 sm:py-16">
+    <main className="container max-w-3xl py-8 sm:py-10">
       <JsonLd data={uiKitJsonLd()} />
 
       <p className="eyebrow">Lumina UI library</p>

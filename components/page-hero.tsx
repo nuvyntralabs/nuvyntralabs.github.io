@@ -14,15 +14,13 @@ export function PageHero({
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
       <div className="pointer-events-none absolute -left-16 top-8 h-48 w-48 rounded-full bg-lavender-400/20 blur-3xl" />
       <div className="pointer-events-none absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-cyan-300/20 blur-3xl" />
-      <div className="container relative py-16 sm:py-20">
+      <div className="container relative py-8 sm:py-10">
         <p className="eyebrow">{eyebrow}</p>
-        <h1 className="mt-5 max-w-3xl font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="mt-3 max-w-3xl font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           {title}
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {description}
-        </p>
-        {action ? <div className="mt-8">{action}</div> : null}
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">{description}</p>
+        {action ? <div className="mt-5">{action}</div> : null}
       </div>
     </section>
   );

@@ -27,7 +27,7 @@ export default function PackagesPage() {
         title="Component library"
         description={`${nugetPackages.length} packages on GitHub Packages, ${packages.length} entries in the catalog including MauiEssentials. Install one NuGet in any host. The whole ecosystem (nuvyn init) is optional and uses these same packages.`}
       />
-      <div className="container py-16 sm:py-20">
+      <div className="container py-8 sm:py-10">
         <p className="mb-8 text-center text-sm text-muted-foreground">
           Version-wise nuget.org downloads live on the{" "}
           <Link href={nugetStatsPath} className="text-link">

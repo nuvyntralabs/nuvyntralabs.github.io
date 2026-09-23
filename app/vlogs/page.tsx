@@ -27,7 +27,7 @@ export default function VlogsPage() {
           </Link>
         }
       />
-      <section className="container py-16 sm:py-20">
+      <section className="container py-8 sm:py-10">
         <VlogList />
       </section>
     </main>

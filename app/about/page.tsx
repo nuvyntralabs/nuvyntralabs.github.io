@@ -27,7 +27,7 @@ export default function AboutPage() {
         description={lab.tagline}
       />
 
-      <section className="container max-w-3xl py-16 sm:py-20">
+      <section className="container max-w-3xl py-8 sm:py-10">
         <h2 className="font-display text-2xl font-semibold">Who we are</h2>
         <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
           {lab.about.map((paragraph) => (

@@ -25,7 +25,7 @@ export default function ToolkitsPage() {
         title="Scaffold the host, then diagnose"
         description="This is the whole-ecosystem door. Nuvyn creates a spec-driven MAUI app on the Nuvyntra stack. MauiDev doctors the machine and the project. NuvLoc diffs sibling .resx files and lets your coding agent write the cultures. Pulse watches live Plugin.Maui.* sessions. Individual plugins and UIKit stay installable without these tools."
       />
-      <div className="container py-16 sm:py-20">
+      <div className="container py-8 sm:py-10">
         <p className="text-sm text-muted-foreground">
           {toolkits.length} toolkit{toolkits.length === 1 ? "" : "s"}
         </p>

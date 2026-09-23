@@ -25,7 +25,7 @@ export default function ResearchPage() {
         title="Investigations that become products"
         description="Longer studies that produce reusable knowledge — products, accuracy work, calling stacks, and platform bindings. POCs and NuGet packages live in their own sections."
       />
-      <div className="container py-16 sm:py-20">
+      <div className="container py-8 sm:py-10">
         <p className="text-sm text-muted-foreground">{researchProjects.length} projects</p>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {researchProjects.map((work) => (

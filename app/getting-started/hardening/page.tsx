@@ -29,7 +29,7 @@ export default function HardeningPage() {
         title="Hardened plugin releases"
         description={`${hardenedReleaseDate}. ${hardenedPlugins.length} NuGet packages, ${hardenedTestCount} passing tests. Public type names did not change. Several defaults did.`}
       />
-      <div className="container max-w-3xl py-16 sm:py-20">
+      <div className="container max-w-3xl py-8 sm:py-10">
         <p className="text-sm leading-relaxed text-muted-foreground">
           Plugin READMEs remain the code-level source of truth. This page is the upgrade map for
           host apps already on 1.x. Hub write-up:{" "}

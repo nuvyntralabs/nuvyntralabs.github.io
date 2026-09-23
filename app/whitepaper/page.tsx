@@ -34,7 +34,7 @@ export default function WhitepaperPage() {
       <JsonLd data={ecosystemWhitepaperJsonLd()} />
       <PageHero eyebrow="White paper" title={whitepaper.title} description={whitepaper.subtitle} />
 
-      <div className="container py-16 sm:py-20">
+      <div className="container py-8 sm:py-10">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
           <nav aria-label="Paper sections" className="lg:sticky lg:top-24 lg:self-start">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-700 dark:text-lavender-300">

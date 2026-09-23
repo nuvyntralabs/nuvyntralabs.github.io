@@ -30,7 +30,7 @@ export default function NugetStatsPage() {
       />
 
       <section className="section-muted">
-        <div className="container py-16 sm:py-20">
+        <div className="container py-8 sm:py-10">
           <NugetStats />
         </div>
       </section>

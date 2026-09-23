@@ -7,7 +7,7 @@ import { toolkitJsonLd } from "@/lib/json-ld";
 
 export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
   return (
-    <main className="container max-w-3xl py-12 sm:py-16">
+    <main className="container max-w-3xl py-8 sm:py-10">
       <JsonLd data={toolkitJsonLd(toolkit)} />
       <Link
         href="/toolkits/"
@@ -17,7 +17,7 @@ export function ToolkitDetail({ toolkit }: { toolkit: ToolkitDoc }) {
         All toolkits
       </Link>
 
-      <p className="eyebrow mt-8">Toolkit</p>
+      <p className="eyebrow mt-5">Toolkit</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{toolkit.title}</h1>
       <p className="mt-3 text-lg text-lavender-700 dark:text-lavender-300">{toolkit.subtitle}</p>
       {toolkit.version ? (

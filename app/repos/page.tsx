@@ -55,7 +55,7 @@ export default function OpenReposPage() {
       />
 
       <section className="border-b border-border bg-card">
-        <div className="container py-16 sm:py-20">
+        <div className="container py-8 sm:py-10">
           <h2 className="font-display text-2xl font-semibold text-foreground">Where the list comes from</h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
             The organization page is the catalog. GitHub search is the live issue list. Discussions

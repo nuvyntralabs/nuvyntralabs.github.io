@@ -25,7 +25,7 @@ export default function PocsPage() {
         title="Public proofs, then packages"
         description="Short prototypes and maintained forks. Evaluate the idea here; adopt the NuGet package when the pattern is reusable."
       />
-      <div className="container py-16 sm:py-20">
+      <div className="container py-8 sm:py-10">
         <p className="text-sm text-muted-foreground">{proofOfConcepts.length} prototypes</p>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {proofOfConcepts.map((work) => (

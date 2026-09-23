@@ -22,11 +22,11 @@ export const metadata: Metadata = {
 
 export default function NuvexaDbPage() {
   return (
-    <main className="container max-w-3xl py-12 sm:py-16">
+    <main className="container max-w-3xl py-8 sm:py-10">
       <JsonLd data={nuvexaJsonLd()} />
       <NuvexaGuideTabs active="overview" />
 
-      <p className="eyebrow mt-8">Embedded NoSQL</p>
+      <p className="eyebrow mt-5">Embedded NoSQL</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{nuvexaDb.title}</h1>
       <p className="mt-3 text-lg text-lavender-700 dark:text-lavender-300">{nuvexaDb.subtitle}</p>
       <p className="chip mt-4 inline-flex px-3 font-semibold">Engine {nuvexaDb.version}</p>

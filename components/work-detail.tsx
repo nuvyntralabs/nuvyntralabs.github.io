@@ -12,7 +12,7 @@ export function WorkDetail({ work }: { work: WorkItem }) {
   const kindLabel = work.kind === "research" ? "R&D project" : "Proof of concept";
 
   return (
-    <main className="container max-w-3xl py-12 sm:py-16">
+    <main className="container max-w-3xl py-8 sm:py-10">
       <JsonLd data={workJsonLd(work)} />
       <Link
         href={indexHref}
@@ -22,7 +22,7 @@ export function WorkDetail({ work }: { work: WorkItem }) {
         {indexLabel}
       </Link>
 
-      <p className="eyebrow mt-8">{kindLabel}</p>
+      <p className="eyebrow mt-5">{kindLabel}</p>
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{work.title}</h1>
       <p className="mt-3 text-lg text-lavender-700 dark:text-lavender-300">{work.subtitle}</p>
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{work.description}</p>

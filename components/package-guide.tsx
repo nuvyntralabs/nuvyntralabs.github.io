@@ -46,7 +46,7 @@ export function PackageGuide({
     return (
       <main>
         <JsonLd data={packageGuideJsonLd(pkg, kind, title, description, href)} />
-        <div className="container max-w-6xl py-12 sm:py-16">
+        <div className="container max-w-6xl py-8 sm:py-10">
           <GuideTabs
             slug={pkg.slug}
             active={kind}

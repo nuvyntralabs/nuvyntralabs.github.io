@@ -30,7 +30,7 @@ export default function GettingStartedPage() {
         title="Getting started"
         description="Nuvyntra Labs reaches you as a component library (one NuGet) or as a whole ecosystem (nuvyn init). You choose. Neither path is a fallback. Packages ship independently — there is no mega-package dependency."
       />
-      <div className="container max-w-3xl py-16 sm:py-20">
+      <div className="container max-w-3xl py-8 sm:py-10">
         <section className="mb-12">
           <h2 className="font-display text-2xl font-semibold">1. Choose a start</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
