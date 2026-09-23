@@ -17,9 +17,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Write DEV API key
+        run: node ./scripts/write-devto-api-key.mjs
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
       - name: Save unpublished DEV draft
         run: node ./scripts/save-vlog-issue.mjs
         env:
-          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}

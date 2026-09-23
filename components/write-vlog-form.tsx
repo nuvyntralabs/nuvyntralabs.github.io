@@ -1,14 +1,12 @@
 "use client";
 
-import { FormEvent, useEffect, useState, type ReactNode } from "react";
+import { FormEvent, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import {
   DEVTO_MAX_TAGS,
-  LOCAL_DRAFT_URL,
   VLOG_SAVED_NOTICE_KEY,
   VLOG_SERIES,
-  createVlogIssue,
   devTag,
   emptyVlogDraft,
   submitVlogDraft,
@@ -56,23 +54,6 @@ export function WriteVlogForm() {
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting">("idle");
   const [message, setMessage] = useState<string | null>(null);
-  const [localProxy, setLocalProxy] = useState(false);
-  const [proxyName, setProxyName] = useState<string | null>(null);
-  const serverConnected = Boolean(process.env.NEXT_PUBLIC_VLOG_DRAFT_URL?.trim()) || localProxy;
-
-  useEffect(() => {
-    const host = window.location.hostname;
-    if (host !== "localhost" && host !== "127.0.0.1") return;
-    const healthUrl = LOCAL_DRAFT_URL.replace(/\/draft$/, "/health");
-    fetch(healthUrl)
-      .then((response) => (response.ok ? response.json() : null))
-      .then((body: { ok?: boolean; username?: string; name?: string; error?: string } | null) => {
-        setLocalProxy(Boolean(body?.ok));
-        setProxyName(body?.name || body?.username || null);
-        if (body && body.ok === false && body.error) setMessage(body.error);
-      })
-      .catch(() => setLocalProxy(false));
-  }, []);
 
   function patch(partial: Partial<VlogDraftFields>) {
     setFields((current) => ({ ...current, ...partial }));
@@ -119,8 +100,7 @@ export function WriteVlogForm() {
     setStatus("submitting");
     setMessage(null);
     try {
-      if (serverConnected) await submitVlogDraft(draft, { useLocalProxy: true });
-      else await createVlogIssue(draft);
+      await submitVlogDraft(draft);
       sessionStorage.setItem(VLOG_SAVED_NOTICE_KEY, "1");
       router.push("/");
     } catch (submitError) {
@@ -281,17 +261,9 @@ export function WriteVlogForm() {
               onChange={(event) => setHoneypot(event.target.value)}
             />
           </label>
-          {serverConnected ? (
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {proxyName
-                ? `Connected as ${proxyName}. Save adds an unpublished draft.`
-                : "Save adds an unpublished draft on DEV."}
-            </p>
-          ) : (
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              No DEV API key is required. Save stores an unpublished draft for review.
-            </p>
-          )}
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Save stores an unpublished draft for review.
+          </p>
           <button type="submit" className="focusable btn-primary w-full" disabled={status === "submitting"}>
             {status === "submitting" ? "Saving draft…" : "Save draft"}
           </button>

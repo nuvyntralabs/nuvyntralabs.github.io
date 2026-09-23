@@ -24,10 +24,13 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Write DEV API key
+        run: node ./scripts/write-devto-api-key.mjs
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
       - run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NEXT_PUBLIC_VLOG_ISSUE_TOKEN: ${{ secrets.VLOG_ISSUE_TOKEN }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

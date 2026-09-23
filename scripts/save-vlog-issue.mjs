@@ -90,9 +90,15 @@ async function comment(issueNumber, body) {
   });
 }
 
+function readProjectToken() {
+  const sourcePath = new URL("../lib/devto-api-key.ts", import.meta.url);
+  const match = readFileSync(sourcePath, "utf8").match(/DEVTO_API_KEY = "([^"]*)"/);
+  return match?.[1]?.trim() ?? "";
+}
+
 async function saveDraft(article) {
-  const apiKey = process.env.DEVTO_API_KEY?.trim();
-  if (!apiKey) fail("DEVTO_API_KEY is not configured.");
+  const apiKey = readProjectToken();
+  if (!apiKey) fail("Add the DEV API key in lib/devto-api-key.ts.");
   const response = await fetch(articlesUrl, {
     method: "POST",
     headers: {

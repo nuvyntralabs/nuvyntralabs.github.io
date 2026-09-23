@@ -1,3 +1,5 @@
+import { DEVTO_API_KEY } from "@/lib/devto-api-key";
+
 /** Fields that match DEV’s article editor and `POST /api/articles`. */
 
 export const DEVTO_MAX_TAGS = 4;
@@ -11,8 +13,6 @@ export const DEVTO_DASHBOARD_URL = "https://dev.to/dashboard";
 export const DEVTO_SESSION_KEY = "nuvyntra-devto-draft";
 export const VLOG_SAVED_NOTICE_KEY = "nuvyntra-vlog-saved";
 export const LOCAL_DRAFT_URL = "http://127.0.0.1:8787/draft";
-export const VLOG_ISSUE_MARKER = "nuvyntra-vlog-draft";
-export const VLOG_ISSUE_REPO = "nuvyntralabs/nuvyntralabs.github.io";
 
 export type VlogDraftFields = {
   title: string;
@@ -142,42 +142,6 @@ export function buildArticleBody(fields: VlogDraftFields): { article: Record<str
   return { article };
 }
 
-function vlogIssueToken() {
-  return process.env.NEXT_PUBLIC_VLOG_ISSUE_TOKEN?.trim() ?? "";
-}
-
-function buildVlogIssueBody(fields: VlogDraftFields) {
-  return [
-    "Submitted from the write-vlog form.",
-    "",
-    `Contributor: ${fields.developerName.trim()}`,
-    "",
-    `<!-- ${VLOG_ISSUE_MARKER}:start -->`,
-    JSON.stringify(buildArticleBody(fields)),
-    `<!-- ${VLOG_ISSUE_MARKER}:end -->`,
-  ].join("\n");
-}
-
-/** Creates the issue in the background. The Actions job then saves the DEV draft with DEVTO_API_KEY. */
-export async function createVlogIssue(fields: VlogDraftFields): Promise<void> {
-  const token = vlogIssueToken();
-  if (!token) throw new Error("The vlog draft service is not configured.");
-  const response = await fetch(`https://api.github.com/repos/${VLOG_ISSUE_REPO}/issues`, {
-    method: "POST",
-    headers: {
-      Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      "X-GitHub-Api-Version": "2022-11-28",
-    },
-    body: JSON.stringify({
-      title: fields.title.trim(),
-      body: buildVlogIssueBody(fields),
-    }),
-  });
-  if (!response.ok) throw new Error("The vlog was not saved.");
-}
-
 type DevtoErrorBody = {
   id?: number;
   url?: string;
@@ -237,53 +201,36 @@ export function writeDevtoSession(session: DevtoSession | null) {
   else sessionStorage.removeItem(DEVTO_SESSION_KEY);
 }
 
-export async function submitVlogDraft(
-  fields: VlogDraftFields,
-  options: { apiKey?: string; useLocalProxy?: boolean },
-): Promise<SavedVlog> {
-  const error = validateVlogDraft(fields);
-  if (error) throw new Error(error);
-
-  const endpoint =
-    process.env.NEXT_PUBLIC_VLOG_DRAFT_URL?.trim() ||
-    (options.useLocalProxy ? LOCAL_DRAFT_URL : "");
-  const body = JSON.stringify(buildArticleBody(fields));
-
-  if (endpoint) {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body,
-    });
-    const payload = await readDevto<DevtoErrorBody>(response);
-    return {
-      id: payload.id,
-      url: payload.url,
-      published: false,
-    };
-  }
-
-  const apiKey = options.apiKey?.trim();
-  if (!apiKey) {
-    throw new Error("Connect DEV with an API key, or start the local draft server that reads DEVTO_API_KEY from .env.local.");
-  }
-
-  const response = await fetch(DEVTO_ARTICLES_URL, {
-    method: "POST",
-    headers: {
-      Accept: "application/vnd.forem.api-v1+json",
-      "Content-Type": "application/json",
-      "api-key": apiKey,
-    },
-    body,
-  });
+async function postDraft(url: string, body: string, apiKey?: string): Promise<SavedVlog> {
+  const headers: Record<string, string> = {
+    Accept: apiKey ? "application/vnd.forem.api-v1+json" : "application/json",
+    "Content-Type": "application/json",
+  };
+  if (apiKey) headers["api-key"] = apiKey;
+  const response = await fetch(url, { method: "POST", headers, body });
   const payload = await readDevto<DevtoErrorBody>(response);
   return {
     id: payload.id,
     url: payload.url,
     published: false,
   };
+}
+
+export async function submitVlogDraft(fields: VlogDraftFields): Promise<SavedVlog> {
+  const error = validateVlogDraft(fields);
+  if (error) throw new Error(error);
+  const body = JSON.stringify(buildArticleBody(fields));
+  const apiKey = DEVTO_API_KEY.trim();
+  if (!apiKey) throw new Error("Add the DEV API key in lib/devto-api-key.ts.");
+  try {
+    return await postDraft(DEVTO_ARTICLES_URL, body, apiKey);
+  } catch (directError) {
+    if (!(directError instanceof TypeError)) throw directError;
+    try {
+      return await postDraft(LOCAL_DRAFT_URL, body);
+    } catch (proxyError) {
+      if (!(proxyError instanceof TypeError)) throw proxyError;
+      throw new Error("DEV could not be reached from the browser.");
+    }
+  }
 }
