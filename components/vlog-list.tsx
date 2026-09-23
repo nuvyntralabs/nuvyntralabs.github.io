@@ -5,7 +5,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { VLOG_SERIES } from "@/lib/devto-draft";
 import { siteConfig } from "@/lib/site";
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 type PublishedVlog = {
   id: number;
