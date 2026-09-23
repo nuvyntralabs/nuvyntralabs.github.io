@@ -1,35 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { PageHero } from "@/components/page-hero";
-import { VlogList } from "@/components/vlog-list";
+import { BlogPathRedirect } from "@/components/blog-path-redirect";
 
 export const metadata: Metadata = {
-  title: "Vlogs",
-  description: "Published Nuvyntra Labs vlogs.",
-  alternates: { canonical: "/vlogs/" },
-  openGraph: {
-    title: "Vlogs",
-    description: "Published Nuvyntra Labs vlogs.",
-    url: "/vlogs/",
-  },
+  title: "Blogs",
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/blogs/" },
 };
 
-export default function VlogsPage() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="Vlogs"
-        title="Published vlogs"
-        description="Walkthroughs, lab notes, and product updates published in the NuvyntraLabs series on DEV."
-        action={
-          <Link href="/vlogs/write/" className="focusable btn-primary">
-            Write Vlogs
-          </Link>
-        }
-      />
-      <section className="container py-8 sm:py-10">
-        <VlogList />
-      </section>
-    </main>
-  );
+export default function BlogsRedirectPage() {
+  return <BlogPathRedirect href="/blogs/" label="Blogs" />;
 }

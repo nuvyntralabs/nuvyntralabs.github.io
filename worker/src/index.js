@@ -121,7 +121,7 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") ?? "";
     if (origin && !allowedOrigin(origin)) {
-      return json({ error: "This site cannot save a vlog." }, 403, origin);
+      return json({ error: "This site cannot save a blog." }, 403, origin);
     }
 
     if (request.method === "OPTIONS") {

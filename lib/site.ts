@@ -9,7 +9,7 @@ export const siteConfig = {
   discord: "https://discord.gg/2rg8s7P8xE",
   linkedin: "https://www.linkedin.com/groups/40625003/",
   devtoUsername: "niladri_prasadpadhy_ccee",
-  vlogs: "https://dev.to/niladri_prasadpadhy_ccee",
+  blogs: "https://dev.to/niladri_prasadpadhy_ccee",
   githubPackagesFeed: "https://nuget.pkg.github.com/nuvyntralabs/index.json",
   author: "Niladri Prasad Padhy",
   authorUrl: "https://niladri-padhy-website.vercel.app",

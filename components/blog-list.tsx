@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { VLOG_SERIES } from "@/lib/devto-draft";
+import { BLOG_SERIES } from "@/lib/devto-draft";
 import { siteConfig } from "@/lib/site";
 
 const PAGE_SIZE = 10;
 
-type PublishedVlog = {
+type PublishedBlog = {
   id: number;
   title: string;
   description: string;
@@ -30,7 +30,7 @@ type DevArticle = {
 
 type LoadState =
   | { status: "loading" }
-  | { status: "ready"; vlogs: PublishedVlog[] }
+  | { status: "ready"; blogs: PublishedBlog[] }
   | { status: "error" };
 
 function formatPublishedAt(value: string) {
@@ -76,9 +76,9 @@ async function fetchArticle(id: number): Promise<DevArticle | null> {
   return payload && typeof payload.id === "number" ? payload : null;
 }
 
-function parseSeriesStories(html: string): PublishedVlog[] {
+function parseSeriesStories(html: string): PublishedBlog[] {
   const document = new DOMParser().parseFromString(html, "text/html");
-  const vlogs: PublishedVlog[] = [];
+  const blogs: PublishedBlog[] = [];
   const seen = new Set<number>();
   for (const card of document.querySelectorAll("[data-feed-content-id]")) {
     const id = Number(card.getAttribute("data-feed-content-id"));
@@ -93,7 +93,7 @@ function parseSeriesStories(html: string): PublishedVlog[] {
     });
     const readingLabel = card.querySelector(".crayons-story__save")?.textContent ?? "";
     seen.add(id);
-    vlogs.push({
+    blogs.push({
       id,
       title,
       description: "",
@@ -103,14 +103,14 @@ function parseSeriesStories(html: string): PublishedVlog[] {
       readingTimeMinutes: Number(readingLabel.match(/(\d+)\s*min/i)?.[1] ?? 0),
     });
   }
-  return vlogs;
+  return blogs;
 }
 
 // The articles API list is edge-cached for about two days, so a collection query
-// keeps returning however many vlogs existed the first time that URL was cached.
+// keeps returning however many blogs existed the first time that URL was cached.
 // The series page itself revalidates and includes posts published since then.
-async function fetchSeriesStories(seriesId: number): Promise<PublishedVlog[]> {
-  const stories: PublishedVlog[] = [];
+async function fetchSeriesStories(seriesId: number): Promise<PublishedBlog[]> {
+  const stories: PublishedBlog[] = [];
   const seen = new Set<number>();
   for (let page = 1; page <= 10; page += 1) {
     const url = new URL(`https://dev.to/${siteConfig.devtoUsername}/series/${seriesId}`);
@@ -130,7 +130,7 @@ async function fetchSeriesStories(seriesId: number): Promise<PublishedVlog[]> {
   return stories;
 }
 
-function toPublishedVlog(article: DevArticle): PublishedVlog | null {
+function toPublishedBlog(article: DevArticle): PublishedBlog | null {
   if (!article.published_at) return null;
   const tags = Array.isArray(article.tag_list)
     ? article.tag_list
@@ -146,8 +146,8 @@ function toPublishedVlog(article: DevArticle): PublishedVlog | null {
   };
 }
 
-async function loadPublishedVlogs(): Promise<PublishedVlog[]> {
-  const seriesId = await findSeriesId(VLOG_SERIES);
+async function loadPublishedBlogs(): Promise<PublishedBlog[]> {
+  const seriesId = await findSeriesId(BLOG_SERIES);
   if (!seriesId) return [];
 
   const [authorArticles, seriesStories] = await Promise.all([
@@ -155,19 +155,19 @@ async function loadPublishedVlogs(): Promise<PublishedVlog[]> {
     fetchSeriesStories(seriesId),
   ]);
 
-  const byId = new Map<number, PublishedVlog>();
+  const byId = new Map<number, PublishedBlog>();
   for (const article of authorArticles) {
     if (article.collection_id !== seriesId) continue;
-    const vlog = toPublishedVlog(article);
-    if (vlog) byId.set(vlog.id, vlog);
+    const blog = toPublishedBlog(article);
+    if (blog) byId.set(blog.id, blog);
   }
 
   const missing = seriesStories.filter((story) => !byId.has(story.id));
   const details = await Promise.all(missing.map((story) => fetchArticle(story.id)));
   missing.forEach((story, index) => {
     const article = details[index];
-    const vlog = article ? toPublishedVlog(article) : null;
-    byId.set(story.id, vlog ?? story);
+    const blog = article ? toPublishedBlog(article) : null;
+    byId.set(story.id, blog ?? story);
   });
 
   return [...byId.values()].sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
@@ -186,7 +186,7 @@ function pageItems(current: number, count: number): Array<number | "gap"> {
   return items;
 }
 
-export function VlogList() {
+export function BlogList() {
   const [state, setState] = useState<LoadState>({ status: "loading" });
   const [page, setPage] = useState(1);
   const listRef = useRef<HTMLUListElement>(null);
@@ -194,9 +194,9 @@ export function VlogList() {
 
   useEffect(() => {
     let cancelled = false;
-    loadPublishedVlogs()
-      .then((vlogs) => {
-        if (!cancelled) setState({ status: "ready", vlogs });
+    loadPublishedBlogs()
+      .then((blogs) => {
+        if (!cancelled) setState({ status: "ready", blogs });
       })
       .catch(() => {
         if (!cancelled) setState({ status: "error" });
@@ -215,58 +215,58 @@ export function VlogList() {
   }, [page]);
 
   if (state.status === "loading") {
-    return <p className="text-sm text-muted-foreground">Loading published vlogs…</p>;
+    return <p className="text-sm text-muted-foreground">Loading published blogs…</p>;
   }
 
   if (state.status === "error") {
     return (
       <p role="alert" className="text-sm text-red-700 dark:text-red-300">
-        Published vlogs could not be loaded.
+        Published blogs could not be loaded.
       </p>
     );
   }
 
-  if (state.vlogs.length === 0) {
-    return <p className="text-sm text-muted-foreground">No published vlogs in the {VLOG_SERIES} series yet.</p>;
+  if (state.blogs.length === 0) {
+    return <p className="text-sm text-muted-foreground">No published blogs in the {BLOG_SERIES} series yet.</p>;
   }
 
-  const pageCount = Math.ceil(state.vlogs.length / PAGE_SIZE);
+  const pageCount = Math.ceil(state.blogs.length / PAGE_SIZE);
   const currentPage = Math.min(page, pageCount);
   const start = (currentPage - 1) * PAGE_SIZE;
-  const visible = state.vlogs.slice(start, start + PAGE_SIZE);
+  const visible = state.blogs.slice(start, start + PAGE_SIZE);
   const pages = pageItems(currentPage, pageCount);
 
   return (
     <div>
       <p className="text-sm text-muted-foreground">
-        {state.vlogs.length} published {state.vlogs.length === 1 ? "vlog" : "vlogs"} in {VLOG_SERIES}, newest first
+        {state.blogs.length} published {state.blogs.length === 1 ? "blog" : "blogs"} in {BLOG_SERIES}, newest first
       </p>
       <ul ref={listRef} className="mt-4 grid scroll-mt-24 gap-3">
-        {visible.map((vlog) => (
-          <li key={vlog.id}>
+        {visible.map((blog) => (
+          <li key={blog.id}>
             <a
-              href={vlog.url}
+              href={blog.url}
               target="_blank"
               rel="noopener noreferrer"
               className="focusable glass-card group block p-4 transition hover:-translate-y-0.5 sm:p-5"
             >
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
-                {formatPublishedAt(vlog.publishedAt)}
-                {vlog.readingTimeMinutes ? ` · ${vlog.readingTimeMinutes} min read` : ""}
+                {formatPublishedAt(blog.publishedAt)}
+                {blog.readingTimeMinutes ? ` · ${blog.readingTimeMinutes} min read` : ""}
               </p>
               <h2 className="mt-2 flex items-start justify-between gap-3 font-display text-xl font-bold tracking-tight text-foreground">
-                {vlog.title}
+                {blog.title}
                 <ArrowUpRight
                   className="mt-1 h-5 w-5 shrink-0 text-lavender-600 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                   aria-hidden="true"
                 />
               </h2>
-              {vlog.description ? (
-                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">{vlog.description}</p>
+              {blog.description ? (
+                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">{blog.description}</p>
               ) : null}
-              {vlog.tags.length > 0 ? (
+              {blog.tags.length > 0 ? (
                 <ul className="mt-3 flex flex-wrap gap-2">
-                  {vlog.tags.map((tag) => (
+                  {blog.tags.map((tag) => (
                     <li
                       key={tag}
                       className="rounded-full border border-lavender-200 bg-lavender-50 px-3 py-1 text-xs font-semibold text-lavender-800 dark:border-white/15 dark:bg-white/10 dark:text-lavender-100"
@@ -281,7 +281,7 @@ export function VlogList() {
         ))}
       </ul>
       {pageCount > 1 ? (
-        <nav aria-label="Vlog pages" className="mt-5 flex flex-wrap items-center gap-2">
+        <nav aria-label="Blog pages" className="mt-5 flex flex-wrap items-center gap-2">
           <button
             type="button"
             className="focusable btn-secondary px-4 py-2 disabled:pointer-events-none disabled:opacity-40"

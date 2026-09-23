@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy:vlog-worker": "npx wrangler deploy --config worker/wrangler.toml"
+    "deploy:blog-worker": "npx wrangler deploy --config worker/wrangler.toml"
   },
   "dependencies": {
     "clsx": "^2.1.1",

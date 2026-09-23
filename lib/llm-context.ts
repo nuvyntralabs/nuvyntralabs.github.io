@@ -251,9 +251,9 @@ Ecosystem white paper: ${siteConfig.url}${whitepaperHref}
 Lumina Playground: ${siteConfig.url}${playgroundHref}
 About: ${siteConfig.url}/about/
 Contact: ${siteConfig.url}/contact/
-Write a vlog (DEV draft, unpublished until reviewed): ${siteConfig.url}/vlogs/write/
-Published vlogs: ${siteConfig.url}/vlogs/
-DEV profile: ${siteConfig.vlogs}
+Write a blog (DEV draft, unpublished until reviewed): ${siteConfig.url}/blogs/write/
+Published blogs: ${siteConfig.url}/blogs/
+DEV profile: ${siteConfig.blogs}
 .NET MAUI official release feed: ${siteConfig.url}/releases/
 NuGet download statistics: ${siteConfig.url}/stats/
 Open issues and discussions: ${siteConfig.url}/repos/

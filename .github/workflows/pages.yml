@@ -27,7 +27,7 @@ jobs:
       - run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NEXT_PUBLIC_VLOG_DRAFT_URL: ${{ vars.VLOG_DRAFT_URL }}
+          NEXT_PUBLIC_BLOG_DRAFT_URL: ${{ vars.VLOG_DRAFT_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

@@ -3,16 +3,19 @@
 export const DEVTO_MAX_TAGS = 4;
 export const DEVTO_MAX_TAG_LENGTH = 30;
 export const DEVTO_MAX_TITLE = 128;
-export const VLOG_SERIES = "NuvyntraLabs";
+export const BLOG_SERIES = "NuvyntraLabs";
 
-export const VLOG_SAVED_NOTICE_KEY = "nuvyntra-vlog-saved";
+export const BLOG_SAVED_NOTICE_KEY = "nuvyntra-blog-saved";
 
-const DEFAULT_VLOG_DRAFT_URL = "https://nuvyntra-vlog-draft.niladri-1437.workers.dev/draft";
+const DEFAULT_BLOG_DRAFT_URL = "https://nuvyntra-vlog-draft.niladri-1437.workers.dev/draft";
 
 /** Cloudflare Worker that saves the unpublished DEV draft. */
-export const VLOG_DRAFT_URL = process.env.NEXT_PUBLIC_VLOG_DRAFT_URL?.trim() || DEFAULT_VLOG_DRAFT_URL;
+export const BLOG_DRAFT_URL =
+  process.env.NEXT_PUBLIC_BLOG_DRAFT_URL?.trim() ||
+  process.env.NEXT_PUBLIC_VLOG_DRAFT_URL?.trim() ||
+  DEFAULT_BLOG_DRAFT_URL;
 
-export type VlogDraftFields = {
+export type BlogDraftFields = {
   title: string;
   developerName: string;
   professionalProfile: string;
@@ -23,7 +26,7 @@ export type VlogDraftFields = {
   canonicalUrl: string;
 };
 
-export const emptyVlogDraft: VlogDraftFields = {
+export const emptyBlogDraft: BlogDraftFields = {
   title: "",
   developerName: "",
   professionalProfile: "",
@@ -34,7 +37,7 @@ export const emptyVlogDraft: VlogDraftFields = {
   canonicalUrl: "",
 };
 
-export type SavedVlog = {
+export type SavedBlog = {
   id?: number;
   url?: string;
   published: boolean;
@@ -59,14 +62,14 @@ export function devTag(name: string) {
   return name.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
-export function validateVlogDraft(fields: VlogDraftFields): string | null {
+export function validateBlogDraft(fields: BlogDraftFields): string | null {
   const title = fields.title.trim();
   if (!title) return "Add a title.";
   if (title.length > DEVTO_MAX_TITLE) {
     return `DEV allows titles up to ${DEVTO_MAX_TITLE} characters.`;
   }
   if (!fields.developerName.trim()) return "Add the contributor name.";
-  if (!fields.contentMarkdown.trim()) return "Tell the story before saving the vlog.";
+  if (!fields.contentMarkdown.trim()) return "Tell the story before saving the blog.";
   if (fields.tags.length > DEVTO_MAX_TAGS) {
     return `DEV allows up to ${DEVTO_MAX_TAGS} tags.`;
   }
@@ -96,7 +99,7 @@ export function validateVlogDraft(fields: VlogDraftFields): string | null {
   return null;
 }
 
-function authorCredit(fields: VlogDraftFields) {
+function authorCredit(fields: BlogDraftFields) {
   const name = fields.developerName.trim();
   const profile = fields.professionalProfile.trim();
   const profileUrl = profile.startsWith("www.") ? `https://${profile}` : profile;
@@ -106,7 +109,7 @@ function authorCredit(fields: VlogDraftFields) {
 }
 
 /** JSON body for `POST /api/articles`, without the API key. */
-export function buildArticleBody(fields: VlogDraftFields): { article: Record<string, unknown> } {
+export function buildArticleBody(fields: BlogDraftFields): { article: Record<string, unknown> } {
   const article: Record<string, unknown> = {
     title: fields.title.trim(),
     body_markdown: `${fields.contentMarkdown.trim()}\n\n---\n\n${authorCredit(fields)}\n`,
@@ -122,7 +125,7 @@ export function buildArticleBody(fields: VlogDraftFields): { article: Record<str
   const canonical = optionalText(fields.canonicalUrl);
   if (canonical) article.canonical_url = canonical;
 
-  article.series = VLOG_SERIES;
+  article.series = BLOG_SERIES;
 
   if (fields.tags.length > 0) {
     article.tags = fields.tags.map((tag) => devTag(tag));
@@ -154,8 +157,8 @@ async function readDevto<T>(response: Response): Promise<T> {
   return payload;
 }
 
-async function postDraft(body: string): Promise<SavedVlog> {
-  const response = await fetch(VLOG_DRAFT_URL, {
+async function postDraft(body: string): Promise<SavedBlog> {
+  const response = await fetch(BLOG_DRAFT_URL, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -171,8 +174,8 @@ async function postDraft(body: string): Promise<SavedVlog> {
   };
 }
 
-export async function submitVlogDraft(fields: VlogDraftFields): Promise<SavedVlog> {
-  const error = validateVlogDraft(fields);
+export async function submitBlogDraft(fields: BlogDraftFields): Promise<SavedBlog> {
+  const error = validateBlogDraft(fields);
   if (error) throw new Error(error);
   try {
     return await postDraft(JSON.stringify(buildArticleBody(fields)));

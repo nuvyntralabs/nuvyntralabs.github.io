@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import {
   DEVTO_MAX_TAGS,
-  VLOG_SAVED_NOTICE_KEY,
-  VLOG_SERIES,
+  BLOG_SAVED_NOTICE_KEY,
+  BLOG_SERIES,
   devTag,
-  emptyVlogDraft,
-  submitVlogDraft,
-  validateVlogDraft,
-  type VlogDraftFields,
+  emptyBlogDraft,
+  submitBlogDraft,
+  validateBlogDraft,
+  type BlogDraftFields,
 } from "@/lib/devto-draft";
 
 const controlClass =
@@ -47,15 +47,15 @@ function Field({
   );
 }
 
-export function WriteVlogForm() {
+export function WriteBlogForm() {
   const router = useRouter();
-  const [fields, setFields] = useState<VlogDraftFields>(emptyVlogDraft);
+  const [fields, setFields] = useState<BlogDraftFields>(emptyBlogDraft);
   const [tagQuery, setTagQuery] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting">("idle");
   const [message, setMessage] = useState<string | null>(null);
 
-  function patch(partial: Partial<VlogDraftFields>) {
+  function patch(partial: Partial<BlogDraftFields>) {
     setFields((current) => ({ ...current, ...partial }));
   }
 
@@ -90,7 +90,7 @@ export function WriteVlogForm() {
       pendingTag && !fields.tags.some((tag) => devTag(tag) === pendingTag)
         ? { ...fields, tags: [...fields.tags, pendingTag] }
         : fields;
-    const error = validateVlogDraft(draft);
+    const error = validateBlogDraft(draft);
     if (error) {
       setStatus("idle");
       setMessage(error);
@@ -100,12 +100,12 @@ export function WriteVlogForm() {
     setStatus("submitting");
     setMessage(null);
     try {
-      await submitVlogDraft(draft);
-      sessionStorage.setItem(VLOG_SAVED_NOTICE_KEY, "1");
+      await submitBlogDraft(draft);
+      sessionStorage.setItem(BLOG_SAVED_NOTICE_KEY, "1");
       router.push("/");
     } catch (submitError) {
       setStatus("idle");
-      setMessage(submitError instanceof Error ? submitError.message : "The vlog was not saved.");
+      setMessage(submitError instanceof Error ? submitError.message : "The blog was not saved.");
     }
   }
 
@@ -124,14 +124,14 @@ export function WriteVlogForm() {
             className={controlClass}
           />
         </Field>
-        <Field label="Contributor name" required hint="Shown at the end of the published vlog.">
+        <Field label="Contributor name" required hint="Shown at the end of the published blog.">
           <input
             required
             aria-required="true"
             name="developerName"
             value={fields.developerName}
             onChange={(event) => patch({ developerName: event.target.value })}
-            placeholder="Name that appears on the vlog"
+            placeholder="Name that appears on the blog"
             className={controlClass}
           />
         </Field>
@@ -176,7 +176,7 @@ export function WriteVlogForm() {
             value={fields.contentMarkdown}
             onChange={(event) => patch({ contentMarkdown: event.target.value })}
             rows={10}
-            placeholder="Write the vlog in Markdown."
+            placeholder="Write the blog in Markdown."
             className={`${controlClass} min-h-48 resize-y font-mono text-[13px] leading-relaxed`}
           />
         </Field>
@@ -227,17 +227,17 @@ export function WriteVlogForm() {
 
         <div className="glass-card space-y-4 p-4 sm:p-5">
           <p className="text-sm font-semibold text-foreground">Post options</p>
-          <Field label="Series" hint="Every vlog is saved in this DEV series.">
+          <Field label="Series" hint="Every blog is saved in this DEV series.">
             <input
               name="series"
-              value={VLOG_SERIES}
+              value={BLOG_SERIES}
               disabled
               className={`${controlClass} cursor-not-allowed opacity-70`}
             />
           </Field>
           <Field
             label="Canonical URL"
-            hint="The address search engines should treat as the original. Leave this blank when DEV is the first place the vlog is published. Paste an original address only if the same vlog already lives on this site or another blog."
+            hint="The address search engines should treat as the original. Leave this blank when DEV is the first place the blog is published. Paste an original address only if the same blog already lives on this site or another blog."
           >
             <input
               name="canonicalUrl"

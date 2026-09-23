@@ -14,8 +14,8 @@ https://nuvyntralabs.github.io/research/
 https://nuvyntralabs.github.io/pocs/
 https://nuvyntralabs.github.io/about/
 https://nuvyntralabs.github.io/contact/
-https://nuvyntralabs.github.io/vlogs/
-https://nuvyntralabs.github.io/vlogs/write/
+https://nuvyntralabs.github.io/blogs/
+https://nuvyntralabs.github.io/blogs/write/
 https://nuvyntralabs.github.io/research/assure-cars/
 https://nuvyntralabs.github.io/research/vehicle-inspection-kotlin/
 https://nuvyntralabs.github.io/research/online-conference/
