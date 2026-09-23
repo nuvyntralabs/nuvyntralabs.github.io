@@ -25,6 +25,7 @@ type DevArticle = {
   published_at: string | null;
   tag_list: string[] | string;
   reading_time_minutes: number;
+  collection_id?: number | null;
 };
 
 type LoadState =
@@ -51,17 +52,82 @@ async function findSeriesId(name: string): Promise<number | null> {
   return id ? Number(id) : null;
 }
 
-async function fetchSeriesPage(seriesId: number, page?: number): Promise<DevArticle[]> {
-  const url = new URL("https://dev.to/api/articles");
-  url.searchParams.set("collection_id", String(seriesId));
-  url.searchParams.set("per_page", "30");
-  // page=1 can return only the oldest article, and page=0 can return none.
-  if (page !== undefined) url.searchParams.set("page", String(page));
-  const response = await fetch(url, { cache: "no-store" });
-  if (!response.ok) throw new Error("DEV did not return published vlogs.");
-  const payload = (await response.json()) as DevArticle[];
-  if (!Array.isArray(payload)) throw new Error("DEV did not return published vlogs.");
-  return payload;
+async function fetchAuthorArticles(): Promise<DevArticle[]> {
+  const articles: DevArticle[] = [];
+  for (let page = 1; page <= 10; page += 1) {
+    const url = new URL("https://dev.to/api/articles");
+    url.searchParams.set("username", siteConfig.devtoUsername);
+    url.searchParams.set("per_page", "100");
+    url.searchParams.set("page", String(page));
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) break;
+    const payload = (await response.json()) as DevArticle[];
+    if (!Array.isArray(payload) || payload.length === 0) break;
+    articles.push(...payload);
+    if (payload.length < 100) break;
+  }
+  return articles;
+}
+
+async function fetchArticle(id: number): Promise<DevArticle | null> {
+  const response = await fetch(`https://dev.to/api/articles/${id}`, { cache: "no-store" });
+  if (!response.ok) return null;
+  const payload = (await response.json()) as DevArticle;
+  return payload && typeof payload.id === "number" ? payload : null;
+}
+
+function parseSeriesStories(html: string): PublishedVlog[] {
+  const document = new DOMParser().parseFromString(html, "text/html");
+  const vlogs: PublishedVlog[] = [];
+  const seen = new Set<number>();
+  for (const card of document.querySelectorAll("[data-feed-content-id]")) {
+    const id = Number(card.getAttribute("data-feed-content-id"));
+    if (!id || seen.has(id)) continue;
+    const titleLink = card.querySelector("h2 a") ?? card.querySelector("a.crayons-story__hidden-navigation-link");
+    const title = titleLink?.textContent?.replace(/\s+/g, " ").trim() ?? "";
+    const url = titleLink?.getAttribute("href") ?? "";
+    if (!title || !url) continue;
+    const tags = [...card.querySelectorAll(".crayons-story__tags a")].flatMap((anchor) => {
+      const tag = anchor.textContent?.replace(/\s+/g, "").replace(/^#/, "") ?? "";
+      return tag ? [tag] : [];
+    });
+    const readingLabel = card.querySelector(".crayons-story__save")?.textContent ?? "";
+    seen.add(id);
+    vlogs.push({
+      id,
+      title,
+      description: "",
+      url,
+      publishedAt: card.querySelector("time")?.getAttribute("datetime") ?? "",
+      tags,
+      readingTimeMinutes: Number(readingLabel.match(/(\d+)\s*min/i)?.[1] ?? 0),
+    });
+  }
+  return vlogs;
+}
+
+// The articles API list is edge-cached for about two days, so a collection query
+// keeps returning however many vlogs existed the first time that URL was cached.
+// The series page itself revalidates and includes posts published since then.
+async function fetchSeriesStories(seriesId: number): Promise<PublishedVlog[]> {
+  const stories: PublishedVlog[] = [];
+  const seen = new Set<number>();
+  for (let page = 1; page <= 10; page += 1) {
+    const url = new URL(`https://dev.to/${siteConfig.devtoUsername}/series/${seriesId}`);
+    if (page > 1) url.searchParams.set("page", String(page));
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) break;
+    const html = await response.text();
+    let added = 0;
+    for (const story of parseSeriesStories(html)) {
+      if (seen.has(story.id)) continue;
+      seen.add(story.id);
+      stories.push(story);
+      added += 1;
+    }
+    if (added === 0 || !html.includes(`page=${page + 1}`)) break;
+  }
+  return stories;
 }
 
 function toPublishedVlog(article: DevArticle): PublishedVlog | null {
@@ -83,29 +149,28 @@ function toPublishedVlog(article: DevArticle): PublishedVlog | null {
 async function loadPublishedVlogs(): Promise<PublishedVlog[]> {
   const seriesId = await findSeriesId(VLOG_SERIES);
   if (!seriesId) return [];
-  const vlogs: PublishedVlog[] = [];
-  const seen = new Set<number>();
-  const addPage = (payload: DevArticle[]) => {
-    for (const article of payload) {
-      if (seen.has(article.id)) continue;
-      const vlog = toPublishedVlog(article);
-      if (!vlog) continue;
-      seen.add(article.id);
-      vlogs.push(vlog);
-    }
-  };
 
-  const first = await fetchSeriesPage(seriesId);
-  addPage(first);
-  if (first.length === 30) {
-    for (let page = 2; page <= 10; page += 1) {
-      const payload = await fetchSeriesPage(seriesId, page);
-      if (payload.length === 0) break;
-      addPage(payload);
-      if (payload.length < 30) break;
-    }
+  const [authorArticles, seriesStories] = await Promise.all([
+    fetchAuthorArticles(),
+    fetchSeriesStories(seriesId),
+  ]);
+
+  const byId = new Map<number, PublishedVlog>();
+  for (const article of authorArticles) {
+    if (article.collection_id !== seriesId) continue;
+    const vlog = toPublishedVlog(article);
+    if (vlog) byId.set(vlog.id, vlog);
   }
-  return vlogs.sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
+
+  const missing = seriesStories.filter((story) => !byId.has(story.id));
+  const details = await Promise.all(missing.map((story) => fetchArticle(story.id)));
+  missing.forEach((story, index) => {
+    const article = details[index];
+    const vlog = article ? toPublishedVlog(article) : null;
+    byId.set(story.id, vlog ?? story);
+  });
+
+  return [...byId.values()].sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
 }
 
 function pageItems(current: number, count: number): Array<number | "gap"> {
