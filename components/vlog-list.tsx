@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { VLOG_SERIES } from "@/lib/devto-draft";
 import { siteConfig } from "@/lib/site";
+
+const PAGE_SIZE = 5;
 
 type PublishedVlog = {
   id: number;
@@ -49,11 +51,12 @@ async function findSeriesId(name: string): Promise<number | null> {
   return id ? Number(id) : null;
 }
 
-async function fetchSeriesPage(seriesId: number, page: number): Promise<DevArticle[]> {
+async function fetchSeriesPage(seriesId: number, page?: number): Promise<DevArticle[]> {
   const url = new URL("https://dev.to/api/articles");
   url.searchParams.set("collection_id", String(seriesId));
   url.searchParams.set("per_page", "30");
-  url.searchParams.set("page", String(page));
+  // page=1 can return only the oldest article, and page=0 can return none.
+  if (page !== undefined) url.searchParams.set("page", String(page));
   const response = await fetch(url, { cache: "no-store" });
   if (!response.ok) throw new Error("DEV did not return published vlogs.");
   const payload = (await response.json()) as DevArticle[];
@@ -82,26 +85,47 @@ async function loadPublishedVlogs(): Promise<PublishedVlog[]> {
   if (!seriesId) return [];
   const vlogs: PublishedVlog[] = [];
   const seen = new Set<number>();
-  for (let page = 1; page <= 10; page += 1) {
-    let payload = await fetchSeriesPage(seriesId, page);
-    if (page === 1 && payload.length === 0) payload = await fetchSeriesPage(seriesId, 0);
-    if (payload.length === 0) break;
-    let added = 0;
+  const addPage = (payload: DevArticle[]) => {
     for (const article of payload) {
       if (seen.has(article.id)) continue;
       const vlog = toPublishedVlog(article);
       if (!vlog) continue;
       seen.add(article.id);
       vlogs.push(vlog);
-      added += 1;
     }
-    if (payload.length < 30 || added === 0) break;
+  };
+
+  const first = await fetchSeriesPage(seriesId);
+  addPage(first);
+  if (first.length === 30) {
+    for (let page = 2; page <= 10; page += 1) {
+      const payload = await fetchSeriesPage(seriesId, page);
+      if (payload.length === 0) break;
+      addPage(payload);
+      if (payload.length < 30) break;
+    }
   }
-  return vlogs;
+  return vlogs.sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
+}
+
+function pageItems(current: number, count: number): Array<number | "gap"> {
+  if (count <= 7) return Array.from({ length: count }, (_, index) => index + 1);
+  const wanted = [1, count, current - 1, current, current + 1].filter((page) => page >= 1 && page <= count);
+  const pages = [...new Set(wanted)].sort((left, right) => left - right);
+  const items: Array<number | "gap"> = [];
+  for (const page of pages) {
+    const previous = items[items.length - 1];
+    if (typeof previous === "number" && page - previous > 1) items.push("gap");
+    items.push(page);
+  }
+  return items;
 }
 
 export function VlogList() {
   const [state, setState] = useState<LoadState>({ status: "loading" });
+  const [page, setPage] = useState(1);
+  const listRef = useRef<HTMLUListElement>(null);
+  const skipScroll = useRef(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -116,6 +140,14 @@ export function VlogList() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (skipScroll.current) {
+      skipScroll.current = false;
+      return;
+    }
+    listRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [page]);
 
   if (state.status === "loading") {
     return <p className="text-sm text-muted-foreground">Loading published vlogs…</p>;
@@ -133,13 +165,19 @@ export function VlogList() {
     return <p className="text-sm text-muted-foreground">No published vlogs in the {VLOG_SERIES} series yet.</p>;
   }
 
+  const pageCount = Math.ceil(state.vlogs.length / PAGE_SIZE);
+  const currentPage = Math.min(page, pageCount);
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const visible = state.vlogs.slice(start, start + PAGE_SIZE);
+  const pages = pageItems(currentPage, pageCount);
+
   return (
     <div>
       <p className="text-sm text-muted-foreground">
-        {state.vlogs.length} published {state.vlogs.length === 1 ? "vlog" : "vlogs"} in {VLOG_SERIES}
+        {state.vlogs.length} published {state.vlogs.length === 1 ? "vlog" : "vlogs"} in {VLOG_SERIES}, newest first
       </p>
-      <ul className="mt-8 grid gap-4">
-        {state.vlogs.map((vlog) => (
+      <ul ref={listRef} className="mt-8 grid scroll-mt-24 gap-4">
+        {visible.map((vlog) => (
           <li key={vlog.id}>
             <a
               href={vlog.url}
@@ -177,6 +215,50 @@ export function VlogList() {
           </li>
         ))}
       </ul>
+      {pageCount > 1 ? (
+        <nav aria-label="Vlog pages" className="mt-8 flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            className="focusable btn-secondary px-4 py-2 disabled:pointer-events-none disabled:opacity-40"
+            onClick={() => setPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+            Previous
+          </button>
+          {pages.map((item, index) =>
+            item === "gap" ? (
+              <span key={`gap-${index}`} className="px-1 text-sm text-muted-foreground" aria-hidden="true">
+                …
+              </span>
+            ) : (
+              <button
+                key={item}
+                type="button"
+                className={
+                  item === currentPage
+                    ? "focusable btn-primary min-w-10 px-3 py-2"
+                    : "focusable btn-secondary min-w-10 px-3 py-2"
+                }
+                aria-current={item === currentPage ? "page" : undefined}
+                aria-label={`Page ${item}`}
+                onClick={() => setPage(item)}
+              >
+                {item}
+              </button>
+            ),
+          )}
+          <button
+            type="button"
+            className="focusable btn-secondary px-4 py-2 disabled:pointer-events-none disabled:opacity-40"
+            onClick={() => setPage(currentPage + 1)}
+            disabled={currentPage === pageCount}
+          >
+            Next
+            <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </nav>
+      ) : null}
     </div>
   );
 }
