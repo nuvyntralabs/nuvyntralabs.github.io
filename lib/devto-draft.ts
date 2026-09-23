@@ -1,5 +1,3 @@
-import { DEVTO_API_KEY } from "@/lib/devto-api-key";
-
 /** Fields that match DEV’s article editor and `POST /api/articles`. */
 
 export const DEVTO_MAX_TAGS = 4;
@@ -7,12 +5,12 @@ export const DEVTO_MAX_TAG_LENGTH = 30;
 export const DEVTO_MAX_TITLE = 128;
 export const VLOG_SERIES = "NuvyntraLabs";
 
-export const DEVTO_ARTICLES_URL = "https://dev.to/api/articles";
-export const DEVTO_ME_URL = "https://dev.to/api/users/me";
-export const DEVTO_DASHBOARD_URL = "https://dev.to/dashboard";
-export const DEVTO_SESSION_KEY = "nuvyntra-devto-draft";
 export const VLOG_SAVED_NOTICE_KEY = "nuvyntra-vlog-saved";
-export const LOCAL_DRAFT_URL = "http://127.0.0.1:8787/draft";
+
+const DEFAULT_VLOG_DRAFT_URL = "https://nuvyntra-vlog-draft.niladri-1437.workers.dev/draft";
+
+/** Cloudflare Worker that saves the unpublished DEV draft. */
+export const VLOG_DRAFT_URL = process.env.NEXT_PUBLIC_VLOG_DRAFT_URL?.trim() || DEFAULT_VLOG_DRAFT_URL;
 
 export type VlogDraftFields = {
   title: string;
@@ -34,15 +32,6 @@ export const emptyVlogDraft: VlogDraftFields = {
   coverImageURL: "",
   tags: [],
   canonicalUrl: "",
-};
-
-export type DevtoProfile = {
-  username: string;
-  name: string;
-};
-
-export type DevtoSession = DevtoProfile & {
-  apiKey: string;
 };
 
 export type SavedVlog = {
@@ -165,49 +154,15 @@ async function readDevto<T>(response: Response): Promise<T> {
   return payload;
 }
 
-export async function connectDevto(apiKey: string): Promise<DevtoProfile> {
-  const trimmed = apiKey.trim();
-  if (!trimmed) throw new Error("Add a DEV API key.");
-
-  const response = await fetch(DEVTO_ME_URL, {
+async function postDraft(body: string): Promise<SavedVlog> {
+  const response = await fetch(VLOG_DRAFT_URL, {
+    method: "POST",
     headers: {
-      Accept: "application/vnd.forem.api-v1+json",
-      "api-key": trimmed,
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
+    body,
   });
-  const profile = await readDevto<{ username?: string; name?: string }>(response);
-  if (!profile.username) {
-    throw new Error("That API key was not accepted. Generate a new one in DEV extensions settings.");
-  }
-  return { username: profile.username, name: profile.name?.trim() || profile.username };
-}
-
-export function readDevtoSession(): DevtoSession | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = sessionStorage.getItem(DEVTO_SESSION_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as DevtoSession;
-    if (!parsed.apiKey || !parsed.username) return null;
-    return parsed;
-  } catch {
-    return null;
-  }
-}
-
-export function writeDevtoSession(session: DevtoSession | null) {
-  if (typeof window === "undefined") return;
-  if (session) sessionStorage.setItem(DEVTO_SESSION_KEY, JSON.stringify(session));
-  else sessionStorage.removeItem(DEVTO_SESSION_KEY);
-}
-
-async function postDraft(url: string, body: string, apiKey?: string): Promise<SavedVlog> {
-  const headers: Record<string, string> = {
-    Accept: apiKey ? "application/vnd.forem.api-v1+json" : "application/json",
-    "Content-Type": "application/json",
-  };
-  if (apiKey) headers["api-key"] = apiKey;
-  const response = await fetch(url, { method: "POST", headers, body });
   const payload = await readDevto<DevtoErrorBody>(response);
   return {
     id: payload.id,
@@ -219,18 +174,12 @@ async function postDraft(url: string, body: string, apiKey?: string): Promise<Sa
 export async function submitVlogDraft(fields: VlogDraftFields): Promise<SavedVlog> {
   const error = validateVlogDraft(fields);
   if (error) throw new Error(error);
-  const body = JSON.stringify(buildArticleBody(fields));
-  const apiKey = DEVTO_API_KEY.trim();
-  if (!apiKey) throw new Error("Add the DEV API key in lib/devto-api-key.ts.");
   try {
-    return await postDraft(DEVTO_ARTICLES_URL, body, apiKey);
-  } catch (directError) {
-    if (!(directError instanceof TypeError)) throw directError;
-    try {
-      return await postDraft(LOCAL_DRAFT_URL, body);
-    } catch (proxyError) {
-      if (!(proxyError instanceof TypeError)) throw proxyError;
-      throw new Error("DEV could not be reached from the browser.");
+    return await postDraft(JSON.stringify(buildArticleBody(fields)));
+  } catch (submitError) {
+    if (submitError instanceof TypeError) {
+      throw new Error("The draft service could not be reached.");
     }
+    throw submitError;
   }
 }

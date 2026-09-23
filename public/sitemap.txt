@@ -8,10 +8,14 @@ https://nuvyntralabs.github.io/getting-started/
 https://nuvyntralabs.github.io/getting-started/github-packages/
 https://nuvyntralabs.github.io/getting-started/hardening/
 https://nuvyntralabs.github.io/releases/
+https://nuvyntralabs.github.io/stats/
+https://nuvyntralabs.github.io/repos/
 https://nuvyntralabs.github.io/research/
 https://nuvyntralabs.github.io/pocs/
 https://nuvyntralabs.github.io/about/
 https://nuvyntralabs.github.io/contact/
+https://nuvyntralabs.github.io/vlogs/
+https://nuvyntralabs.github.io/vlogs/write/
 https://nuvyntralabs.github.io/research/assure-cars/
 https://nuvyntralabs.github.io/research/vehicle-inspection-kotlin/
 https://nuvyntralabs.github.io/research/online-conference/
@@ -283,6 +287,7 @@ https://nuvyntralabs.github.io/uikit/docs/nvchecklist/
 https://nuvyntralabs.github.io/uikit/docs/nvcheckoutview/
 https://nuvyntralabs.github.io/uikit/docs/nvchip/
 https://nuvyntralabs.github.io/uikit/docs/nvchipgroup/
+https://nuvyntralabs.github.io/uikit/docs/nvchrome/
 https://nuvyntralabs.github.io/uikit/docs/nvcircularprogressbar/
 https://nuvyntralabs.github.io/uikit/docs/nvcircularslider/
 https://nuvyntralabs.github.io/uikit/docs/nvcoachmark/
@@ -524,6 +529,7 @@ https://nuvyntralabs.github.io/toolkits/nuvyn/docs/agentic-coding/
 https://nuvyntralabs.github.io/toolkits/nuvyn/docs/implementation/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/create-app/
+https://nuvyntralabs.github.io/toolkits/nuvyn/guide/adopt/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/refresh/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/workflow/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/ecosystem/

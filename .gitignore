@@ -5,5 +5,7 @@ out
 *.log
 .env
 .env.local
+worker/.dev.vars
+.wrangler
 *.tsbuildinfo
 public/data/open-repos.json
