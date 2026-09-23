@@ -251,6 +251,22 @@ export function WriteVlogForm() {
           </Field>
         </div>
 
+        <section className="glass-card p-6" aria-labelledby="publishing-tips">
+          <h2 id="publishing-tips" className="text-base font-semibold text-foreground">
+            Publishing Tips
+          </h2>
+          <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-relaxed text-muted-foreground">
+            <li>
+              Ensure your post has a cover image set to make the most of the home feed and social media platforms.
+            </li>
+            <li>Share your post on social media platforms or with your co-workers or local communities.</li>
+            <li>
+              Ask people to leave questions for you in the comments. It&apos;s a great way to spark additional
+              discussion describing personally why you wrote it or why people might find it helpful.
+            </li>
+          </ul>
+        </section>
+
         <div className="glass-card space-y-4 p-6">
           <label className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
             Website
