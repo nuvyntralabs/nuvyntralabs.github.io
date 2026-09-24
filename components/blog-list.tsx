@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BLOG_SERIES } from "@/lib/devto-draft";
 import { siteConfig } from "@/lib/site";
 
@@ -15,6 +15,7 @@ type PublishedBlog = {
   publishedAt: string;
   tags: string[];
   readingTimeMinutes: number;
+  coverImage: string;
 };
 
 type DevArticle = {
@@ -25,6 +26,8 @@ type DevArticle = {
   published_at: string | null;
   tag_list: string[] | string;
   reading_time_minutes: number;
+  cover_image: string | null;
+  social_image?: string | null;
   collection_id?: number | null;
 };
 
@@ -92,6 +95,7 @@ function parseSeriesStories(html: string): PublishedBlog[] {
       return tag ? [tag] : [];
     });
     const readingLabel = card.querySelector(".crayons-story__save")?.textContent ?? "";
+    const cover = card.querySelector("img")?.getAttribute("src") ?? "";
     seen.add(id);
     blogs.push({
       id,
@@ -101,6 +105,7 @@ function parseSeriesStories(html: string): PublishedBlog[] {
       publishedAt: card.querySelector("time")?.getAttribute("datetime") ?? "",
       tags,
       readingTimeMinutes: Number(readingLabel.match(/(\d+)\s*min/i)?.[1] ?? 0),
+      coverImage: cover.startsWith("http") ? cover : "",
     });
   }
   return blogs;
@@ -143,6 +148,7 @@ function toPublishedBlog(article: DevArticle): PublishedBlog | null {
     publishedAt: article.published_at,
     tags,
     readingTimeMinutes: article.reading_time_minutes,
+    coverImage: article.cover_image || article.social_image || "",
   };
 }
 
@@ -241,41 +247,34 @@ export function BlogList() {
       <p className="text-sm text-muted-foreground">
         {state.blogs.length} published {state.blogs.length === 1 ? "blog" : "blogs"} in {BLOG_SERIES}, newest first
       </p>
-      <ul ref={listRef} className="mt-4 grid scroll-mt-24 gap-3">
+      <ul ref={listRef} className="mt-6 grid scroll-mt-24 grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((blog) => (
           <li key={blog.id}>
             <a
               href={blog.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="focusable glass-card group block p-4 transition hover:-translate-y-0.5 sm:p-5"
+              className="focusable group block"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender-700 dark:text-lavender-300">
-                {formatPublishedAt(blog.publishedAt)}
-                {blog.readingTimeMinutes ? ` · ${blog.readingTimeMinutes} min read` : ""}
-              </p>
-              <h2 className="mt-2 flex items-start justify-between gap-3 font-display text-xl font-bold tracking-tight text-foreground">
-                {blog.title}
-                <ArrowUpRight
-                  className="mt-1 h-5 w-5 shrink-0 text-lavender-600 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  aria-hidden="true"
+              <div className="relative aspect-[1000/420] overflow-hidden rounded-xl bg-lavender-950">
+                <img
+                  src={blog.coverImage || "/brand/banner.png"}
+                  alt=""
+                  className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
                 />
+                {blog.readingTimeMinutes ? (
+                  <span className="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-[11px] font-semibold text-white">
+                    {blog.readingTimeMinutes} min
+                  </span>
+                ) : null}
+              </div>
+              <h2 className="mt-3 line-clamp-2 font-display text-base font-semibold leading-snug tracking-tight text-foreground group-hover:text-lavender-700 dark:group-hover:text-lavender-200">
+                {blog.title}
               </h2>
-              {blog.description ? (
-                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">{blog.description}</p>
-              ) : null}
-              {blog.tags.length > 0 ? (
-                <ul className="mt-3 flex flex-wrap gap-2">
-                  {blog.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="rounded-full border border-lavender-200 bg-lavender-50 px-3 py-1 text-xs font-semibold text-lavender-800 dark:border-white/15 dark:bg-white/10 dark:text-lavender-100"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
+              <p className="mt-1 text-sm text-muted-foreground">
+                {formatPublishedAt(blog.publishedAt)}
+                {blog.tags[0] ? ` · ${blog.tags[0]}` : ""}
+              </p>
             </a>
           </li>
         ))}

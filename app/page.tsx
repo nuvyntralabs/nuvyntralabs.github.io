@@ -11,7 +11,6 @@ import { proofOfConcepts, researchProjects } from "@/content/works";
 import { PackageCard, PocCard, ResearchCard, ToolkitCard } from "@/components/work-card";
 import { SectionIntro } from "@/components/section-intro";
 import { CommunityBand } from "@/components/community-band";
-import { BlogSavedNotice } from "@/components/blog-saved-notice";
 import { CtaBand } from "@/components/cta-band";
 import { TwoStarts } from "@/components/two-starts";
 
@@ -45,7 +44,6 @@ const pillars = [
 export default function HomePage() {
   return (
     <main>
-      <BlogSavedNotice />
       <section className="relative overflow-hidden bg-gradient-hero">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
         <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 animate-pulse-soft rounded-full bg-lavender-400/25 blur-3xl" />

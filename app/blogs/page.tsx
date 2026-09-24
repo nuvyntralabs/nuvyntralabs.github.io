@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
 import { BlogList } from "@/components/blog-list";
+import { BlogSavedNotice } from "@/components/blog-saved-notice";
 
 export const metadata: Metadata = {
   title: "Blogs",
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function BlogsPage() {
   return (
     <main>
+      <BlogSavedNotice />
       <PageHero
         eyebrow="Blogs"
         title="Published blogs"

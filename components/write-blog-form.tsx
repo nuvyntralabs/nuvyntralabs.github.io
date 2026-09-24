@@ -102,7 +102,7 @@ export function WriteBlogForm() {
     try {
       await submitBlogDraft(draft);
       sessionStorage.setItem(BLOG_SAVED_NOTICE_KEY, "1");
-      router.push("/");
+      router.push("/blogs/");
     } catch (submitError) {
       setStatus("idle");
       setMessage(submitError instanceof Error ? submitError.message : "The blog was not saved.");
