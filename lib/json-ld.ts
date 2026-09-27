@@ -5,6 +5,8 @@ import { uiKit, uiKitHref } from "@/content/uikit";
 import { uiKitDocsBase } from "@/content/uikit-guide";
 import type { PackageDoc } from "@/content/packages";
 import { toolkitPath, type ToolkitDoc } from "@/content/toolkits";
+import { apiLens, apiLensHref } from "@/content/apilens";
+import { dotnetHref, dotnetTrack } from "@/content/dotnet";
 import { nuvyn, nuvynHref } from "@/content/nuvyn";
 import { workPath, type WorkItem } from "@/content/works";
 import { nugetStatsPath } from "@/lib/nuget-stats";
@@ -418,6 +420,92 @@ export function nuvynGuideJsonLd(
       { name: "Home", path: "/" },
       { name: nuvyn.name, path: nuvynHref },
       { name: label, path: articlePath },
+    ]),
+  ];
+}
+
+export function dotnetTrackJsonLd() {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: dotnetTrack.title,
+      description: dotnetTrack.description,
+      url: `${siteConfig.url}${dotnetHref}`,
+      isPartOf: `${siteConfig.url}/`,
+      about: {
+        "@type": "SoftwareSourceCode",
+        name: "NETEssentials",
+        codeRepository: dotnetTrack.hub,
+      },
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: dotnetTrack.name, path: dotnetHref },
+    ]),
+  ];
+}
+
+export function apiLensJsonLd() {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": ["SoftwareApplication", "SoftwareSourceCode"],
+      name: apiLens.name,
+      alternateName: apiLens.packageId,
+      description: apiLens.description,
+      abstract: apiLens.abstract,
+      url: `${siteConfig.url}${apiLensHref}`,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Windows, macOS, Linux",
+      programmingLanguage: "C#",
+      codeRepository: apiLens.github,
+      softwareVersion: apiLens.version,
+      license: "https://opensource.org/licenses/MIT",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      keywords: apiLens.tags.join(", "),
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: dotnetTrack.name, path: dotnetHref },
+      { name: apiLens.name, path: apiLensHref },
+    ]),
+  ];
+}
+
+export function apiLensGuideJsonLd(title: string, description: string, articlePath: string) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: title,
+      description,
+      url: `${siteConfig.url}${articlePath}`,
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      about: {
+        "@type": "SoftwareApplication",
+        name: apiLens.name,
+        url: `${siteConfig.url}${apiLensHref}`,
+      },
+    },
+    breadcrumbList([
+      { name: "Home", path: "/" },
+      { name: dotnetTrack.name, path: dotnetHref },
+      { name: apiLens.name, path: apiLensHref },
+      { name: title, path: articlePath },
     ]),
   ];
 }

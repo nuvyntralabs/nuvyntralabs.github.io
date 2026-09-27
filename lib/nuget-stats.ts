@@ -1,3 +1,4 @@
+import { apiLens, apiLensHref } from "@/content/apilens";
 import { desktopMvvmFamilies } from "@/content/desktop-mvvmexpress";
 import { packageFamily } from "@/content/mvvmexpress";
 import { nuvexaDb } from "@/content/nuvexadb";
@@ -7,6 +8,8 @@ import { uiKit, uiKitHref } from "@/content/uikit";
 import { wpfPackageFamily } from "@/content/wpf-mvvmexpress";
 
 export const nugetStatsPath = "/stats/";
+export const dotnetNugetGroup = ".NET Essentials";
+export const dotnetNugetStatsAnchor = "nuget-stats";
 
 export const nugetSearchSources = {
   primary: "https://azuresearch-usnc.nuget.org/query",
@@ -161,6 +164,10 @@ export function listedNugetPackages(): TrackedNugetPackage[] {
   add(uiKit.packageId, uiKitHref, "UI kit");
   add(nuvexaDb.packageId, "/nuvexadb/", "Database");
 
+  for (const item of apiLens.packages) {
+    add(item.id, apiLensHref, dotnetNugetGroup, item.id);
+  }
+
   return [...byId.values()].sort((left, right) => left.id.localeCompare(right.id));
 }
 
@@ -173,6 +180,7 @@ export async function loadNugetStats(options: {
   onPackage?: (pkg: NugetPackageStats) => void;
   onDatesProgress?: (done: number, total: number) => void;
   signal?: AbortSignal;
+  packageIds?: readonly string[];
 }): Promise<void> {
   const catalog = catalogNugetMap();
   const hits = new Map<string, SearchHit>();
@@ -185,6 +193,24 @@ export async function loadNugetStats(options: {
         .sort((left, right) => left.id.localeCompare(right.id)),
     );
   };
+
+  const scopedIds = options.packageIds?.map((id) => id.trim()).filter(Boolean);
+  if (scopedIds?.length) {
+    for (const id of scopedIds) {
+      throwIfAborted(options.signal);
+      const hit = await queryExactPackage(id, options.signal);
+      if (hit?.id) {
+        hits.set(hit.id.toLowerCase(), hit);
+        publish();
+      }
+    }
+    if (hits.size === 0) publish();
+    const listed = [...hits.values()]
+      .map((hit) => toPackageStats(hit, catalog))
+      .sort((left, right) => left.id.localeCompare(right.id));
+    await hydratePublishedDates(listed, options);
+    return;
+  }
 
   for (const query of ownerQueries) {
     throwIfAborted(options.signal);
@@ -259,6 +285,7 @@ function inferHref(packageId: string): string {
   if (packageId.startsWith("Plugin.WinUI.MVVMExpress")) return "/packages/plugin-winui-mvvmexpress/";
   if (packageId.startsWith("NuvyntraLabs.UIKit")) return uiKitHref;
   if (packageId.startsWith("Nuventra.NuvexaDB")) return "/nuvexadb/";
+  if (packageId.startsWith("NuvyntraLabs.NET.ApiLens")) return "/dotnet/apilens/";
   if (packageId.includes("Nuvyn")) return "/toolkits/nuvyn/";
   if (packageId.includes("MauiDev")) return "/toolkits/maui-dev/";
   if (packageId.includes("Pulse")) return "/toolkits/maui-pulse/";
@@ -274,6 +301,7 @@ function inferGroup(packageId: string): string {
   if (packageId.includes("MVVMExpress")) return "Application framework";
   if (packageId.includes("UIKit")) return "UI kit";
   if (packageId.includes("NuvexaDB")) return "Database";
+  if (packageId.startsWith("NuvyntraLabs.NET.")) return dotnetNugetGroup;
   if (packageId.includes("Cli") || packageId.includes("Pulse") || packageId.includes("MauiDev") || packageId.includes("Nuvyn")) {
     return "Toolkits";
   }

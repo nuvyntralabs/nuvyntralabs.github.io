@@ -19,7 +19,17 @@ import { cn } from "@/lib/utils";
 type SortId = "name" | "downloads" | "version";
 type Channel = "released" | "all";
 
-export function NugetStats() {
+type NugetStatsProps = {
+  packageIds?: readonly string[];
+  heading?: string;
+  description?: React.ReactNode;
+};
+
+export function NugetStats({
+  packageIds,
+  heading = "Published packages",
+  description,
+}: NugetStatsProps = {}) {
   const [stats, setStats] = React.useState<NugetPackageStats[]>([]);
   const [loaded, setLoaded] = React.useState(0);
   const [expected, setExpected] = React.useState(0);
@@ -48,6 +58,7 @@ export function NugetStats() {
     try {
       await loadNugetStats({
         signal: controller.signal,
+        packageIds,
         onPackages: (next) => {
           setStats(next);
           setStatus("ready");
@@ -69,7 +80,7 @@ export function NugetStats() {
       setStatus((current) => (current === "ready" ? current : "error"));
       setDatesStatus("idle");
     }
-  }, []);
+  }, [packageIds]);
 
   React.useEffect(() => {
     void load();
@@ -113,21 +124,23 @@ export function NugetStats() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="eyebrow">nuget.org published packages</p>
-          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground">
-            Published packages
-          </h2>
+          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground">{heading}</h2>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            The same released IDs as the nuget.org owner dashboard for{" "}
-            <a
-              href={nugetSearchSources.profile}
-              className="text-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {nugetOwnerId}
-            </a>
-            . Totals, listed versions, and each version&apos;s nuget.org release date are fetched
-            live. Expand a row for version-wise downloads.
+            {description ?? (
+              <>
+                The same released IDs as the nuget.org owner dashboard for{" "}
+                <a
+                  href={nugetSearchSources.profile}
+                  className="text-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {nugetOwnerId}
+                </a>
+                . Totals, listed versions, and each version&apos;s nuget.org release date are fetched
+                live. Expand a row for version-wise downloads.
+              </>
+            )}
           </p>
         </div>
         <button

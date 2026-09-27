@@ -1608,4 +1608,28 @@
   <url>
     <loc>https://nuvyntralabs.github.io/toolkits/nuvyn/guide/troubleshooting/</loc>
   </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/dotnet/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/dotnet/apilens/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/dotnet/apilens/docs/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/dotnet/apilens/docs/timeline/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/dotnet/apilens/docs/capture/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/dotnet/apilens/docs/dashboard/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/dotnet/apilens/docs/packages/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/dotnet/apilens/docs/limits/</loc>
+  </url>
 </urlset>

@@ -4,6 +4,7 @@ import { allDesktopGuideHrefs } from "../content/desktop-mvvmexpress";
 import { allGuideHrefs } from "../content/mvvmexpress-guide";
 import { allNuvexaHrefs } from "../content/nuvexadb-guide";
 import { allUiKitHrefs } from "../content/uikit-guide";
+import { allDotnetHrefs } from "../content/apilens-guide";
 import { allNuvynHrefs } from "../content/nuvyn-guide";
 import { allWpfGuideHrefs } from "../content/wpf-mvvmexpress-guide";
 import { packages } from "../content/packages";
@@ -48,6 +49,7 @@ export function sitemapUrls(): string[] {
     ...allNuvexaHrefs(),
     ...allUiKitHrefs(),
     ...allNuvynHrefs(),
+    ...allDotnetHrefs(),
   ];
 
   return [...new Set(paths)].map((path) =>

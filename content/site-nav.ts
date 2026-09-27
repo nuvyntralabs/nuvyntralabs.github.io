@@ -63,6 +63,7 @@ export const workCatalog: NavItem[] = [
   { href: "/packages/", label: "All products", blurb: "Component library — focused NuGet catalog" },
   { href: "/toolkits/", label: "Toolkits", blurb: "Whole ecosystem — Nuvyn, MauiDev, NuvLoc, and Pulse" },
   { href: "/getting-started/", label: "Getting started", blurb: "Component library or whole ecosystem" },
+  { href: "/dotnet/", label: ".NET libraries", blurb: "Server packages — ApiLens for ASP.NET Core" },
 ];
 
 export const labLinks: NavItem[] = [

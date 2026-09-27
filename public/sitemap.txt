@@ -534,3 +534,11 @@ https://nuvyntralabs.github.io/toolkits/nuvyn/guide/refresh/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/workflow/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/ecosystem/
 https://nuvyntralabs.github.io/toolkits/nuvyn/guide/troubleshooting/
+https://nuvyntralabs.github.io/dotnet/
+https://nuvyntralabs.github.io/dotnet/apilens/
+https://nuvyntralabs.github.io/dotnet/apilens/docs/
+https://nuvyntralabs.github.io/dotnet/apilens/docs/timeline/
+https://nuvyntralabs.github.io/dotnet/apilens/docs/capture/
+https://nuvyntralabs.github.io/dotnet/apilens/docs/dashboard/
+https://nuvyntralabs.github.io/dotnet/apilens/docs/packages/
+https://nuvyntralabs.github.io/dotnet/apilens/docs/limits/

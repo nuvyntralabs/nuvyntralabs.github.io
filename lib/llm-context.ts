@@ -6,6 +6,8 @@ import { uiKit, uiKitHref } from "@/content/uikit";
 import { uiKitDocsBase } from "@/content/uikit-guide";
 import { packages } from "@/content/packages";
 import { toolkitPath, toolkits } from "@/content/toolkits";
+import { apiLens, apiLensDocsBase, apiLensHref } from "@/content/apilens";
+import { dotnetHref, dotnetTrack } from "@/content/dotnet";
 import { nuvyn, nuvynDocsBase, nuvynGuideBase, nuvynHref } from "@/content/nuvyn";
 import { proofOfConcepts, researchProjects, workPath } from "@/content/works";
 import { githubPackagesFeed, githubPackagesSetupPath, packageGithubPackagesUrl } from "@/lib/github-packages";
@@ -64,6 +66,7 @@ The user chooses. Neither path is a fallback.
 
 - Component library: one NuGet (NuvyntraLabs.UIKit, any Plugin.Maui.*, MVVMExpress, or Nuventra.NuvexaDB) in an existing host. Catalog: ${siteConfig.url}/packages/
 - Whole ecosystem: nuvyn init for a new MAUI app on MVVMExpress + UIKit + the smallest plugin set. Existing MAUI apps: nuvyn adopt attaches the slash chain without rewriting the host. nuvyn update refreshes skills only. Nuvyn: ${siteConfig.url}${nuvynHref}
+- .NET libraries: server packages in NETEssentials. First product is ApiLens (why an ASP.NET Core request was slow or failed). Catalog: ${siteConfig.url}${dotnetHref}
 
 ## Development ecosystem
 
@@ -111,6 +114,25 @@ Encryption: ${siteConfig.url}${nuvexaDocsBase}/encryption/
 NQL: ${siteConfig.url}${nuvexaDocsBase}/query/
 Language bindings: ${siteConfig.url}${nuvexaDocsBase}/bindings/
 Data Studio: ${siteConfig.url}${nuvexaDocsBase}/explorer/
+
+## .NET libraries
+
+${siteConfig.url}${dotnetHref}
+${dotnetTrack.description}
+Hub: ${dotnetTrack.hub}
+
+### ApiLens
+
+${siteConfig.url}${apiLensHref}
+${apiLens.packageId} ${apiLens.version}. ${apiLens.description}
+Dashboard: ${apiLens.dashboardPath} in Development only. SQL parameter values, request bodies, response bodies, and HTTP query strings are never stored. Not endjin/ApiLens. Not an OpenTelemetry exporter. Target ${apiLens.target}. ${apiLens.version} is on nuget.org. Publish is pipeline-only.
+GitHub: ${apiLens.github}
+Documentation: ${siteConfig.url}${apiLensDocsBase}/
+Timeline: ${siteConfig.url}${apiLensDocsBase}/timeline/
+Capture: ${siteConfig.url}${apiLensDocsBase}/capture/
+Dashboard docs: ${siteConfig.url}${apiLensDocsBase}/dashboard/
+Packages: ${siteConfig.url}${apiLensDocsBase}/packages/
+Limits: ${siteConfig.url}${apiLensDocsBase}/limits/
 
 ## UIKit(MAUI)
 
@@ -323,6 +345,28 @@ Integration: ${siteConfig.url}${nuvexaIntegrationHref}
 
 Capabilities:
 ${nuvexaDb.capabilities.map((line) => `- ${line}`).join("\n")}
+
+## .NET libraries
+
+${dotnetTrack.name} — ${dotnetTrack.subtitle}
+${dotnetTrack.description}
+Page: ${siteConfig.url}${dotnetHref}
+Hub: ${dotnetTrack.hub}
+
+### ApiLens
+
+${apiLens.name} — ${apiLens.subtitle}
+${apiLens.abstract}
+
+Page: ${siteConfig.url}${apiLensHref}
+GitHub: ${apiLens.github}
+Version: ${apiLens.version}
+Target: ${apiLens.target}
+nuget.org: ${apiLens.version} is published. Publishing is pipeline-only.
+Documentation: ${siteConfig.url}${apiLensDocsBase}/
+
+Packages:
+${apiLens.packages.map((item) => `- ${item.id}: ${item.role}`).join("\n")}
 
 ## Packages
 

@@ -5,6 +5,7 @@ import { whitepaperHref, whitepaperPillars } from "@/content/ecosystem-whitepape
 import { nuvexaDb } from "@/content/nuvexadb";
 import { uiKit } from "@/content/uikit";
 import { nugetPackages, packages } from "@/content/packages";
+import { apiLens, apiLensDocsBase, apiLensHref } from "@/content/apilens";
 import { nuvyn, nuvynDocsBase, nuvynGuideBase, nuvynHref } from "@/content/nuvyn";
 import { homeToolkits } from "@/content/toolkits";
 import { proofOfConcepts, researchProjects } from "@/content/works";
@@ -279,6 +280,36 @@ export default function HomePage() {
             </p>
           </Link>
         </div>
+        </div>
+      </section>
+
+      <section className="container py-16 sm:py-20">
+        <SectionIntro
+          eyebrow=".NET libraries"
+          title={apiLens.name}
+          description={apiLens.subtitle}
+          href={`${apiLensDocsBase}/`}
+          cta="ApiLens docs"
+        />
+        <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+          <Link href={apiLensHref} className="glass-card focusable group p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+              {apiLens.packageId} · {apiLens.version}
+            </p>
+            <h2 className="mt-3 font-display text-2xl font-semibold text-foreground">One request, explained</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{apiLens.abstract}</p>
+            <p className="mt-4 text-sm font-semibold text-lavender-800 dark:text-lavender-200">
+              Development dashboard at {apiLens.dashboardPath}
+            </p>
+          </Link>
+          <Link href={`${apiLensDocsBase}/`} className="glass-card focusable p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">Getting started</p>
+            <h2 className="mt-3 font-display text-xl font-semibold text-foreground">ASP.NET Core, EF Core, HttpClient</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Register AddApiLens, the EF Core probe, and the HTTP probe. The timeline attributes overlapping
+              work once. SQL parameter values and request bodies are never stored.
+            </p>
+          </Link>
         </div>
       </section>
 

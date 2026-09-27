@@ -18,6 +18,7 @@ function sidebarScope(groups: GuideNavGroup[]): string {
   if (href.startsWith("/uikit/")) return "uikit";
   if (href.startsWith("/nuvexadb/")) return "nuvexadb";
   if (href.startsWith("/toolkits/nuvyn/")) return "nuvyn";
+  if (href.startsWith("/dotnet/apilens")) return "apilens";
   const pack = href.match(/^\/packages\/([^/]+)/);
   return pack ? `pkg:${pack[1]}` : groups[0]?.id ?? "docs";
 }

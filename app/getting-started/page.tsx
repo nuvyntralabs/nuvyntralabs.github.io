@@ -67,6 +67,24 @@ export default function GettingStartedPage() {
             tab.
           </p>
         </aside>
+        <aside className="callout mb-12 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">Looking for server diagnostics?</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            ApiLens is the first product on the{" "}
+            <Link href="/dotnet/" className="text-link">
+              .NET libraries
+            </Link>{" "}
+            track. It explains why an ASP.NET Core request was slow or failed. Start at the{" "}
+            <Link href="/dotnet/apilens/" className="text-link">
+              ApiLens overview
+            </Link>{" "}
+            or the{" "}
+            <Link href="/dotnet/apilens/docs/" className="text-link">
+              documentation
+            </Link>
+            .
+          </p>
+        </aside>
         <section>
           <h2 className="font-display text-2xl font-semibold">2. Create or open a MAUI app</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
