@@ -32,6 +32,12 @@ const channels = [
     label: "linkedin.com/groups/40625003",
   },
   {
+    title: "X",
+    body: "Lab updates and community posts from the Nuvyntra Labs account on X.",
+    href: siteConfig.x,
+    label: "x.com/nuvyntralabs",
+  },
+  {
     title: "GitHub organization",
     body: "Issues, repositories, and public workstreams for research, POCs, and packages.",
     href: siteConfig.githubOrg,

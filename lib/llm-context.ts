@@ -46,6 +46,7 @@ Founder: ${siteConfig.author} — ${siteConfig.authorUrl}
 Organization: ${siteConfig.githubOrg}
 Discord: ${siteConfig.discord}
 LinkedIn: ${siteConfig.linkedin}
+X: ${siteConfig.x}
 GitHub: ${siteConfig.authorGithub}
 Sponsors: ${siteConfig.githubSponsors}
 Buy Me a Coffee: ${siteConfig.buyMeACoffee}
@@ -261,6 +262,7 @@ Founder: ${siteConfig.author} — ${siteConfig.authorUrl}
 Organization: ${siteConfig.githubOrg}
 Discord: ${siteConfig.discord}
 LinkedIn: ${siteConfig.linkedin}
+X: ${siteConfig.x}
 
 ## Lumina Playground
 

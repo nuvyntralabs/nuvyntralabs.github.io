@@ -1,5 +1,5 @@
 import { ArrowUpRight, Github } from "lucide-react";
-import { DiscordIcon, LinkedInIcon } from "@/components/brand-icons";
+import { DiscordIcon, LinkedInIcon, XIcon } from "@/components/brand-icons";
 import { siteConfig } from "@/lib/site";
 
 const channels = [
@@ -18,6 +18,14 @@ const channels = [
     cta: "Join LinkedIn",
     iconWrap: "bg-[#0A66C2]/10 text-[#0A66C2]",
     Icon: LinkedInIcon,
+  },
+  {
+    href: siteConfig.x,
+    title: "X",
+    body: "Follow lab updates and community posts from the Nuvyntra Labs account on X.",
+    cta: "Follow on X",
+    iconWrap: "bg-ink/10 text-ink dark:bg-white/10 dark:text-white",
+    Icon: XIcon,
   },
   {
     href: siteConfig.githubOrg,

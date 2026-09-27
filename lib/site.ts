@@ -8,6 +8,7 @@ export const siteConfig = {
   githubOrg: "https://github.com/nuvyntralabs",
   discord: "https://discord.gg/2rg8s7P8xE",
   linkedin: "https://www.linkedin.com/groups/40625003/",
+  x: "https://x.com/nuvyntralabs",
   devtoUsername: "nuvyantralabs_ccee",
   blogs: "https://dev.to/nuvyantralabs_ccee",
   githubPackagesFeed: "https://nuget.pkg.github.com/nuvyntralabs/index.json",

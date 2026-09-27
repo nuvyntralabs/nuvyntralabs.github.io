@@ -43,6 +43,7 @@ export function siteGraph() {
           siteConfig.githubOrg,
           siteConfig.discord,
           siteConfig.linkedin,
+          siteConfig.x,
           siteConfig.blogs,
           siteConfig.authorGithub,
           siteConfig.authorUrl,

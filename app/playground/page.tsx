@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Github, MessagesSquare } from "lucide-react";
 import { CtaBand } from "@/components/cta-band";
-import { DiscordIcon, LinkedInIcon } from "@/components/brand-icons";
+import { DiscordIcon, LinkedInIcon, XIcon } from "@/components/brand-icons";
 import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
 import { SectionIntro } from "@/components/section-intro";
@@ -404,8 +404,8 @@ export default function PlaygroundPage() {
       <section id="community" className="container py-16 sm:py-20">
         <SectionIntro
           eyebrow="Stay close"
-          title="Discussions, issues, LinkedIn, and Discord"
-          description="Share ideas with the open-source community in the repo. Join LinkedIn and Discord for lab updates."
+          title="Discussions, issues, LinkedIn, X, and Discord"
+          description="Share ideas with the open-source community in the repo. Follow X, LinkedIn, and Discord for lab updates."
         />
         <ul className="mt-10 grid gap-4 sm:grid-cols-2">
           {playgroundChannels.map((channel) => (
@@ -446,6 +446,7 @@ export default function PlaygroundPage() {
 function ChannelIcon({ title }: { title: string }) {
   if (title === "Discord") return <DiscordIcon className="h-5 w-5" />;
   if (title === "LinkedIn") return <LinkedInIcon className="h-5 w-5" />;
+  if (title === "X") return <XIcon className="h-5 w-5" />;
   if (title === "Issues") return <Github className="h-5 w-5" aria-hidden="true" />;
   return <MessagesSquare className="h-5 w-5" aria-hidden="true" />;
 }

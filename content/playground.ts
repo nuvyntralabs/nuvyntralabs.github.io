@@ -329,6 +329,12 @@ export const playgroundChannels = [
     label: "Join LinkedIn",
   },
   {
+    title: "X",
+    body: "Follow the Nuvyntra Labs account on X for lab updates and community posts.",
+    href: siteConfig.x,
+    label: "Follow on X",
+  },
+  {
     title: "Discord",
     body: "Join the Discord channel for walkthroughs, questions, and community help.",
     href: siteConfig.discord,
