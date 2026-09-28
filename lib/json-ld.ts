@@ -1,4 +1,4 @@
-import { whitepaper, whitepaperHref } from "@/content/ecosystem-whitepaper";
+import { ecosystemDiagram, whitepaper, whitepaperHref } from "@/content/ecosystem-whitepaper";
 import { playground, playgroundHref } from "@/content/playground";
 import { nuvexaDb } from "@/content/nuvexadb";
 import { uiKit, uiKitHref } from "@/content/uikit";
@@ -262,6 +262,7 @@ export function ecosystemWhitepaperJsonLd() {
       description: whitepaper.description,
       abstract: whitepaper.abstract,
       url: `${siteConfig.url}${whitepaperHref}`,
+      image: `${siteConfig.url}${ecosystemDiagram.src}`,
       datePublished: "2026-09-15",
       author: {
         "@type": "Person",

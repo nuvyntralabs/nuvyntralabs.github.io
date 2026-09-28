@@ -1,5 +1,5 @@
 import { lab } from "@/content/lab";
-import { whitepaper, whitepaperHref } from "@/content/ecosystem-whitepaper";
+import { ecosystemDiagram, whitepaper, whitepaperHref } from "@/content/ecosystem-whitepaper";
 import { playground, playgroundHref, playgroundPrototypes } from "@/content/playground";
 import { nuvexaDb, nuvexaDocsBase, nuvexaIntegrationHref, nuvexaPlatforms } from "@/content/nuvexadb";
 import { uiKit, uiKitHref } from "@/content/uikit";
@@ -72,6 +72,7 @@ The user chooses. Neither path is a fallback.
 
 ${siteConfig.url}${whitepaperHref}
 ${whitepaper.title}. ${whitepaper.abstract}
+Architecture diagram: ${siteConfig.url}${ecosystemDiagram.src}
 Pillars: NuvyntraLabs.UIKit (rich UI), Plugin.Maui.MVVMExpress (application shell), Plugin.Maui.HttpForge (typed REST). Gallery plugins cover local store, offline sync, network truth, session, field capture, and observability. There is no mega-SDK. The catalog is the component library; Nuvyn assembles the same packages for a new host.
 
 ## Lumina Playground

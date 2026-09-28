@@ -136,6 +136,13 @@ function RichText({ text }: { text: string }) {
         const link = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
         if (link) {
           const [, label, href] = link;
+          if (href.startsWith("#")) {
+            return (
+              <a key={`${href}-${index}`} href={href} className="text-link">
+                {label}
+              </a>
+            );
+          }
           if (href.startsWith("/")) {
             return (
               <Link key={`${href}-${index}`} href={href} className="text-link">

@@ -3,6 +3,13 @@ import { uiKit } from "@/content/uikit";
 
 export const whitepaperHref = "/whitepaper/";
 
+export const ecosystemDiagram = {
+  src: "/diagrams/nuvyntra-ecosystem.jpg",
+  alt: "Nuvyntra ecosystem architecture diagram. Nuvyn CLI and nuvyn adopt feed .NET MAUI hosts, then UIKit, MVVMExpress, and HttpForge, with NuvexaDB, LocalStore, and ApiLens underneath.",
+  caption:
+    "Nuvyn CLI (nuvyn init) and nuvyn adopt feed .NET MAUI hosts on Android, iOS, Mac Catalyst, and Windows. The binding context sits on three pillars: UIKit, MVVMExpress, and HttpForge. NuvexaDB, LocalStore, and ApiLens cover data, storage, and diagnostics. Research, prove, and ship connect to community plugins and Discord, LinkedIn, and GitHub.",
+} as const;
+
 export const whitepaper = {
   title: "The Nuvyntra Labs .NET MAUI Development Ecosystem",
   subtitle: "Compose a production cross-platform app from independently versioned pieces",
@@ -100,7 +107,7 @@ export const whitepaperSections: DocSection[] = [
     blocks: [
       {
         type: "p",
-        text: "A typical MAUI product maps onto six layers. The first three are the pillars this paper names. The rest come from the gallery and from [NuvexaDB](/nuvexadb/) when the host wants an embedded document file.",
+        text: "The [architecture diagram](#architecture) shows how Nuvyn, the MAUI host, the three pillars, storage, diagnostics, and the ship pipeline fit together. A typical MAUI product maps onto six layers. The first three are the pillars this paper names. The rest come from the gallery and from [NuvexaDB](/nuvexadb/) when the host wants an embedded document file.",
       },
       {
         type: "table",

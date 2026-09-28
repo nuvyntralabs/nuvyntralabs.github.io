@@ -4,7 +4,13 @@ import { CtaBand } from "@/components/cta-band";
 import { DocsArticle } from "@/components/docs-article";
 import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
-import { whitepaper, whitepaperHref, whitepaperPillars, whitepaperSections } from "@/content/ecosystem-whitepaper";
+import {
+  ecosystemDiagram,
+  whitepaper,
+  whitepaperHref,
+  whitepaperPillars,
+  whitepaperSections,
+} from "@/content/ecosystem-whitepaper";
 import { ecosystemWhitepaperJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site";
 
@@ -35,12 +41,32 @@ export default function WhitepaperPage() {
       <PageHero eyebrow="White paper" title={whitepaper.title} description={whitepaper.subtitle} />
 
       <div className="container py-8 sm:py-10">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
+        <figure id="architecture" className="scroll-mt-24 overflow-hidden rounded-2xl border border-border bg-white">
+          <a href={ecosystemDiagram.src} target="_blank" rel="noopener noreferrer">
+            <img src={ecosystemDiagram.src} alt={ecosystemDiagram.alt} className="h-auto w-full" />
+          </a>
+          <figcaption className="border-t border-border px-4 py-3 text-sm leading-relaxed text-muted-foreground">
+            {ecosystemDiagram.caption}{" "}
+            <a href={ecosystemDiagram.src} target="_blank" rel="noopener noreferrer" className="text-link">
+              Open full size
+            </a>
+          </figcaption>
+        </figure>
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
           <nav aria-label="Paper sections" className="lg:sticky lg:top-24 lg:self-start">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-700 dark:text-lavender-300">
               Contents
             </p>
             <ol className="mt-4 space-y-2 border-l border-border">
+              <li>
+                <a
+                  href="#architecture"
+                  className="focusable block py-1 pl-3 text-sm leading-snug text-muted-foreground transition hover:text-foreground"
+                >
+                  Architecture
+                </a>
+              </li>
               {whitepaperSections
                 .filter((section) => /^\d+\./.test(section.title) && !section.id.startsWith("gallery-"))
                 .map((section) => (
