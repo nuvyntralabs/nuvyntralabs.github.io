@@ -181,6 +181,7 @@ export async function loadNugetStats(options: {
   onDatesProgress?: (done: number, total: number) => void;
   signal?: AbortSignal;
   packageIds?: readonly string[];
+  includePublishedDates?: boolean;
 }): Promise<void> {
   const catalog = catalogNugetMap();
   const hits = new Map<string, SearchHit>();
@@ -205,10 +206,7 @@ export async function loadNugetStats(options: {
       }
     }
     if (hits.size === 0) publish();
-    const listed = [...hits.values()]
-      .map((hit) => toPackageStats(hit, catalog))
-      .sort((left, right) => left.id.localeCompare(right.id));
-    await hydratePublishedDates(listed, options);
+    await hydrateListedDates(hits, catalog, options);
     return;
   }
 
@@ -238,6 +236,20 @@ export async function loadNugetStats(options: {
 
   if (hits.size === 0) publish();
 
+  await hydrateListedDates(hits, catalog, options);
+}
+
+async function hydrateListedDates(
+  hits: Map<string, SearchHit>,
+  catalog: Map<string, TrackedNugetPackage>,
+  options: {
+    onPackage?: (pkg: NugetPackageStats) => void;
+    onDatesProgress?: (done: number, total: number) => void;
+    signal?: AbortSignal;
+    includePublishedDates?: boolean;
+  },
+): Promise<void> {
+  if (options.includePublishedDates === false) return;
   const listed = [...hits.values()]
     .map((hit) => toPackageStats(hit, catalog))
     .sort((left, right) => left.id.localeCompare(right.id));

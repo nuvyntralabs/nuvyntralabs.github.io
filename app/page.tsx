@@ -14,6 +14,7 @@ import { SectionIntro } from "@/components/section-intro";
 import { CommunityBand } from "@/components/community-band";
 import { CtaBand } from "@/components/cta-band";
 import { TwoStarts } from "@/components/two-starts";
+import { HomeCatalogHighlight } from "@/components/home-catalog-highlight";
 
 const pillars = [
   {
@@ -49,7 +50,7 @@ export default function HomePage() {
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
         <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 animate-pulse-soft rounded-full bg-lavender-400/25 blur-3xl" />
         <div className="pointer-events-none absolute right-0 top-24 h-64 w-64 animate-pulse-soft rounded-full bg-cyan-300/20 blur-3xl" />
-        <div className="container relative grid items-center gap-12 pb-16 pt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:pb-24 lg:pt-20">
+        <div className="container relative grid items-start gap-12 pb-16 pt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:pb-24 lg:pt-20">
           <div className="animate-fade-up">
             <p className="eyebrow">{lab.tagline}</p>
             <h1 className="mt-6 max-w-3xl font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-[4.1rem] lg:leading-[1.05]">
@@ -90,24 +91,27 @@ export default function HomePage() {
               <Stat value={String(nugetPackages.length)} label="NuGet packages" />
             </dl>
           </div>
-          <aside className="relative hidden lg:block">
-            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-lavender-200/50 via-transparent to-cyan-200/30 blur-2xl" />
-            <div className="relative rounded-[1.75rem] border border-white/80 bg-white/70 p-6 shadow-lift backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04]">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lavender-700 dark:text-lavender-300">
-                Workstreams
-              </p>
-              <ul className="mt-5 space-y-3">
-                {pillars.map((pillar) => (
-                  <li
-                    key={pillar.href}
-                    className="rounded-2xl border border-lavender-100 bg-white/90 p-4 shadow-soft dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none"
-                  >
-                    <p className="text-xs font-semibold text-lavender-500">{pillar.step}</p>
-                    <p className="mt-1 font-display text-lg font-semibold text-foreground">{pillar.title}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{pillar.body}</p>
-                  </li>
-                ))}
-              </ul>
+          <aside className="relative">
+            <div className="pointer-events-none absolute -inset-4 hidden rounded-[2rem] bg-gradient-to-br from-lavender-200/50 via-transparent to-cyan-200/30 blur-2xl lg:block" />
+            <div className="relative space-y-4">
+              <HomeCatalogHighlight />
+              <div className="hidden rounded-[1.75rem] border border-white/80 bg-white/70 p-6 shadow-lift backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04] lg:block">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lavender-700 dark:text-lavender-300">
+                  Workstreams
+                </p>
+                <ul className="mt-5 space-y-3">
+                  {pillars.map((pillar) => (
+                    <li
+                      key={pillar.href}
+                      className="rounded-2xl border border-lavender-100 bg-white/90 p-4 shadow-soft dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none"
+                    >
+                      <p className="text-xs font-semibold text-lavender-500">{pillar.step}</p>
+                      <p className="mt-1 font-display text-lg font-semibold text-foreground">{pillar.title}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{pillar.body}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </aside>
         </div>
