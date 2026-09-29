@@ -17,7 +17,7 @@ export function BlogSavedNotice() {
   return (
     <div className="container pt-6" role="status">
       <p className="rounded-2xl border border-lavender-200 bg-lavender-50 px-5 py-4 text-sm font-semibold text-lavender-900 dark:border-white/15 dark:bg-white/10 dark:text-lavender-100">
-        Blog saved as a draft.
+        Blog draft submitted successfully, and it is under review by an admin. This is just to filter out junk. It is usually approved within 24 hours.
       </p>
     </div>
   );
