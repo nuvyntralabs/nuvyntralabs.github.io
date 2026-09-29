@@ -78,7 +78,9 @@ export function packageJsonLd(pkg: PackageDoc) {
       url: page,
       applicationCategory: "DeveloperApplication",
       operatingSystem:
-        pkg.slug === "plugin-wpf-mvvmexpress" || pkg.slug === "plugin-winui-mvvmexpress"
+        pkg.category === "shared-library"
+          ? ".NET 8, .NET 9, .NET 10"
+          : pkg.slug === "plugin-wpf-mvvmexpress" || pkg.slug === "plugin-winui-mvvmexpress"
           ? "Windows"
           : pkg.slug === "plugin-avalonia-mvvmexpress"
             ? "Windows, macOS, Linux"

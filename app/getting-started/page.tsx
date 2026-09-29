@@ -85,6 +85,40 @@ export default function GettingStartedPage() {
             .
           </p>
         </aside>
+        <aside className="callout mb-12 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">Looking for a shared .NET helper?</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            Guard, DataMask, TimeKit, Identifiers, Result, and ObjectKit are hub libraries at 0.1.1.
+            They target <code className="code-inline">net8.0</code>, <code className="code-inline">net9.0</code>,
+            and <code className="code-inline">net10.0</code>. They are not on nuget.org yet, and they are not{" "}
+            <code className="code-inline">Plugin.Maui.*</code> packages. Filter the catalog by Shared libraries,
+            or open{" "}
+            <Link href="/packages/nuvyntralabs-net-guard/" className="text-link">
+              Guard
+            </Link>
+            ,{" "}
+            <Link href="/packages/nuvyntralabs-net-datamask/" className="text-link">
+              DataMask
+            </Link>
+            ,{" "}
+            <Link href="/packages/nuvyntralabs-net-timekit/" className="text-link">
+              TimeKit
+            </Link>
+            ,{" "}
+            <Link href="/packages/nuvyntralabs-net-identifiers/" className="text-link">
+              Identifiers
+            </Link>
+            ,{" "}
+            <Link href="/packages/nuvyntralabs-net-result/" className="text-link">
+              Result
+            </Link>
+            , and{" "}
+            <Link href="/packages/nuvyntralabs-net-objectkit/" className="text-link">
+              ObjectKit
+            </Link>
+            .
+          </p>
+        </aside>
         <section>
           <h2 className="font-display text-2xl font-semibold">2. Create or open a MAUI app</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

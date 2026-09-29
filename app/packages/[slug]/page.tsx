@@ -57,9 +57,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           ? "Avalonia"
           : pkg.category === "uno-plugin"
             ? "Uno Platform"
-            : pkg.category === "winui-plugin"
+            :       pkg.category === "winui-plugin"
               ? "WinUI"
-              : ".NET MAUI",
+              : pkg.category === "shared-library"
+                ? ".NET"
+                : ".NET MAUI",
       "NuGet",
     ],
     alternates: { canonical: `/packages/${pkg.slug}/` },
@@ -90,6 +92,7 @@ export default async function PackagePage({ params }: PageProps) {
   const isWpfMvvm = pkg.slug === wpfMvvmExpressSlug;
   const desktop = getDesktopMvvmFamily(pkg.slug);
   const isDesktopHost = isWpfMvvm || Boolean(desktop);
+  const isSharedLibrary = pkg.category === "shared-library";
 
   return (
     <main className="container max-w-3xl py-8 sm:py-10">
@@ -119,6 +122,16 @@ export default async function PackagePage({ params }: PageProps) {
         </p>
       ) : null}
       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{pkg.description}</p>
+      {isSharedLibrary ? (
+        <aside className="callout mt-6 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">0.1.1 is in source</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            This library is not on nuget.org yet. It targets <code className="code-inline">net8.0</code>,{" "}
+            <code className="code-inline">net9.0</code>, and <code className="code-inline">net10.0</code>.
+            There is no <code className="code-inline">UseX</code> registration. Publishing is pipeline-only.
+          </p>
+        </aside>
+      ) : null}
       {isMauiMvvm ? (
         <aside className="callout mt-6 px-4 py-3">
           <p className="text-sm font-semibold text-foreground">1.3.0 — Phases 8–10 on the 1.0 SemVer lock</p>
@@ -385,7 +398,13 @@ export default async function PackagePage({ params }: PageProps) {
             ))}
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            {isDesktopHost ? (
+            {isSharedLibrary ? (
+              <>
+                <code className="code-inline">NuvyntraLabs.NET.*</code> is a class library, not a{" "}
+                <code className="code-inline">Plugin.Maui.*</code> package. The install command applies
+                after 0.1.1 is published. Until then, reference the project in the hub submodule.
+              </>
+            ) : isDesktopHost ? (
               <>
                 <code className="code-inline">
                   {desktop?.platform.prefix ?? "Plugin.Wpf.MVVMExpress"}.*
@@ -500,6 +519,15 @@ dotnet new ${desktop.platform.appTemplate} -n MyApp`}</code>
           </pre>
         </section>
       )}
+
+      {pkg.sample ? (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-semibold">Example</h2>
+          <pre className="mt-4 overflow-x-auto rounded-2xl bg-ink p-4 text-sm text-lavender-50">
+            <code>{pkg.sample}</code>
+          </pre>
+        </section>
+      ) : null}
 
       <section className="mt-10">
         <h2 className="font-display text-2xl font-semibold">Overview</h2>

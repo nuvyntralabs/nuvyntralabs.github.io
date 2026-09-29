@@ -271,6 +271,24 @@
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-community-toolkit-plus/</loc>
   </url>
   <url>
+    <loc>https://nuvyntralabs.github.io/packages/nuvyntralabs-net-guard/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/nuvyntralabs-net-datamask/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/nuvyntralabs-net-timekit/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/nuvyntralabs-net-identifiers/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/nuvyntralabs-net-result/</loc>
+  </url>
+  <url>
+    <loc>https://nuvyntralabs.github.io/packages/nuvyntralabs-net-objectkit/</loc>
+  </url>
+  <url>
     <loc>https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/docs/</loc>
   </url>
   <url>

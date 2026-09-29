@@ -10,7 +10,8 @@ export type PackageGroup =
   | "Device & UX"
   | "App services"
   | "Observability"
-  | "Voice";
+  | "Voice"
+  | "Shared libraries";
 
 export interface PackageGuideLinks {
   technical: string;
@@ -30,11 +31,12 @@ export interface PackageDoc {
   github: string;
   nuget: string | null;
   language: string | null;
-  category: "suite" | "maui-plugin" | "wpf-plugin" | "avalonia-plugin" | "uno-plugin" | "winui-plugin";
+  category: "suite" | "maui-plugin" | "wpf-plugin" | "avalonia-plugin" | "uno-plugin" | "winui-plugin" | "shared-library";
   group: PackageGroup;
   tags: string[];
   abstract: string;
   capabilities: string[];
+  sample?: string;
   version?: string;
   releaseNotes?: string[];
   prerelease?: boolean;
@@ -53,6 +55,7 @@ export const packageGroups: PackageGroup[] = [
   "App services",
   "Observability",
   "Voice",
+  "Shared libraries",
 ];
 
 export const packages: PackageDoc[] = [
@@ -61,7 +64,7 @@ export const packages: PackageDoc[] = [
     "name": "MauiEssentials",
     "title": "MauiEssentials (NugetWorld)",
     "subtitle": "Catalog of production .NET MAUI plugins",
-    "description": "A curated catalog of Android/iOS .NET MAUI plugins — each in its own repository, referenced as git submodules — covering location, networking, sync, local storage, security, BLE, classic Bluetooth serial, NFC, printing, video, TLS pinning, VoIP, and observability. MVVMExpress, HttpForge, LeakAnalyser, LocalStore, VideoPipeline, and TlsPin also target Mac Catalyst and Windows.",
+    "description": "A curated catalog of Android/iOS .NET MAUI plugins — each in its own repository, referenced as git submodules — covering location, networking, sync, local storage, security, BLE, classic Bluetooth serial, NFC, printing, video, TLS pinning, VoIP, and observability. Six shared libraries (Guard, DataMask, TimeKit, Identifiers, Result, ObjectKit) target net8.0, net9.0, and net10.0 and are not Plugin.Maui.* packages. MVVMExpress, HttpForge, LeakAnalyser, LocalStore, VideoPipeline, and TlsPin also target Mac Catalyst and Windows.",
     "github": "https://github.com/nuvyntralabs/MauiEssentials",
     "nuget": null,
     "language": null,
@@ -84,7 +87,8 @@ export const packages: PackageDoc[] = [
       "Share, clipboard, keyboard, printing, form validation, orientation lock, and keep-awake.",
       "VoIP session model, app updates, store review, local notifications, diagnostics, performance, leak detection, and telemetry.",
       "Hardened 1.x wave (3 September 2026): fail-closed deep links and push routes, HTTPS-only uploads and remote flags, encrypted API offline queue.",
-      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.2.0, NuvLoc 1.1.2, maui-perf 1.0.8, and maui-pulse 1.0.1 share a 4-hour interactive nuget.org update check. Nuvyn init / adopt / check compose maui-dev doctor --path without --no-update-check. nuvyn adopt attaches the slash chain to an existing MAUI app without rewriting the host. NuvLoc diffs sibling .resx files from i18n.json (BCP-47 languages); the coding agent translates — no vendor API key."
+      "Developer CLIs: MauiDev 1.2.2, Nuvyn 1.2.0, NuvLoc 1.1.2, maui-perf 1.0.8, and maui-pulse 1.0.1 share a 4-hour interactive nuget.org update check. Nuvyn init / adopt / check compose maui-dev doctor --path without --no-update-check. nuvyn adopt attaches the slash chain to an existing MAUI app without rewriting the host. NuvLoc diffs sibling .resx files from i18n.json (BCP-47 languages); the coding agent translates — no vendor API key.",
+      "Shared libraries at 0.1.1, source only: Guard, DataMask, TimeKit, Identifiers, Result, and ObjectKit. net8.0, net9.0, and net10.0. No UseX. Not on nuget.org yet."
     ]
   },
   {
@@ -1713,6 +1717,145 @@ export const packages: PackageDoc[] = [
       "App integrity — App Attest (iOS) and Play Integrity (Android) challenge-and-proof for backend verification.",
       "Wallet passes — .pkpass handoff on iOS and Google Wallet save URL on Android.",
       "Privacy consent — versioned purpose ledger with revocation, expiry, and SDK activation gates."
+    ]
+  },
+  {
+    "slug": "nuvyntralabs-net-guard",
+    "name": "NuvyntraLabs.NET.Guard",
+    "title": "Guard",
+    "subtitle": "Null, empty, positive, and range checks at a public boundary",
+    "description": "Four argument checks that throw BCL exceptions and return the checked value. net8.0, net9.0, and net10.0. Version 0.1.1 is in source and is not on nuget.org yet.",
+    "github": "https://github.com/nuvyntralabs/NuvyntraLabs.NET.Guard",
+    "nuget": null,
+    "language": "C#",
+    "category": "shared-library",
+    "group": "Shared libraries",
+    "tags": [".NET", "Guard", "Arguments"],
+    "abstract": "NuvyntraLabs.NET.Guard is for a public method that should reject null, empty, non-positive, or out-of-range input and then use the same value. CallerArgumentExpression names the argument. Prefer ArgumentNullException.ThrowIfNull, then Ardalis.GuardClauses, when those already match the host. There is no custom exception type and no GuardAgainst vocabulary.",
+    "installPackages": ["NuvyntraLabs.NET.Guard"],
+    "sample": "object request = Guard.NotNull(request);\nstring name = Guard.NotEmpty(name);\ndecimal amount = Guard.Positive(amount);\nint age = Guard.InRange(age, 18, 100);",
+    "capabilities": [
+      "NotNull throws ArgumentNullException and returns the reference.",
+      "NotEmpty throws ArgumentException for null, empty, or whitespace.",
+      "Positive throws ArgumentOutOfRangeException when the number is not greater than zero.",
+      "InRange throws ArgumentOutOfRangeException when the value is outside the inclusive bounds.",
+      "No package dependencies. Nullable, trim, and Native AOT compatible. Plugins do not reference it."
+    ]
+  },
+  {
+    "slug": "nuvyntralabs-net-datamask",
+    "name": "NuvyntraLabs.NET.DataMask",
+    "title": "DataMask",
+    "subtitle": "Mask a phone, PAN, card, or connection string before it is logged",
+    "description": "Static masking for phone, email, card, Aadhaar, PAN, GSTIN, JWT, API key, connection string, and named JSON properties. null returns an empty string. A value that does not match the expected shape is masked entirely. Version 0.1.1 is in source and is not on nuget.org yet.",
+    "github": "https://github.com/nuvyntralabs/NuvyntraLabs.NET.DataMask",
+    "nuget": null,
+    "language": "C#",
+    "category": "shared-library",
+    "group": "Shared libraries",
+    "tags": [".NET", "Logging", "Redaction"],
+    "abstract": "NuvyntraLabs.NET.DataMask hides a known sensitive string before it hits a log. These methods do not throw. Prefer Microsoft.Extensions.Compliance.Redaction when the host already classifies data. Extension methods (MaskPhone, MaskEmail, MaskCard, MaskAadhaar, MaskPan, MaskGstin) live in NuvyntraLabs.NET.DataMask.Extensions so a global using does not attach them to every string. Card masking is a logging aid, not a PCI scope reduction. There is no dedicated CVV method.",
+    "installPackages": ["NuvyntraLabs.NET.DataMask"],
+    "sample": "DataMask.Phone(\"9876543210\");          // ******3210\nDataMask.Email(\"john.doe@gmail.com\");  // j*******@gmail.com\nDataMask.Card(\"4111 1111 1111 1111\");  // **** **** **** 1111\nDataMask.Pan(\"ABCDE1234F\");            // *****1234F\nDataMask.ConnectionString(\"Server=localhost;Password=secret;User Id=sa\");\n                                     // Server=localhost;Password=***;User Id=sa",
+    "capabilities": [
+      "Phone and card keep the last 4 digits. Separators stay. Fewer than 4 digits masks the whole string.",
+      "Email keeps the first character of the local part and the domain.",
+      "Aadhaar keeps the last 4 digits as **** **** nnnn when 12 digits remain.",
+      "PAN keeps the four digits and the final character. GSTIN keeps the first 2 and last 3 of a 15-character id.",
+      "JWT keeps the header segment. An API key of at least 12 characters keeps the first 4 and last 4.",
+      "Connection strings keep non-secret keys. Password, Pwd, AccountKey, SharedAccessKey, SharedAccessSignature, AccessToken, ClientSecret, and ApiKey become ***.",
+      "JSON walks nested objects and arrays. Default names include password, token, pan, aadhaar, gstin, card, and cvv. Match is ordinal ignore-case."
+    ]
+  },
+  {
+    "slug": "nuvyntralabs-net-timekit",
+    "name": "NuvyntraLabs.NET.TimeKit",
+    "title": "TimeKit",
+    "subtitle": "Business days, month and quarter bounds, Unix time, and IANA zones",
+    "description": "Weekend and business-day arithmetic, month and quarter bounds, Unix timestamps, and DateTimeOffset conversion to an IANA time zone. Version 0.1.1 is in source and is not on nuget.org yet.",
+    "github": "https://github.com/nuvyntralabs/NuvyntraLabs.NET.TimeKit",
+    "nuget": null,
+    "language": "C#",
+    "category": "shared-library",
+    "group": "Shared libraries",
+    "tags": [".NET", "Dates", "Time zones"],
+    "abstract": "NuvyntraLabs.NET.TimeKit covers a weekend rule, a host-supplied holiday set, and an IANA zone. Prefer NodaTime when the host needs a chronology. IsWeekend is Saturday and Sunday and does not consult a calendar. There is no holiday database and no DateTime overload.",
+    "installPackages": ["NuvyntraLabs.NET.TimeKit"],
+    "sample": "date.IsBusinessDay();\ndate.AddBusinessDays(5);\ndate.AddBusinessDays(1, calendar);\ndate.StartOfMonth();\ndate.EndOfQuarter();\ninstant.ToUnixTimestamp();\ninstant.ToTimeZone(\"Asia/Kolkata\");",
+    "capabilities": [
+      "WeekendCalendar treats Saturday and Sunday as closed. It is the default.",
+      "HolidayCalendar wraps another calendar and removes a host-supplied set of DateOnly holidays.",
+      "AddBusinessDays does not count the start date. Zero returns the same date, including a weekend. A negative count walks backward.",
+      "A calendar that never opens throws InvalidOperationException.",
+      "StartOfMonth and EndOfQuarter use calendar quarters (Jan–Mar, Apr–Jun, Jul–Sep, Oct–Dec).",
+      "ToTimeZone calls TimeZoneInfo.FindSystemTimeZoneById. An unknown id throws TimeZoneNotFoundException."
+    ]
+  },
+  {
+    "slug": "nuvyntralabs-net-identifiers",
+    "name": "NuvyntraLabs.NET.Identifiers",
+    "title": "Identifiers",
+    "subtitle": "PAN format, GSTIN checksum, Aadhaar Verhoeff, and IBAN mod-97",
+    "description": "Boolean checks for a PAN, a GSTIN checksum, an Aadhaar Verhoeff checksum, and an IBAN. None of the methods throw, and none of them mask. Version 0.1.1 is in source and is not on nuget.org yet.",
+    "github": "https://github.com/nuvyntralabs/NuvyntraLabs.NET.Identifiers",
+    "nuget": null,
+    "language": "C#",
+    "category": "shared-library",
+    "group": "Shared libraries",
+    "tags": [".NET", "PAN", "GSTIN", "IBAN"],
+    "abstract": "NuvyntraLabs.NET.Identifiers answers whether a tax or bank identifier matches its format and checksum. Email, phone, and required fields stay on Plugin.Maui.FormValidation. Masking stays on DataMask. Input is trimmed or space-stripped, then compared in uppercase.",
+    "installPackages": ["NuvyntraLabs.NET.Identifiers"],
+    "sample": "Pan.IsValid(\"ABCDE1234F\");\nGstin.IsValid(\"27AAPFU0939F1ZV\");\nAadhaar.IsValid(\"2341 2341 2346\");\nIban.IsValid(\"GB82 WEST 1234 5698 7654 32\");",
+    "capabilities": [
+      "Pan.IsValid accepts ^[A-Z]{5}[0-9]{4}[A-Z]$. PAN has no checksum.",
+      "Gstin.IsValid requires 15 characters, state 01–38, an embedded PAN, an entity code, Z, and the mod-36 checksum.",
+      "Aadhaar.IsValid requires 12 digits and a Verhoeff checksum. Spaces are ignored.",
+      "Iban.IsValid requires a known country length and a mod-97 checksum of 1. Spaces are ignored."
+    ]
+  },
+  {
+    "slug": "nuvyntralabs-net-result",
+    "name": "NuvyntraLabs.NET.Result",
+    "title": "Result",
+    "subtitle": "A success value or a typed error without throwing",
+    "description": "Result<T> and Result for a call that can fail without throwing. A page checks IsSuccess. Version 0.1.1 is in source and is not on nuget.org yet.",
+    "github": "https://github.com/nuvyntralabs/NuvyntraLabs.NET.Result",
+    "nuget": null,
+    "language": "C#",
+    "category": "shared-library",
+    "group": "Shared libraries",
+    "tags": [".NET", "Result", "Errors"],
+    "abstract": "NuvyntraLabs.NET.Result returns a success value or an Error. Prefer ErrorOr when the host wants a larger result library. Value throws InvalidOperationException on failure. Error throws on success. Failure(null) throws ArgumentNullException. Match is the only functional method. There is no Map, Bind, or LINQ operator, and no ASP.NET Core ProblemDetails adapter.",
+    "installPackages": ["NuvyntraLabs.NET.Result"],
+    "sample": "Result<User> found = Result<User>.Success(user);\nResult<User> missing = Result<User>.Failure(new NotFoundError(\"User is missing.\"));\nResult done = Result.Success();\nstring label = found.Match(value => value.Name, error => error.Code);",
+    "capabilities": [
+      "Result<T> is a success value or an Error. Result is success or an Error with no value.",
+      "Error requires a Code and a Message.",
+      "ValidationError uses code validation and adds a property name.",
+      "NotFoundError uses code not_found.",
+      "Match is the read path. There is no Map, Bind, or LINQ operator."
+    ]
+  },
+  {
+    "slug": "nuvyntralabs-net-objectkit",
+    "name": "NuvyntraLabs.NET.ObjectKit",
+    "title": "ObjectKit",
+    "subtitle": "Source-generated structural copy and equality",
+    "description": "A source generator that emits Copy and equality for a partial class marked [Copyable]. There is no reflection fallback. Version 0.1.1 is in source and is not on nuget.org yet.",
+    "github": "https://github.com/nuvyntralabs/NuvyntraLabs.NET.ObjectKit",
+    "nuget": null,
+    "language": "C#",
+    "category": "shared-library",
+    "group": "Shared libraries",
+    "tags": [".NET", "Source generator", "Equality"],
+    "abstract": "NuvyntraLabs.NET.ObjectKit copies and compares a marked class without reflection. Prefer Mapperly for object-to-object mapping. The type must be a non-generic, non-nested, concrete partial class with a public parameterless constructor. Copied members are public properties with a public getter and a public set or init accessor. Supported types are string, enums, value types, and Nullable<T>. If the generator cannot copy the type, the build fails.",
+    "installPackages": ["NuvyntraLabs.NET.ObjectKit"],
+    "sample": "[Copyable]\npublic partial class Person\n{\n    public string Name { get; set; } = \"\";\n    public int Age { get; set; }\n}\n\nPerson copy = person.Copy();\nbool same = person.Equals(copy);",
+    "capabilities": [
+      "Inherited properties are copied. Static properties and indexers are skipped. A keyword property name is emitted with @.",
+      "OBK001–OBK006 reject a non-class, a non-partial, abstract or static, generic, nested, or constructor-less type.",
+      "OBK007–OBK009 reject a property with no public getter, no public set or init, or a type that is not a string, enum, or value type.",
+      "The generator ships inside the package. Nullable, trim, and Native AOT compatible."
     ]
   }
 ];

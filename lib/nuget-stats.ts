@@ -298,6 +298,12 @@ function inferHref(packageId: string): string {
   if (packageId.startsWith("NuvyntraLabs.UIKit")) return uiKitHref;
   if (packageId.startsWith("Nuventra.NuvexaDB")) return "/nuvexadb/";
   if (packageId.startsWith("NuvyntraLabs.NET.ApiLens")) return "/dotnet/apilens/";
+  if (packageId === "NuvyntraLabs.NET.Guard") return "/packages/nuvyntralabs-net-guard/";
+  if (packageId === "NuvyntraLabs.NET.DataMask") return "/packages/nuvyntralabs-net-datamask/";
+  if (packageId === "NuvyntraLabs.NET.TimeKit") return "/packages/nuvyntralabs-net-timekit/";
+  if (packageId === "NuvyntraLabs.NET.Identifiers") return "/packages/nuvyntralabs-net-identifiers/";
+  if (packageId === "NuvyntraLabs.NET.Result") return "/packages/nuvyntralabs-net-result/";
+  if (packageId === "NuvyntraLabs.NET.ObjectKit") return "/packages/nuvyntralabs-net-objectkit/";
   if (packageId.includes("Nuvyn")) return "/toolkits/nuvyn/";
   if (packageId.includes("MauiDev")) return "/toolkits/maui-dev/";
   if (packageId.includes("Pulse")) return "/toolkits/maui-pulse/";
@@ -313,6 +319,16 @@ function inferGroup(packageId: string): string {
   if (packageId.includes("MVVMExpress")) return "Application framework";
   if (packageId.includes("UIKit")) return "UI kit";
   if (packageId.includes("NuvexaDB")) return "Database";
+  if (
+    packageId === "NuvyntraLabs.NET.Guard" ||
+    packageId === "NuvyntraLabs.NET.DataMask" ||
+    packageId === "NuvyntraLabs.NET.TimeKit" ||
+    packageId === "NuvyntraLabs.NET.Identifiers" ||
+    packageId === "NuvyntraLabs.NET.Result" ||
+    packageId === "NuvyntraLabs.NET.ObjectKit"
+  ) {
+    return "Shared libraries";
+  }
   if (packageId.startsWith("NuvyntraLabs.NET.")) return dotnetNugetGroup;
   if (packageId.includes("Cli") || packageId.includes("Pulse") || packageId.includes("MauiDev") || packageId.includes("Nuvyn")) {
     return "Toolkits";

@@ -70,6 +70,12 @@ Professional experience stays on
 | `/packages/plugin-maui-biometric/` | BiometricPlus overview |
 | `/packages/plugin-maui-screen-guard/` | ScreenGuard overview |
 | `/packages/plugin-maui-keep-awake/` | KeepAwake overview |
+| `/packages/nuvyntralabs-net-guard/` | Guard — null, empty, positive, and range checks (0.1.1, not published) |
+| `/packages/nuvyntralabs-net-datamask/` | DataMask — mask a phone, PAN, card, or connection string before logging |
+| `/packages/nuvyntralabs-net-timekit/` | TimeKit — business days, quarter bounds, IANA zones |
+| `/packages/nuvyntralabs-net-identifiers/` | Identifiers — PAN, GSTIN, Aadhaar, IBAN |
+| `/packages/nuvyntralabs-net-result/` | Result — `Result<T>` without throwing |
+| `/packages/nuvyntralabs-net-objectkit/` | ObjectKit — source-generated copy and equality |
 | `/releases/` | Live .NET MAUI release feed from official GitHub + Learn links |
 | `/repos/` | All public GitHub repos with live open issues and discussions |
 | `/getting-started/` | Install + compose plugins |
