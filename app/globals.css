@@ -47,10 +47,12 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
+    max-width: 100%;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
+    overflow-wrap: break-word;
     background-image:
       radial-gradient(1200px 520px at 8% -8%, rgba(139, 92, 246, 0.07), transparent 50%),
       radial-gradient(900px 420px at 100% 0%, rgba(45, 212, 191, 0.05), transparent 46%);
@@ -73,6 +75,26 @@
     ::selection {
       @apply bg-lavender-500/40 text-white;
     }
+  }
+
+  /*
+    A grid item's default minimum size is its content. A long install
+    command or table then widens the page past the phone screen.
+  */
+  .grid > * {
+    min-width: 0;
+  }
+
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  img,
+  video,
+  canvas,
+  iframe {
+    max-width: 100%;
   }
 
   @media (prefers-reduced-motion: reduce) {

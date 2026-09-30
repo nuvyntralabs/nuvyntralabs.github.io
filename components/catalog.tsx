@@ -8,9 +8,59 @@ import { cn } from "@/lib/utils";
 
 type Filter = "all" | PackageGroup;
 
+const GROUP_PARAM = "group";
+const GROUP_STORAGE_KEY = "nuvyntra-packages-group";
+
+function parseGroup(value: string | null): Filter {
+  if (value && (packageGroups as readonly string[]).includes(value)) {
+    return value as PackageGroup;
+  }
+  return "all";
+}
+
+function readGroup(): Filter {
+  if (typeof window === "undefined") return "all";
+  const params = new URLSearchParams(window.location.search);
+  if (params.has(GROUP_PARAM)) return parseGroup(params.get(GROUP_PARAM));
+  try {
+    return parseGroup(sessionStorage.getItem(GROUP_STORAGE_KEY));
+  } catch {
+    return "all";
+  }
+}
+
+function writeGroup(next: Filter) {
+  try {
+    if (next === "all") sessionStorage.removeItem(GROUP_STORAGE_KEY);
+    else sessionStorage.setItem(GROUP_STORAGE_KEY, next);
+  } catch {
+    // Private mode can reject storage. The address bar still keeps the choice.
+  }
+
+  const url = new URL(window.location.href);
+  if (next === "all") url.searchParams.delete(GROUP_PARAM);
+  else url.searchParams.set(GROUP_PARAM, next);
+  const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+  const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (nextUrl !== current) {
+    window.history.replaceState(window.history.state, "", nextUrl);
+  }
+}
+
 export function Catalog() {
   const [query, setQuery] = React.useState("");
   const [group, setGroup] = React.useState<Filter>("all");
+
+  React.useLayoutEffect(() => {
+    const next = readGroup();
+    setGroup(next);
+    writeGroup(next);
+  }, []);
+
+  function selectGroup(next: Filter) {
+    setGroup(next);
+    writeGroup(next);
+  }
 
   const visible = packages.filter((item) => {
     const matchesGroup = group === "all" || item.group === group;
@@ -46,7 +96,7 @@ export function Catalog() {
             <button
               key={id}
               type="button"
-              onClick={() => setGroup(id)}
+              onClick={() => selectGroup(id)}
               className={cn(
                 "focusable rounded-full px-3 py-1.5 text-xs font-semibold sm:text-sm",
                 active
