@@ -1,15 +1,17 @@
-import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 
-export const fontDisplay = Outfit({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+// Checked in so the Pages build does not download Google Fonts CSS.
+// next/font crashes when that CSS names a file without a .woff2 suffix.
+export const fontDisplay = localFont({
+  src: "./fonts/outfit-latin.woff2",
+  weight: "500 800",
   variable: "--font-display",
   display: "swap",
 });
 
-export const fontSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+export const fontSans = localFont({
+  src: "./fonts/plus-jakarta-sans-latin.woff2",
+  weight: "400 700",
   variable: "--font-sans",
   display: "swap",
 });
