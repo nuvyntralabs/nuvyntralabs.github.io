@@ -350,13 +350,15 @@ function asStringList(value: string[] | string | undefined): string[] {
   return [];
 }
 
+const nugetSearchEndpoints = [nugetSearchSources.primary, nugetSearchSources.fallback];
+
 async function queryNugetSearchPage(
   endpoint: string,
   query: string,
   signal?: AbortSignal,
 ): Promise<SearchHit[]> {
   const url = `${endpoint}?q=${encodeURIComponent(query)}&prerelease=true&take=250&semVerLevel=2.0.0`;
-  const response = await fetch(url, { signal });
+  const response = await fetch(url, { signal, cache: "no-store" });
   if (!response.ok) {
     throw new Error(`nuget.org search returned ${response.status}`);
   }
@@ -365,12 +367,65 @@ async function queryNugetSearchPage(
 }
 
 async function queryWithFallback(query: string, signal?: AbortSignal): Promise<SearchHit[]> {
-  try {
-    return await queryNugetSearchPage(nugetSearchSources.primary, query, signal);
-  } catch (cause) {
-    if (isAbortError(cause)) throw cause;
-    return queryNugetSearchPage(nugetSearchSources.fallback, query, signal);
+  const settled = await Promise.all(
+    nugetSearchEndpoints.map(async (endpoint) => {
+      try {
+        return { ok: true as const, hits: await queryNugetSearchPage(endpoint, query, signal) };
+      } catch (cause) {
+        if (isAbortError(cause)) throw cause;
+        return { ok: false as const, hits: [] as SearchHit[] };
+      }
+    }),
+  );
+
+  if (settled.every((result) => !result.ok)) {
+    throw new Error("nuget.org search is unavailable");
   }
+
+  // North Central and South Central update download counts on different schedules.
+  // One replica can lag nuget.org by thousands of downloads, so keep the higher count.
+  return mergeSearchHits(settled.map((result) => result.hits));
+}
+
+function mergeSearchHits(batches: SearchHit[][]): SearchHit[] {
+  const byId = new Map<string, SearchHit>();
+  for (const batch of batches) {
+    for (const hit of batch) {
+      const id = hit.id?.trim().toLowerCase();
+      if (!id) continue;
+      const existing = byId.get(id);
+      byId.set(id, existing ? fresherSearchHit(existing, hit) : hit);
+    }
+  }
+  return [...byId.values()];
+}
+
+function fresherSearchHit(left: SearchHit, right: SearchHit): SearchHit {
+  const leftDownloads = left.totalDownloads ?? 0;
+  const rightDownloads = right.totalDownloads ?? 0;
+  const base = rightDownloads > leftDownloads ? right : left;
+  return {
+    ...base,
+    totalDownloads: Math.max(leftDownloads, rightDownloads),
+    versions: mergeSearchVersions(left.versions, right.versions),
+  };
+}
+
+function mergeSearchVersions(
+  left: SearchVersion[] | undefined,
+  right: SearchVersion[] | undefined,
+): SearchVersion[] {
+  const byVersion = new Map<string, SearchVersion>();
+  for (const item of [...(left ?? []), ...(right ?? [])]) {
+    const version = item.version?.trim();
+    if (!version) continue;
+    const key = version.toLowerCase();
+    const existing = byVersion.get(key);
+    if (!existing || (item.downloads ?? 0) > (existing.downloads ?? 0)) {
+      byVersion.set(key, item);
+    }
+  }
+  return [...byVersion.values()];
 }
 
 async function queryExactPackage(packageId: string, signal?: AbortSignal): Promise<SearchHit | null> {
