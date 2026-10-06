@@ -41,6 +41,14 @@ export const featuredProducts: FeaturedNavItem[] = [
     prefixes: ["/nuvexadb/"],
   },
   {
+    href: "/nuvexamq/",
+    label: "NuvexaMQ",
+    blurb: "Durable message broker — one log, queues, and streams",
+    badge: "New",
+    pin: false,
+    prefixes: ["/nuvexamq/"],
+  },
+  {
     href: "/uikit/",
     label: "UIKit(MAUI)",
     blurb: "Component library: Lumina NV* controls and page recipes",

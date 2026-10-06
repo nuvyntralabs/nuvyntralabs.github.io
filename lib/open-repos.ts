@@ -1,4 +1,5 @@
 import { nuvexaDb } from "@/content/nuvexadb";
+import { nuvexaMq } from "@/content/nuvexamq";
 import { packages } from "@/content/packages";
 import { playground, playgroundHref } from "@/content/playground";
 import { toolkitPath, toolkits } from "@/content/toolkits";
@@ -173,6 +174,7 @@ export function catalogRepoPages(): Map<string, CatalogPage> {
   }
   add(uiKit.github, uiKitHref, uiKit.name, "UI kit");
   add(nuvexaDb.github, "/nuvexadb/", nuvexaDb.name, "Database");
+  add(nuvexaMq.github, "/nuvexamq/", nuvexaMq.name, "Message broker");
   add(playground.github, playgroundHref, playground.title, "Playground");
 
   return pages;

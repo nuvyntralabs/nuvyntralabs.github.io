@@ -2,6 +2,8 @@ import { lab } from "@/content/lab";
 import { ecosystemDiagram, whitepaper, whitepaperHref } from "@/content/ecosystem-whitepaper";
 import { playground, playgroundHref, playgroundPrototypes } from "@/content/playground";
 import { nuvexaDb, nuvexaDocsBase, nuvexaIntegrationHref, nuvexaPlatforms } from "@/content/nuvexadb";
+import { nuvexaMq, nuvexaMqDocsBase } from "@/content/nuvexamq";
+import { nuvexaMqManuals } from "@/content/nuvexamq-guide";
 import { uiKit, uiKitHref } from "@/content/uikit";
 import { uiKitDocsBase } from "@/content/uikit-guide";
 import { packages } from "@/content/packages";
@@ -115,6 +117,14 @@ Encryption: ${siteConfig.url}${nuvexaDocsBase}/encryption/
 NQL: ${siteConfig.url}${nuvexaDocsBase}/query/
 Language bindings: ${siteConfig.url}${nuvexaDocsBase}/bindings/
 Data Studio: ${siteConfig.url}${nuvexaDocsBase}/explorer/
+
+## NuvexaMQ
+
+${siteConfig.url}/nuvexamq/
+Durable message broker (${nuvexaMq.version}). One append-only log. Queues, exchanges, and replayable streams. Length-prefixed TCP protocol on port 5761. Management console on 5763. Installer for Windows, macOS, and Linux. MIT. The installer is the shippable product. This version is one node.
+GitHub: ${nuvexaMq.github}
+Releases: ${nuvexaMq.releases}
+${nuvexaMqManuals.map((item) => `${item.title}: ${siteConfig.url}${item.href}`).join("\n")}
 
 ## .NET libraries
 
@@ -347,6 +357,23 @@ Integration: ${siteConfig.url}${nuvexaIntegrationHref}
 Capabilities:
 ${nuvexaDb.capabilities.map((line) => `- ${line}`).join("\n")}
 
+## NuvexaMQ
+
+${nuvexaMq.name} — ${nuvexaMq.subtitle}
+${nuvexaMq.abstract}
+
+Page: ${siteConfig.url}/nuvexamq/
+GitHub: ${nuvexaMq.github}
+Releases: ${nuvexaMq.releases}
+Version: ${nuvexaMq.version}
+Documentation: ${siteConfig.url}${nuvexaMqDocsBase}/
+
+Capabilities:
+${nuvexaMq.capabilities.map((line) => `- ${line}`).join("\n")}
+
+Manuals:
+${nuvexaMqManuals.map((item) => `- ${item.title}: ${siteConfig.url}${item.href}`).join("\n")}
+
 ## .NET libraries
 
 ${dotnetTrack.name} — ${dotnetTrack.subtitle}
@@ -392,6 +419,12 @@ export function buildFeedXml(): string {
       description: nuvexaDb.description,
       link: `${siteConfig.url}/nuvexadb/`,
       category: "database",
+    },
+    {
+      title: nuvexaMq.name,
+      description: nuvexaMq.description,
+      link: `${siteConfig.url}/nuvexamq/`,
+      category: "message-broker",
     },
     {
       title: uiKit.name,

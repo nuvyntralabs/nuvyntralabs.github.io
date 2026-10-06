@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { allDesktopGuideHrefs } from "../content/desktop-mvvmexpress";
 import { allGuideHrefs } from "../content/mvvmexpress-guide";
 import { allNuvexaHrefs } from "../content/nuvexadb-guide";
+import { allNuvexaMqHrefs } from "../content/nuvexamq-guide";
 import { allUiKitHrefs } from "../content/uikit-guide";
 import { allDotnetHrefs } from "../content/apilens-guide";
 import { allNuvynHrefs } from "../content/nuvyn-guide";
@@ -47,6 +48,7 @@ export function sitemapUrls(): string[] {
     ...allWpfGuideHrefs(),
     ...allDesktopGuideHrefs(),
     ...allNuvexaHrefs(),
+    ...allNuvexaMqHrefs(),
     ...allUiKitHrefs(),
     ...allNuvynHrefs(),
     ...allDotnetHrefs(),

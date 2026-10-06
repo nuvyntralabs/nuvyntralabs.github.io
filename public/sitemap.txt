@@ -239,6 +239,12 @@ https://nuvyntralabs.github.io/nuvexadb/integration/python/
 https://nuvyntralabs.github.io/nuvexadb/integration/nodejs/
 https://nuvyntralabs.github.io/nuvexadb/integration/go/
 https://nuvyntralabs.github.io/nuvexadb/integration/cpp/
+https://nuvyntralabs.github.io/nuvexamq/
+https://nuvyntralabs.github.io/nuvexamq/docs/
+https://nuvyntralabs.github.io/nuvexamq/docs/admin/
+https://nuvyntralabs.github.io/nuvexamq/docs/clients/
+https://nuvyntralabs.github.io/nuvexamq/docs/samples/
+https://nuvyntralabs.github.io/nuvexamq/docs/benchmark/
 https://nuvyntralabs.github.io/uikit/docs/
 https://nuvyntralabs.github.io/uikit/docs/nvaboutview/
 https://nuvyntralabs.github.io/uikit/docs/nvaccessibility/

@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     "MVVMExpress",
     "NuvexaDB",
     "Nuventra.NuvexaDB",
+    "NuvexaMQ",
     "UIKit(MAUI)",
     "NuvyntraLabs.UIKit",
     "Lumina",

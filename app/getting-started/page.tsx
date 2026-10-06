@@ -68,6 +68,20 @@ export default function GettingStartedPage() {
           </p>
         </aside>
         <aside className="callout mb-12 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">Looking for the message broker?</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            NuvexaMQ is a separate product — one durable log, exchanges, queues, and replayable streams. Start at the{" "}
+            <Link href="/nuvexamq/" className="text-link">
+              NuvexaMQ
+            </Link>{" "}
+            overview or the{" "}
+            <Link href="/nuvexamq/docs/" className="text-link">
+              technical reference
+            </Link>
+            . Install the server package, then open the data port from a client sample.
+          </p>
+        </aside>
+        <aside className="callout mb-12 px-4 py-3">
           <p className="text-sm font-semibold text-foreground">Looking for server diagnostics?</p>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             ApiLens is the first product on the{" "}

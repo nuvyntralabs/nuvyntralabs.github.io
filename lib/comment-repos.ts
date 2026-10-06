@@ -119,6 +119,11 @@ export const commentRepos: Record<string, CommentRepo> = {
       categoryId: "DIC_kwDOUX7-ms4DFkzJ",
     },
   },
+  "nuvyntralabs/NuvexaMQ": {
+    repo: "nuvyntralabs/NuvexaMQ",
+    repoId: "R_kgDOU4xEGA",
+    hasIssues: true,
+  },
   "nuvyntralabs/MauiEssentials": {
     repo: "nuvyntralabs/MauiEssentials",
     repoId: "R_kgDOUGYUIg",

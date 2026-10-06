@@ -3,6 +3,7 @@ import { ArrowRight, Beaker, FlaskConical, Package } from "lucide-react";
 import { lab } from "@/content/lab";
 import { whitepaperHref, whitepaperPillars } from "@/content/ecosystem-whitepaper";
 import { nuvexaDb } from "@/content/nuvexadb";
+import { nuvexaMq, nuvexaMqDocsBase } from "@/content/nuvexamq";
 import { uiKit } from "@/content/uikit";
 import { nugetPackages, packages } from "@/content/packages";
 import { apiLens, apiLensDocsBase, apiLensHref } from "@/content/apilens";
@@ -253,6 +254,35 @@ export default function HomePage() {
             [StoreDao] interfaces.
           </p>
         </Link>
+        <div className="mt-14">
+          <SectionIntro
+            eyebrow="Message broker"
+            title={nuvexaMq.name}
+            description={nuvexaMq.subtitle}
+            href="/nuvexamq/"
+            cta="NuvexaMQ docs"
+          />
+          <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+            <Link href="/nuvexamq/" className="glass-card focusable group p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">
+                Broker · {nuvexaMq.version}
+              </p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-foreground">One log, three ways to read it</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{nuvexaMq.abstract}</p>
+              <p className="mt-4 text-sm font-semibold text-lavender-800 dark:text-lavender-200">
+                Installer, management console, and client samples
+              </p>
+            </Link>
+            <Link href={`${nuvexaMqDocsBase}/`} className="glass-card focusable p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-lavender-500">Documentation</p>
+              <h2 className="mt-3 font-display text-xl font-semibold text-foreground">Full broker manuals</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Technical reference, admin panel, client integration, language samples, and the localhost benchmark.
+                Data port 5761. Console at http://127.0.0.1:5763/.
+              </p>
+            </Link>
+          </div>
+        </div>
         <div className="mt-14">
         <SectionIntro
           eyebrow="Lumina UI library"
