@@ -613,8 +613,13 @@ export function nugetStatsJsonLd() {
         name: siteConfig.name,
         url: siteConfig.url,
       },
-      isBasedOn: "https://azuresearch-usnc.nuget.org/query",
-      measurementTechnique: "nuget.org Search Query Service version download counts",
+      isBasedOn: [
+        "https://www.nuget.org/profiles/niladri.1437",
+        "https://azuresearch-usnc.nuget.org/query",
+        "https://azuresearch-ussc.nuget.org/query",
+      ],
+      measurementTechnique:
+        "Sum of nuget.org gallery package totals, ratcheted against Search Query Service replica counts so a stale index cannot lower the page total",
     },
     breadcrumbList([
       { name: "Home", path: "/" },

@@ -9,7 +9,7 @@ import { nugetOwnerId, nugetStatsPath } from "@/lib/nuget-stats";
 export const metadata: Metadata = {
   title: "NuGet download statistics",
   description:
-    "Live nuget.org published-package downloads for every released Nuvyntra Labs package, broken down by version.",
+    "nuget.org owner-dashboard download totals for every released Nuvyntra Labs package, broken down by version.",
   alternates: { canonical: nugetStatsPath },
   openGraph: {
     title: "Nuvyntra Labs NuGet download statistics",
@@ -26,7 +26,7 @@ export default function NugetStatsPage() {
       <PageHero
         eyebrow="nuget.org"
         title="NuGet download statistics"
-        description={`Published packages for nuget.org owner ${nugetOwnerId}. The table matches the owner dashboard — package ID, downloads, and latest version — and expands to every listed version.`}
+        description={`Published packages for nuget.org owner ${nugetOwnerId}. The table matches the owner dashboard — package ID, downloads, and latest version. The page total is the sum of those gallery package counts.`}
       />
 
       <section className="section-muted">

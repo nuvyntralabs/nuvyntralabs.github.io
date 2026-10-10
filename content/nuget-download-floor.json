@@ -1,0 +1,1218 @@
+{
+  "updatedAt": "2026-10-10T15:54:32.444Z",
+  "source": "nuget.org/profiles/niladri.1437 + nuget.org SearchQueryService",
+  "packageCount": 113,
+  "totalDownloads": 61665,
+  "packages": {
+    "nuventra.nuvexadb": {
+      "id": "Nuventra.NuvexaDB",
+      "totalDownloads": 351,
+      "versions": {
+        "1.0.7": 103,
+        "1.0.5": 142,
+        "1.0.4": 103
+      }
+    },
+    "nuvyntralabs.net.apilens": {
+      "id": "NuvyntraLabs.NET.ApiLens",
+      "totalDownloads": 117,
+      "versions": {
+        "0.1.0": 102
+      }
+    },
+    "nuvyntralabs.net.apilens.aspnetcore": {
+      "id": "NuvyntraLabs.NET.ApiLens.AspNetCore",
+      "totalDownloads": 94,
+      "versions": {
+        "0.1.0": 91
+      }
+    },
+    "nuvyntralabs.net.apilens.entityframeworkcore": {
+      "id": "NuvyntraLabs.NET.ApiLens.EntityFrameworkCore",
+      "totalDownloads": 92,
+      "versions": {
+        "0.1.0": 80
+      }
+    },
+    "nuvyntralabs.net.apilens.http": {
+      "id": "NuvyntraLabs.NET.ApiLens.Http",
+      "totalDownloads": 96,
+      "versions": {
+        "0.1.0": 90
+      }
+    },
+    "nuvyntralabs.net.apilens.ui": {
+      "id": "NuvyntraLabs.NET.ApiLens.UI",
+      "totalDownloads": 103,
+      "versions": {
+        "0.1.0": 99
+      }
+    },
+    "nuvyntralabs.net.datamask": {
+      "id": "NuvyntraLabs.NET.DataMask",
+      "totalDownloads": 174,
+      "versions": {
+        "0.1.1": 44,
+        "0.1.0": 44
+      }
+    },
+    "nuvyntralabs.net.guard": {
+      "id": "NuvyntraLabs.NET.Guard",
+      "totalDownloads": 164,
+      "versions": {
+        "0.1.1": 44,
+        "0.1.0": 36
+      }
+    },
+    "nuvyntralabs.net.identifiers": {
+      "id": "NuvyntraLabs.NET.Identifiers",
+      "totalDownloads": 184,
+      "versions": {
+        "0.1.1": 47,
+        "0.1.0": 49
+      }
+    },
+    "nuvyntralabs.net.objectkit": {
+      "id": "NuvyntraLabs.NET.ObjectKit",
+      "totalDownloads": 179,
+      "versions": {
+        "0.1.1": 48,
+        "0.1.0": 43
+      }
+    },
+    "nuvyntralabs.net.result": {
+      "id": "NuvyntraLabs.NET.Result",
+      "totalDownloads": 154,
+      "versions": {
+        "0.1.1": 46,
+        "0.1.0": 41
+      }
+    },
+    "nuvyntralabs.net.timekit": {
+      "id": "NuvyntraLabs.NET.TimeKit",
+      "totalDownloads": 185,
+      "versions": {
+        "0.1.1": 48,
+        "0.1.0": 50
+      }
+    },
+    "nuvyntralabs.nuvloc.cli": {
+      "id": "NuvyntraLabs.NuvLoc.Cli",
+      "totalDownloads": 293,
+      "versions": {
+        "1.1.2": 99,
+        "1.1.1": 93,
+        "1.1.0": 97
+      }
+    },
+    "nuvyntralabs.nuvyn.cli": {
+      "id": "NuvyntraLabs.Nuvyn.Cli",
+      "totalDownloads": 602,
+      "versions": {
+        "1.2.0": 101,
+        "1.1.1": 95,
+        "1.1.0": 109,
+        "1.0.0": 98,
+        "0.2.0": 98,
+        "0.1.0": 95
+      }
+    },
+    "nuvyntralabs.uikit": {
+      "id": "NuvyntraLabs.UIKit",
+      "totalDownloads": 511,
+      "versions": {
+        "1.6.0": 92,
+        "1.5.1": 110,
+        "1.5.0": 93,
+        "1.4.0": 102,
+        "1.0.0": 99
+      }
+    },
+    "plugin.avalonia.mvvmexpress": {
+      "id": "Plugin.Avalonia.MVVMExpress",
+      "totalDownloads": 444,
+      "versions": {
+        "1.0.1": 313,
+        "1.0.0": 127
+      }
+    },
+    "plugin.avalonia.mvvmexpress.core": {
+      "id": "Plugin.Avalonia.MVVMExpress.Core",
+      "totalDownloads": 516,
+      "versions": {
+        "1.0.1": 351,
+        "1.0.0": 162
+      }
+    },
+    "plugin.avalonia.mvvmexpress.dialogs": {
+      "id": "Plugin.Avalonia.MVVMExpress.Dialogs",
+      "totalDownloads": 406,
+      "versions": {
+        "1.0.1": 296,
+        "1.0.0": 108
+      }
+    },
+    "plugin.avalonia.mvvmexpress.navigation": {
+      "id": "Plugin.Avalonia.MVVMExpress.Navigation",
+      "totalDownloads": 223,
+      "versions": {
+        "1.0.1": 119,
+        "1.0.0": 102
+      }
+    },
+    "plugin.avalonia.mvvmexpress.pagination": {
+      "id": "Plugin.Avalonia.MVVMExpress.Pagination",
+      "totalDownloads": 218,
+      "versions": {
+        "1.0.1": 113,
+        "1.0.0": 102
+      }
+    },
+    "plugin.avalonia.mvvmexpress.templates": {
+      "id": "Plugin.Avalonia.MVVMExpress.Templates",
+      "totalDownloads": 318,
+      "versions": {
+        "1.0.1": 164,
+        "1.0.0": 130
+      }
+    },
+    "plugin.avalonia.mvvmexpress.testing": {
+      "id": "Plugin.Avalonia.MVVMExpress.Testing",
+      "totalDownloads": 227,
+      "versions": {
+        "1.0.1": 115,
+        "1.0.0": 106
+      }
+    },
+    "plugin.avalonia.mvvmexpress.validation": {
+      "id": "Plugin.Avalonia.MVVMExpress.Validation",
+      "totalDownloads": 225,
+      "versions": {
+        "1.0.1": 116,
+        "1.0.0": 105
+      }
+    },
+    "plugin.maui.apicache": {
+      "id": "Plugin.Maui.ApiCache",
+      "totalDownloads": 741,
+      "versions": {
+        "1.0.5": 130,
+        "1.0.4": 124,
+        "1.0.3": 127,
+        "1.0.2": 114,
+        "1.0.1": 114,
+        "1.0.0": 127
+      }
+    },
+    "plugin.maui.apiresilience": {
+      "id": "Plugin.Maui.ApiResilience",
+      "totalDownloads": 1319,
+      "versions": {
+        "1.0.10": 121,
+        "1.0.9": 115,
+        "1.0.8": 142,
+        "1.0.7": 123,
+        "1.0.6": 116,
+        "1.0.5": 114,
+        "1.0.4": 115,
+        "1.0.3": 114,
+        "1.0.2": 112,
+        "1.0.1": 114,
+        "1.0.0": 124
+      }
+    },
+    "plugin.maui.apphealth": {
+      "id": "Plugin.Maui.AppHealth",
+      "totalDownloads": 758,
+      "versions": {
+        "1.0.5": 154,
+        "1.0.4": 116,
+        "1.0.3": 117,
+        "1.0.2": 116,
+        "1.0.1": 127,
+        "1.0.0": 118
+      }
+    },
+    "plugin.maui.applock": {
+      "id": "Plugin.Maui.AppLock",
+      "totalDownloads": 901,
+      "versions": {
+        "1.0.7": 106,
+        "1.0.6": 114,
+        "1.0.5": 135,
+        "1.0.4": 105,
+        "1.0.3": 106,
+        "1.0.2": 106,
+        "1.0.1": 110,
+        "1.0.0": 114
+      }
+    },
+    "plugin.maui.appreview": {
+      "id": "Plugin.Maui.AppReview",
+      "totalDownloads": 473,
+      "versions": {
+        "1.1.0": 98,
+        "1.0.3": 90,
+        "1.0.2": 95,
+        "1.0.1": 89,
+        "1.0.0": 91
+      }
+    },
+    "plugin.maui.appupdate": {
+      "id": "Plugin.Maui.AppUpdate",
+      "totalDownloads": 908,
+      "versions": {
+        "1.0.7": 110,
+        "1.0.6": 149,
+        "1.0.5": 110,
+        "1.0.4": 101,
+        "1.0.3": 107,
+        "1.0.2": 98,
+        "1.0.1": 112,
+        "1.0.0": 115
+      }
+    },
+    "plugin.maui.backgroundtasks": {
+      "id": "Plugin.Maui.BackgroundTasks",
+      "totalDownloads": 965,
+      "versions": {
+        "1.0.7": 103,
+        "1.0.6": 148,
+        "1.0.5": 127,
+        "1.0.4": 118,
+        "1.0.3": 115,
+        "1.0.2": 113,
+        "1.0.1": 119,
+        "1.0.0": 118
+      }
+    },
+    "plugin.maui.biometricplus": {
+      "id": "Plugin.Maui.BiometricPlus",
+      "totalDownloads": 307,
+      "versions": {
+        "1.0.2": 106,
+        "1.0.1": 97,
+        "1.0.0": 96
+      }
+    },
+    "plugin.maui.bluetoothmanager": {
+      "id": "Plugin.Maui.BluetoothManager",
+      "totalDownloads": 485,
+      "versions": {
+        "1.0.3": 136,
+        "1.0.2": 114,
+        "1.0.1": 114,
+        "1.0.0": 105
+      }
+    },
+    "plugin.maui.bluetoothserial": {
+      "id": "Plugin.Maui.BluetoothSerial",
+      "totalDownloads": 303,
+      "versions": {
+        "1.0.2": 102,
+        "1.0.1": 100,
+        "1.0.0": 97
+      }
+    },
+    "plugin.maui.clipboardplus": {
+      "id": "Plugin.Maui.ClipboardPlus",
+      "totalDownloads": 579,
+      "versions": {
+        "1.0.4": 118,
+        "1.0.3": 115,
+        "1.0.2": 113,
+        "1.0.1": 114,
+        "1.0.0": 111
+      }
+    },
+    "plugin.maui.communitytoolkitplus": {
+      "id": "Plugin.Maui.CommunityToolkitPlus",
+      "totalDownloads": 476,
+      "versions": {
+        "1.0.2": 106,
+        "1.0.1": 112,
+        "1.0.0": 104,
+        "0.1.0-preview.2": 70,
+        "0.1.0-preview.1": 77
+      }
+    },
+    "plugin.maui.deeplinks": {
+      "id": "Plugin.Maui.DeepLinks",
+      "totalDownloads": 836,
+      "versions": {
+        "1.0.6": 132,
+        "1.0.5": 117,
+        "1.0.4": 109,
+        "1.0.3": 116,
+        "1.0.2": 113,
+        "1.0.1": 117,
+        "1.0.0": 119
+      }
+    },
+    "plugin.maui.deviceinfoplus": {
+      "id": "Plugin.Maui.DeviceInfoPlus",
+      "totalDownloads": 565,
+      "versions": {
+        "1.0.4": 115,
+        "1.0.3": 119,
+        "1.0.2": 107,
+        "1.0.1": 109,
+        "1.0.0": 109
+      }
+    },
+    "plugin.maui.deviceorientationplus": {
+      "id": "Plugin.Maui.DeviceOrientationPlus",
+      "totalDownloads": 668,
+      "versions": {
+        "1.0.5": 108,
+        "1.0.4": 113,
+        "1.0.3": 116,
+        "1.0.2": 106,
+        "1.0.1": 107,
+        "1.0.0": 114
+      }
+    },
+    "plugin.maui.devicesession": {
+      "id": "Plugin.Maui.DeviceSession",
+      "totalDownloads": 870,
+      "versions": {
+        "1.0.6": 157,
+        "1.0.5": 118,
+        "1.0.4": 115,
+        "1.0.3": 116,
+        "1.0.2": 112,
+        "1.0.1": 122,
+        "1.0.0": 125
+      }
+    },
+    "plugin.maui.diagnostics": {
+      "id": "Plugin.Maui.Diagnostics",
+      "totalDownloads": 803,
+      "versions": {
+        "1.0.6": 121,
+        "1.0.5": 119,
+        "1.0.4": 103,
+        "1.0.3": 107,
+        "1.0.2": 105,
+        "1.0.1": 117,
+        "1.0.0": 115
+      }
+    },
+    "plugin.maui.featureflags": {
+      "id": "Plugin.Maui.FeatureFlags",
+      "totalDownloads": 1172,
+      "versions": {
+        "1.0.9": 128,
+        "1.0.8": 113,
+        "1.0.7": 123,
+        "1.0.6": 109,
+        "1.0.5": 111,
+        "1.0.4": 116,
+        "1.0.3": 116,
+        "1.0.2": 115,
+        "1.0.1": 104,
+        "1.0.0": 109
+      }
+    },
+    "plugin.maui.filevault": {
+      "id": "Plugin.Maui.FileVault",
+      "totalDownloads": 1068,
+      "versions": {
+        "1.0.8": 147,
+        "1.0.7": 115,
+        "1.0.6": 105,
+        "1.0.5": 119,
+        "1.0.4": 115,
+        "1.0.3": 113,
+        "1.0.2": 114,
+        "1.0.1": 117,
+        "1.0.0": 117
+      }
+    },
+    "plugin.maui.formvalidation": {
+      "id": "Plugin.Maui.FormValidation",
+      "totalDownloads": 560,
+      "versions": {
+        "1.0.4": 140,
+        "1.0.3": 105,
+        "1.0.2": 99,
+        "1.0.1": 102,
+        "1.0.0": 111
+      }
+    },
+    "plugin.maui.geofence": {
+      "id": "Plugin.Maui.Geofence",
+      "totalDownloads": 488,
+      "versions": {
+        "1.1.0": 101,
+        "1.0.3": 91,
+        "1.0.2": 98,
+        "1.0.1": 94,
+        "1.0.0": 94
+      }
+    },
+    "plugin.maui.geolocator": {
+      "id": "Plugin.Maui.GeoLocator",
+      "totalDownloads": 1035,
+      "versions": {
+        "1.0.8": 144,
+        "1.0.7": 111,
+        "1.0.6": 112,
+        "1.0.5": 110,
+        "1.0.4": 107,
+        "1.0.3": 108,
+        "1.0.2": 119,
+        "1.0.1": 109,
+        "1.0.0": 111
+      }
+    },
+    "plugin.maui.httpforge": {
+      "id": "Plugin.Maui.HttpForge",
+      "totalDownloads": 501,
+      "versions": {
+        "1.1.1": 142,
+        "1.1.0": 148,
+        "1.0.1": 103,
+        "1.0.0": 103
+      }
+    },
+    "plugin.maui.httpforge.newtonsoftjson": {
+      "id": "Plugin.Maui.HttpForge.NewtonsoftJson",
+      "totalDownloads": 216,
+      "versions": {
+        "1.1.1": 102,
+        "1.1.0": 109
+      }
+    },
+    "plugin.maui.httpforge.testing": {
+      "id": "Plugin.Maui.HttpForge.Testing",
+      "totalDownloads": 214,
+      "versions": {
+        "1.1.1": 95,
+        "1.1.0": 98
+      }
+    },
+    "plugin.maui.httpforge.xml": {
+      "id": "Plugin.Maui.HttpForge.Xml",
+      "totalDownloads": 215,
+      "versions": {
+        "1.1.1": 100,
+        "1.1.0": 111
+      }
+    },
+    "plugin.maui.jobqueue": {
+      "id": "Plugin.Maui.JobQueue",
+      "totalDownloads": 1017,
+      "versions": {
+        "1.0.8": 114,
+        "1.0.7": 111,
+        "1.0.6": 113,
+        "1.0.5": 111,
+        "1.0.4": 110,
+        "1.0.3": 107,
+        "1.0.2": 113,
+        "1.0.1": 111,
+        "1.0.0": 104
+      }
+    },
+    "plugin.maui.keepawake": {
+      "id": "Plugin.Maui.KeepAwake",
+      "totalDownloads": 288,
+      "versions": {
+        "1.0.2": 100,
+        "1.0.1": 92,
+        "1.0.0": 89
+      }
+    },
+    "plugin.maui.keyboardmanager": {
+      "id": "Plugin.Maui.KeyboardManager",
+      "totalDownloads": 586,
+      "versions": {
+        "1.0.4": 138,
+        "1.0.3": 118,
+        "1.0.2": 105,
+        "1.0.1": 108,
+        "1.0.0": 111
+      }
+    },
+    "plugin.maui.leakanalyser": {
+      "id": "Plugin.Maui.LeakAnalyser",
+      "totalDownloads": 429,
+      "versions": {
+        "1.0.1": 115,
+        "1.0.0": 108,
+        "0.1.1-preview": 102,
+        "0.1.0-preview": 100
+      }
+    },
+    "plugin.maui.localnotifications": {
+      "id": "Plugin.Maui.LocalNotifications",
+      "totalDownloads": 327,
+      "versions": {
+        "1.0.2": 113,
+        "1.0.1": 97,
+        "1.0.0": 102
+      }
+    },
+    "plugin.maui.localstore": {
+      "id": "Plugin.Maui.LocalStore",
+      "totalDownloads": 314,
+      "versions": {
+        "1.1.0": 116,
+        "1.0.1": 100,
+        "1.0.0": 90
+      }
+    },
+    "plugin.maui.mauidev.cli": {
+      "id": "Plugin.Maui.MauiDev.Cli",
+      "totalDownloads": 485,
+      "versions": {
+        "1.2.2": 107,
+        "1.2.1": 149,
+        "1.2.0": 113,
+        "1.0.1": 104
+      }
+    },
+    "plugin.maui.mediapipeline": {
+      "id": "Plugin.Maui.MediaPipeline",
+      "totalDownloads": 897,
+      "versions": {
+        "1.0.7": 129,
+        "1.0.6": 102,
+        "1.0.5": 108,
+        "1.0.4": 118,
+        "1.0.3": 107,
+        "1.0.2": 108,
+        "1.0.1": 110,
+        "1.0.0": 108
+      }
+    },
+    "plugin.maui.mvvmexpress": {
+      "id": "Plugin.Maui.MVVMExpress",
+      "totalDownloads": 1379,
+      "versions": {
+        "1.3.0": 173,
+        "1.0.2": 128,
+        "1.0.1": 144,
+        "1.0.0": 123,
+        "0.6.1-preview": 111,
+        "0.6.0-preview": 113,
+        "0.5.0-preview": 120,
+        "0.4.0-preview": 112,
+        "0.3.0-preview": 116,
+        "0.1.1-preview": 113,
+        "0.1.0-preview": 116
+      }
+    },
+    "plugin.maui.mvvmexpress.compatibility.communitytoolkit": {
+      "id": "Plugin.Maui.MVVMExpress.Compatibility.CommunityToolkit",
+      "totalDownloads": 764,
+      "versions": {
+        "1.3.0": 123,
+        "1.0.2": 110,
+        "1.0.1": 119,
+        "1.0.0": 106,
+        "0.6.1-preview": 96,
+        "0.6.0-preview": 99,
+        "0.5.0-preview": 102
+      }
+    },
+    "plugin.maui.mvvmexpress.core": {
+      "id": "Plugin.Maui.MVVMExpress.Core",
+      "totalDownloads": 1817,
+      "versions": {
+        "1.3.0": 216,
+        "1.0.2": 177,
+        "1.0.1": 182,
+        "1.0.0": 167,
+        "0.6.1-preview": 151,
+        "0.6.0-preview": 160,
+        "0.5.0-preview": 164,
+        "0.4.0-preview": 149,
+        "0.3.0-preview": 144,
+        "0.1.1-preview": 146,
+        "0.1.0-preview": 148
+      }
+    },
+    "plugin.maui.mvvmexpress.dialogs": {
+      "id": "Plugin.Maui.MVVMExpress.Dialogs",
+      "totalDownloads": 1180,
+      "versions": {
+        "1.3.0": 151,
+        "1.0.2": 111,
+        "1.0.1": 120,
+        "1.0.0": 106,
+        "0.6.1-preview": 98,
+        "0.6.0-preview": 99,
+        "0.5.0-preview": 100,
+        "0.4.0-preview": 94,
+        "0.3.0-preview": 95,
+        "0.1.1-preview": 94,
+        "0.1.0-preview": 103
+      }
+    },
+    "plugin.maui.mvvmexpress.navigation": {
+      "id": "Plugin.Maui.MVVMExpress.Navigation",
+      "totalDownloads": 1192,
+      "versions": {
+        "1.3.0": 150,
+        "1.0.2": 114,
+        "1.0.1": 120,
+        "1.0.0": 104,
+        "0.6.1-preview": 98,
+        "0.6.0-preview": 97,
+        "0.5.0-preview": 101,
+        "0.4.0-preview": 96,
+        "0.3.0-preview": 99,
+        "0.1.1-preview": 97,
+        "0.1.0-preview": 101
+      }
+    },
+    "plugin.maui.mvvmexpress.pagination": {
+      "id": "Plugin.Maui.MVVMExpress.Pagination",
+      "totalDownloads": 1177,
+      "versions": {
+        "1.3.0": 130,
+        "1.0.2": 114,
+        "1.0.1": 115,
+        "1.0.0": 110,
+        "0.6.1-preview": 92,
+        "0.6.0-preview": 98,
+        "0.5.0-preview": 97,
+        "0.4.0-preview": 98,
+        "0.3.0-preview": 107,
+        "0.1.1-preview": 97,
+        "0.1.0-preview": 103
+      }
+    },
+    "plugin.maui.mvvmexpress.reactive": {
+      "id": "Plugin.Maui.MVVMExpress.Reactive",
+      "totalDownloads": 848,
+      "versions": {
+        "1.3.0": 133,
+        "1.0.2": 107,
+        "1.0.1": 115,
+        "1.0.0": 104,
+        "0.6.1-preview": 94,
+        "0.6.0-preview": 99,
+        "0.5.0-preview": 92,
+        "0.4.0-preview": 95
+      }
+    },
+    "plugin.maui.mvvmexpress.sourcegenerators": {
+      "id": "Plugin.Maui.MVVMExpress.SourceGenerators",
+      "totalDownloads": 775,
+      "versions": {
+        "1.3.0": 144,
+        "1.0.2": 102,
+        "1.0.1": 115,
+        "1.0.0": 104,
+        "0.6.1-preview": 99,
+        "0.6.0-preview": 104,
+        "0.5.0-preview": 100
+      }
+    },
+    "plugin.maui.mvvmexpress.templates": {
+      "id": "Plugin.Maui.MVVMExpress.Templates",
+      "totalDownloads": 466,
+      "versions": {
+        "1.3.0": 150,
+        "1.0.2": 138,
+        "1.0.1": 153
+      }
+    },
+    "plugin.maui.mvvmexpress.testing": {
+      "id": "Plugin.Maui.MVVMExpress.Testing",
+      "totalDownloads": 1169,
+      "versions": {
+        "1.3.0": 142,
+        "1.0.2": 103,
+        "1.0.1": 122,
+        "1.0.0": 105,
+        "0.6.1-preview": 94,
+        "0.6.0-preview": 98,
+        "0.5.0-preview": 99,
+        "0.4.0-preview": 99,
+        "0.3.0-preview": 100,
+        "0.1.1-preview": 94,
+        "0.1.0-preview": 99
+      }
+    },
+    "plugin.maui.mvvmexpress.validation": {
+      "id": "Plugin.Maui.MVVMExpress.Validation",
+      "totalDownloads": 1178,
+      "versions": {
+        "1.3.0": 124,
+        "1.0.2": 110,
+        "1.0.1": 120,
+        "1.0.0": 111,
+        "0.6.1-preview": 99,
+        "0.6.0-preview": 97,
+        "0.5.0-preview": 106,
+        "0.4.0-preview": 104,
+        "0.3.0-preview": 95,
+        "0.1.1-preview": 96,
+        "0.1.0-preview": 101
+      }
+    },
+    "plugin.maui.networkdiagnostics": {
+      "id": "Plugin.Maui.NetworkDiagnostics",
+      "totalDownloads": 563,
+      "versions": {
+        "1.0.4": 125,
+        "1.0.3": 107,
+        "1.0.2": 108,
+        "1.0.1": 107,
+        "1.0.0": 111
+      }
+    },
+    "plugin.maui.networkmonitor": {
+      "id": "Plugin.Maui.NetworkMonitor",
+      "totalDownloads": 1062,
+      "versions": {
+        "1.0.7": 177,
+        "1.0.6": 134,
+        "1.0.5": 121,
+        "1.0.4": 111,
+        "1.0.3": 129,
+        "1.0.2": 113,
+        "1.0.1": 132,
+        "1.0.0": 127
+      }
+    },
+    "plugin.maui.nfcplus": {
+      "id": "Plugin.Maui.NfcPlus",
+      "totalDownloads": 567,
+      "versions": {
+        "1.0.4": 119,
+        "1.0.3": 117,
+        "1.0.2": 105,
+        "1.0.1": 106,
+        "1.0.0": 114
+      }
+    },
+    "plugin.maui.observability": {
+      "id": "Plugin.Maui.Observability",
+      "totalDownloads": 849,
+      "versions": {
+        "1.0.7": 153,
+        "1.0.6": 116,
+        "1.0.5": 113,
+        "1.0.4": 113,
+        "1.0.2": 118,
+        "1.0.1": 111,
+        "1.0.0": 108
+      }
+    },
+    "plugin.maui.offlinesync": {
+      "id": "Plugin.Maui.OfflineSync",
+      "totalDownloads": 1312,
+      "versions": {
+        "1.0.10": 100,
+        "1.0.9": 146,
+        "1.0.8": 109,
+        "1.0.7": 123,
+        "1.0.6": 116,
+        "1.0.5": 119,
+        "1.0.4": 129,
+        "1.0.3": 119,
+        "1.0.2": 114,
+        "1.0.1": 122,
+        "1.0.0": 108
+      }
+    },
+    "plugin.maui.performance": {
+      "id": "Plugin.Maui.Performance",
+      "totalDownloads": 990,
+      "versions": {
+        "1.0.8": 106,
+        "1.0.7": 101,
+        "1.0.6": 111,
+        "1.0.5": 119,
+        "1.0.4": 102,
+        "1.0.3": 113,
+        "1.0.2": 112,
+        "1.0.1": 114,
+        "1.0.0": 105
+      }
+    },
+    "plugin.maui.performance.cli": {
+      "id": "Plugin.Maui.Performance.Cli",
+      "totalDownloads": 224,
+      "versions": {
+        "1.0.8": 109,
+        "1.0.7": 111
+      }
+    },
+    "plugin.maui.permissionflow": {
+      "id": "Plugin.Maui.PermissionFlow",
+      "totalDownloads": 702,
+      "versions": {
+        "1.0.5": 131,
+        "1.0.4": 111,
+        "1.0.3": 107,
+        "1.0.2": 114,
+        "1.0.1": 111,
+        "1.0.0": 114
+      }
+    },
+    "plugin.maui.printing": {
+      "id": "Plugin.Maui.Printing",
+      "totalDownloads": 669,
+      "versions": {
+        "1.0.5": 100,
+        "1.0.4": 123,
+        "1.0.3": 103,
+        "1.0.2": 117,
+        "1.0.1": 107,
+        "1.0.0": 110
+      }
+    },
+    "plugin.maui.pulse": {
+      "id": "Plugin.Maui.Pulse",
+      "totalDownloads": 176,
+      "versions": {
+        "1.0.1": 91,
+        "1.0.0": 78
+      }
+    },
+    "plugin.maui.pulse.cli": {
+      "id": "Plugin.Maui.Pulse.Cli",
+      "totalDownloads": 108,
+      "versions": {
+        "1.0.1": 106
+      }
+    },
+    "plugin.maui.pushrouter": {
+      "id": "Plugin.Maui.PushRouter",
+      "totalDownloads": 918,
+      "versions": {
+        "1.0.7": 104,
+        "1.0.6": 137,
+        "1.0.5": 115,
+        "1.0.4": 105,
+        "1.0.3": 109,
+        "1.0.2": 110,
+        "1.0.1": 115,
+        "1.0.0": 118
+      }
+    },
+    "plugin.maui.retryqueue": {
+      "id": "Plugin.Maui.RetryQueue",
+      "totalDownloads": 698,
+      "versions": {
+        "1.0.5": 123,
+        "1.0.4": 110,
+        "1.0.3": 113,
+        "1.0.2": 115,
+        "1.0.1": 106,
+        "1.0.0": 120
+      }
+    },
+    "plugin.maui.screenguard": {
+      "id": "Plugin.Maui.ScreenGuard",
+      "totalDownloads": 299,
+      "versions": {
+        "1.0.2": 103,
+        "1.0.1": 96,
+        "1.0.0": 95
+      }
+    },
+    "plugin.maui.securesession": {
+      "id": "Plugin.Maui.SecureSession",
+      "totalDownloads": 929,
+      "versions": {
+        "1.0.7": 115,
+        "1.0.6": 140,
+        "1.0.5": 119,
+        "1.0.4": 110,
+        "1.0.3": 108,
+        "1.0.2": 107,
+        "1.0.1": 111,
+        "1.0.0": 114
+      }
+    },
+    "plugin.maui.securestorageplus": {
+      "id": "Plugin.Maui.SecureStoragePlus",
+      "totalDownloads": 1149,
+      "versions": {
+        "1.0.8": 142,
+        "1.0.7": 117,
+        "1.0.6": 110,
+        "1.0.5": 119,
+        "1.0.4": 114,
+        "1.0.3": 109,
+        "1.0.2": 115,
+        "1.0.1": 214,
+        "1.0.0": 105
+      }
+    },
+    "plugin.maui.shareplus": {
+      "id": "Plugin.Maui.SharePlus",
+      "totalDownloads": 571,
+      "versions": {
+        "1.0.4": 123,
+        "1.0.3": 121,
+        "1.0.2": 102,
+        "1.0.1": 107,
+        "1.0.0": 112
+      }
+    },
+    "plugin.maui.smartupload": {
+      "id": "Plugin.Maui.SmartUpload",
+      "totalDownloads": 1004,
+      "versions": {
+        "1.0.7": 137,
+        "1.0.6": 139,
+        "1.0.5": 123,
+        "1.0.4": 123,
+        "1.0.3": 116,
+        "1.0.2": 109,
+        "1.0.1": 127,
+        "1.0.0": 124
+      }
+    },
+    "plugin.maui.tlspin": {
+      "id": "Plugin.Maui.TlsPin",
+      "totalDownloads": 308,
+      "versions": {
+        "1.0.2": 99,
+        "1.0.1": 101,
+        "1.0.0": 102
+      }
+    },
+    "plugin.maui.videopipeline": {
+      "id": "Plugin.Maui.VideoPipeline",
+      "totalDownloads": 485,
+      "versions": {
+        "1.1.0": 97,
+        "1.0.3": 93,
+        "1.0.2": 99,
+        "1.0.1": 92,
+        "1.0.0": 96
+      }
+    },
+    "plugin.maui.voipcore": {
+      "id": "Plugin.Maui.VoipCore",
+      "totalDownloads": 1215,
+      "versions": {
+        "1.0.9": 119,
+        "1.0.8": 128,
+        "1.0.7": 135,
+        "1.0.6": 125,
+        "1.0.5": 120,
+        "1.0.4": 113,
+        "1.0.3": 104,
+        "1.0.2": 109,
+        "1.0.1": 121,
+        "1.0.0": 135
+      }
+    },
+    "plugin.uno.mvvmexpress": {
+      "id": "Plugin.Uno.MVVMExpress",
+      "totalDownloads": 231,
+      "versions": {
+        "1.0.1": 118,
+        "1.0.0": 110
+      }
+    },
+    "plugin.uno.mvvmexpress.core": {
+      "id": "Plugin.Uno.MVVMExpress.Core",
+      "totalDownloads": 297,
+      "versions": {
+        "1.0.1": 149,
+        "1.0.0": 144
+      }
+    },
+    "plugin.uno.mvvmexpress.dialogs": {
+      "id": "Plugin.Uno.MVVMExpress.Dialogs",
+      "totalDownloads": 220,
+      "versions": {
+        "1.0.1": 112,
+        "1.0.0": 105
+      }
+    },
+    "plugin.uno.mvvmexpress.navigation": {
+      "id": "Plugin.Uno.MVVMExpress.Navigation",
+      "totalDownloads": 211,
+      "versions": {
+        "1.0.1": 104,
+        "1.0.0": 99
+      }
+    },
+    "plugin.uno.mvvmexpress.pagination": {
+      "id": "Plugin.Uno.MVVMExpress.Pagination",
+      "totalDownloads": 217,
+      "versions": {
+        "1.0.1": 107,
+        "1.0.0": 106
+      }
+    },
+    "plugin.uno.mvvmexpress.templates": {
+      "id": "Plugin.Uno.MVVMExpress.Templates",
+      "totalDownloads": 299,
+      "versions": {
+        "1.0.1": 139,
+        "1.0.0": 141
+      }
+    },
+    "plugin.uno.mvvmexpress.testing": {
+      "id": "Plugin.Uno.MVVMExpress.Testing",
+      "totalDownloads": 203,
+      "versions": {
+        "1.0.1": 99,
+        "1.0.0": 98
+      }
+    },
+    "plugin.uno.mvvmexpress.validation": {
+      "id": "Plugin.Uno.MVVMExpress.Validation",
+      "totalDownloads": 221,
+      "versions": {
+        "1.0.1": 112,
+        "1.0.0": 103
+      }
+    },
+    "plugin.winui.mvvmexpress": {
+      "id": "Plugin.WinUI.MVVMExpress",
+      "totalDownloads": 240,
+      "versions": {
+        "1.0.1": 123,
+        "1.0.0": 111
+      }
+    },
+    "plugin.winui.mvvmexpress.core": {
+      "id": "Plugin.WinUI.MVVMExpress.Core",
+      "totalDownloads": 294,
+      "versions": {
+        "1.0.1": 155,
+        "1.0.0": 136
+      }
+    },
+    "plugin.winui.mvvmexpress.dialogs": {
+      "id": "Plugin.WinUI.MVVMExpress.Dialogs",
+      "totalDownloads": 223,
+      "versions": {
+        "1.0.1": 114,
+        "1.0.0": 105
+      }
+    },
+    "plugin.winui.mvvmexpress.navigation": {
+      "id": "Plugin.WinUI.MVVMExpress.Navigation",
+      "totalDownloads": 223,
+      "versions": {
+        "1.0.1": 115,
+        "1.0.0": 106
+      }
+    },
+    "plugin.winui.mvvmexpress.pagination": {
+      "id": "Plugin.WinUI.MVVMExpress.Pagination",
+      "totalDownloads": 212,
+      "versions": {
+        "1.0.1": 106,
+        "1.0.0": 101
+      }
+    },
+    "plugin.winui.mvvmexpress.templates": {
+      "id": "Plugin.WinUI.MVVMExpress.Templates",
+      "totalDownloads": 285,
+      "versions": {
+        "1.0.1": 138,
+        "1.0.0": 129
+      }
+    },
+    "plugin.winui.mvvmexpress.testing": {
+      "id": "Plugin.WinUI.MVVMExpress.Testing",
+      "totalDownloads": 223,
+      "versions": {
+        "1.0.1": 114,
+        "1.0.0": 105
+      }
+    },
+    "plugin.winui.mvvmexpress.validation": {
+      "id": "Plugin.WinUI.MVVMExpress.Validation",
+      "totalDownloads": 223,
+      "versions": {
+        "1.0.1": 112,
+        "1.0.0": 108
+      }
+    },
+    "plugin.wpf.mvvmexpress": {
+      "id": "Plugin.Wpf.MVVMExpress",
+      "totalDownloads": 458,
+      "versions": {
+        "1.0.0": 133,
+        "0.1.2-preview": 106,
+        "0.1.1-preview": 105,
+        "0.1.0-preview": 105
+      }
+    },
+    "plugin.wpf.mvvmexpress.core": {
+      "id": "Plugin.Wpf.MVVMExpress.Core",
+      "totalDownloads": 614,
+      "versions": {
+        "1.0.0": 172,
+        "0.1.2-preview": 141,
+        "0.1.1-preview": 146,
+        "0.1.0-preview": 142
+      }
+    },
+    "plugin.wpf.mvvmexpress.dialogs": {
+      "id": "Plugin.Wpf.MVVMExpress.Dialogs",
+      "totalDownloads": 417,
+      "versions": {
+        "1.0.0": 114,
+        "0.1.2-preview": 99,
+        "0.1.1-preview": 96,
+        "0.1.0-preview": 101
+      }
+    },
+    "plugin.wpf.mvvmexpress.navigation": {
+      "id": "Plugin.Wpf.MVVMExpress.Navigation",
+      "totalDownloads": 422,
+      "versions": {
+        "1.0.0": 123,
+        "0.1.2-preview": 98,
+        "0.1.1-preview": 97,
+        "0.1.0-preview": 99
+      }
+    },
+    "plugin.wpf.mvvmexpress.pagination": {
+      "id": "Plugin.Wpf.MVVMExpress.Pagination",
+      "totalDownloads": 418,
+      "versions": {
+        "1.0.0": 121,
+        "0.1.2-preview": 95,
+        "0.1.1-preview": 96,
+        "0.1.0-preview": 96
+      }
+    },
+    "plugin.wpf.mvvmexpress.templates": {
+      "id": "Plugin.Wpf.MVVMExpress.Templates",
+      "totalDownloads": 276,
+      "versions": {
+        "1.0.0": 142,
+        "0.1.2-preview": 114
+      }
+    },
+    "plugin.wpf.mvvmexpress.testing": {
+      "id": "Plugin.Wpf.MVVMExpress.Testing",
+      "totalDownloads": 430,
+      "versions": {
+        "1.0.0": 119,
+        "0.1.2-preview": 102,
+        "0.1.1-preview": 102,
+        "0.1.0-preview": 103
+      }
+    },
+    "plugin.wpf.mvvmexpress.validation": {
+      "id": "Plugin.Wpf.MVVMExpress.Validation",
+      "totalDownloads": 420,
+      "versions": {
+        "1.0.0": 122,
+        "0.1.2-preview": 97,
+        "0.1.1-preview": 97,
+        "0.1.0-preview": 99
+      }
+    }
+  }
+}

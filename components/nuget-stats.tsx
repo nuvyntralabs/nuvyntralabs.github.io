@@ -137,8 +137,9 @@ export function NugetStats({
                 >
                   {nugetOwnerId}
                 </a>
-                . Totals, listed versions, and each version&apos;s nuget.org release date are fetched
-                live. Expand a row for version-wise downloads.
+                . The headline total is the sum of each package&apos;s nuget.org gallery count. Live
+                search replicas can lag that page, so a package never shows less than the last
+                known gallery or search high-water mark. Expand a row for version-wise downloads.
               </>
             )}
           </p>

@@ -6,6 +6,15 @@ import { packages } from "@/content/packages";
 import { toolkitPath, toolkits } from "@/content/toolkits";
 import { uiKit, uiKitHref } from "@/content/uikit";
 import { wpfPackageFamily } from "@/content/wpf-mvvmexpress";
+import {
+  applyPackageFloor,
+  bundledNugetDownloadFloor,
+  floorFromPackageStats,
+  mergeDownloadFloors,
+  readClientDownloadFloor,
+  writeClientDownloadFloor,
+  type NugetDownloadFloor,
+} from "@/lib/nuget-download-floor";
 
 export const nugetStatsPath = "/stats/";
 export const dotnetNugetGroup = ".NET Essentials";
@@ -62,7 +71,9 @@ type SearchResponse = {
   data?: SearchHit[];
 };
 
-const ownerQueries = ["authors:Niladri", 'authors:"Niladri Prasad Padhy"', "authors:MauiEssentials"];
+// Owner search matches the nuget.org profile. Author search is fuzzy and pulls
+// unrelated MauiEssentials hits, then first-wins can keep a stale replica count.
+const ownerQueries = [`owners:${nugetOwnerId}`];
 
 const companionPackageIds: Record<string, string[]> = {
   "plugin-maui-performance": ["Plugin.Maui.Performance.Cli"],
@@ -175,6 +186,13 @@ export function catalogNugetMap(): Map<string, TrackedNugetPackage> {
   return new Map(listedNugetPackages().map((item) => [item.id.toLowerCase(), item]));
 }
 
+// Page total = sum(package.totalDownloads).
+// Each package total = max(
+//   nuget.org gallery high-water mark (build-time floor + localStorage),
+//   SearchQueryService.totalDownloads from every live replica,
+//   sum of that replica's version downloads
+// ).
+// nuget.org search shards lag the owner profile; they must not pull a count backward.
 export async function loadNugetStats(options: {
   onPackages: (packages: NugetPackageStats[]) => void;
   onPackage?: (pkg: NugetPackageStats) => void;
@@ -185,14 +203,13 @@ export async function loadNugetStats(options: {
 }): Promise<void> {
   const catalog = catalogNugetMap();
   const hits = new Map<string, SearchHit>();
+  const floor = mergeDownloadFloors(bundledNugetDownloadFloor(), readClientDownloadFloor());
 
   const publish = () => {
     throwIfAborted(options.signal);
-    options.onPackages(
-      [...hits.values()]
-        .map((hit) => toPackageStats(hit, catalog))
-        .sort((left, right) => left.id.localeCompare(right.id)),
-    );
+    const listed = listedStats(hits, catalog, floor);
+    writeClientDownloadFloor(floorFromPackageStats(listed, "client-watermark"));
+    options.onPackages(listed);
   };
 
   const scopedIds = options.packageIds?.map((id) => id.trim()).filter(Boolean);
@@ -201,27 +218,24 @@ export async function loadNugetStats(options: {
       throwIfAborted(options.signal);
       const hit = await queryExactPackage(id, options.signal);
       if (hit?.id) {
-        hits.set(hit.id.toLowerCase(), hit);
+        rememberHit(hits, hit);
         publish();
       }
     }
     if (hits.size === 0) publish();
-    await hydrateListedDates(hits, catalog, options);
+    await hydrateListedDates(hits, catalog, floor, options);
     return;
   }
 
   for (const query of ownerQueries) {
     throwIfAborted(options.signal);
     const batch = await queryWithFallback(query, options.signal);
-    let added = 0;
+    let changed = 0;
     for (const hit of batch) {
       if (!isOwnedPackage(hit)) continue;
-      const id = hit.id?.trim();
-      if (!id || hits.has(id.toLowerCase())) continue;
-      hits.set(id.toLowerCase(), hit);
-      added += 1;
+      if (rememberHit(hits, hit)) changed += 1;
     }
-    if (added > 0) publish();
+    if (changed > 0) publish();
   }
 
   const missing = [...catalog.values()].filter((item) => !hits.has(item.id.toLowerCase()));
@@ -229,19 +243,20 @@ export async function loadNugetStats(options: {
     throwIfAborted(options.signal);
     const hit = await queryExactPackage(pkg.id, options.signal);
     if (hit?.id) {
-      hits.set(hit.id.toLowerCase(), hit);
+      rememberHit(hits, hit);
       publish();
     }
   }
 
   if (hits.size === 0) publish();
 
-  await hydrateListedDates(hits, catalog, options);
+  await hydrateListedDates(hits, catalog, floor, options);
 }
 
 async function hydrateListedDates(
   hits: Map<string, SearchHit>,
   catalog: Map<string, TrackedNugetPackage>,
+  floor: NugetDownloadFloor,
   options: {
     onPackage?: (pkg: NugetPackageStats) => void;
     onDatesProgress?: (done: number, total: number) => void;
@@ -250,10 +265,27 @@ async function hydrateListedDates(
   },
 ): Promise<void> {
   if (options.includePublishedDates === false) return;
-  const listed = [...hits.values()]
-    .map((hit) => toPackageStats(hit, catalog))
+  await hydratePublishedDates(listedStats(hits, catalog, floor), options);
+}
+
+function listedStats(
+  hits: Map<string, SearchHit>,
+  catalog: Map<string, TrackedNugetPackage>,
+  floor: NugetDownloadFloor,
+): NugetPackageStats[] {
+  return [...hits.values()]
+    .map((hit) => applyPackageFloor(toPackageStats(hit, catalog), floor))
     .sort((left, right) => left.id.localeCompare(right.id));
-  await hydratePublishedDates(listed, options);
+}
+
+function rememberHit(hits: Map<string, SearchHit>, hit: SearchHit): boolean {
+  const id = hit.id?.trim();
+  if (!id) return false;
+  const key = id.toLowerCase();
+  const existing = hits.get(key);
+  const next = existing ? fresherSearchHit(existing, hit) : hit;
+  hits.set(key, next);
+  return !existing || next !== existing;
 }
 
 function toPackageStats(hit: SearchHit, catalog: Map<string, TrackedNugetPackage>): NugetPackageStats {
@@ -281,7 +313,10 @@ function toPackageStats(hit: SearchHit, catalog: Map<string, TrackedNugetPackage
     nugetUrl: nugetOrgUrl(id),
     group: known?.group ?? inferGroup(id),
     currentVersion: hit.version ?? versions[0]?.version ?? null,
-    totalDownloads: typeof hit.totalDownloads === "number" ? hit.totalDownloads : 0,
+    totalDownloads: Math.max(
+      typeof hit.totalDownloads === "number" ? hit.totalDownloads : 0,
+      versions.reduce((sum, version) => sum + version.downloads, 0),
+    ),
     versions,
     published: true,
     owners: asStringList(hit.owners),
@@ -337,11 +372,8 @@ function inferGroup(packageId: string): string {
 }
 
 function isOwnedPackage(hit: SearchHit): boolean {
-  const owners = asStringList(hit.owners).join(" ").toLowerCase();
-  const authors = asStringList(hit.authors).join(" ").toLowerCase();
-  if (owners.includes("niladri")) return true;
-  if (authors.includes("niladri")) return true;
-  return false;
+  const owners = asStringList(hit.owners).map((item) => item.toLowerCase());
+  return owners.includes(nugetOwnerId.toLowerCase());
 }
 
 function asStringList(value: string[] | string | undefined): string[] {
@@ -356,21 +388,64 @@ async function queryNugetSearchPage(
   endpoint: string,
   query: string,
   signal?: AbortSignal,
-): Promise<SearchHit[]> {
-  const url = `${endpoint}?q=${encodeURIComponent(query)}&prerelease=true&take=250&semVerLevel=2.0.0`;
+  skip = 0,
+): Promise<SearchResponse> {
+  const url = `${endpoint}?q=${encodeURIComponent(query)}&prerelease=true&take=250&skip=${skip}&semVerLevel=2.0.0`;
   const response = await fetch(url, { signal, cache: "no-store" });
   if (!response.ok) {
     throw new Error(`nuget.org search returned ${response.status}`);
   }
-  const payload = (await response.json()) as SearchResponse;
-  return payload.data ?? [];
+  return (await response.json()) as SearchResponse;
+}
+
+async function queryNugetSearchAll(
+  endpoint: string,
+  query: string,
+  signal?: AbortSignal,
+): Promise<SearchHit[]> {
+  const hits: SearchHit[] = [];
+  let skip = 0;
+  const take = 250;
+  while (skip <= 3000) {
+    const payload = await queryNugetSearchPage(endpoint, query, signal, skip);
+    const page = payload.data ?? [];
+    hits.push(...page);
+    if (page.length < take || hits.length >= (payload.totalHits ?? page.length)) break;
+    skip += take;
+  }
+  return hits;
+}
+
+let cachedSearchEndpoints: string[] | null = null;
+
+async function resolveSearchEndpoints(signal?: AbortSignal): Promise<string[]> {
+  if (cachedSearchEndpoints) return cachedSearchEndpoints;
+  try {
+    const index = await fetchJson<{ resources?: Array<{ "@id"?: string; "@type"?: string }> }>(
+      "https://api.nuget.org/v3/index.json",
+      signal,
+    );
+    const found = [...new Set(
+      (index.resources ?? [])
+        .filter((resource) => resource["@type"]?.includes("SearchQueryService") && resource["@id"])
+        .map((resource) => resource["@id"] as string),
+    )];
+    if (found.length > 0) {
+      cachedSearchEndpoints = found;
+      return found;
+    }
+  } catch (cause) {
+    if (isAbortError(cause)) throw cause;
+  }
+  return nugetSearchEndpoints;
 }
 
 async function queryWithFallback(query: string, signal?: AbortSignal): Promise<SearchHit[]> {
+  const endpoints = await resolveSearchEndpoints(signal);
   const settled = await Promise.all(
-    nugetSearchEndpoints.map(async (endpoint) => {
+    endpoints.map(async (endpoint) => {
       try {
-        return { ok: true as const, hits: await queryNugetSearchPage(endpoint, query, signal) };
+        return { ok: true as const, hits: await queryNugetSearchAll(endpoint, query, signal) };
       } catch (cause) {
         if (isAbortError(cause)) throw cause;
         return { ok: false as const, hits: [] as SearchHit[] };
@@ -382,8 +457,8 @@ async function queryWithFallback(query: string, signal?: AbortSignal): Promise<S
     throw new Error("nuget.org search is unavailable");
   }
 
-  // North Central and South Central update download counts on different schedules.
-  // One replica can lag nuget.org by thousands of downloads, so keep the higher count.
+  // Search replicas and the nuget.org gallery update download counts on different
+  // schedules. Keep the higher count so a stale replica cannot pull the total down.
   return mergeSearchHits(settled.map((result) => result.hits));
 }
 
